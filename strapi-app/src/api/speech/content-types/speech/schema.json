@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "speeches",
+  "info": {
+    "singularName": "speech",
+    "pluralName": "speeches",
+    "displayName": "Speech",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "speaker_name": {
+      "type": "string"
+    },
+    "speaker_id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "json"
+    }
+  }
+}
