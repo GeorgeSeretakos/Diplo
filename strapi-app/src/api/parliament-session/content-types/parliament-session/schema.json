@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parliament_sessions",
+  "info": {
+    "singularName": "parliament-session",
+    "pluralName": "parliament-sessions",
+    "displayName": "Parliament Session",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "period": {
+      "type": "string"
+    },
+    "session": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "meeting": {
+      "type": "string"
+    },
+    "session_date": {
+      "type": "string"
+    },
+    "debate": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::debate.debate",
+      "inversedBy": "parliament_session"
+    }
+  }
+}

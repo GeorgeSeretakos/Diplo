@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "debates",
+  "info": {
+    "singularName": "debate",
+    "pluralName": "debates",
+    "displayName": "Debate",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "date": {
+      "type": "date",
+      "required": true,
+      "unique": true
+    },
+    "source": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "speeches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::speech.speech"
+    },
+    "references": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reference.reference"
+    },
+    "parliament_session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parliament-session.parliament-session",
+      "mappedBy": "debate"
+    }
+  }
+}

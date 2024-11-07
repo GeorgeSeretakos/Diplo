@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "references",
+  "info": {
+    "singularName": "reference",
+    "pluralName": "references",
+    "displayName": "Reference",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "eId": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}
