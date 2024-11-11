@@ -3,11 +3,13 @@ import axios from "axios";
 // Helper function to extract debate data
 function extractDebateData(jsonData) {
   const dData = jsonData.akomaNtoso.debate[0].meta[0].identification[0];
+  const opening_section = jsonData.akomaNtoso.debate[0].debateBody[0].debateSection[0].p[0];
   return {
     title: dData.FRBRWork[0].FRBRalias[0].$.value,
     date: dData.FRBRWork[0].FRBRdate[0].$.date,
     country: dData.FRBRWork[0].FRBRcountry[0].$.value,
     language: dData.FRBRExpression[0].FRBRlanguage[0].$.language,
+    opening_section: opening_section
   };
 }
 

@@ -22,9 +22,6 @@
       "required": true,
       "unique": true
     },
-    "source": {
-      "type": "string"
-    },
     "country": {
       "type": "string"
     },
@@ -46,6 +43,9 @@
       "relation": "manyToMany",
       "target": "api::speaker.speaker",
       "mappedBy": "debates"
+    },
+    "opening_section": {
+      "type": "string"
     }
   }
 }

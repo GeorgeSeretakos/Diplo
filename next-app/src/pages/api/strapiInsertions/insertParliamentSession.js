@@ -88,16 +88,8 @@ export async function insertParliamentSession(jsonData, debateId, STRAPI_URL, AP
     return parliamentSessionId;
 
   } catch (error) {
-    // console.log("HERE: ",error.response.data);
-    const message = error.response.data.error.message;
-    const status = error.response.status;
-    if (error.response && status === 400 && message === "This attribute must be unique") {
-      console.log("Parliament Session already exists with the same title and date: ");
+      console.log("Error inserting parliament session: ",error.response.data);
       return null;
-    } else {
-      console.log(message);
-      throw error;
-    }
   }
 }
 

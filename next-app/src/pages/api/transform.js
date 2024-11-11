@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const {query} = req;
 
   try {
-    const xmlPath = path.join(process.cwd(), 'public', 'data', '01091994.doc.xml'); // Path to XML file
+    const xmlPath = path.join(process.cwd(), 'public', 'data', '01031994.doc.xml'); // Path to XML file
 
     // Handle XMl to HTML transformation
     if (query.format === 'html') {

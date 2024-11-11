@@ -17,7 +17,7 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
   try {
     // Attempt to find the speaker by unique field (e.g., speaker_id)
     const response = await axios.get(
-      `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${speakerData.eId}`,
+      `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${speakerData.speaker_id}`,
       {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
@@ -25,12 +25,10 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
       }
     );
 
-    console.log("HERE IS THE PLACE YOU SHOULD LOOK: ", response.data.data);
-
     // If speaker exists, return its ID
     if (response.data.data.length > 0) {
       console.log(`Speaker ${speakerData.speaker_name} with documentId ${response.data.data} already exists.`);
-      return response.data.data.documentId;
+      return response.data.data[0].documentId;
     }
 
     // If speaker does not exist, create a new speaker
@@ -44,6 +42,8 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
         },
       }
     );
+
+    console.log("HERE IS THE PLACE YOU SHOULD LOOK FOR THE NEW SPEAKER: ", response.data.data);
     console.log(`Speaker ${speakerData.speaker_name} created successfully.`);
     return createResponse.data.data.documentId;
   } catch (error) {
