@@ -15,13 +15,13 @@ export default async function sendDataToStrapi(jsonData) {
     if (debateId) {
       await insertParliamentSession(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
-      // await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
+      await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
-      // await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
+      await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
 
     } else {
-      console.log("Debate insertion failed or debate already exists. Skipping Parliament Session and Speech insertion.");
+      console.log("Debate insertion failed or debate already exists. Skipping Parliament Session Speakers and Speeches insertion.");
     }
 
 

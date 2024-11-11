@@ -395,12 +395,12 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
       'api::debate.debate'
     > &
       Schema.Attribute.Private;
+    opening_section: Schema.Attribute.String;
     parliament_session: Schema.Attribute.Relation<
       'oneToOne',
       'api::parliament-session.parliament-session'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    source: Schema.Attribute.String;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     title: Schema.Attribute.String &
