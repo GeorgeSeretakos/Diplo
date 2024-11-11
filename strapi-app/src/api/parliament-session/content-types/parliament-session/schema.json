@@ -20,8 +20,8 @@
     },
     "title": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "required": false,
+      "unique": false
     },
     "meeting": {
       "type": "string"
@@ -32,8 +32,7 @@
     "debate": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::debate.debate",
-      "inversedBy": "parliament_session"
+      "target": "api::debate.debate"
     }
   }
 }
