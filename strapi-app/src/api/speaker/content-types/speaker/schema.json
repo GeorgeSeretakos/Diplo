@@ -12,19 +12,28 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "speaker_name": {
+      "type": "string",
+      "required": true,
+      "unique": true
     },
-    "eId": {
+    "speaker_id": {
       "type": "string"
     },
     "link": {
       "type": "string"
     },
+    "debates": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::debate.debate",
+      "inversedBy": "speakers"
+    },
     "speeches": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::speech.speech"
+      "target": "api::speech.speech",
+      "mappedBy": "speaker"
     }
   }
 }

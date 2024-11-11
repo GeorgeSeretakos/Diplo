@@ -31,21 +31,21 @@
     "language": {
       "type": "string"
     },
+    "parliament_session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parliament-session.parliament-session"
+    },
     "speeches": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::speech.speech"
     },
-    "references": {
+    "speakers": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::reference.reference"
-    },
-    "parliament_session": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::parliament-session.parliament-session",
-      "mappedBy": "debate"
+      "relation": "manyToMany",
+      "target": "api::speaker.speaker",
+      "mappedBy": "debates"
     }
   }
 }

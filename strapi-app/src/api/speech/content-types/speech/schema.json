@@ -15,11 +15,27 @@
     "speaker_name": {
       "type": "string"
     },
-    "speaker_id": {
-      "type": "string"
+    "speech_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "content": {
       "type": "json"
+    },
+    "debate": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::debate.debate"
+    },
+    "speaker": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::speaker.speaker",
+      "inversedBy": "speeches"
+    },
+    "speaker_id": {
+      "type": "string"
     }
   }
 }

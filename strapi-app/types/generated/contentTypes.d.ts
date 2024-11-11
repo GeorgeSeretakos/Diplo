@@ -400,11 +400,8 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
       'api::parliament-session.parliament-session'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    references: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::reference.reference'
-    >;
     source: Schema.Attribute.String;
+    speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -443,40 +440,7 @@ export interface ApiParliamentSessionParliamentSession
     publishedAt: Schema.Attribute.DateTime;
     session: Schema.Attribute.String;
     session_date: Schema.Attribute.String;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiReferenceReference extends Struct.CollectionTypeSchema {
-  collectionName: 'references';
-  info: {
-    description: '';
-    displayName: 'Reference';
-    pluralName: 'references';
-    singularName: 'reference';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    eId: Schema.Attribute.String;
-    link: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::reference.reference'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -498,7 +462,7 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    eId: Schema.Attribute.String;
+    debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
     link: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -506,8 +470,11 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
       'api::speaker.speaker'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    speaker_id: Schema.Attribute.String;
+    speaker_name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -531,6 +498,7 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    debate: Schema.Attribute.Relation<'oneToOne', 'api::debate.debate'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -538,8 +506,12 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    speaker: Schema.Attribute.Relation<'manyToOne', 'api::speaker.speaker'>;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String;
+    speech_id: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1053,7 +1025,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::debate.debate': ApiDebateDebate;
       'api::parliament-session.parliament-session': ApiParliamentSessionParliamentSession;
-      'api::reference.reference': ApiReferenceReference;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;
       'plugin::content-releases.release': PluginContentReleasesRelease;
