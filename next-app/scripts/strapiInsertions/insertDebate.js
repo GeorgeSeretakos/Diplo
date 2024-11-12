@@ -28,17 +28,12 @@ export async function insertDebate(jsonData, STRAPI_URL, API_TOKEN) {
         }
       }
     );
-    console.log("Debate imported successfully: ", debateResponse.data);
+    // console.log("Debate imported successfully: ", debateResponse.data);
+    console.log("Debate imported successfully.");
     return debateResponse.data.data.documentId;
 
   } catch (error) {
-    const message = error.response.data.error.details.errors[0].message;
-    const status = error.response.status;
-    if (error.response && status === 400 && message === "This attribute must be unique") {
-      console.log("Debate already exists with the same title and date: ");
-      return null;
-    } else {
-      throw error;
-    }
+    console.log(error.response ? error.response.data : error);
+    // throw error;
   }
 }

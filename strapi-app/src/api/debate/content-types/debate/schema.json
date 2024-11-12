@@ -46,6 +46,12 @@
     },
     "opening_section": {
       "type": "string"
+    },
+    "html": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::html.html",
+      "mappedBy": "debate"
     }
   }
 }

@@ -388,6 +388,7 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     date: Schema.Attribute.Date &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    html: Schema.Attribute.Relation<'oneToOne', 'api::html.html'>;
     language: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -406,6 +407,34 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHtmlHtml extends Struct.CollectionTypeSchema {
+  collectionName: 'htmls';
+  info: {
+    description: '';
+    displayName: 'HTML';
+    pluralName: 'htmls';
+    singularName: 'html';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    debate: Schema.Attribute.Relation<'oneToOne', 'api::debate.debate'>;
+    html: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::html.html'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.DefaultTo<'HTML'>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1024,6 +1053,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::debate.debate': ApiDebateDebate;
+      'api::html.html': ApiHtmlHtml;
       'api::parliament-session.parliament-session': ApiParliamentSessionParliamentSession;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;

@@ -38,7 +38,7 @@ async function findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN) {
 
     // Check if the speaker exists and return the ID
     if (response.data.data.length > 0) {
-      console.log("I GOT IN THE CORRECT LOOP: ");
+      // console.log("I GOT IN THE CORRECT LOOP: ");
       return response.data.data[0].documentId;
     } else {
       console.error(`Speaker with ID ${speaker_id} not found.`);
@@ -148,7 +148,7 @@ export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
     for (const speech of speeches) {
       const speechData = extractSpeechData(speech, debateId);
 
-      console.log(speechData);
+      console.log("THIS IS THE SPEECH DATA: ", speechData);
 
       // Insert the speech data into Strapi
       const response = await axios.post(
@@ -163,10 +163,6 @@ export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
       );
       const speechId = response.data.data.documentId;
       console.log("Speech inserted successfully:", speechData.speech_id);
-
-
-      console.log("HERE HERE HERE: ", speechData);
-      // Find the speakerId and pass it as an argument to connect function
 
       await connect(speechId, speechData, debateId, STRAPI_URL, API_TOKEN);
     }

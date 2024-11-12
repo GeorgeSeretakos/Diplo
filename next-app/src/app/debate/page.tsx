@@ -23,7 +23,7 @@ const DebatePage = () => {
                     console.log("HTML response: ", html);
 
                     const JsonResponse = await fetch('/api/transform?format=json');
-                    if (!JsonResponse.ok) throw new Error("Failed to fetch transformed Html");
+                    if (!JsonResponse.ok) throw new Error("Failed to fetch transformed Json");
                     json = await JsonResponse.text();
                     console.log("JSON response: ", json);
                 }
