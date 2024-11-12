@@ -13,7 +13,7 @@ export function extractSpeakerData(speaker, debateId) {
 
 // Function to find or create a speaker
 async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
-  console.log("LOOK HERE: ", speakerData);
+  // console.log("LOOK HERE FOR SPEAKER DATA: ", speakerData);
   try {
     // Attempt to find the speaker by unique field (e.g., speaker_id)
     const response = await axios.get(
@@ -43,7 +43,7 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
       }
     );
 
-    console.log("HERE IS THE PLACE YOU SHOULD LOOK FOR THE NEW SPEAKER: ", response.data.data);
+    // console.log("HERE IS THE PLACE YOU SHOULD LOOK FOR THE NEW SPEAKER: ", response.data.data);
     console.log(`Speaker ${speakerData.speaker_name} created successfully.`);
     return createResponse.data.data.documentId;
   } catch (error) {

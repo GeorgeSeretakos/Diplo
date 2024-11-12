@@ -79,7 +79,7 @@ export async function insertParliamentSession(jsonData, debateId, STRAPI_URL, AP
       }
     );
     const parliamentSessionId = parliamentResponse.data.data.documentId;
-    console.log("HERE IS THE DOCUMENT ID OF THE PARLIAMENT SESSION: ", parliamentSessionId);
+    // console.log("HERE IS THE DOCUMENT ID OF THE PARLIAMENT SESSION: ", parliamentSessionId);
 
     console.log("Parliament Session imported successfully: ", parliamentResponse.data);
 
