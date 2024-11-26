@@ -12,20 +12,15 @@ const DebatePage = () => {
                 // Toggle between client-side and server-side transformation
                 const isClientSide = false; // Change to true to use client-side transformation
 
-                let html = '', json = '';
+                let html = '';
 
                 if (isClientSide) {
                     html = await fetchAndTransformClientSide();
                 } else {
-                    const HtmlResponse = await fetch('/api/transform?format=html');
+                    const HtmlResponse = await fetch('/api/transformAPI?format=html');
                     if (!HtmlResponse.ok) throw new Error("Failed to fetch transformed Html");
                     html = await HtmlResponse.text();
                     console.log("HTML response: ", html);
-
-                    const JsonResponse = await fetch('/api/transform?format=json');
-                    if (!JsonResponse.ok) throw new Error("Failed to fetch transformed Json");
-                    json = await JsonResponse.text();
-                    console.log("JSON response: ", json);
                 }
                 setHtmlContent(html);
             } catch (error) {

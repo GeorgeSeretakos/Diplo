@@ -1,0 +1,63 @@
+/* Container for the Action Buttons Section */
+.actionButtonsSection {
+    display: flex;
+    justify-content: space-between; /* Space out buttons and search bar */
+    align-items: center; /* Align buttons and search bar vertically */
+    gap: 2rem; /* Space between sections */
+    padding: 1rem 0; /* Add vertical padding */
+    /*background-color: #f9f9f9; !* Light background for contrast *!*/
+}
+
+/* Container for Buttons (Left and Right) */
+.actionButtons {
+    display: flex;
+    gap: 1rem; /* Space between buttons */
+}
+
+/* Individual Action Button */
+.actionButton {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center; /* Center icon horizontally */
+    align-items: center; /* Center icon vertically */
+    background-color: #e6e6e6; /* Light gray background for the button */
+    border-radius: 50%; /* Make the button circular */
+    border: 2px solid transparent; /* Default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.actionButton:hover {
+    background-color: #d1d1d1; /* Slightly darker on hover */
+    border-color: #001f3f; /* Highlight border on hover */
+}
+
+/* Icon inside the button */
+.icon {
+    width: 50%; /* Responsive size for the icon */
+    height: 50%;
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+/* Search Bar Container */
+.searchBar {
+    flex-grow: 1; /* Allow the search bar to grow and take up remaining space */
+    display: flex;
+    justify-content: center; /* Center-align the search bar */
+}
+
+.searchInput {
+    width: 100%; /* Full width of the container */
+    max-width: 400px; /* Limit the maximum width */
+    padding: 0.75rem; /* Add spacing inside the input */
+    font-size: 1rem; /* Font size for text */
+    border: 2px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Smooth transition on focus */
+}
+
+.searchInput:focus {
+    outline: none; /* Remove default outline */
+    border-color: #001f3f; /* Navy blue border on focus */
+}
