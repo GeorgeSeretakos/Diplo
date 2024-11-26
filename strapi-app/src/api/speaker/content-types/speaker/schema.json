@@ -34,6 +34,16 @@
       "relation": "oneToMany",
       "target": "api::speech.speech",
       "mappedBy": "speaker"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

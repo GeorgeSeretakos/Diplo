@@ -476,6 +476,32 @@ export interface ApiParliamentSessionParliamentSession
   };
 }
 
+export interface ApiRdfRdf extends Struct.CollectionTypeSchema {
+  collectionName: 'rdfs';
+  info: {
+    displayName: 'RDF';
+    pluralName: 'rdfs';
+    singularName: 'rdf';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::rdf.rdf'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    RDFAsJSON: Schema.Attribute.JSON;
+    RDFAsText: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
   collectionName: 'speakers';
   info: {
@@ -492,6 +518,7 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     link: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1055,6 +1082,7 @@ declare module '@strapi/strapi' {
       'api::debate.debate': ApiDebateDebate;
       'api::html.html': ApiHtmlHtml;
       'api::parliament-session.parliament-session': ApiParliamentSessionParliamentSession;
+      'api::rdf.rdf': ApiRdfRdf;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;
       'plugin::content-releases.release': PluginContentReleasesRelease;
