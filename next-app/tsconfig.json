@@ -28,10 +28,15 @@
     ]
   },
   "include": [
-    "next-env.d.ts", // Type declarations for Next.js
-    "**/*.ts", // Include all TypeScript files
-    "**/*.tsx", // Include all TypeScript React files
-    ".next/types/**/*.ts" // Include Next.js auto-generated types
+    "next-env.d.ts",
+    // Type declarations for Next.js
+    "**/*.ts",
+    // Include all TypeScript files
+    "**/*.tsx",
+    // Include all TypeScript React files
+    ".next/types/**/*.ts"
+    // Include Next.js auto-generated types,
+    "../../../../Program Files/JetBrains/WebStorm 2023.3.2/plugins/javascript-impl/jsLanguageServicesImpl/external/lib.es5.d.ts"
   ],
   "exclude": ["node_modules"] // Exclude node_modules from compilation
 }

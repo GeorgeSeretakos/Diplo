@@ -3,10 +3,11 @@
   --gradient4: #00FF00;
   --gradient2: #BF40BF;
   --gradient1: #7F00FF;
-  --button: #7F00FF;
+  --button: white;
   --functionality: #800080;
   --functionality1: #9F2B68;
   --primary: #212121;
+  --button-hover: black;
   /*--gradient1: blue;*/
   /*--gradient2: white;*/
 }
@@ -38,7 +39,7 @@ body {
 /* Text Overlay */
 .videoOverlay {
   position: absolute; /* Position on top of the video */
-  bottom: 5rem;
+  bottom: 2rem;
   left: 0;
   width: 100%;
   /*height: 100%;*/
@@ -49,6 +50,10 @@ body {
   text-align: center;
   color: black; /* White text color for visibility */
   /*border: 2px solid red;*/
+}
+
+.video-subtitle {
+  font-size: 1.5rem;
 }
 
 .mainTitle {
@@ -62,7 +67,7 @@ body {
 .content {
   border-radius: 4rem 4rem 0 0;
   overflow: hidden;
-  margin-top: calc(100vh - 50px);
+  margin-top: calc(100vh - 20px);
   background-color: var(--primary);
   position: relative;
   /*z-index: 1;*/
@@ -97,7 +102,7 @@ button {
 
 button:hover {
   background: var(--button);
-  color: white;
+  color: var(--button-hover);
 }
 
 input:valid {
@@ -198,15 +203,6 @@ h1, h2, h3 {
   margin: 5px 0;
 }
 
-/* Debate Section Titles */
-.section {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border-left: 5px solid #333;
-}
-
 .section h3 {
   font-size: 1.5rem;
   color: #333;
@@ -260,3 +256,117 @@ h1, h2, h3 {
   color: #00796b;
   font-weight: bold;
 }
+
+
+.belowHeroSection {
+  /*border: 2px solid red;*/
+  border-radius: 4rem;
+  margin-bottom: 3rem;
+  background-color: black;
+  /*height: 40rem;*/
+}
+
+
+/* Overall Layout */
+.sections {
+  /*border: 2px solid yellow;*/
+  margin-top: 1rem;
+
+  display: flex; /* Flexbox for two-column layout */
+  flex-direction: row;
+  justify-content: space-between; /* Space out the left and right sections */
+  align-items: center; /* Vertically align both sections */
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.title {
+  margin-left: 2rem;
+  font-size: .75rem;
+  border: 2px solid black;
+  border-bottom: 1px solid white;
+  margin: auto;
+  padding-top: 1rem;
+  width: 60%;
+  text-align: center;
+}
+
+/* Left Section */
+.leftSection {
+  /*background-color: white;*/
+  width: 70%; /* Take half the available width */
+  height: auto;
+  /*border: 2px solid purple;*/
+}
+
+.leftSection,
+.rightSection {
+  box-sizing: border-box; /* Include padding and borders in the width calculation */
+}
+
+
+.politicianContainer {
+  /*border: 2px solid red;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+}
+
+.searchBars {
+  display: flex;
+  margin: auto;
+  flex-direction: column; /* Arrange buttons in a column */
+  gap: 1rem; /* Space between buttons */
+  /*border-width: 2px;*/
+  /*border-color: purple;*/
+  width: 50%;
+  /*border: 2px solid white;*/
+}
+
+.subtitle {
+  /*border: 2px solid white;*/
+  /*margin: auto;*/
+  text-align: center;
+  /*width: 100%;*/
+  padding: 0rem 10%;
+  letter-spacing: .2rem;
+  line-height: 2rem;
+}
+
+.searchButton {
+  background-color: white; /* Navy blue */
+  color: black; /* White text */
+  font-size: .75rem; /* Font size for button text */
+  padding: 0.75rem; /* Add padding inside the button */
+  border: none; /* Remove border */
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.searchButton:hover {
+  background: linear-gradient(45deg, var(--gradient1), var(--gradient2));; /* Darker navy on hover */
+  color: white
+}
+
+/* Right Section */
+.rightSection {
+  width:30%; /* Take the remaining width */
+  height: auto;
+  /*border: 2px solid purple;*/
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.rightImage {
+  width: 100%; /* Fixed width for larger screens */
+  height: 100%; /* Maintain aspect ratio */
+  object-fit: cover; /* Crop the image if necessary */
+  border-radius: 4rem;
+}
+
+
