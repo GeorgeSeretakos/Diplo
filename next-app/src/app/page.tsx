@@ -1,7 +1,9 @@
-import HeroSection from "@/app/components/HeroSection/HeroSection";
-import SpeakersSection from "@/app/components/BelowHeroSection/SpeakersSection";
-import ActionButtonsSection from "@/app/components/ActionButtonsSection/ActionButtonsSection";
+import HeroSection from "@/app/components/Sections/HeroSection/HeroSection";
+import SpeakersSection from "@/app/components/Sections/SpeakerSection/SpeakersSection";
+import ActionButtonsSection from "@/app/components/Sections/ActionButtonsSection/ActionButtonsSection";
 import {colors} from "@/utils/colors";
+import DebatesSection from "@/app/components/Sections/DebatesSection/DebatesSection";
+import TopicsSection from "@/app/components/Sections/TopicsSection/TopicsSection";
 
 export default function Home() {
   return (
@@ -10,7 +12,7 @@ export default function Home() {
           {/* Video Section */}
           <div className="videoContainer">
               <video
-                src="/videos/vouli.mp4"
+                src="/videos/parliament/vouli.mp4"
                 autoPlay
                 muted
                 loop
@@ -19,7 +21,7 @@ export default function Home() {
               {/* Title Overlay */}
               <div className="videoOverlay">
                   <h1 className="mainTitle">Welcome to the Greek Parliament Debates Portal</h1>
-                  <h2 className="subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
+                  <h2 className="video-subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
               </div>
           </div>
 
@@ -27,8 +29,8 @@ export default function Home() {
           <div className="content">
               {/*<HeroSection />*/}
               <SpeakersSection />
-              <SpeakersSection />
-              <SpeakersSection />
+              <DebatesSection />
+              <TopicsSection />
               <ActionButtonsSection />
           </div>
 
