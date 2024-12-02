@@ -5,11 +5,17 @@ import styles from "./BrowseSpeakers.module.css";
 import SpeakerCard from "@/app/components/Speaker/SpeakerCard/SpeakerCard";
 import { Speakers } from "@/app/constants/speakers";
 import PoliticalPartyFilter from "@/app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter";
+import AgeFilter from "@/app/components/Filters/AgeFilter/AgeFilter";
+import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
+import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
 
 const Page = () => {
     // Initial state for filters
     const initialFilterState = {
         parties: ["ALL"], // Default to "All" selected
+        ageRange: { min: 0, max: 100 }, // Default age range
+        gender: null, // Default: no gender selected
+        phrase: "", // Default: no phrase filter applied
     };
 
     // Main filters applied to the search
@@ -34,9 +40,17 @@ const Page = () => {
     };
 
     // Filter speakers based on the applied filters
-    const filteredSpeakers = Speakers.filter((speaker) =>
-        filters.parties.includes("ALL") || filters.parties.includes(speaker.party)
-    );
+    const filteredSpeakers = Speakers.filter((speaker) => {
+        const withinParty =
+            filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
+        const withinAge =
+            speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
+        const withinGender =
+            !filters.gender || speaker.gender === filters.gender;
+        // Match phrase logic
+
+        return withinParty && withinAge && withinGender;
+    });
 
     return (
         <div className={styles.pageLayout}>
@@ -48,11 +62,30 @@ const Page = () => {
                     onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
                 />
 
+                <PoliticalPartyFilter
+                    selectedParties={tempFilters.parties}
+                    onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
+                />
+
+                <PhraseFilter
+                    prhase={tempFilters.phrase}
+                    onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
+                />
+
+                <AgeFilter
+                    ageRange={tempFilters.ageRange}
+                    onAgeRangeChange={(updatedRange) => handleTempFilterChange("ageRange", updatedRange)}
+                />
+
+                <GenderFilter
+                    selectedGender={tempFilters.gender}
+                    onFilterChange={(updatedGender) => handleTempFilterChange("gender", updatedGender)}
+                />
 
 
                 <div className="buttonContainer">
-                    <button className="button" onClick={applyFilters}>Apply Filters</button>
-                    <button className="button" onClick={cancelFilters}>Cancel</button>
+                    <button className="button dynamic-content" onClick={applyFilters}>Apply Filters</button>
+                    <button className="button dynamic-content" onClick={cancelFilters}>Cancel</button>
                 </div>
             </div>
 

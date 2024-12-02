@@ -2,9 +2,10 @@
 .pageLayout {
     display: flex;
     width: 100%;
-    height: 100vh;
+    /*height: 100vh;*/
     font-family: Arial, sans-serif;
     background-color: black;
+    overflow: visible;
 }
 
 /* Filter Section (Left Sidebar) */
@@ -12,7 +13,8 @@
     flex: 1; /* Takes 1/4 of the page */
     padding: 20px;
     border-right: 1px solid #ccc;
-    overflow-y: auto;
+    overflow: visible;
+    background-color: black;
     /*border: 2px solid red;*/
 }
 
@@ -44,6 +46,7 @@
     flex: 3; /* Takes 3/4 of the page */
     padding: 20px;
     overflow-y: auto;
+    background-color: black;
 }
 
 .browseSection h1 {

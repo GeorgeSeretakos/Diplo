@@ -1,39 +1,34 @@
-import HeroSection from "@/app/components/Sections/HeroSection/HeroSection";
 import SpeakersSection from "@/app/components/Sections/SpeakerSection/SpeakersSection";
 import ActionButtonsSection from "@/app/components/Sections/ActionButtonsSection/ActionButtonsSection";
-import {colors} from "@/utils/colors";
 import DebatesSection from "@/app/components/Sections/DebatesSection/DebatesSection";
 import TopicsSection from "@/app/components/Sections/TopicsSection/TopicsSection";
 
 export default function Home() {
-  return (
-      <div style={{ width: "100%"}}>
+    return (
+        <div style={{ width: "100%"}}>
+            {/* Video Section */}
+            <div className="videoContainer">
+                <video
+                    src="/videos/parliament/vouli.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    className="video"
+                />
+                {/* Title Overlay */}
+                <div className="videoOverlay">
+                    <h1 className="mainTitle">Welcome to the Greek Parliament Debates Portal</h1>
+                    <h2 className="video-subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
+                </div>
+            </div>
 
-          {/* Video Section */}
-          <div className="videoContainer">
-              <video
-                src="/videos/parliament/vouli.mp4"
-                autoPlay
-                muted
-                loop
-                className="video"
-              />
-              {/* Title Overlay */}
-              <div className="videoOverlay">
-                  <h1 className="mainTitle">Welcome to the Greek Parliament Debates Portal</h1>
-                  <h2 className="video-subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
-              </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="content">
-              {/*<HeroSection />*/}
-              <SpeakersSection />
-              <DebatesSection />
-              <TopicsSection />
-              <ActionButtonsSection />
-          </div>
-
-      </div>
-  );
+            {/* Main Content */}
+            <div className="content">
+                <SpeakersSection />
+                <DebatesSection />
+                <TopicsSection />
+                <ActionButtonsSection />
+            </div>
+        </div>
+    );
 }

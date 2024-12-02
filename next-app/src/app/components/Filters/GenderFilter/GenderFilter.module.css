@@ -1,0 +1,22 @@
+.genderGrid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.genderItem {
+    padding: 10px 15px;
+    background-color: black;
+    border: 2px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.genderItem:hover, .selected {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    font-weight: bold;
+    color: white;
+}

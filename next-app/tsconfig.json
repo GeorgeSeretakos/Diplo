@@ -34,7 +34,7 @@
     // Include all TypeScript files
     "**/*.tsx",
     // Include all TypeScript React files
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
     // Include Next.js auto-generated types,
     "../../../../Program Files/JetBrains/WebStorm 2023.3.2/plugins/javascript-impl/jsLanguageServicesImpl/external/lib.es5.d.ts"
   ],

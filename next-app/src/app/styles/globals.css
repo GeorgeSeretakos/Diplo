@@ -18,6 +18,7 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   margin: 0;
+  background-color: black;
 }
 
 .videoContainer {
@@ -105,13 +106,13 @@ button:hover {
   color: var(--button-hover);
 }
 
-input:valid {
-  border: 2px solid lime; /* White border when there's a number */
-}
+/*input:valid {*/
+/*  border: 2px solid lime; !* White border when there's a number *!*/
+/*}*/
 
-input:invalid {
-  border: 2px solid red; /* Red border when the input is empty or not a number */
-}
+/*input:invalid {*/
+/*  border: 2px solid red; !* Red border when the input is empty or not a number *!*/
+/*}*/
 
 input:focus {
   border-color: white; /* Lime border when the input is focused */
@@ -153,7 +154,7 @@ input:focus {
 }
 
 input, .inputContainer .styled-select {
-  width: 200px;
+  width: 100px;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
