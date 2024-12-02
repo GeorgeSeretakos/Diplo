@@ -1,0 +1,25 @@
+.phraseContainer {
+    display: flex;
+    flex-direction: column;
+    /*gap: 10px;*/
+    margin: 1rem;
+}
+
+.textarea {
+    width: 80%;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    resize: none; /* Prevent manual resizing */
+    overflow: hidden; /* Prevent scrollbars */
+    transition: border-color 0.2s ease-in-out, height 0.2s ease-in-out;
+}
+
+.textarea:focus {
+    border-color: #007bff;
+}
+

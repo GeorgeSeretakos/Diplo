@@ -1,9 +1,14 @@
+'use client';
+
 import React from "react";
 import "../../../styles/globals.css"
 import SpeakerCircle from "src/app/components/Speaker/SpeakerCircle/SpeakerCircle.js";
 import {TEXTS, TITLES} from "src/app/constants/texts.js";
+import {useRouter} from "next/navigation.js";
 
 const SpeakersSection = () => {
+  const router = useRouter();
+
   return (
     <div className="belowHeroSection">
       <div className="sections">
@@ -51,26 +56,9 @@ const SpeakersSection = () => {
             <p className="dynamic-content">{TEXTS.SpeakersText}</p>
           </div>
           <div className="buttonContainer">
-            <button>Browse Speakers</button>
+            <button onClick={() => router.push("/browse-speakers")}>Browse Speakers</button>
           </div>
         </div>
-
-
-        {/*/!* Search Bars *!/*/}
-        {/*<div className={styles.searchBars}>*/}
-        {/*  <button className={styles.searchButton}>Recent Debates</button>*/}
-          {/*  <button className={styles.searchButton}>Search Debates</button>*/}
-          {/*  <button className={styles.searchButton}>Speech Name</button>*/}
-          {/*</div>*/}
-
-        {/*/!* Right Sub-section *!/*/}
-        {/*<div className={styles.rightSection}>*/}
-        {/*  <img*/}
-        {/*    src="images/parliament.jpg"*/}
-        {/*    alt="Parliament"*/}
-        {/*    className={styles.rightImage}*/}
-        {/*  />*/}
-        {/*</div>*/}
       </div>
     </div>
   );

@@ -1,0 +1,19 @@
+.ageRangeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.toggleContainer {
+    text-align: left;
+}
+
+.sliderContainer {
+    width: 60%;
+}
+
+.display {
+    font-size: 1rem;
+    text-align: center;
+    color: #333;
+}
