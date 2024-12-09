@@ -1,3 +1,9 @@
+.link {
+    text-decoration: none; /* Remove default link underline */
+    color: inherit; /* Inherit text color from the parent element */
+    display: block; /* Ensure the link wraps the entire card */
+}
+
 .speakerCard {
     position: relative;
     width: 12.5rem;
