@@ -4,7 +4,7 @@ import styles from "./PoliticalPartyFilter.module.css";
 
 const politicalParties = [
   { value: "ALL", label: "All", image: "/images/parties/greek_parties.jpg" },
-  { value: "ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ", label: "ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ", image: "/images/parties/NewDemocracy.png" },
+  { value: "ΝΔ", label: "ΝΔ", image: "/images/parties/NewDemocracy.png" },
   { value: "ΣΥΡΙΖΑ", label: "ΣΥΡΙΖΑ", image: "/images/parties/Syriza.svg" },
   { value: "ΠΑΣΟΚ", label: "ΠΑΣΟΚ", image: "/images/parties/Pasok.svg" },
   { value: "ΚΚΕ", label: "ΚΚΕ", image: "images/parties/KKE.svg"}
@@ -16,9 +16,14 @@ const PoliticalPartyFilter = ({ selectedParties = [], onFilterChange }) => {
       onFilterChange(["ALL"]); // Select only "All" and clear other selections
     } else {
       const isAlreadySelected = selectedParties.includes(party);
-      const updatedSelection = isAlreadySelected
+      let updatedSelection = isAlreadySelected
         ? selectedParties.filter((p) => p !== party) // Remove if already selected
         : [...selectedParties.filter((p) => p !== "ALL"), party]; // Add new party, remove "All"
+
+      // If the user deselects all, default back to "All"
+      if (updatedSelection.length === 0) {
+        updatedSelection = ["ALL"];
+      }
 
       onFilterChange(updatedSelection);
     }
@@ -35,7 +40,9 @@ const PoliticalPartyFilter = ({ selectedParties = [], onFilterChange }) => {
             }`}
             onClick={() => togglePartySelection(party.value)}
           >
-            <img src={party.image} alt={party.label} className={styles.partyImage} />
+            <div className={styles.imageContainer}>
+              <img src={party.image} alt={party.label} className={styles.partyImage}/>
+            </div>
             <p className={styles.partyLabel}>{party.label}</p>
           </div>
         ))}

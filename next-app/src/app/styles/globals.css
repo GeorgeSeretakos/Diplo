@@ -3,10 +3,11 @@
   --gradient4: #00FF00;
   --gradient2: #BF40BF;
   --gradient1: #7F00FF;
-  --button: white;
+  --button: #e1f685;
   --functionality: #800080;
   --functionality1: #9F2B68;
-  --primary: #212121;
+  /*--primary: #212121;*/
+  --primary: black;
   --button-hover: black;
   /*--gradient1: blue;*/
   /*--gradient2: white;*/
@@ -154,7 +155,7 @@ input:focus {
 }
 
 input, .inputContainer .styled-select {
-  width: 100px;
+  width: 200px;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
@@ -267,12 +268,19 @@ h1, h2, h3 {
   /*height: 40rem;*/
 }
 
+.message {
+  color: white;
+  text-align: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+}
+
 
 /* Overall Layout */
 .sections {
-  /*border: 2px solid yellow;*/
+  border: 1px solid white;
+  border-radius: 4rem;
   margin-top: 1rem;
-
   display: flex; /* Flexbox for two-column layout */
   flex-direction: row;
   justify-content: space-between; /* Space out the left and right sections */
@@ -289,7 +297,7 @@ h1, h2, h3 {
   border-bottom: 1px solid white;
   margin: auto;
   padding-top: 1rem;
-  width: 60%;
+  width: 65%;
   text-align: center;
 }
 
@@ -297,7 +305,7 @@ h1, h2, h3 {
 .leftSection {
   /*background-color: white;*/
   width: 70%; /* Take half the available width */
-  height: auto;
+  height: 100%;
   /*border: 2px solid purple;*/
 }
 
@@ -371,3 +379,20 @@ h1, h2, h3 {
 }
 
 
+.functionalitiesContainer {
+  margin: 3rem auto;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 10px;
+  color: white;
+}
+
+.functionality:hover {
+  background: linear-gradient(to right, var(--gradient1), var(--gradient2));
+  border: 2px solid white;
+}

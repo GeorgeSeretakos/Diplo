@@ -517,8 +517,14 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    date_of_birth: Schema.Attribute.String;
+    date_of_death: Schema.Attribute.String;
     debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
+    description: Schema.Attribute.Text;
+    educated_at: Schema.Attribute.Text;
+    gender: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    languages: Schema.Attribute.Text;
     link: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -526,6 +532,9 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
       'api::speaker.speaker'
     > &
       Schema.Attribute.Private;
+    occupation: Schema.Attribute.Text;
+    place_of_birth: Schema.Attribute.String;
+    political_party: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String &
@@ -535,6 +544,7 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    website: Schema.Attribute.String;
   };
 }
 

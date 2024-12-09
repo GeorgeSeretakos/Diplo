@@ -1,111 +1,64 @@
-'use client'
+'use client';
 
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 import styles from "./BrowseSpeakers.module.css";
-import SpeakerCard from "@/app/components/Speaker/SpeakerCard/SpeakerCard";
-import { Speakers } from "@/app/constants/speakers";
-import PoliticalPartyFilter from "@/app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter";
-import AgeFilter from "@/app/components/Filters/AgeFilter/AgeFilter";
-import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
-import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
+import SearchSection from "@/app/components/Sections/Browse Pages/SearchSection";
 
-const Page = () => {
-    // Initial state for filters
-    const initialFilterState = {
-        parties: ["ALL"], // Default to "All" selected
-        ageRange: { min: 0, max: 100 }, // Default age range
-        gender: null, // Default: no gender selected
-        phrase: "", // Default: no phrase filter applied
+const BrowseSpeakers = () => {
+    const router = useRouter();
+
+    const handleFilterSelection = (filterType) => {
+        router.push(`/speakers-results?primaryFilter=${encodeURIComponent(filterType)}`);
     };
-
-    // Main filters applied to the search
-    const [filters, setFilters] = useState(initialFilterState);
-
-    // Temporary filters for user interaction
-    const [tempFilters, setTempFilters] = useState(initialFilterState);
-
-    // Handle filter changes in the temporary state
-    const handleTempFilterChange = (filterKey, updatedValue) => {
-        setTempFilters({ ...tempFilters, [filterKey]: updatedValue });
-    };
-
-    // Apply filters and trigger search
-    const applyFilters = () => {
-        setFilters(tempFilters); // Copy temporary filters to the main filters
-    };
-
-    // Reset filters to their initial state
-    const cancelFilters = () => {
-        setTempFilters(initialFilterState); // Reset temporary filters
-    };
-
-    // Filter speakers based on the applied filters
-    const filteredSpeakers = Speakers.filter((speaker) => {
-        const withinParty =
-            filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
-        const withinAge =
-            speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
-        const withinGender =
-            !filters.gender || speaker.gender === filters.gender;
-        // Match phrase logic
-
-        return withinParty && withinAge && withinGender;
-    });
 
     return (
         <div className={styles.pageLayout}>
-            {/* Filter Container */}
-            <div className={styles.filterSection}>
-                <h2>Filters</h2>
-                <PoliticalPartyFilter
-                    selectedParties={tempFilters.parties}
-                    onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                />
 
-                <PoliticalPartyFilter
-                    selectedParties={tempFilters.parties}
-                    onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                />
-
-                <PhraseFilter
-                    prhase={tempFilters.phrase}
-                    onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
-                />
-
-                <AgeFilter
-                    ageRange={tempFilters.ageRange}
-                    onAgeRangeChange={(updatedRange) => handleTempFilterChange("ageRange", updatedRange)}
-                />
-
-                <GenderFilter
-                    selectedGender={tempFilters.gender}
-                    onFilterChange={(updatedGender) => handleTempFilterChange("gender", updatedGender)}
-                />
-
-
-                <div className="buttonContainer">
-                    <button className="button dynamic-content" onClick={applyFilters}>Apply Filters</button>
-                    <button className="button dynamic-content" onClick={cancelFilters}>Cancel</button>
-                </div>
+            <div className={styles.leftSection}>
+                <h2>Browse speakers</h2>
+                <p>
+                    Choose your initial filter and start searching for your favorite speakers.
+                    Once applied, you will be able to narrow down your search applying more
+                    specific filters, such as age, gender and more.
+                </p>
             </div>
 
-            {/* Browse Speakers */}
-            <div className={styles.browseSection}>
-                <h1>Browse Speakers</h1>
-                <div className={styles.speakerGrid}>
-                    {filteredSpeakers.map((speaker, index) => (
-                        <SpeakerCard
-                            key={index}
-                            photo={speaker.photo}
-                            name={speaker.name}
-                            party={speaker.party}
-                            description={speaker.description}
-                        />
-                    ))}
-                </div>
+            <div className={styles.sections}>
+                {/* Section 1: Find by Name */}
+                <SearchSection
+                    title="Speaker Name"
+                    imageUrl="/images/politicians/speakers.webp"
+                    description="Click to search for speakers based on their name"
+                    onButtonClick={() => handleFilterSelection("Search by Name")}
+                />
+
+                {/* Section 2: Browse by Party */}
+                <SearchSection
+                    title="Political Party"
+                    imageUrl="/images/parties/parties.jpg"
+                    description="Click to browse speakers grouped by their political party"
+                    onButtonClick={() => handleFilterSelection("Search by Political Party")}
+                />
+
+                {/* Section 3: Find by Key Phrase */}
+                <SearchSection
+                    title="Key Phrase"
+                    imageUrl="/images/politicians/key-phrase.jpg"
+                    description="Click to search for speakers who have said a specific phrase"
+                    onButtonClick={() => handleFilterSelection("Search by Key Phrase")}
+                />
+
+                {/* Section 4: Browse by Topic */}
+                <SearchSection
+                    title="Topic"
+                    imageUrl="/images/topics/topics.jpg"
+                    description="Click to browse speakers debating specific topics"
+                    onButtonClick={() => handleFilterSelection("topicsFilter")}
+                />
             </div>
         </div>
     );
 };
 
-export default Page;
+export default BrowseSpeakers;

@@ -1,7 +1,7 @@
-import SpeakersSection from "@/app/components/Sections/SpeakerSection/SpeakersSection";
-import ActionButtonsSection from "@/app/components/Sections/ActionButtonsSection/ActionButtonsSection";
-import DebatesSection from "@/app/components/Sections/DebatesSection/DebatesSection";
-import TopicsSection from "@/app/components/Sections/TopicsSection/TopicsSection";
+import SpeakersSection from "@/app/components/Sections/Home Page/SpeakerSection/SpeakersSection";
+import ActionButtonsSection from "@/app/components/Sections/Home Page/ActionButtonsSection/ActionButtonsSection";
+import DebatesSection from "@/app/components/Sections/Home Page/DebatesSection/DebatesSection";
+import TopicsSection from "@/app/components/Sections/Home Page/TopicsSection/TopicsSection";
 
 export default function Home() {
     return (
@@ -27,7 +27,7 @@ export default function Home() {
                 <SpeakersSection />
                 <DebatesSection />
                 <TopicsSection />
-                <ActionButtonsSection />
+                {/* Footer */}
             </div>
         </div>
     );
