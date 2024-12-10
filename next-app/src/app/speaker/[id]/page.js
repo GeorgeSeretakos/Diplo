@@ -1,28 +1,22 @@
 'use client';
 
 import styles from "./SpeakerProfile.module.css";
-import formatDate from "../../../utils/Date/formatDate.js";
-import { fetchPersonalInfo, fetchPoliticalInfo } from "@/utils/wikidata/dataFetchers";
-import React, {useEffect, useState} from "react";
+import { formatDateToGreek } from "../../../utils/Date/formatDate.js";
+import { fetchPositionHeld } from "@/utils/wikidata/dataFetchers";
+import React, { useEffect, useState } from "react";
 
-const SpeakerPage = () => {
-
-  const [personalInfo, setPersonalInfo] = useState({});
-  const [politicalInfo, setPoliticalInfo] = useState({});
+const SpeakerPositionsPage = () => {
+  const [positions, setPositions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const speakerEntityId = "Q552751"; // Kyriakos Mitsotakis
-        const personal = await fetchPersonalInfo(speakerEntityId);
-        const political = await fetchPoliticalInfo(speakerEntityId);
-
-        setPersonalInfo(personal);
-        setPoliticalInfo(political);
-
+        const speakerEntityId = "Q4684534"; // Kyriakos Mitsotakis
+        const positionsData = await fetchPositionHeld(`https://www.wikidata.org/wiki/${speakerEntityId}`);
+        setPositions(positionsData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching positions:", error);
       } finally {
         setLoading(false);
       }
@@ -32,70 +26,36 @@ const SpeakerPage = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading ...</p>
+    return <p>Loading...</p>;
   }
 
   return (
     <div className={styles.pageLayout}>
       <div className={styles.container}>
-        {/* Personal Information */}
         <header className={styles.header}>
-          <div className={styles.imageContainer}>
-            <img
-              src={personalInfo.image}
-              alt={personalInfo.fullName}
-              className={styles.profilePicture}
-            />
-          </div>
-          {/* TODO: Add the description attribute */}
-          <div className={styles.personalInfo}>
-            <h1>{personalInfo.fullName || "Name not available"}</h1>
-            {personalInfo.dateOfBirth && <p>Born: {formatDate(personalInfo.dateOfBirth)}</p>}
-            {personalInfo.placeOfBirth && <p>Place of Birth: {personalInfo.placeOfBirth}</p>}
-            <p>Gender: {personalInfo.gender || "Not specified"}</p>
-            <p>Nationality: {personalInfo.nationality || "Unknown"}</p>
-            {/*<p>Languages Spoken: {personalInfo.languages || "Not specified"}</p>*/}
-          </div>
+          <h1>Positions Held</h1>
         </header>
 
-        {/* Political Information */}
         <section className={styles.section}>
-          <h2>Political Information</h2>
-          {politicalInfo.currentPosition ? (
-            <p>Current Position: {politicalInfo.currentPosition.title} (Since {formatDate(politicalInfo.currentPosition.startDate)})</p>
+          {positions.length > 0 ? (
+            <ul className={styles.positionsList}>
+              {positions.map((position, index) => (
+                <li key={index} className={styles.positionItem}>
+                  {position.position}
+                  {position.of && ` (${position.of}),`}
+                  {position.startTime || position.endTime ? (
+                    ` από ${formatDateToGreek(position.startTime)} έως ${formatDateToGreek(position.endTime) || "Present"}`
+                  ) : null }
+                </li>
+              ))}
+            </ul>
           ) : (
-            <p>Current Position: Not specified</p>
-          )}
-          {politicalInfo.party ? (
-            <>
-              <p>Party: {politicalInfo.party.name}</p>
-              <img src={politicalInfo.party.logo || "/images/default_party_logo.png"} alt={politicalInfo.party.name}
-                   className={styles.partyLogo}/>
-            </>
-          ) : (
-            <p>Party: Not specified</p>
-          )}
-          {politicalInfo.previousPositions?.length > 0 ? (
-            <>
-              <h3>Previous Positions</h3>
-              <ul className={styles.educationList}>
-                {politicalInfo.previousPositions.map((position, index) => (
-                  <li key={index} className={styles.educationItem}>
-                    {position.title} ({formatDate(position.startDate)} - {formatDate(position.endDate) || "Present"})
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p>No previous positions available.</p>
+            <p>No positions held available.</p>
           )}
         </section>
-
       </div>
     </div>
   );
-}
+};
 
-export default SpeakerPage;
-
-
+export default SpeakerPositionsPage;
