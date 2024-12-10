@@ -9,9 +9,10 @@ async function fetchSpeakerData(wikidataUrl) {
 
     const entityId = wikidataUrl.split("/").pop(); // Extract the Wikidata entity ID
     const sparqlQuery = `
-  SELECT ?image ?description ?genderLabel ?dob ?dod ?pobLabel ?website ?occupationLabel ?languageLabel ?partyLabel ?eduLabel ?degreeLabel ?majorLabel WHERE {
+  SELECT ?image ?descriptionEl ?descriptionEn ?genderLabel ?dob ?dod ?pobLabel ?website ?occupationLabel ?languageLabel ?partyLabel ?eduLabel ?degreeLabel ?majorLabel WHERE {
     OPTIONAL { wd:${entityId} wdt:P18 ?image. }
-    OPTIONAL { wd:${entityId} schema:description ?description. FILTER (lang(?description) = "el") }
+    OPTIONAL { wd:${entityId} schema:description ?descriptionEl. FILTER (lang(?descriptionEl) = "el") }
+    OPTIONAL { wd:${entityId} schema:description ?descriptionEn. FILTER (lang(?descriptionEn) = "en") }
     OPTIONAL { wd:${entityId} wdt:P21 ?gender. ?gender rdfs:label ?genderLabel. FILTER (lang(?genderLabel) = "el") }
     OPTIONAL { wd:${entityId} wdt:P569 ?dob. }
     OPTIONAL { wd:${entityId} wdt:P570 ?dod. }
@@ -88,7 +89,7 @@ async function fetchSpeakerData(wikidataUrl) {
       const result = bindings[0]; // Assume single row for simplicity
       return {
         image: result.image?.value || null,
-        description: result.description?.value || null,
+        description: result.descriptionEl?.value || result.descriptionEn?.value || null,
         gender: result.genderLabel?.value || null,
         date_of_birth: result.dob?.value || null,
         date_of_death: result.dod?.value || null,
@@ -109,7 +110,7 @@ async function fetchSpeakerData(wikidataUrl) {
 }
 
 
-function convertToTextFields(data) {
+function formatFields(data) {
   return {
     speaker_name: data.speaker_name?.toString() || null, // OK
     speaker_id: data.speaker_id?.toString() || null, // OK
@@ -119,10 +120,30 @@ function convertToTextFields(data) {
     date_of_birth: data.date_of_birth ? formatDateToGreek(data.date_of_birth) : null, // OK
     date_of_death: data.date_of_death ? formatDateToGreek(data.date_of_death) : null, // TODO!!!!!!
     place_of_birth: data.place_of_birth?.toString() || null, // OK
-    educated_at: data.educated_at ? data.educated_at.join("; ").toString() : null,
+    educated_at: data.educated_at ? data.educated_at.join(", ").toString() : null,
     website: data.website?.toString() || null,
-    occupation: data.occupation ? data.occupation.toString() : null,
-    languages: data.languages ? data.languages.toString() : null,
+    occupation: data.occupation
+      ? [
+        ...new Set(
+          (Array.isArray(data.occupation) // Check if it's already an array
+              ? data.occupation
+              : data.occupation.split(",")) // Split if it's a string
+            .map((item) => item.trim()) // Trim whitespace
+            .filter(Boolean) // Remove empty values
+        ),
+      ].join(", ") // Join unique values with commas
+      : null,
+    languages: data.languages
+      ? [
+        ...new Set(
+          (Array.isArray(data.languages)
+            ? data.languages
+            : data.languages.split(","))
+            .map((item) => item.trim())
+            .filter(Boolean)
+        ),
+      ].join(", ")
+      : null,
     political_party: data.political_party?.toString() || null,
     debates: data.debates?.toString() || null,
   };
@@ -193,7 +214,7 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
     // Upload the speaker's image to Strapi and get its ID
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
 
-    const validatedData = convertToTextFields(speakerData);
+    const validatedData = formatFields(speakerData);
 
     // Attempt to find the speaker by unique field (e.g., speaker_id)
     const response = await axios.get(
