@@ -1,114 +1,198 @@
 .pageLayout {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f8f9fa; /* Light background for better readability */
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    max-width: 800px;
+    /*background-image: url("../../../../public/images/parliament/speaking.jpg");*/
+    height: 100%;
     width: 100%;
-    background-color: black;
-    border-radius: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }
 
-.header {
+.sections {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.imageContainer {
-    width: 10rem;
-    height: 15rem;
-    border-radius: 2rem;
-    border: 1px solid white;
-    overflow: hidden; /* Ensures the image does not exceed the container */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center the image inside the container */
-    margin-right: 20px;
-
-}
-.profilePicture {
-    width: 100%;
+    overflow: hidden;
+    padding-left: 1rem;
     height: 100%;
-    object-fit: cover;
 }
 
-.personalInfo {
+/* Left Section */
+.middleSection{
+    /*height: 100vh;*/
+    width: 45%;
+    position: relative;
+    margin: auto;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    /*border: 2px solid red;*/
 }
 
-.personalInfo h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 10px;
+.headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: black;
+    border-radius: 2rem;
+    border: dotted white;
+    border-width: 0 3px 0 3px;
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 70%;
+}
+
+.speakerName {
+    font-size: 2rem;
+    margin: 0;
     color: #333;
 }
 
-.personalInfo p {
-    font-size: 16px;
+.description {
+    font-size: 1.2rem;
     color: #666;
-    margin: 5px 0;
+    margin-bottom: 0;
+}
+
+.partyImages {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-evenly;*/
+    border-radius: 2rem;
+    overflow: hidden;
+    margin: 2rem 0;
+    gap: 1rem;
+    /*border: 2px solid yellow;*/
+}
+
+.imageContainer {
+    width: 6rem;
+    height: 6rem;
+    border-radius: inherit;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: .5rem;
+}
+
+.partyImage {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.list {
+    line-height: 1.5rem;
+}
+
+
+.extraDetails {
+    margin-bottom: 2rem;
+}
+
+.websiteSection {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.websiteSection a {
+    text-decoration: none;
+    color: white;
+    background: #6a11cb;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.websiteSection a:hover {
+    background: #2575fc;
+}
+
+/* Right Section */
+.edgeSection {
+    height: 100%;
+    width: 25%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    /*border-radius: 3rem 0 0 3rem;*/
+    overflow: hidden;
+}
+
+.backgroundImageContainer {
+    background-image: url("../../../../public/images/speaker/speakerPage.webp");
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+}
+
+.backgroundImageContainer2 {
+    background-image: url("../../../../public/images/speaker/speakerPage.webp");
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+}
+
+.profilePictureContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15rem;
+    width: 10rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1.5px solid white;
+}
+
+.profilePicture {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.positionsHeld {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
 }
 
 .section {
-    margin-bottom: 30px;
+    color: white;
 }
 
-.section h2 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #444;
-    margin-bottom: 10px;
+.aboutSection {
+    /*border: 2px solid red;*/
 }
 
-.partyLogo {
-    width: 100px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-.educationList,
-.contactList {
-    list-style-type: none;
-    padding: 0;
-}
-
-.educationItem,
-.contactItem {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.contactLink {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.contactLink:hover {
-    text-decoration: underline;
-}
-
-.socialMediaList {
-    list-style-type: none;
-    padding: 0;
-}
-
-.socialMediaItem {
-    font-size: 16px;
-    color: #007bff;
-    margin-bottom: 5px;
-}
-
-.biography {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
+.partyDetails {
+    /*border: 2px solid red;*/
+    /*display: flex;*/
+    align-items: center;
+    justify-content: space-between;
+    /*text-align: center;*/
 }

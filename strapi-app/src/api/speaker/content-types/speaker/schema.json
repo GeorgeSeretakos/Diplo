@@ -67,14 +67,17 @@
     "languages": {
       "type": "text"
     },
-    "political_party": {
-      "type": "string"
-    },
     "date_of_birth": {
       "type": "string"
     },
     "date_of_death": {
       "type": "string"
+    },
+    "political_parties": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::political-party.political-party",
+      "inversedBy": "speakers"
     }
   }
 }

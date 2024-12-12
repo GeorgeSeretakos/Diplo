@@ -476,6 +476,40 @@ export interface ApiParliamentSessionParliamentSession
   };
 }
 
+export interface ApiPoliticalPartyPoliticalParty
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'political_parties';
+  info: {
+    description: '';
+    displayName: 'Political Party';
+    pluralName: 'political-parties';
+    singularName: 'political-party';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::political-party.political-party'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRdfRdf extends Struct.CollectionTypeSchema {
   collectionName: 'rdfs';
   info: {
@@ -534,7 +568,10 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     occupation: Schema.Attribute.Text;
     place_of_birth: Schema.Attribute.String;
-    political_party: Schema.Attribute.String;
+    political_parties: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::political-party.political-party'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String &
@@ -1092,6 +1129,7 @@ declare module '@strapi/strapi' {
       'api::debate.debate': ApiDebateDebate;
       'api::html.html': ApiHtmlHtml;
       'api::parliament-session.parliament-session': ApiParliamentSessionParliamentSession;
+      'api::political-party.political-party': ApiPoliticalPartyPoliticalParty;
       'api::rdf.rdf': ApiRdfRdf;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;

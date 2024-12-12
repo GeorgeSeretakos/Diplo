@@ -3,20 +3,38 @@
 import React, {useEffect, useState} from "react";
 import styles from "./SpeakersResults.module.css";
 import SpeakerCard from "@/app/components/Speaker/SpeakerCard/SpeakerCard";
-import { Speakers } from "@/app/constants/speakers";
 import PoliticalPartyFilter from "@/app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter";
 import AgeFilter from "@/app/components/Filters/AgeFilter/AgeFilter";
 import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
 import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
 import TopicFilter from "@/app/components/Filters/TopicFilter/TopicFilter";
-import {useRouter, useSearchParams} from "next/navigation";
 import DynamicHeader from "@/utils/DynamicHeader";
+import {constants} from "../../../constants/constants.js";
+import {useSearchParams} from "next/navigation";
+
 
 const SpeakersResults = () => {
-    const searchParams = useSearchParams();
-    const primaryFilter = searchParams.get("primaryFilter");
+    const STRAPI_URL = constants.STRAPI_URL;
+    const API_TOKEN = constants.API_TOKEN;
 
-    const [searchPerformed, setSearchPerformed] = useState(false);
+    const searchParams = useSearchParams();
+    const searchPerformedParam = searchParams.get("searchPerformed") === "true";
+    const primaryFilterParam = searchParams.get("primaryFilter");
+
+    const [searchPerformed, setSearchPerformed] = useState(searchPerformedParam || false);
+    const [primaryFilter, setPrimaryFilter] = useState(
+      primaryFilterParam || sessionStorage.getItem("primaryFilter") || null
+    );
+    const [speakers, setSpeakers] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
+    // Persist `primaryFilter` in sessionStorage
+    useEffect(() => {
+        if (primaryFilter) {
+            sessionStorage.setItem("primaryFilter", primaryFilter);
+        }
+    }, [primaryFilter]);
 
     const resetSearch = () => {
         setSearchPerformed(false); // Reset search state
@@ -45,18 +63,57 @@ const SpeakersResults = () => {
         setTempFilters(initialFilterState);
     };
 
-    const filteredSpeakers = Speakers.filter((speaker) => {
-        const withinParty =
-            filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
-        const withinTopic =
-            filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
-        const withinAge =
-            speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
-        const withinGender =
-            !filters.gender || speaker.gender === filters.gender;
 
-        return withinParty && withinAge && withinGender && withinTopic;
-    });
+    useEffect(() => {
+        const fetchSpeakers = async () => {
+            try {
+                const response = await fetch(
+                  `${STRAPI_URL}/api/speakers?fields=speaker_name,documentId&populate=image`,
+                  {
+                      headers: {
+                          Authorization: `Bearer ${API_TOKEN}`,
+                      },
+                  }
+                );
+                const data = await response.json();
+
+                const speakersData = data.data.map((speaker) => ({
+                    id: speaker.id,
+                    name: speaker.speaker_name,
+                    image:
+                      speaker.image?.formats?.large?.url ||
+                      speaker.image?.url ||
+                      null, // Use large format or fallback to the original
+                    documentId: speaker.documentId,
+                }));
+                console.log("Speaker data: ", speakersData);
+                setSpeakers(speakersData);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching speakers:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchSpeakers();
+    }, []);
+
+    console.log("Speakers: ", speakers);
+
+
+    // const filteredSpeakers = Speakers.filter((speaker) => {
+    //     const withinParty =
+    //         filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
+    //     const withinTopic =
+    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
+    //     const withinAge =
+    //         speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
+    //     const withinGender =
+    //         !filters.gender || speaker.gender === filters.gender;
+    //
+    //     return withinParty && withinAge && withinGender && withinTopic;
+    // });
+
 
     return (
         <>
@@ -104,18 +161,16 @@ const SpeakersResults = () => {
 
                     <div className={styles.browseSection}>
                         <div className={styles.speakerGrid}>
-                            {Speakers.map((speaker, index) => (
+                            {speakers.map((speaker, index) => (
                                 <SpeakerCard
                                     key={index}
-                                    id={speaker["id"]}
-                                    photo={
+                                    documentId={speaker.documentId}
+                                    image={
                                         speaker.image
-                                            ? `http://localhost:1337${
-                                                speaker.image.formats?.large?.url || speaker.image.url
-                                            }` // Use 'large' format or fallback to the original
-                                            : "/images/default_profile.jpg" // Fallback to default image
+                                          ? `${STRAPI_URL}${speaker.image}`
+                                          : null
                                     }
-                                    speaker_name={speaker["speaker_name"]}
+                                    speaker_name={speaker.name}
                                     // party={speaker.party}
                                     // description={speaker.description}
                                 />

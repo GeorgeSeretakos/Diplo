@@ -73,7 +73,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch }) => {
             <button onClick={() => handleSearchAgain()}>Search Again</button>
           </>
         )}
-        <button onClick={() => router.back()}>Go Back</button>
+        <button onClick={() => router.push("/browse-speakers/")}>Go Back</button>
       </div>
     </div>
   );
