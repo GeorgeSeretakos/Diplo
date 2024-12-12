@@ -1,7 +1,9 @@
-// utils/wikidata/fetchData.js
+import {constants} from "../../../constants/constants.js";
+
+const WIKIDATA_URL = constants.WIKIDATA_URL;
 
 export const executeSparqlQuery = async (query) => {
-  const endpointUrl = "https://query.wikidata.org/sparql";
+  const endpointUrl = WIKIDATA_URL;
   const url = `${endpointUrl}?query=${encodeURIComponent(query)}&format=json`;
 
   try {

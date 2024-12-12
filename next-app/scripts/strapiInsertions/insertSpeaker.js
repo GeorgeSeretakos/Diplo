@@ -1,7 +1,9 @@
 import axios from "axios";
 import FormData from "form-data";
 import {formatDateToGreek} from "../../src/utils/Date/formatDate.js";
-
+import uploadImageToStrapi from "../utils/uploadImageToStrapi.js";
+import findOrCreatePoliticalParty from "./insertPoliticalParty.js";
+import {constants} from "../../constants/constants.js";
 
 async function fetchSpeakerData(wikidataUrl) {
   try {
@@ -9,7 +11,7 @@ async function fetchSpeakerData(wikidataUrl) {
 
     const entityId = wikidataUrl.split("/").pop(); // Extract the Wikidata entity ID
     const sparqlQuery = `
-  SELECT ?image ?descriptionEl ?descriptionEn ?genderLabel ?dob ?dod ?pobLabel ?website ?occupationLabel ?languageLabel ?partyLabel ?eduLabel ?degreeLabel ?majorLabel WHERE {
+  SELECT ?image ?descriptionEl ?descriptionEn ?genderLabel ?dob ?dod ?pobLabel ?website ?occupationLabel ?languageLabel ?partyLabel ?partyImage ?eduLabel ?degreeLabel ?majorLabel WHERE {
     OPTIONAL { wd:${entityId} wdt:P18 ?image. }
     OPTIONAL { wd:${entityId} schema:description ?descriptionEl. FILTER (lang(?descriptionEl) = "el") }
     OPTIONAL { wd:${entityId} schema:description ?descriptionEn. FILTER (lang(?descriptionEn) = "en") }
@@ -35,11 +37,15 @@ async function fetchSpeakerData(wikidataUrl) {
     OPTIONAL { wd:${entityId} wdt:P856 ?website. }
     OPTIONAL { wd:${entityId} wdt:P106 ?occupation. ?occupation rdfs:label ?occupationLabel. FILTER (lang(?occupationLabel) = "el") }
     OPTIONAL { wd:${entityId} wdt:P1412 ?language. ?language rdfs:label ?languageLabel. FILTER (lang(?languageLabel) = "el") }
-    OPTIONAL { wd:${entityId} wdt:P102 ?party. ?party rdfs:label ?partyLabel. FILTER (lang(?partyLabel) = "el") }
+    OPTIONAL {
+      wd:${entityId} wdt:P102 ?party.
+      OPTIONAL { ?party rdfs:label ?partyLabel. FILTER (lang(?partyLabel) = "el") }
+      OPTIONAL { ?party wdt:P154 ?partyImage. }
+    }
   }
 `;
 
-    const endpoint = "https://query.wikidata.org/sparql";
+    const endpoint = constants.WIKIDATA_URL; // No quotes needed
 
     const response = await axios.get(endpoint, {
       headers: {
@@ -86,6 +92,13 @@ async function fetchSpeakerData(wikidataUrl) {
 
 
     if (bindings.length > 0) {
+      const parties = bindings
+        .filter((b) => b.partyLabel) // Ensure valid party labels
+        .map((b) => ({
+          name: b.partyLabel?.value || null,
+          image: b.partyImage?.value || null,
+        }));
+
       const result = bindings[0]; // Assume single row for simplicity
       return {
         image: result.image?.value || null,
@@ -98,7 +111,7 @@ async function fetchSpeakerData(wikidataUrl) {
         website: result.website?.value || null,
         occupation: bindings.map((b) => b.occupationLabel?.value).filter(Boolean) || [],
         languages: bindings.map((b) => b.languageLabel?.value).filter(Boolean) || [],
-        party: result.partyLabel?.value || null,
+        political_parties: parties, // Include all parties
       };
     }
 
@@ -118,7 +131,7 @@ function formatFields(data) {
     description: data.description?.toString() || null, // OK
     gender: data.gender?.toString() || null, // OK
     date_of_birth: data.date_of_birth ? formatDateToGreek(data.date_of_birth) : null, // OK
-    date_of_death: data.date_of_death ? formatDateToGreek(data.date_of_death) : null, // TODO!!!!!!
+    date_of_death: data.date_of_death ? formatDateToGreek(data.date_of_death) : null, // OK
     place_of_birth: data.place_of_birth?.toString() || null, // OK
     educated_at: data.educated_at ? data.educated_at.join(", ").toString() : null,
     website: data.website?.toString() || null,
@@ -144,42 +157,17 @@ function formatFields(data) {
         ),
       ].join(", ")
       : null,
-    political_party: data.political_party?.toString() || null,
+    political_parties: data.political_parties
+      ? [
+        ...new Map(
+          data.political_parties.map((party) => [party.name, party]) // Use party name as the unique key
+        ).values(),
+      ]
+      : [],
     debates: data.debates?.toString() || null,
   };
 }
 
-
-
-
-
-
-async function uploadImageToStrapi(imageUrl, STRAPI_URL, API_TOKEN) {
-  try {
-    if (!imageUrl) return null;
-
-    // Fetch the image from the external URL
-    const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
-
-    // Prepare the form data for the upload
-    const formData = new FormData();
-    formData.append("files", Buffer.from(response.data), "image.jpg");
-
-    // Upload the image to Strapi's Media Library
-    const uploadResponse = await axios.post(`${STRAPI_URL}/api/upload`, formData, {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        ...formData.getHeaders(),
-      },
-    });
-
-    // Return the ID of the uploaded image
-    return uploadResponse.data[0].id;
-  } catch (error) {
-    console.error("Error uploading image to Strapi: ", error.response ? error.response.data : error);
-    return null;
-  }
-}
 
 
 // Helper function to extract speech data
@@ -200,7 +188,7 @@ export async function extractSpeakerData(speaker, debateId) {
     website: wikidata?.website || null,
     occupation: wikidata?.occupation || [],
     languages: wikidata?.languages || [],
-    political_party: wikidata?.party || null,
+    political_parties: wikidata?.political_parties || null,
     debates: debateId
   }
 }
@@ -210,11 +198,24 @@ export async function extractSpeakerData(speaker, debateId) {
 async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
   // console.log("LOOK HERE FOR SPEAKER DATA: ", speakerData);
   try {
+    const politicalPartyIds = [];
 
     // Upload the speaker's image to Strapi and get its ID
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
 
     const validatedData = formatFields(speakerData);
+
+    console.log("Speaker data: ", validatedData);
+
+    // Process all political parties
+    if (validatedData.political_parties && validatedData.political_parties.length > 0) {
+      for (const party of validatedData.political_parties) {
+        const partyId = await findOrCreatePoliticalParty(party, STRAPI_URL, API_TOKEN);
+        if (partyId) {
+          politicalPartyIds.push(partyId);
+        }
+      }
+    }
 
     // Attempt to find the speaker by unique field (e.g., speaker_id)
     const response = await axios.get(
@@ -239,6 +240,7 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
         data: {
           ...validatedData,
           image: imageId,
+          political_parties: politicalPartyIds, // Link all parties
         }
       },
       {
@@ -254,7 +256,6 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
     return createResponse.data.data.documentId;
   } catch (error) {
     console.error("Error finding or creating speaker:", error.response ? error.response.data : error);
-    throw error;
   }
 }
 
@@ -283,6 +284,22 @@ async function connect(speakerId, debateId, STRAPI_URL, API_TOKEN) {
         },
       }
     );
+    // await axios.put(
+    //   `${STRAPI_URL}/api/political-parties/${partyId}`,
+    //   {
+    //     data: {
+    //       debates: {
+    //         connect: [speakerId]
+    //       }
+    //     }
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${API_TOKEN}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }
+    // );
     await axios.put(
       `${STRAPI_URL}/api/debates/${debateId}`,
       {
