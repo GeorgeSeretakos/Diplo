@@ -28,9 +28,9 @@ export default async function populate() {
 
       // If debateId exists, insert Parliament Session data and connect it to the Debate
       if (debateId) {
-        // await insertHtml(htmlData, debateId, STRAPI_URL, API_TOKEN);
+        await insertHtml(htmlData, debateId, STRAPI_URL, API_TOKEN);
 
-        // await insertParliamentSession(jsonData, debateId, STRAPI_URL, API_TOKEN);
+        await insertParliamentSession(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
         await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
 

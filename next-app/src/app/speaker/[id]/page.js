@@ -87,9 +87,6 @@ const SpeakerPage = () => {
     political_parties,
   } = speakerData;
 
-  console.log("Political parties: ", political_parties);
-  console.log("Party 1: ", political_parties[0]);
-  console.log("party 1 name: ", political_parties[0].name);
 
   // Construct the full image URL
   const imageUrl = image?.formats?.large?.url
@@ -224,7 +221,7 @@ const SpeakerPage = () => {
             <button className="button" onClick={() => router.push(`/speakers-results/?searchPerformed=true`)}>Previous
               Search
             </button>
-            <button className="button" onClick={() => router.push("/browse-speakers/")}>Go Back</button>
+            <button className="button" onClick={() => router.push("/browse-speakers/")}>Change Filter</button>
             <button className="button" onClick={() => router.push("/")}>Exit</button>
           </div>
 

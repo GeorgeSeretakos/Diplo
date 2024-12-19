@@ -22,6 +22,12 @@ body {
   background-color: black;
 }
 
+.link {
+  text-decoration: none; /* Remove default link underline */
+  color: inherit; /* Inherit text color from the parent element */
+  display: block; /* Ensure the link wraps the entire card */
+}
+
 .videoContainer {
   position: fixed;
   top: 0;
@@ -280,12 +286,14 @@ h1, h2, h3 {
 .sections {
   border: 1px solid white;
   border-radius: 4rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
   margin-top: 1rem;
   display: flex; /* Flexbox for two-column layout */
   flex-direction: row;
   justify-content: space-between; /* Space out the left and right sections */
   align-items: center; /* Vertically align both sections */
-  width: 100%;
+  /*width: 100%;*/
   box-sizing: border-box;
   overflow: hidden;
 }

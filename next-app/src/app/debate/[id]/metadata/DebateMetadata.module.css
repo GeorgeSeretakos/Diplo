@@ -1,0 +1,10 @@
+.grid {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.speakersSection {
+    /*border: 2px solid yellow;*/
+}
