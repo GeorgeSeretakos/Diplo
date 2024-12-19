@@ -9,39 +9,45 @@ import AgeFilter from "@/app/components/Filters/AgeFilter/AgeFilter";
 import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
 import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
 import TopicFilter from "@/app/components/Filters/TopicFilter/TopicFilter";
-import {useRouter, useSearchParams} from "next/navigation";
+import {useSearchParams} from "next/navigation";
 import DynamicHeader from "@/utils/DynamicHeader";
 import DebateCard from "@/app/components/Debate/DebateCard/DebateCard";
 
-const SpeakersResults = () => {
+const DebatesResults = () => {
 
     const debates = [
         {
+            documentId: "1",
             date: "2024-12-05",
             topics: ["Healthcare Reform", "Education Budget"],
             session: "Winter Session 2024",
         },
         {
+            documentId: "2",
             date: "2024-11-20",
             topics: ["Climate Policy", "Renewable Energy"],
             session: "Autumn Session 2024",
         },
         {
+            documentId: "3",
             date: "2024-10-15",
             topics: ["Taxation Laws", "Corporate Regulation"],
             session: "Autumn Session 2024",
         },
         {
+            documentId: "4",
             date: "2024-09-25",
             topics: ["National Security", "Defense Budget"],
             session: "Monsoon Session 2024",
         },
         {
+            documentId: "5",
             date: "2024-08-10",
             topics: ["Agricultural Subsidies", "Water Resource Management"],
             session: "Monsoon Session 2024",
         },
     ];
+
 
 
     const searchParams = useSearchParams();
@@ -76,18 +82,18 @@ const SpeakersResults = () => {
         setTempFilters(initialFilterState);
     };
 
-    const filteredSpeakers = Speakers.filter((speaker) => {
-        const withinParty =
-            filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
-        const withinTopic =
-            filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
-        const withinAge =
-            speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
-        const withinGender =
-            !filters.gender || speaker.gender === filters.gender;
-
-        return withinParty && withinAge && withinGender && withinTopic;
-    });
+    // const filteredSpeakers = Speakers.filter((speaker) => {
+    //     const withinParty =
+    //         filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
+    //     const withinTopic =
+    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
+    //     const withinAge =
+    //         speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
+    //     const withinGender =
+    //         !filters.gender || speaker.gender === filters.gender;
+    //
+    //     return withinParty && withinAge && withinGender && withinTopic;
+    // });
 
     return (
         <>
@@ -138,7 +144,7 @@ const SpeakersResults = () => {
                             {debates.map((debate, index) => (
                                 <DebateCard
                                     key={index}
-                                    id={debate.id}
+                                    documentId={debate.documentId}
                                     date={debate.date}
                                     topics={debate.topics}
                                     session={debate.session}
@@ -152,4 +158,4 @@ const SpeakersResults = () => {
     );
 };
 
-export default SpeakersResults;
+export default DebatesResults;

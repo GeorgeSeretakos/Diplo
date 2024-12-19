@@ -64,6 +64,7 @@ const SpeakersResults = () => {
     };
 
 
+    // Fetch all available speakers from Strapi
     useEffect(() => {
         const fetchSpeakers = async () => {
             try {
@@ -172,7 +173,6 @@ const SpeakersResults = () => {
                                     }
                                     speaker_name={speaker.name}
                                     // party={speaker.party}
-                                    // description={speaker.description}
                                 />
                             ))}
                         </div>

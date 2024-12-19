@@ -1,24 +1,23 @@
 import React from "react";
 import styles from "./DebateCard.module.css";
-import {useRouter} from "next/navigation";
+import Link from "next/link";
 
-const DebateCard = ({ date, topics, session }) => {
-  const router = useRouter();
+const DebateCard = ({ documentId, date, topics, session }) => {
 
-  const handleClick = () => {
-    router.push(`/debates/${id}`); // Navigate to the debate metadata page
-  }
+  console.log("DocumentId: ", documentId);
 
   return (
-    <div className={styles.debateCard} onClick={handleClick}>
-      <div className={styles.date}>{date}</div>
-      <div className={styles.topics}>
-        <strong>Topics:</strong> {topics.join(", ")}
+    <Link href={`/debate/${documentId}/metadata`} className="link">
+      <div className={styles.debateCard}>
+        <div className={styles.date}>{date}</div>
+        <div className={styles.topics}>
+          <strong>Topics:</strong> {topics.join(", ")}
+        </div>
+        <div className={styles.session}>
+          <strong>Parliament Session:</strong> {session}
+        </div>
       </div>
-      <div className={styles.session}>
-        <strong>Parliament Session:</strong> {session}
-      </div>
-    </div>
+    </Link>
   );
 };
 
