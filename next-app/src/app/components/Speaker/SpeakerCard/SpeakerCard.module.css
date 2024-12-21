@@ -1,7 +1,7 @@
 .speakerCard {
     position: relative;
-    width: 7.5rem;
-    height: 12.5rem;
+    width: 10rem;
+    height: 15rem;
     background-color: black;
     border: 2px solid white;
     border-radius: 2rem;
@@ -30,9 +30,9 @@
 }
 
 
-.speakerCard:hover .cardContent {
-    filter: blur(4px); /* Apply blur on hover */
-}
+/*.speakerCard:hover .cardContent {*/
+/*    filter: blur(4px); !* Apply blur on hover *!*/
+/*}*/
 
 .imageContainer {
     width: 100%;
@@ -49,20 +49,14 @@
     object-fit: cover;
 }
 
-.speakerNameContainer {
-    border: 2px solid yellow;
-    width: 100%;
-    /*height: 10%;*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
-}
 
 .speakerName {
-    font-size: .85rem;
+    width: 90%;
+    font-size: .7rem;
     color: white;
     font-weight: bold;
     /*border: 2px solid yellow;*/
+    padding: .35rem;
 }
 
 .party {
@@ -89,31 +83,39 @@
     align-items: center;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    opacity: 0;
-    z-index: 2;
-    transition: opacity 0.3s ease-in-out;
-    text-align: center;
-}
+/*.overlay {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background-color: rgba(0, 0, 0, 0.6);*/
+/*    color: white;*/
+/*    opacity: 0;*/
+/*    z-index: 2;*/
+/*    transition: opacity 0.3s ease-in-out;*/
+/*    text-align: center;*/
+/*}*/
 
-.overlay p {
-    padding: 0 3rem 0 3rem;
-    /*border: 2px solid red;*/
-    line-height: 1.5rem;
-}
+/*.overlay p {*/
+/*    padding: 0 3rem 0 3rem;*/
+/*    !*border: 2px solid red;*!*/
+/*    line-height: 1.5rem;*/
+/*}*/
 
-.speakerCard:hover .overlay {
-    opacity: 1; /* Show the overlay on hover */
+/*.speakerCard:hover .overlay {*/
+/*    opacity: 1; !* Show the overlay on hover *!*/
+/*}*/
+
+/*.speakerCard:hover .speakerName {*/
+/*    color: #e1f685;*/
+/*}*/
+
+.speakerCard:hover {
+    border: 2px solid #e1f685;
 }
 
 

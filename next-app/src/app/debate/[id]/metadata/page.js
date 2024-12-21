@@ -1,13 +1,14 @@
 'use client';
 
 import React from "react";
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import styles from "../../../speaker/[id]/SpeakerProfile.module.css";
 import metadataStyles from "./DebateMetadata.module.css";
 import SpeakerCard from "../../../components/Speaker/SpeakerCard/SpeakerCard.js";
 import { constants } from "../../../../../constants/constants.js";
 
 const DebateMetadata = () => {
+  const router = useRouter();
 
   const STRAPI_URL = constants.STRAPI_URL;
 
@@ -1789,7 +1790,7 @@ const DebateMetadata = () => {
 
 
           <div className="buttonContainer">
-            <button className="button">View Debate Content</button>
+            <button className="button" onClick={() => router.push(`/debate/${documentId}/content`)}>View Debate Content</button>
             <button className="button">Go Back</button>
           </div>
 

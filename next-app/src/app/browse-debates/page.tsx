@@ -21,7 +21,7 @@ const BrowseSpeakers = () => {
                     title="Debate Date"
                     imageUrl="/images/debates/date.jpg"
                     description="Click to search for debates based on their date"
-                    onButtonClick={() => handleFilterSelection("Search by Name")}
+                    onButtonClick={() => handleFilterSelection("date")}
                 />
 
                 {/* Section 2: Find by Key Phrase */}
@@ -29,7 +29,7 @@ const BrowseSpeakers = () => {
                     title="Key Phrase"
                     imageUrl="/images/debates/key-phrase.jpg"
                     description="Click to search for debates mentioning a specific phrase"
-                    onButtonClick={() => handleFilterSelection("Search by Key Phrase")}
+                    onButtonClick={() => handleFilterSelection("phrase")}
                 />
 
                 {/* Section 3: Browse by Topic */}
@@ -37,7 +37,7 @@ const BrowseSpeakers = () => {
                     title="Parliament Session"
                     imageUrl="/images/debates/parliament-session.jpg"
                     description="Click to browse debates based on parliament session"
-                    onButtonClick={() => handleFilterSelection("topicsFilter")}
+                    onButtonClick={() => handleFilterSelection("topics")}
                 />
 
                 {/* Section 4: Browse by Party */}
@@ -45,7 +45,7 @@ const BrowseSpeakers = () => {
                     title="Debate Topic"
                     imageUrl="/images/debates/topics.png"
                     description="Click to browse debates grouped by their political party"
-                    onButtonClick={() => handleFilterSelection("Search by Political Party")}
+                    onButtonClick={() => handleFilterSelection("party")}
                 />
 
             </div>

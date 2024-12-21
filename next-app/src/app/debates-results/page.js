@@ -17,7 +17,7 @@ const DebatesResults = () => {
 
     const debates = [
         {
-            documentId: "1",
+            documentId: "lmfupphyuwhua7he7ai21wod",
             date: "2024-12-05",
             topics: ["Healthcare Reform", "Education Budget"],
             session: "Winter Session 2024",
