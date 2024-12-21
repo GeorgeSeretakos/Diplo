@@ -22,6 +22,10 @@ const BrowseSpeakers = () => {
                     Once applied, you will be able to narrow down your search applying more
                     specific filters, such as age, gender and more.
                 </p>
+                <div className="buttonContainer">
+                    <button className="button" onClick={() => handleFilterSelection("all")}>Browse all</button>
+                    <button className="button" onClick={() => router.push("/")}>Go Back</button>
+                </div>
             </div>
 
             <div className={styles.sections}>
@@ -30,7 +34,7 @@ const BrowseSpeakers = () => {
                     title="Speaker Name"
                     imageUrl="/images/politicians/speakers.webp"
                     description="Click to search for speakers based on their name"
-                    onButtonClick={() => handleFilterSelection("Search by Name")}
+                    onButtonClick={() => handleFilterSelection("name")}
                 />
 
                 {/* Section 2: Browse by Party */}
@@ -38,7 +42,7 @@ const BrowseSpeakers = () => {
                     title="Political Party"
                     imageUrl="/images/parties/parties.jpg"
                     description="Click to browse speakers grouped by their political party"
-                    onButtonClick={() => handleFilterSelection("Search by Political Party")}
+                    onButtonClick={() => handleFilterSelection("speaker-party")}
                 />
 
                 {/* Section 3: Find by Key Phrase */}
@@ -46,7 +50,7 @@ const BrowseSpeakers = () => {
                     title="Key Phrase"
                     imageUrl="/images/politicians/key-phrase.jpg"
                     description="Click to search for speakers who have said a specific phrase"
-                    onButtonClick={() => handleFilterSelection("Search by Key Phrase")}
+                    onButtonClick={() => handleFilterSelection("speaker-phrase")}
                 />
 
                 {/* Section 4: Browse by Topic */}
@@ -54,7 +58,7 @@ const BrowseSpeakers = () => {
                     title="Topic"
                     imageUrl="/images/topics/topics.jpg"
                     description="Click to browse speakers debating specific topics"
-                    onButtonClick={() => handleFilterSelection("topicsFilter")}
+                    onButtonClick={() => handleFilterSelection("speaker-topic")}
                 />
             </div>
         </div>

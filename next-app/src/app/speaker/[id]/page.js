@@ -21,6 +21,8 @@ const SpeakerPage = () => {
 
   const {id: documentId} = useParams();
 
+  console.log("DocumentId:", documentId);
+
   useEffect(() => {
     const fetchSpeakerData = async () => {
       try {

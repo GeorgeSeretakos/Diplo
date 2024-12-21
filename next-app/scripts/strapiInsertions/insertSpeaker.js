@@ -124,8 +124,15 @@ async function fetchSpeakerData(wikidataUrl) {
 
 
 function formatFields(data) {
+  // Function to convert to uppercase and remove Greek tones
+  const removeGreekTones = (input) =>
+    input
+      .normalize("NFD") // Decompose characters into base and diacritics
+      .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+      .toUpperCase(); // Convert to uppercase
+
   return {
-    speaker_name: data.speaker_name?.toString() || null, // OK
+    speaker_name: data.speaker_name? removeGreekTones(data.speaker_name).toString() : null, // OK
     speaker_id: data.speaker_id?.toString() || null, // OK
     link: data.link?.toString() || null, // OK
     description: data.description?.toString() || null, // OK

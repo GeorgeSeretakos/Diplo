@@ -15,7 +15,6 @@ import {useSearchParams} from "next/navigation";
 
 const SpeakersResults = () => {
     const STRAPI_URL = constants.STRAPI_URL;
-    const API_TOKEN = constants.API_TOKEN;
 
     const searchParams = useSearchParams();
     const searchPerformedParam = searchParams.get("searchPerformed") === "true";
@@ -26,8 +25,11 @@ const SpeakersResults = () => {
       primaryFilterParam || sessionStorage.getItem("primaryFilter") || null
     );
     const [speakers, setSpeakers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
+    const [inputValues, setInputValues] = useState({ speakerName: "", keyPhrase: "" });
+
+    const [noResultsMessage, setNoResultsMessage] = useState("");
 
     // Persist `primaryFilter` in sessionStorage
     useEffect(() => {
@@ -36,8 +38,33 @@ const SpeakersResults = () => {
         }
     }, [primaryFilter]);
 
+    // Fetch all speakers if primaryFilter is "all"
+    useEffect(() => {
+        if (primaryFilter === "all") {
+            fetchAllSpeakers();
+        }
+    }, [primaryFilter]);
+
+    const fetchAllSpeakers = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch("/api/strapi/speakers/all");
+            const data = await response.json();
+            setSpeakers(data);
+        } catch (error) {
+            console.error("Error fetching all speakers: ", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const resetSearch = () => {
         setSearchPerformed(false); // Reset search state
+        setInputValues({
+            speakerName: "",
+            keyPhrase: ""
+        });
+        setSpeakers([]);
     };
 
     const initialFilterState = {
@@ -63,46 +90,51 @@ const SpeakersResults = () => {
         setTempFilters(initialFilterState);
     };
 
+    const handleInputChange = (name, value) => {
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
 
-    // Fetch all available speakers from Strapi
-    useEffect(() => {
-        const fetchSpeakers = async () => {
-            try {
-                const response = await fetch(
-                  `${STRAPI_URL}/api/speakers?fields=speaker_name,documentId&populate=image`,
-                  {
-                      headers: {
-                          Authorization: `Bearer ${API_TOKEN}`,
-                      },
-                  }
-                );
-                const data = await response.json();
 
-                const speakersData = data.data.map((speaker) => ({
-                    id: speaker.id,
-                    name: speaker.speaker_name,
-                    image:
-                      speaker.image?.formats?.large?.url ||
-                      speaker.image?.url ||
-                      null, // Use large format or fallback to the original
-                    documentId: speaker.documentId,
-                }));
-                console.log("Speaker data: ", speakersData);
-                setSpeakers(speakersData);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching speakers:", error);
-                setLoading(false);
+    // Fetch speakers based on primary filet and input values
+    const handleSearch = async () => {
+        setNoResultsMessage("");
+        setLoading(true);
+        setSearchPerformed(true);
+
+        try {
+            let endpoint;
+            if (primaryFilter === "name") {
+                endpoint = `/api/strapi/speakers/name?name=${encodeURIComponent(inputValues.speakerName)}`;
             }
-        };
+            else if (primaryFilter === "speaker-phrase") {
+                endpoint  = `/api/strapi/speakers/phrase?phrase=${encodeURIComponent(inputValues.keyPhrase)}`;
+            }
 
-        fetchSpeakers();
-    }, []);
+            const response = await fetch(endpoint);
+            const data = await response.json();
+
+            if (data.length === 0) {
+                setNoResultsMessage("No speakers were found, perform another search.");
+            }
+            else {
+                setSpeakers(data);
+            }
+
+        } catch (error) {
+            console.log("Error fetching speakers: ", error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     console.log("Speakers: ", speakers);
 
 
-    // const filteredSpeakers = Speakers.filter((speaker) => {
+
+    // const filteredSpeakers = speakers.filter((speaker) => {
     //     const withinParty =
     //         filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
     //     const withinTopic =
@@ -115,6 +147,10 @@ const SpeakersResults = () => {
     //     return withinParty && withinAge && withinGender && withinTopic;
     // });
 
+    if (loading) {
+        return <p>Loading ...</p>
+    }
+
 
     return (
         <>
@@ -122,59 +158,72 @@ const SpeakersResults = () => {
             <div className={styles.searchSection}>
                 {primaryFilter && (
                     <DynamicHeader
-                        primaryFilter={primaryFilter}
-                        onSearch={() => setSearchPerformed(true)} // Update searchPerformed state
-                        resetSearch={resetSearch} // Reset the searchPerformed state
+                      primaryFilter={primaryFilter}
+                      onSearch={handleSearch} // Update searchPerformed state
+                      resetSearch={resetSearch} // Reset the searchPerformed state
+                      inputValues={inputValues}
+                      onInputChange={handleInputChange}
                     />
                 )}
             </div>
 
             {/* Only show content if search is performed */}
-            {searchPerformed && (
+            {(searchPerformed || primaryFilter === "all") && (
                 <div className={styles.pageLayout}>
-                    <div className={styles.filterSection}>
-                        <PoliticalPartyFilter
+                    {noResultsMessage === "" ? (
+                      <div className={styles.filterSection}>
+                          <PoliticalPartyFilter
                             selectedParties={tempFilters.parties}
                             onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                        />
-                        <TopicFilter
+                          />
+                          <TopicFilter
                             selectedTopics={tempFilters.topics}
                             onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}
-                        />
-                        <PhraseFilter
+                          />
+                          <PhraseFilter
                             phrase={tempFilters.phrase}
                             onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
-                        />
-                        <AgeFilter
+                          />
+                          <AgeFilter
                             ageRange={tempFilters.ageRange}
                             onAgeRangeChange={(updatedRange) => handleTempFilterChange("ageRange", updatedRange)}
-                        />
-                        <GenderFilter
+                          />
+                          <GenderFilter
                             selectedGender={tempFilters.gender}
                             onFilterChange={(updatedGender) => handleTempFilterChange("gender", updatedGender)}
-                        />
+                          />
 
-                        <div className="buttonContainer">
-                            <button className="button" onClick={applyFilters}>Apply Filters</button>
-                            <button className="button" onClick={cancelFilters}>Cancel</button>
-                        </div>
-                    </div>
+                          <div className="buttonContainer">
+                              <button className="button" onClick={applyFilters}>Apply Filters</button>
+                              <button className="button" onClick={cancelFilters}>Cancel</button>
+                          </div>
+                      </div>
+                    ) :
+                      <div className={styles.noResultsMessage}>
+                          <p>{noResultsMessage}</p>
+                      </div>
+                    }
 
                     <div className={styles.browseSection}>
                         <div className={styles.speakerGrid}>
-                            {speakers.map((speaker, index) => (
-                                <SpeakerCard
+                            {speakers.map((speaker, index) => {
+                                // Construct the full image URL
+                                const imageUrl = speaker.image?.formats?.large?.url
+                                  ? `${STRAPI_URL}${speaker.image.formats.large.url}`
+                                  : speaker.image?.url
+                                    ? `${STRAPI_URL}${speaker.image.url}`
+                                    : null;
+
+                                return (
+                                  <SpeakerCard
                                     key={index}
                                     documentId={speaker.documentId}
-                                    image={
-                                        speaker.image
-                                          ? `${STRAPI_URL}${speaker.image}`
-                                          : null
-                                    }
-                                    speaker_name={speaker.name}
+                                    image={imageUrl}
+                                    speaker_name={speaker.speaker_name}
                                     // party={speaker.party}
-                                />
-                            ))}
+                                  />
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
