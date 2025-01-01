@@ -98,10 +98,6 @@
 }
 
 
-.extraDetails {
-    margin-bottom: 2rem;
-}
-
 .websiteSection {
     text-align: left;
     margin-top: 1rem;
@@ -177,7 +173,6 @@
 }
 
 .positionsHeld {
-    margin-top: 2rem;
     padding: 1rem;
     border-radius: 8px;
 }
@@ -186,9 +181,6 @@
     color: white;
 }
 
-.aboutSection {
-    /*border: 2px solid red;*/
-}
 
 .partyDetails {
     /*border: 2px solid red;*/

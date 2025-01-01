@@ -58,6 +58,9 @@ const BrowseSpeakers = () => {
                     specific filters, such as participating speakers, participating parties, parliament session and
                     more.
                 </p>
+                <div className="buttonContainer">
+                    <button className="button" onClick={() => handleFilterSelection("all-debates")}>Browse all</button>
+                </div>
             </div>
         </div>
     );

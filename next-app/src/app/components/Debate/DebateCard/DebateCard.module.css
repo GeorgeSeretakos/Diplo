@@ -5,8 +5,8 @@
     border-radius: 1rem; /* Rounded corners */
     padding: 1.5rem; /* Add internal spacing */
     margin: 0.5rem; /* External spacing */
-    height: 7.5rem;
-    width: 17.5rem; /* Full width of parent */
+    height: 10rem;
+    width: 20rem; /* Full width of parent */
     max-width: 300px; /* Restrict max width for consistency */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add depth */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effects */

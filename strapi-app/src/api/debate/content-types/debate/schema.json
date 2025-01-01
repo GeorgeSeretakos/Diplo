@@ -52,6 +52,21 @@
       "relation": "oneToOne",
       "target": "api::html.html",
       "mappedBy": "debate"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "debates"
+    },
+    "political_parties": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::political-party.political-party",
+      "inversedBy": "debates"
     }
   }
 }

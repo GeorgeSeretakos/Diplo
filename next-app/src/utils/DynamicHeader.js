@@ -16,7 +16,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
   const renderOptionContent = (option, inputValues, handleInputChange) => {
 
     switch(option) {
-      case "name":
+      case "speaker-name":
         return (
           <div className="inputContainer query">
             <input
@@ -64,7 +64,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
             />
           </div>
         );
-      case "date":
+      case "debate-date":
         return (
           <div className="inputContainer query">
             <input
@@ -95,56 +95,61 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
   return (
     <div>
       <h1 className={`message ${!primaryFilter ? "home" : ""}`}>
-        {primaryFilter === "name" && (
+        {primaryFilter === "speaker-name" && (
           <span>
             Find speakers named{" "}
             <span className="dynamic-content">{inputValues.speakerName || "speaker name"}</span>
           </span>
         )}
-        {/*{primaryFilter === "speaker-topics" && (*/}
-        {/*  <span>*/}
-        {/*    Find out which speakers debating on:{" "}*/}
-        {/*    <span className="dynamic-content">{inputValues.topics || "key phrase"}</span> in their speeches*/}
-        {/*  </span>*/}
-        {/*)}*/}
-        {/*{primaryFilter === "debate-topics" && (*/}
-        {/*  <span>*/}
-        {/*    Find out which speakers have said:{" "}*/}
-        {/*    <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches*/}
-        {/*  </span>*/}
-        {/*)}*/}
         {primaryFilter === "speaker-phrase" && (
           <span>
             Find out which speakers have said:{" "}
             <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches
           </span>
         )}
+        {primaryFilter === "speaker-topics" && (
+          <span>
+            Find out which speakers debating on:{" "}
+            <span className="dynamic-content">{inputValues.topics || "key phrase"}</span> in their speeches
+          </span>
+        )}
+
         {primaryFilter === "debate-phrase" && (
           <span>
             Find out which debates include the phrase:{" "}
             <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
           </span>
         )}
-        {primaryFilter === "session" && (
+        {primaryFilter === "debate-session" && (
           <span>
             Discover debates with parliament session:{" "}
             <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
           </span>
         )}
-        {primaryFilter === "date" && (
+        {primaryFilter === "debate-date" && (
           <span>
             Discover debates from {" "} to {" "}
             <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
           </span>
         )}
-        {primaryFilter === "all" && (
+        {primaryFilter === "debate-topics" && (
+          <span>
+            Find out which speakers have said:{" "}
+            <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches
+          </span>
+        )}
+
+        {primaryFilter === "all-speakers" && (
           <span>You are currently browsing all speakers</span>
+        )}
+        {primaryFilter === "all-debates" && (
+          <span>You are currently browsing all debates</span>
         )}
       </h1>
 
       <div className="buttonContainer">
         {renderOptionContent(primaryFilter, inputValues, onInputChange)}
-        {primaryFilter !== "all" && (
+        {(primaryFilter !== "all-speakers" && primaryFilter !== "all-debates" ) && (
           <>
             <button onClick={handleSearch}>Search</button>
             <button onClick={() => router.push("/browse-speakers/")}>Go Back</button>
