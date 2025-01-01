@@ -202,7 +202,7 @@ export async function extractSpeakerData(speaker, debateId) {
 
 
 // Function to find or create a speaker
-async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
+async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
   // console.log("LOOK HERE FOR SPEAKER DATA: ", speakerData);
   try {
     const politicalPartyIds = [];
@@ -222,7 +222,25 @@ async function findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN) {
           politicalPartyIds.push(partyId);
         }
       }
+      // // Link political parties of speaker to debate, problem: what was the party of the speaker during this debate?
+      // await axios.put(
+      //   `${STRAPI_URL}/api/debates/${debateId}`,
+      //   {
+      //     data: {
+      //       political_parties: {
+      //         connect: politicalPartyIds,
+      //       },
+      //     },
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${API_TOKEN}`,
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
     }
+
 
     // Attempt to find the speaker by unique field (e.g., speaker_id)
     const response = await axios.get(
@@ -291,22 +309,6 @@ async function connect(speakerId, debateId, STRAPI_URL, API_TOKEN) {
         },
       }
     );
-    // await axios.put(
-    //   `${STRAPI_URL}/api/political-parties/${partyId}`,
-    //   {
-    //     data: {
-    //       debates: {
-    //         connect: [speakerId]
-    //       }
-    //     }
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${API_TOKEN}`,
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
     await axios.put(
       `${STRAPI_URL}/api/debates/${debateId}`,
       {
@@ -342,7 +344,7 @@ export async function insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN) {
       const speakerData = await extractSpeakerData(speaker.$, debateId);
 
       // Find or create the speaker, and get the speaker ID
-      const speakerId = await findOrCreateSpeaker(speakerData, STRAPI_URL, API_TOKEN);
+      const speakerId = await findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN);
 
       // Connect the speaker to the debate, even if they already existed
       await connect(speakerId, debateId, STRAPI_URL, API_TOKEN);

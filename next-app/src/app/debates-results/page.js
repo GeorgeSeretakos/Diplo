@@ -12,46 +12,53 @@ import TopicFilter from "@/app/components/Filters/TopicFilter/TopicFilter";
 import {useSearchParams} from "next/navigation";
 import DynamicHeader from "@/utils/DynamicHeader";
 import DebateCard from "@/app/components/Debate/DebateCard/DebateCard";
+import {constants} from "../../../constants/constants.js";
 
 const DebatesResults = () => {
-
-    const debates = [
-        {
-            documentId: "lmfupphyuwhua7he7ai21wod",
-            date: "2024-12-05",
-            topics: ["Healthcare Reform", "Education Budget"],
-            session: "Winter Session 2024",
-        },
-        {
-            documentId: "2",
-            date: "2024-11-20",
-            topics: ["Climate Policy", "Renewable Energy"],
-            session: "Autumn Session 2024",
-        },
-        {
-            documentId: "3",
-            date: "2024-10-15",
-            topics: ["Taxation Laws", "Corporate Regulation"],
-            session: "Autumn Session 2024",
-        },
-        {
-            documentId: "4",
-            date: "2024-09-25",
-            topics: ["National Security", "Defense Budget"],
-            session: "Monsoon Session 2024",
-        },
-        {
-            documentId: "5",
-            date: "2024-08-10",
-            topics: ["Agricultural Subsidies", "Water Resource Management"],
-            session: "Monsoon Session 2024",
-        },
-    ];
-
-
+    const STRAPI_URL = constants.STRAPI_URL;
 
     const searchParams = useSearchParams();
-    const primaryFilter = searchParams.get("primaryFilter");
+    const searchPerformedParam = searchParams.get("searchPerformed") === "true";
+    const primaryFilterParam = searchParams.get("primaryFilter");
+    const [primaryFilter, setPrimaryFilter] = useState(
+      primaryFilterParam || sessionStorage.getItem("primaryFilter") || null
+    );
+    const [debates, setDebates] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    // console.log("Primary filter: ", primaryFilter);
+
+    // Persist `primaryFilter` in sessionStorage
+    useEffect(() => {
+        if (primaryFilter) {
+            sessionStorage.setItem("primaryFilter", primaryFilter);
+        }
+    }, [primaryFilter]);
+
+    // Fetch all speakers if primaryFilter is "all"
+    useEffect(() => {
+        if (primaryFilter === "all-debates") {
+            fetchAllDebates();
+        }
+    }, [primaryFilter]);
+
+    const fetchAllDebates = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch("http://localhost:3000/api/strapi/debates/all");
+            console.log("api response: ", response);
+            const data = await response.json();
+            setDebates(data);
+        } catch (error) {
+            console.error("Error fetching all speakers: ", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    console.log("Debates: ", debates);
+
+
 
     const [searchPerformed, setSearchPerformed] = useState(false);
 
@@ -95,6 +102,11 @@ const DebatesResults = () => {
     //     return withinParty && withinAge && withinGender && withinTopic;
     // });
 
+    if (loading) {
+        return <p>Loading ...</p>
+    }
+
+
     return (
         <>
             {/* Search Section */}
@@ -109,7 +121,7 @@ const DebatesResults = () => {
             </div>
 
             {/* Only show content if search is performed */}
-            {searchPerformed && (
+            {(searchPerformed || primaryFilter === "all-debates") && (
                 <div className={styles.pageLayout}>
                     <div className={styles.filterSection}>
                         <PoliticalPartyFilter
@@ -141,15 +153,19 @@ const DebatesResults = () => {
 
                     <div className={styles.browseSection}>
                         <div className={styles.speakerGrid}>
-                            {debates.map((debate, index) => (
+                            {debates && debates.length > 0 ? (
+                              debates.map((debate, index) => (
                                 <DebateCard
-                                    key={index}
-                                    documentId={debate.documentId}
-                                    date={debate.date}
-                                    topics={debate.topics}
-                                    session={debate.session}
+                                  key={index}
+                                  documentId={debate.documentId}
+                                  date={debate.date}
+                                  topics={debate.topics}
+                                  parliament_session={debate.parliament_session}
                                 />
-                            ))}
+                              ))
+                            ) : (
+                              <p>Loading debates ...</p>
+                            )}
                         </div>
                     </div>
                 </div>

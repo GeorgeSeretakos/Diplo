@@ -40,7 +40,7 @@ const SpeakersResults = () => {
 
     // Fetch all speakers if primaryFilter is "all"
     useEffect(() => {
-        if (primaryFilter === "all") {
+        if (primaryFilter === "all-speakers") {
             fetchAllSpeakers();
         }
     }, [primaryFilter]);
@@ -106,7 +106,7 @@ const SpeakersResults = () => {
 
         try {
             let endpoint;
-            if (primaryFilter === "name") {
+            if (primaryFilter === "speaker-name") {
                 endpoint = `/api/strapi/speakers/name?name=${encodeURIComponent(inputValues.speakerName)}`;
             }
             else if (primaryFilter === "speaker-phrase") {
@@ -168,7 +168,7 @@ const SpeakersResults = () => {
             </div>
 
             {/* Only show content if search is performed */}
-            {(searchPerformed || primaryFilter === "all") && (
+            {(searchPerformed || primaryFilter === "all-speakers") && (
                 <div className={styles.pageLayout}>
                     {noResultsMessage === "" ? (
                       <div className={styles.filterSection}>

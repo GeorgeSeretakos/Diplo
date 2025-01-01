@@ -23,8 +23,7 @@ const BrowseSpeakers = () => {
                     specific filters, such as age, gender and more.
                 </p>
                 <div className="buttonContainer">
-                    <button className="button" onClick={() => handleFilterSelection("all")}>Browse all</button>
-                    <button className="button" onClick={() => router.push("/")}>Go Back</button>
+                    <button className="button" onClick={() => handleFilterSelection("all-speakers")}>Browse all</button>
                 </div>
             </div>
 
@@ -34,7 +33,7 @@ const BrowseSpeakers = () => {
                     title="Speaker Name"
                     imageUrl="/images/politicians/speakers.webp"
                     description="Click to search for speakers based on their name"
-                    onButtonClick={() => handleFilterSelection("name")}
+                    onButtonClick={() => handleFilterSelection("speaker-name")}
                 />
 
                 {/* Section 2: Browse by Party */}
