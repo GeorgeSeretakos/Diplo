@@ -26,7 +26,7 @@ const DebateMetadata = () => {
     }
     const fetchDebateData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/strapi/debates/metadata/${documentId}`);
+        const response = await axios.get(`/api/strapi/debates/metadata/${documentId}`);
         console.log(response);
         setDebateData(response.data.debate); // Set the fetched data
       } catch (error) {
@@ -45,7 +45,10 @@ const DebateMetadata = () => {
   // Destructuring
   const {
     title,
-    parliament_session,
+    session,
+    session_date,
+    period,
+    meeting,
     topics,
     opening_section,
     speakers,
@@ -91,14 +94,14 @@ const DebateMetadata = () => {
 
           <div>
             {/* Education Section */}
-            {parliament_session && (
+            {(session || period || meeting) && (
               <div>
                 <strong className="dynamic-content">Parliament Session:</strong>
                 <ul className={styles.list}>
-                  <li><strong className="dynamic-content">Session Date:</strong> {parliament_session.session_date}</li>
-                  <li><strong className="dynamic-content">Period:</strong> {parliament_session.period}</li>
-                  <li><strong className="dynamic-content">Session:</strong> {parliament_session.session}</li>
-                  <li><strong className="dynamic-content">Meeting:</strong> {parliament_session.meeting}</li>
+                  <li><strong className="dynamic-content">Session Date:</strong> {session_date}</li>
+                  <li><strong className="dynamic-content">Period:</strong> {period}</li>
+                  <li><strong className="dynamic-content">Session:</strong> {session}</li>
+                  <li><strong className="dynamic-content">Meeting:</strong> {meeting}</li>
                 </ul>
               </div>
             )}

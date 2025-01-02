@@ -43,7 +43,7 @@ async function connect(htmlId, debateId, STRAPI_URL, API_TOKEN) {
       }
     );
 
-    console.log("Relationship between Parliament Session and Debate established successfully.");
+    console.log("Relationship between HTML and Debate established successfully.");
   } catch (error) {
     console.error("Error establishing relationship:", error.response ? error.response.data : error);
     throw error;

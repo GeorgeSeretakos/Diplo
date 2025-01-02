@@ -1,54 +1,49 @@
 import axios from "axios";
 import { constants } from "../../../../../../constants/constants.js";
+import {start} from "node:repl";
 
 const STRAPI_URL = constants.STRAPI_URL;
 const API_TOKEN = constants.API_TOKEN;
 
 export async function POST(req) {
+  const body = await req.json();
+  const { startDate, endDate } = body;
+  console.log("Received: ", startDate, endDate);
+
   try {
-    console.log("I am in the right place");
 
-    const body = await req.json();
-    const { startDate, endDate } = body;
+    // Construct GraphQL query dynamically based on provided filters
+    const filters = [];
+    if (startDate) filters.push(`gte: "${startDate}"`);
+    if (endDate) filters.push(`lte: "${endDate}"`);
 
-    console.log("Received: ", startDate, endDate);
+    console.log("Filters Array: ", filters);
+
+    const filtersClause = filters.length > 0 ? `filters: { date: { ${filters.join(", ")} } }` : "";
+
+    console.log("Where Clause: ", filtersClause);
 
     // Define the GraphQL query
     const query = `
-      query GetDebates($startDate: Date, $endDate: Date) {
-        debates(
-          filters: {
-            date: {
-              ${startDate ? "gte: $startDate" : ""}
-              ${endDate ? "lte: $endDate" : ""}
-            }
-          }
-        ) {
+      query {
+        debates(${filtersClause}) {
           documentId
           date
+          period
+          meeting
+          session
           topics {
             topic
-          }
-          parliament_session {
-            period
-            meeting
-            session
           }
         }
       }
     `;
 
-    // Construct variables for the query
-    const variables = {};
-    if (startDate) variables.startDate = startDate;
-    if (endDate) variables.endDate = endDate;
-
     console.log("Constructed query: ", query);
-    console.log("Variables: ", variables);
 
     const response = await axios.post(
       `${STRAPI_URL}/graphql`,
-      { query, variables },
+      { query },
       {
         headers: {
           "Content-Type": "application/json",

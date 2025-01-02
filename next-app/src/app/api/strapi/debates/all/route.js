@@ -9,12 +9,10 @@ export async function GET() {
       debates(pagination: { limit: -1 }) {
         documentId
         date
-        parliament_session {
-          period
-          session_date
-          session
-          meeting
-        }
+        period
+        session_date
+        session
+        meeting
         topics {
           topic
         }

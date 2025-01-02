@@ -21,12 +21,10 @@ export async function GET(request, { params }) {
         topics {
           topic
         }
-        parliament_session {
-          period
-          session_date
-          session
-          meeting
-        }
+        period
+        session_date
+        session
+        meeting
         speakers(pagination: { limit: -1 }) {  # Fetch all speakers
           speaker_id
           speaker_name

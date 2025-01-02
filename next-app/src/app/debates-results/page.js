@@ -33,7 +33,11 @@ const DebatesResults = () => {
         startDate: "",
         endDate: "",
         parliament_session: "",
-        keyPhrase: ""
+        keyPhrase: "",
+        session: "",
+        meeting: "",
+        period: "",
+        topics: [],
     });
 
 
@@ -76,14 +80,18 @@ const DebatesResults = () => {
         setInputValues({
             startDate: "",
             endDate: "",
-            keyPhrase: ""
+            keyPhrase: "",
+            session: "",
+            period: "",
+            meeting: "",
+            topics: []
         });
         setDebates([]);
     };
 
     const initialFilterState = {
         parties: ["ALL"],
-        topics: ["ALL"],
+        topics: [],
         ageRange: { min: 0, max: 100 },
         gender: null,
         phrase: "",
@@ -131,34 +139,38 @@ const DebatesResults = () => {
 
         try {
             let endpoint;
+            let body = {};
             if (primaryFilter === "debate-date") {
-                // Define the endpoint for your API
-                endpoint = "/api/strapi/debates/dateRange"; // Adjust this based on your API route
-
-                // const body = {
-                //     startDate: new Date(inputValues.startDate).toISOString().split("T")[0],
-                //     endDate: new Date(inputValues.endDate).toISOString().split("T")[0],
-                // };
-
-                const body = {
+                endpoint = "/api/strapi/debates/dateRange";
+                body = {
                     startDate: inputValues.startDate,
                     endDate: inputValues.endDate
                 }
-
-                console.log("Body being sent:", body); // Debugging log
-
-                // Make the Axios request
-                const response = await axios.post(endpoint, body);
-                console.log("Response: ", response.data);
-                //
-                // console.log("Response data: ", response.data);
-
-                // Check and handle the response
-                if (response.data?.length === 0) {
-                    setNoResultsMessage("No debates found for the selected date range.");
+            } else if (primaryFilter === "debate-session") {
+                endpoint = "/api/strapi/debates/parliamentSession";
+                body = {
+                    session: inputValues.session || null,
+                    period: inputValues.period || null,
+                    meeting: inputValues.meeting || null
                 }
-                setDebates(response.data);
+            } else if (primaryFilter === "debate-topic") {
+                endpoint = "/api/strapi/debates/topic";
+                body = {
+                    topicNames: inputValues.topics
+                }
             }
+
+            console.log("Body being sent:", body);
+
+            // Make the Axios request
+            const response = await axios.post(endpoint, body);
+            console.log("Response: ", response.data);
+
+            // Check and handle the response
+            if (response.data?.length === 0) {
+                setNoResultsMessage("No debates found for the selected date range.");
+            }
+            setDebates(response.data);
         } catch (error) {
             console.error("Error fetching debates: ", error.message);
             setNoResultsMessage("An error occurred while fetching debates. Please try again.");
@@ -196,10 +208,10 @@ const DebatesResults = () => {
                               selectedParties={tempFilters.parties}
                               onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
                             />
-                            <TopicFilter
-                              selectedTopics={tempFilters.topics}
-                              onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}
-                            />
+                            {/*<TopicFilter*/}
+                            {/*  selectedTopics={tempFilters.topics}*/}
+                            {/*  onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}*/}
+                            {/*/>*/}
                             <PhraseFilter
                               phrase={tempFilters.phrase}
                               onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
@@ -232,7 +244,9 @@ const DebatesResults = () => {
                                 documentId={debate.documentId}
                                 date={debate.date}
                                 topics={debate.topics}
-                                parliament_session={debate.parliament_session}
+                                session={debate.session}
+                                period={debate.period}
+                                meeting={debate.meeting}
                                 />
                             ))}
                         </div>

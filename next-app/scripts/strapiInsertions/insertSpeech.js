@@ -148,7 +148,7 @@ export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
     for (const speech of speeches) {
       const speechData = extractSpeechData(speech, debateId);
 
-      console.log("THIS IS THE SPEECH DATA: ", speechData);
+      // console.log("THIS IS THE SPEECH DATA: ", speechData);
 
       // Insert the speech data into Strapi
       const response = await axios.post(

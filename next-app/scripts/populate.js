@@ -2,7 +2,6 @@ import path from 'path';
 import { transform } from './transform.js';
 import { insertDebate } from './strapiInsertions/insertDebate.js';
 import {insertHtml} from "./strapiInsertions/insertHtml.js";
-import { insertParliamentSession } from './strapiInsertions/insertParliamentSession.js';
 import { insertSpeech } from './strapiInsertions/insertSpeech.js';
 import { insertSpeaker } from './strapiInsertions/insertSpeaker.js';
 import fs from "fs";
@@ -30,11 +29,9 @@ export default async function populate() {
       if (debateId) {
         await insertHtml(htmlData, debateId, STRAPI_URL, API_TOKEN);
 
-        await insertParliamentSession(jsonData, debateId, STRAPI_URL, API_TOKEN);
-
         await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
-        // await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
+        await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
       } else {
         console.log("Debate insertion failed or debate already exists. Skipping Parliament Session, Speakers and Speeches insertion.");

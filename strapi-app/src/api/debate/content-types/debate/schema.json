@@ -22,17 +22,6 @@
       "required": true,
       "unique": true
     },
-    "country": {
-      "type": "string"
-    },
-    "language": {
-      "type": "string"
-    },
-    "parliament_session": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::parliament-session.parliament-session"
-    },
     "speeches": {
       "type": "relation",
       "relation": "oneToMany",
@@ -67,6 +56,18 @@
       "relation": "manyToMany",
       "target": "api::political-party.political-party",
       "inversedBy": "debates"
+    },
+    "session": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "meeting": {
+      "type": "string"
+    },
+    "session_date": {
+      "type": "string"
     }
   }
 }
