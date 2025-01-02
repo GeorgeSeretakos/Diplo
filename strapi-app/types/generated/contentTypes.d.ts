@@ -381,7 +381,6 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    country: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -389,23 +388,22 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     html: Schema.Attribute.Relation<'oneToOne', 'api::html.html'>;
-    language: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::debate.debate'
     > &
       Schema.Attribute.Private;
+    meeting: Schema.Attribute.String;
     opening_section: Schema.Attribute.String;
-    parliament_session: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::parliament-session.parliament-session'
-    >;
+    period: Schema.Attribute.String;
     political_parties: Schema.Attribute.Relation<
       'manyToMany',
       'api::political-party.political-party'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    session: Schema.Attribute.String;
+    session_date: Schema.Attribute.String;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     summary: Schema.Attribute.Text;
@@ -441,41 +439,6 @@ export interface ApiHtmlHtml extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.DefaultTo<'HTML'>;
     publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiParliamentSessionParliamentSession
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'parliament_sessions';
-  info: {
-    description: '';
-    displayName: 'Parliament Session';
-    pluralName: 'parliament-sessions';
-    singularName: 'parliament-session';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    debate: Schema.Attribute.Relation<'oneToOne', 'api::debate.debate'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::parliament-session.parliament-session'
-    > &
-      Schema.Attribute.Private;
-    meeting: Schema.Attribute.String;
-    period: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    session: Schema.Attribute.String;
-    session_date: Schema.Attribute.String;
-    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -632,6 +595,7 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
 export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
   collectionName: 'topics';
   info: {
+    description: '';
     displayName: 'Topic';
     pluralName: 'topics';
     singularName: 'topic';
@@ -649,7 +613,9 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
-    topic: Schema.Attribute.String;
+    topic: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1163,7 +1129,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::debate.debate': ApiDebateDebate;
       'api::html.html': ApiHtmlHtml;
-      'api::parliament-session.parliament-session': ApiParliamentSessionParliamentSession;
       'api::political-party.political-party': ApiPoliticalPartyPoliticalParty;
       'api::rdf.rdf': ApiRdfRdf;
       'api::speaker.speaker': ApiSpeakerSpeaker;

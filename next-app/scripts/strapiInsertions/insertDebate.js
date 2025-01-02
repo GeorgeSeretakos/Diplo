@@ -3,13 +3,16 @@ import axios from "axios";
 // Helper function to extract debate data
 function extractDebateData(jsonData) {
   const dData = jsonData.akomaNtoso.debate[0].meta[0].identification[0];
+  const pData = jsonData.akomaNtoso.debate[0].preface[0].container[0].p;
   const opening_section = jsonData.akomaNtoso.debate[0].debateBody[0].debateSection[0].p[0];
   return {
     title: dData.FRBRWork[0].FRBRalias[0].$.value,
     date: dData.FRBRWork[0].FRBRdate[0].$.date,
-    country: dData.FRBRWork[0].FRBRcountry[0].$.value,
-    language: dData.FRBRExpression[0].FRBRlanguage[0].$.language,
-    opening_section: opening_section
+    opening_section: opening_section,
+    period: pData[1] || "Unknown Period", // "Η’ ΠΕΡΙΟΔΟΣ (ΠΡΟΕΔΡΕΥΟΜΕΝΗΣ ΔΗΜΟΚΡΑΤΙΑΣ)"
+    session: pData[2] || "Unknown Session", // "Σ Υ Ν Ο Δ Ο Σ Α’ "
+    meeting: pData[3] || "Unknown Meeting", // "ΣΥΝΕΔΡΙΑΣΗ ΟΒ’ "
+    session_date: pData[4] || "Unknown Session Date", //
   };
 }
 
@@ -28,7 +31,6 @@ export async function insertDebate(jsonData, STRAPI_URL, API_TOKEN) {
         }
       }
     );
-    // console.log("Debate imported successfully: ", debateResponse.data);
     console.log("Debate imported successfully.");
     return debateResponse.data.data.documentId;
 

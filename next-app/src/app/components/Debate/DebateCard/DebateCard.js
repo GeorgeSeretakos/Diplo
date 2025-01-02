@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./DebateCard.module.css";
 import Link from "next/link";
 
-const DebateCard = ({ documentId, date, topics, parliament_session }) => {
+const DebateCard = ({ documentId, date, topics, session, period, meeting }) => {
 
   console.log("DocumentId: ", documentId);
 
@@ -15,9 +15,9 @@ const DebateCard = ({ documentId, date, topics, parliament_session }) => {
           {topics.map((t) => t.topic).join(", ")} {/* Extract topic values and join */}
         </div>
         <div className={styles.session}>
-          <p><strong>Session:</strong> {parliament_session.session}</p>
-          <p><strong>Meeting:</strong> {parliament_session.meeting}</p>
-          <p><strong>Period:</strong> {parliament_session.period}</p>
+          <p><strong>Session:</strong> {session}</p>
+          <p><strong>Meeting:</strong> {meeting}</p>
+          <p><strong>Period:</strong> {period}</p>
         </div>
       </div>
     </Link>

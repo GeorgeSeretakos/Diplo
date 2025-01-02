@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FilterSection from "../FilterSection.js";
 import styles from "../PoliticalPartyFilter/PoliticalPartyFilter.module.css";
 
-const topics = [
-  { value: "ALL", label: "All", image: "/images/parties/greek_parties.jpg" },
-  { value: "Democracy", label: "Democracy", image: "/images/topics/democracy.jpg" },
-  { value: "Economy", label: "Economy", image: "/images/topics/economy.jpg" },
-  { value: "Health", label: "Health", image: "/images/topics/health.jpg" },
-  { value: "Europe", label: "Europe", image: "images/topics/global_europe.jpg"}
-];
-
 const TopicFilter = ({ selectedTopics = [], onFilterChange }) => {
-  const toggleTopicSelection = (topic) => {
-    if (topic === "ALL") {
-      onFilterChange(["ALL"]); // Select only "All" and clear other selections
-    } else {
-      const isAlreadySelected = selectedTopics.includes(topic);
-      let updatedSelection = isAlreadySelected
-        ? selectedTopics.filter((t) => t !== topic) // Remove if already selected
-        : [...selectedTopics.filter((t) => t !== "ALL"), topic]; // Add new party, remove "All"
+  const [topics, setTopics] = useState([]);
 
-      // If the user deselects all, default back to "All"
-      if (updatedSelection.length === 0) {
-        updatedSelection = ["ALL"];
+  // Fetch topics from Strapi API
+  useEffect(() => {
+    const fetchAllTopics = async () => {
+      try {
+        const response = await fetch("/api/strapi/topics/all");
+        const data = await response.json();
+
+        // Format the topics received from the API
+        const formattedTopics = data.map((topic) => ({
+          value: topic.topic,
+          label: topic.topic,
+          image: topic.image || "/images/topics/topics.jpg", // Use default image if none is provided
+        }));
+
+        setTopics(formattedTopics);
+      } catch (error) {
+        console.error("Error fetching topics:", error.message);
       }
+    };
 
-      onFilterChange(updatedSelection);
-    }
+    fetchAllTopics();
+  }, []);
+
+  const toggleTopicSelection = (topic) => {
+    const isAlreadySelected = selectedTopics.includes(topic);
+    const updatedSelection = isAlreadySelected
+      ? selectedTopics.filter((t) => t !== topic) // Remove if already selected
+      : [...selectedTopics, topic]; // Add the new topic
+
+    onFilterChange(updatedSelection);
   };
 
   return (
@@ -41,7 +49,7 @@ const TopicFilter = ({ selectedTopics = [], onFilterChange }) => {
             onClick={() => toggleTopicSelection(topic.value)}
           >
             <div className={styles.imageContainer}>
-              <img src={topic.image} alt={topic.label} className={styles.partyImage}/>
+              <img src={topic.image} alt={topic.label} className={styles.partyImage} />
             </div>
             <p className={styles.partyLabel}>{topic.label}</p>
           </div>
