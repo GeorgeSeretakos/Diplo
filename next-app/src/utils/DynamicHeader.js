@@ -2,6 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/navigation";
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers";
+import {TextField} from "@mui/material";
+
+
 const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onInputChange }) => {
   const router = useRouter();
 
@@ -40,7 +46,8 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
       //       />
       //     </div>
       //   );
-      case "speaker-phrase" || "debate-phrase":
+      case "speaker-phrase":
+      case "debate-phrase":
         return (
           <div className= "query">
             <input
@@ -52,7 +59,8 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
             />
           </div>
         );
-      case "speaker-topic" || "debate-topic":
+      case "speaker-topic":
+      case "debate-topic":
         return (
           <div className="inputContainer query">
             <input
@@ -67,10 +75,32 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
       case "debate-date":
         return (
           <div className="inputContainer query">
+            {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
+            {/*  <DatePicker*/}
+            {/*    style={{backgroundColor: "white"}}*/}
+            {/*    label="Select a date"*/}
+            {/*    value={inputValues.startDate}*/}
+            {/*    onChange={(date) => handleInputChange("startDate", date.target.value)}*/}
+            {/*    renderInput={(params) => <TextField {...params} />}*/}
+            {/*  />*/}
+            {/*</LocalizationProvider>*/}
+            {/*<DatePicker*/}
+            {/*  selected={inputValues.endDate}*/}
+            {/*  onChange={(date) => handleInputChange("endDate", date)}*/}
+            {/*  placeholderText="Select End Date"*/}
+            {/*  dateFormat="yyyy-MM-dd"*/}
+            {/*  required*/}
+            {/*/>*/}
             <input
               type="date"
-              value={inputValues.date || ""}
-              onChange={(e) => handleInputChange("date", e.target.value)}
+              value={inputValues.startDate}
+              onChange={(e) => handleInputChange("startDate", e.target.value)}
+              required
+            />
+            <input
+              type="date"
+              value={inputValues.endDate}
+              onChange={(e) => handleInputChange("endDate", e.target.value)}
               required
             />
           </div>
@@ -128,8 +158,9 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
         )}
         {primaryFilter === "debate-date" && (
           <span>
-            Discover debates from {" "} to {" "}
-            <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
+            Discover debates from {" "}
+            <span className="dynamic-content">{inputValues.startDate || "start date"} </span>
+            to <span className="dynamic-content">{inputValues.endDate || "end date"}</span>
           </span>
         )}
         {primaryFilter === "debate-topics" && (
@@ -152,7 +183,6 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
         {(primaryFilter !== "all-speakers" && primaryFilter !== "all-debates" ) && (
           <>
             <button onClick={handleSearch}>Search</button>
-            <button onClick={() => router.push("/browse-speakers/")}>Go Back</button>
           </>
       )}
     </div>

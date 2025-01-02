@@ -10,12 +10,15 @@ import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
 import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
 import TopicFilter from "@/app/components/Filters/TopicFilter/TopicFilter";
 import {useSearchParams} from "next/navigation";
-import DynamicHeader from "@/utils/DynamicHeader";
+import DynamicHeader from "../../utils/DynamicHeader.js";
 import DebateCard from "@/app/components/Debate/DebateCard/DebateCard";
 import {constants} from "../../../constants/constants.js";
+import axios from "axios";
 
 const DebatesResults = () => {
     const STRAPI_URL = constants.STRAPI_URL;
+
+    const [noResultsMessage, setNoResultsMessage] = useState("");
 
     const searchParams = useSearchParams();
     const searchPerformedParam = searchParams.get("searchPerformed") === "true";
@@ -23,10 +26,16 @@ const DebatesResults = () => {
     const [primaryFilter, setPrimaryFilter] = useState(
       primaryFilterParam || sessionStorage.getItem("primaryFilter") || null
     );
-    const [debates, setDebates] = useState(null);
+    const [debates, setDebates] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // console.log("Primary filter: ", primaryFilter);
+    const [inputValues, setInputValues] = useState({
+        startDate: "",
+        endDate: "",
+        parliament_session: "",
+        keyPhrase: ""
+    });
+
 
     // Persist `primaryFilter` in sessionStorage
     useEffect(() => {
@@ -64,6 +73,12 @@ const DebatesResults = () => {
 
     const resetSearch = () => {
         setSearchPerformed(false); // Reset search state
+        setInputValues({
+            startDate: "",
+            endDate: "",
+            keyPhrase: ""
+        });
+        setDebates([]);
     };
 
     const initialFilterState = {
@@ -72,6 +87,13 @@ const DebatesResults = () => {
         ageRange: { min: 0, max: 100 },
         gender: null,
         phrase: "",
+    };
+
+    const handleInputChange = (name, value) => {
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
     };
 
     const [filters, setFilters] = useState(initialFilterState);
@@ -102,6 +124,49 @@ const DebatesResults = () => {
     //     return withinParty && withinAge && withinGender && withinTopic;
     // });
 
+    const handleSearch = async () => {
+        setNoResultsMessage("");
+        setLoading(true);
+        setSearchPerformed(true);
+
+        try {
+            let endpoint;
+            if (primaryFilter === "debate-date") {
+                // Define the endpoint for your API
+                endpoint = "/api/strapi/debates/dateRange"; // Adjust this based on your API route
+
+                // const body = {
+                //     startDate: new Date(inputValues.startDate).toISOString().split("T")[0],
+                //     endDate: new Date(inputValues.endDate).toISOString().split("T")[0],
+                // };
+
+                const body = {
+                    startDate: inputValues.startDate,
+                    endDate: inputValues.endDate
+                }
+
+                console.log("Body being sent:", body); // Debugging log
+
+                // Make the Axios request
+                const response = await axios.post(endpoint, body);
+                console.log("Response: ", response.data);
+                //
+                // console.log("Response data: ", response.data);
+
+                // Check and handle the response
+                if (response.data?.length === 0) {
+                    setNoResultsMessage("No debates found for the selected date range.");
+                }
+                setDebates(response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching debates: ", error.message);
+            setNoResultsMessage("An error occurred while fetching debates. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     if (loading) {
         return <p>Loading ...</p>
     }
@@ -113,9 +178,11 @@ const DebatesResults = () => {
             <div className={styles.searchSection}>
                 {primaryFilter && (
                     <DynamicHeader
-                        primaryFilter={primaryFilter}
-                        onSearch={() => setSearchPerformed(true)} // Update searchPerformed state
-                        resetSearch={resetSearch} // Reset the searchPerformed state
+                      primaryFilter={primaryFilter}
+                      onSearch={handleSearch} // Update searchPerformed state
+                      resetSearch={resetSearch} // Reset the searchPerformed state
+                      inputValues={inputValues}
+                      onInputChange={handleInputChange}
                     />
                 )}
             </div>
@@ -123,49 +190,51 @@ const DebatesResults = () => {
             {/* Only show content if search is performed */}
             {(searchPerformed || primaryFilter === "all-debates") && (
                 <div className={styles.pageLayout}>
-                    <div className={styles.filterSection}>
-                        <PoliticalPartyFilter
-                            selectedParties={tempFilters.parties}
-                            onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                        />
-                        <TopicFilter
-                            selectedTopics={tempFilters.topics}
-                            onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}
-                        />
-                        <PhraseFilter
-                            phrase={tempFilters.phrase}
-                            onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
-                        />
-                        <AgeFilter
-                            ageRange={tempFilters.ageRange}
-                            onAgeRangeChange={(updatedRange) => handleTempFilterChange("ageRange", updatedRange)}
-                        />
-                        <GenderFilter
-                            selectedGender={tempFilters.gender}
-                            onFilterChange={(updatedGender) => handleTempFilterChange("gender", updatedGender)}
-                        />
+                    {noResultsMessage === "" ? (
+                        <div className={styles.filterSection}>
+                            <PoliticalPartyFilter
+                              selectedParties={tempFilters.parties}
+                              onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
+                            />
+                            <TopicFilter
+                              selectedTopics={tempFilters.topics}
+                              onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}
+                            />
+                            <PhraseFilter
+                              phrase={tempFilters.phrase}
+                              onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}
+                            />
+                            <AgeFilter
+                              ageRange={tempFilters.ageRange}
+                              onAgeRangeChange={(updatedRange) => handleTempFilterChange("ageRange", updatedRange)}
+                            />
+                            <GenderFilter
+                              selectedGender={tempFilters.gender}
+                              onFilterChange={(updatedGender) => handleTempFilterChange("gender", updatedGender)}
+                            />
 
-                        <div className="buttonContainer">
-                            <button className="button" onClick={applyFilters}>Apply Filters</button>
-                            <button className="button" onClick={cancelFilters}>Cancel</button>
+                            <div className="buttonContainer">
+                                <button className="button" onClick={applyFilters}>Apply Filters</button>
+                                <button className="button" onClick={cancelFilters}>Cancel</button>
+                            </div>
                         </div>
-                    </div>
+                      ) :
+                        <div className={styles.noResultsMessage}>
+                            <p>{noResultsMessage}</p>
+                        </div>
+                    }
 
                     <div className={styles.browseSection}>
                         <div className={styles.speakerGrid}>
-                            {debates && debates.length > 0 ? (
-                              debates.map((debate, index) => (
-                                <DebateCard
-                                  key={index}
-                                  documentId={debate.documentId}
-                                  date={debate.date}
-                                  topics={debate.topics}
-                                  parliament_session={debate.parliament_session}
+                            {debates.map((debate, index) => (
+                              <DebateCard
+                                key={index}
+                                documentId={debate.documentId}
+                                date={debate.date}
+                                topics={debate.topics}
+                                parliament_session={debate.parliament_session}
                                 />
-                              ))
-                            ) : (
-                              <p>Loading debates ...</p>
-                            )}
+                            ))}
                         </div>
                     </div>
                 </div>
