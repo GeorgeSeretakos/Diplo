@@ -16,9 +16,6 @@ const DebateMetadata = () => {
 
   const { id: documentId } = useParams(); // Fix like in speakers page
 
-  // const [debateData, setDebateData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (!documentId) {
       alert("documentId is missing");

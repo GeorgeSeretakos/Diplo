@@ -134,15 +134,15 @@ const SpeakersResults = () => {
 
 
 
-    // const filteredSpeakers = speakers.filter((speaker) => {
+    // const filteredSpeakers = speakers.filter((speakerId) => {
     //     const withinParty =
-    //         filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
+    //         filters.parties.includes("ALL") || filters.parties.includes(speakerId.party);
     //     const withinTopic =
-    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
+    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speakerId.topics.includes(topic));
     //     const withinAge =
-    //         speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
+    //         speakerId.age >= filters.ageRange.min && speakerId.age <= filters.ageRange.max;
     //     const withinGender =
-    //         !filters.gender || speaker.gender === filters.gender;
+    //         !filters.gender || speakerId.gender === filters.gender;
     //
     //     return withinParty && withinAge && withinGender && withinTopic;
     // });
@@ -220,7 +220,7 @@ const SpeakersResults = () => {
                                     documentId={speaker.documentId}
                                     image={imageUrl}
                                     speaker_name={speaker.speaker_name}
-                                    // party={speaker.party}
+                                    // party={speakerId.party}
                                   />
                                 );
                             })}

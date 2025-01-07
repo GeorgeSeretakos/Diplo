@@ -3,7 +3,7 @@ import axios from 'axios';
 // Helper function to extract speech data
 function extractSpeechData(speech, debateId) {
   const content = {
-    paragraphs: speech.p.map(paragraph => ({
+    paragraphs: (speech.p || []).map(paragraph => ({
       type: "paragraph",
       text: paragraph._ || paragraph,
     }))
@@ -23,7 +23,7 @@ function extractSpeechData(speech, debateId) {
 }
 
 
-// Function to find speaker by speaker_id
+// Function to find speakerId by speaker_id
 async function findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN) {
   try {
     const response = await axios.get(
@@ -36,7 +36,7 @@ async function findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN) {
     );
 
 
-    // Check if the speaker exists and return the ID
+    // Check if the speakerId exists and return the ID
     if (response.data.data.length > 0) {
       // console.log("I GOT IN THE CORRECT LOOP: ");
       return response.data.data[0].documentId;
@@ -45,7 +45,7 @@ async function findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN) {
       return null;
     }
   } catch (error) {
-    console.error("Error finding speaker:", error.response ? error.response.data : error);
+    console.error("Error finding speakerId:", error.response ? error.response.data : error);
     throw error;
   }
 }
@@ -146,6 +146,12 @@ export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
 
     // Iterate over each speech and insert it into Strapi
     for (const speech of speeches) {
+      // Skip speeches without essential fields
+      if (!speech.$?.eId || !speech.from) {
+        console.warn("Skipping speech due to missing essential fields:", speech);
+        continue;
+      }
+
       const speechData = extractSpeechData(speech, debateId);
 
       // console.log("THIS IS THE SPEECH DATA: ", speechData);

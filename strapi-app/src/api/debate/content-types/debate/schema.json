@@ -68,6 +68,9 @@
     },
     "session_date": {
       "type": "string"
+    },
+    "content": {
+      "type": "json"
     }
   }
 }

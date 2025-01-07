@@ -4,40 +4,45 @@ const STRAPI_URL = constants.STRAPI_URL;
 const API_TOKEN = constants.API_TOKEN;
 
 export async function GET(request, { params }) {
-  const { id } = params; // Extract the dynamic `id` from the URL
+  const { id } = await params; // Extract the dynamic `id` from the URL
 
   if (!id) {
-    return new Response(JSON.stringify({ error: "Debate ID is required" }), { status: 400 });
+    return new Response(JSON.stringify({ error: "Speaker ID is required" }), { status: 400 });
   }
 
   // Define the GraphQL query
   const query = `
-    query GetDebate($id: ID!) {
-      debate(documentId: $id) {
+    query GetSpeaker($id: ID!) {
+      speaker(documentId: $id) {
         documentId
-        title
-        opening_section
-        summary
-        topics {
-          topic
+        speaker_name
+        description
+        image {
+          formats
+          url
         }
-        period
-        session_date
-        session
-        meeting
-        speakers(pagination: { limit: -1 }) {  # Fetch all speakers
-          documentId
-          speaker_id
-          speaker_name
+        date_of_birth
+        place_of_birth
+        date_of_death
+        educated_at
+        occupation
+        website
+        languages
+        political_parties {
+          name
           image {
             formats
             url
           }
         }
-        political_parties {
-          name
-          image {
-            url
+        debates {
+          documentId
+          date
+          period
+          session
+          meeting
+          topics {
+            topic
           }
         }
       }
@@ -75,7 +80,7 @@ export async function GET(request, { params }) {
     });
   } catch (error) {
     // Handle network or server errors
-    console.error("Error fetching debate data:", error);
+    console.error("Error fetching speaker data:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
   }
 }
