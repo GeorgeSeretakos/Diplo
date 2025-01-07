@@ -59,7 +59,7 @@
         <p><xsl:value-of select="."/></p>
     </xsl:template>
 
-    <!-- Template for each speech element, displaying the speaker and content -->
+    <!-- Template for each speech element, displaying the speakerId and content -->
     <xsl:template match="ns:speech">
         <div class="speech">
             <p><strong>Speaker: </strong> <xsl:value-of select="ns:from"/></p>

@@ -6,6 +6,10 @@ import {fetchPositionHeld} from "../../../utils/wikidata/dataFetchers.js";
 import {formatPositionHeld} from "../../../utils/wikidata/formatters.js";
 import {constants} from "../../../../constants/constants.js";
 import {useParams, useRouter} from "next/navigation";
+import axios from "axios";
+import metadataStyles from "../../debate/[id]/metadata/DebateMetadata.module.css";
+import SpeakerCard from "../../components/Speaker/SpeakerCard/SpeakerCard.js";
+import DebateCard from "../../components/Debate/DebateCard/DebateCard.js";
 
 const SpeakerPage = () => {
   const router = useRouter();
@@ -17,27 +21,24 @@ const SpeakerPage = () => {
 
 
   const STRAPI_URL = constants.STRAPI_URL;
-  const API_TOKEN = constants.API_TOKEN;
 
-  const {id: documentId} = useParams();
+  const { id: documentId } = useParams();
 
   console.log("DocumentId:", documentId);
 
   useEffect(() => {
+    if (!documentId) {
+      alert("documentId is missing");
+      return;
+    }
     const fetchSpeakerData = async () => {
       try {
-        const response = await fetch(
-          `${STRAPI_URL}/api/speakers?filters[documentId][$eq]=${documentId}&populate[political_parties][populate]=image&populate=image`
-          , {
-          headers: {
-            Authorization: `Bearer ${API_TOKEN}`
-          }
-        });
-        const data = (await response.json()).data[0];
-        setSpeakerData(data);
+        const response = await axios.get(`/api/strapi/speakers/metadata/${documentId}`);
+        console.log(response);
+        setSpeakerData(response.data.speaker);
 
         // Extract the link attribute and wikidata entity ID
-        const link = data?.link;
+        const link = speakerData?.link;
         if (link) {
           const entityId = link.split("/").pop();
           setWikidataEntityId(entityId);
@@ -45,7 +46,7 @@ const SpeakerPage = () => {
 
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching speaker data: ", error);
+        console.error("Error fetching speakerId data: ", error);
         setLoading(false);
       }
     }
@@ -87,6 +88,7 @@ const SpeakerPage = () => {
     website,
     languages,
     political_parties,
+    debates,
   } = speakerData;
 
 
@@ -219,6 +221,31 @@ const SpeakerPage = () => {
             </div>
           )}
 
+
+
+          <div className={metadataStyles.speakersSection} style={{marginTop: "2rem"}}>
+            {debates && (
+              <p><strong className="dynamic-content">Debates</strong></p>
+            )}
+            <div className={metadataStyles.grid}>
+              {debates.map((debate, index) => {
+                return (
+                  <DebateCard
+                    key={index}
+                    documentId={debate.documentId}
+                    period={debate.period}
+                    session={debate.session}
+                    meeting={debate.meeting}
+                    topics={debate.topics || []}
+                    date={debate.date}
+                    // containerStyle={{width: "7.5rem", height: "12.5rem", borderRadius: "1rem"}}
+                    // textStyle={{fontSize: ".5rem"}}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
           <div className="buttonContainer" style={{marginBottom: "1rem", marginTop: "2rem"}}>
             <button className="button" onClick={() => router.push(`/speakers-results/?searchPerformed=true`)}>Previous
               Search
@@ -226,6 +253,7 @@ const SpeakerPage = () => {
             <button className="button" onClick={() => router.push("/browse-speakers/")}>Change Filter</button>
             <button className="button" onClick={() => router.push("/")}>Exit</button>
           </div>
+
 
         </div>
 

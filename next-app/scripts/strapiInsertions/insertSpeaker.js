@@ -117,7 +117,7 @@ async function fetchSpeakerData(wikidataUrl) {
 
     return null; // No data found
   } catch (error) {
-    console.error("Error fetching speaker data: ", error.response ? error.response.data : error);
+    console.error("Error fetching speakerId data: ", error.response ? error.response.data : error);
     return null;
   }
 }
@@ -201,18 +201,17 @@ export async function extractSpeakerData(speaker, debateId) {
 }
 
 
-// Function to find or create a speaker
+// Function to find or create a speakerId
 async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
-  // console.log("LOOK HERE FOR SPEAKER DATA: ", speakerData);
   try {
     const politicalPartyIds = [];
 
-    // Upload the speaker's image to Strapi and get its ID
+    // Upload the speakerId's image to Strapi and get its ID
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
 
     const validatedData = formatFields(speakerData);
 
-    console.log("Speaker data: ", validatedData);
+    // console.log("Speaker data: ", validatedData);
 
     // Process all political parties
     if (validatedData.political_parties && validatedData.political_parties.length > 0) {
@@ -222,7 +221,7 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
           politicalPartyIds.push(partyId);
         }
       }
-      // // Link political parties of speaker to debate, problem: what was the party of the speaker during this debate?
+      // // Link political parties of speakerId to debate, problem: what was the party of the speakerId during this debate?
       // await axios.put(
       //   `${STRAPI_URL}/api/debates/${debateId}`,
       //   {
@@ -242,7 +241,7 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
     }
 
 
-    // Attempt to find the speaker by unique field (e.g., speaker_id)
+    // Attempt to find the speakerId by unique field (e.g., speaker_id)
     const response = await axios.get(
       `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${validatedData.speaker_id}`,
       {
@@ -252,13 +251,13 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
       }
     );
 
-    // If speaker exists, return its ID
+    // If speakerId exists, return its ID
     if (response.data.data.length > 0) {
       console.log(`Speaker ${validatedData.speaker_name} with documentId ${response.data.data} already exists.`);
       return response.data.data[0].documentId;
     }
 
-    // If speaker does not exist, create a new speaker
+    // If speakerId does not exist, create a new speakerId
     const createResponse = await axios.post(
       `${STRAPI_URL}/api/speakers`,
       {
@@ -276,11 +275,10 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
       }
     );
 
-    // console.log("HERE IS THE PLACE YOU SHOULD LOOK FOR THE NEW SPEAKER: ", response.data.data);
     console.log(`Speaker ${validatedData.speaker_name} created successfully.`);
     return createResponse.data.data.documentId;
   } catch (error) {
-    console.error("Error finding or creating speaker:", error.response ? error.response.data : error);
+    console.error("Error finding or creating speakerId:", error.response ? error.response.data : error);
   }
 }
 
@@ -333,24 +331,24 @@ async function connect(speakerId, debateId, STRAPI_URL, API_TOKEN) {
   }
 }
 
-// Main function to handle speaker insertion or connection
+// Main function to handle speakerId insertion or connection
 export async function insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN) {
   try {
-    // Extract the speaker data from jsonData
+    // Extract the speakerId data from jsonData
     const speakers = jsonData.akomaNtoso.debate[0].meta[0].references[0].TLCPerson;
 
-    // Iterate over each speaker and insert/connect it in Strapi
+    // Iterate over each speakerId and insert/connect it in Strapi
     for (const speaker of speakers) {
       const speakerData = await extractSpeakerData(speaker.$, debateId);
 
-      // Find or create the speaker, and get the speaker ID
+      // Find or create the speakerId, and get the speakerId ID
       const speakerId = await findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN);
 
-      // Connect the speaker to the debate, even if they already existed
+      // Connect the speakerId to the debate, even if they already existed
       await connect(speakerId, debateId, STRAPI_URL, API_TOKEN);
     }
   } catch (error) {
-    console.error("Error inserting or connecting speaker:", error.response ? error.response.data : error);
+    console.error("Error inserting or connecting speakerId:", error.response ? error.response.data : error);
     throw error;
   }
 }

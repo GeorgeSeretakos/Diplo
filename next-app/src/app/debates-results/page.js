@@ -71,8 +71,6 @@ const DebatesResults = () => {
 
     console.log("Debates: ", debates);
 
-
-
     const [searchPerformed, setSearchPerformed] = useState(false);
 
     const resetSearch = () => {
@@ -119,15 +117,15 @@ const DebatesResults = () => {
         setTempFilters(initialFilterState);
     };
 
-    // const filteredSpeakers = Speakers.filter((speaker) => {
+    // const filteredSpeakers = Speakers.filter((speakerId) => {
     //     const withinParty =
-    //         filters.parties.includes("ALL") || filters.parties.includes(speaker.party);
+    //         filters.parties.includes("ALL") || filters.parties.includes(speakerId.party);
     //     const withinTopic =
-    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speaker.topics.includes(topic));
+    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speakerId.topics.includes(topic));
     //     const withinAge =
-    //         speaker.age >= filters.ageRange.min && speaker.age <= filters.ageRange.max;
+    //         speakerId.age >= filters.ageRange.min && speakerId.age <= filters.ageRange.max;
     //     const withinGender =
-    //         !filters.gender || speaker.gender === filters.gender;
+    //         !filters.gender || speakerId.gender === filters.gender;
     //
     //     return withinParty && withinAge && withinGender && withinTopic;
     // });
@@ -158,6 +156,11 @@ const DebatesResults = () => {
                 body = {
                     topicNames: inputValues.topics
                 }
+            } else if (primaryFilter === "debate-phrase") {
+                endpoint = "/api/elasticsearch/search";
+                body = {
+                    keyword: inputValues.keyPhrase
+                }
             }
 
             console.log("Body being sent:", body);
@@ -166,11 +169,18 @@ const DebatesResults = () => {
             const response = await axios.post(endpoint, body);
             console.log("Response: ", response.data);
 
-            // Check and handle the response
-            if (response.data?.length === 0) {
-                setNoResultsMessage("No debates found for the selected date range.");
+            if (primaryFilter === "debate-phrase") {
+                setDebates()
             }
-            setDebates(response.data);
+
+            else {
+                // Check and handle the response
+                if (response.data?.length === 0) {
+                    setNoResultsMessage("No debates found for the selected date range.");
+                }
+                setDebates(response.data);
+            }
+
         } catch (error) {
             console.error("Error fetching debates: ", error.message);
             setNoResultsMessage("An error occurred while fetching debates. Please try again.");
