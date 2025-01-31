@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -20,12 +20,13 @@
     "date": {
       "type": "date",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "speeches": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::speech.speech"
+      "relation": "manyToMany",
+      "target": "api::speech.speech",
+      "mappedBy": "debates"
     },
     "speakers": {
       "type": "relation",
@@ -35,12 +36,6 @@
     },
     "opening_section": {
       "type": "string"
-    },
-    "html": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::html.html",
-      "mappedBy": "debate"
     },
     "summary": {
       "type": "text"
@@ -71,6 +66,9 @@
     },
     "content": {
       "type": "json"
+    },
+    "HTML": {
+      "type": "text"
     }
   }
 }

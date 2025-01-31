@@ -17,17 +17,33 @@ async function createIndex() {
       properties: {
         speech_id: { type: "keyword" }, // Unique identifier
         speaker_name: { type: "text" }, // Speaker name
-        content: { type: "text" }, // Full-text search on content
+        content: {
+          type: "text",
+          analyzer: "custom_analyzer",
+          search_analyzer: "custom_analyzer"
+        }, // Full-text search on content
         speaker_id: { type: "keyword" }, // Speaker relation (ID)
         debate_id: { type: "keyword" }, // Debate relation (ID)
       },
     };
+
+    const settings = {
+      analysis: {
+        analyzer: {
+          custom_analyzer: {
+            tokenizer: "standard",
+            filter: ["lowercase", "asciifolding"]
+          }
+        }
+      }
+    }
 
     // Create the index with the specified mappings
     const response = await client.indices.create({
       index: INDEX_NAME,
       body: {
         mappings,
+        settings
       },
     });
 

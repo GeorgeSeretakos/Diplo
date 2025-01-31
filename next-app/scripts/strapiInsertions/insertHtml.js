@@ -10,7 +10,7 @@ async function connect(htmlId, debateId, STRAPI_URL, API_TOKEN) {
 
   try {
     await axios.put(
-      `${STRAPI_URL}/api/htmls/${htmlId}`,
+      `${STRAPI_URL}/api/htmls/${htmlId}?populate=false`,
       {
         data: {
           debate: {
@@ -25,23 +25,23 @@ async function connect(htmlId, debateId, STRAPI_URL, API_TOKEN) {
         },
       }
     );
-
-    await axios.put(
-      `${STRAPI_URL}/api/debates/${debateId}`,
-      {
-        data: {
-          html: {
-            connect: [htmlId]  // Use documentId in the connect array
-          }
-        }
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    //
+    // await axios.put(
+    //   `${STRAPI_URL}/api/debates/${debateId}?populate=false`,
+    //   {
+    //     data: {
+    //       html: {
+    //         connect: [htmlId]  // Use documentId in the connect array
+    //       }
+    //     }
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${API_TOKEN}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }
+    // );
 
     console.log("Relationship between HTML and Debate established successfully.");
   } catch (error) {
@@ -56,7 +56,7 @@ export async function insertHtml(htmlData, debateId, STRAPI_URL, API_TOKEN) {
 
   try {
     const htmlResponse = await axios.post(
-      `${STRAPI_URL}/api/htmls`,
+      `${STRAPI_URL}/api/htmls?populate=false`,
       {
         data: {
           html: htmlData
@@ -78,7 +78,7 @@ export async function insertHtml(htmlData, debateId, STRAPI_URL, API_TOKEN) {
     return htmlId;
 
   } catch (error) {
-    console.log("Error inserting HTML: ",error.response.data);
+    console.log(`❌ Error inserting HTML: ${error.response}`);
     return null;
   }
 }

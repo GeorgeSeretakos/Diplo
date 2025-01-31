@@ -378,17 +378,15 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     singularName: 'debate';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     content: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    date: Schema.Attribute.Date &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    html: Schema.Attribute.Relation<'oneToOne', 'api::html.html'>;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    HTML: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -406,40 +404,12 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     session: Schema.Attribute.String;
     session_date: Schema.Attribute.String;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
-    speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
+    speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
     summary: Schema.Attribute.Text;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiHtmlHtml extends Struct.CollectionTypeSchema {
-  collectionName: 'htmls';
-  info: {
-    description: '';
-    displayName: 'HTML';
-    pluralName: 'htmls';
-    singularName: 'html';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    debate: Schema.Attribute.Relation<'oneToOne', 'api::debate.debate'>;
-    html: Schema.Attribute.Text & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::html.html'> &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.DefaultTo<'HTML'>;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -456,7 +426,7 @@ export interface ApiPoliticalPartyPoliticalParty
     singularName: 'political-party';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -489,7 +459,7 @@ export interface ApiRdfRdf extends Struct.CollectionTypeSchema {
     singularName: 'rdf';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -516,7 +486,7 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     singularName: 'speaker';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -544,11 +514,11 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
       'api::political-party.political-party'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    speaker_id: Schema.Attribute.String;
-    speaker_name: Schema.Attribute.String &
+    speaker_id: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
+    speaker_name: Schema.Attribute.String & Schema.Attribute.Required;
+    speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
     topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -566,14 +536,14 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     singularName: 'speech';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     content: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    debate: Schema.Attribute.Relation<'oneToOne', 'api::debate.debate'>;
+    debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -581,9 +551,9 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    speaker: Schema.Attribute.Relation<'manyToOne', 'api::speaker.speaker'>;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String;
+    speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speech_id: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -602,7 +572,7 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
     singularName: 'topic';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -800,6 +770,10 @@ export interface PluginReviewWorkflowsWorkflow
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    stageRequiredToPublish: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::review-workflows.workflow-stage'
+    >;
     stages: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::review-workflows.workflow-stage'
@@ -1129,7 +1103,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::debate.debate': ApiDebateDebate;
-      'api::html.html': ApiHtmlHtml;
       'api::political-party.political-party': ApiPoliticalPartyPoliticalParty;
       'api::rdf.rdf': ApiRdfRdf;
       'api::speaker.speaker': ApiSpeakerSpeaker;

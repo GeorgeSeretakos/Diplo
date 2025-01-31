@@ -10,7 +10,7 @@ export async function GET() {
   try {
     const query = `
       query {
-        topics {
+        topics (pagination: { limit: -1 }) {
           documentId
           topic
         }

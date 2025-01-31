@@ -14,6 +14,7 @@ import DynamicHeader from "../../utils/DynamicHeader.js";
 import DebateCard from "@/app/components/Debate/DebateCard/DebateCard";
 import {constants} from "../../../constants/constants.js";
 import axios from "axios";
+import DebateBig from "../components/Debate/DebateBig/DebateBig.js";
 
 const DebatesResults = () => {
     const STRAPI_URL = constants.STRAPI_URL;
@@ -117,18 +118,7 @@ const DebatesResults = () => {
         setTempFilters(initialFilterState);
     };
 
-    // const filteredSpeakers = Speakers.filter((speakerId) => {
-    //     const withinParty =
-    //         filters.parties.includes("ALL") || filters.parties.includes(speakerId.party);
-    //     const withinTopic =
-    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speakerId.topics.includes(topic));
-    //     const withinAge =
-    //         speakerId.age >= filters.ageRange.min && speakerId.age <= filters.ageRange.max;
-    //     const withinGender =
-    //         !filters.gender || speakerId.gender === filters.gender;
-    //
-    //     return withinParty && withinAge && withinGender && withinTopic;
-    // });
+    // TODO: Handle narrow down logic
 
     const handleSearch = async () => {
         setNoResultsMessage("");
@@ -157,9 +147,10 @@ const DebatesResults = () => {
                     topicNames: inputValues.topics
                 }
             } else if (primaryFilter === "debate-phrase") {
-                endpoint = "/api/elasticsearch/search";
+                endpoint = "/api/elasticsearch/debates/phrase";
                 body = {
-                    keyword: inputValues.keyPhrase
+                    keyword: inputValues.keyPhrase,
+                    fetchAllSpeeches: false
                 }
             }
 
@@ -170,11 +161,8 @@ const DebatesResults = () => {
             console.log("Response: ", response.data);
 
             if (primaryFilter === "debate-phrase") {
-                setDebates()
-            }
-
-            else {
-                // Check and handle the response
+                setDebates(response.data.debates);
+            } else {
                 if (response.data?.length === 0) {
                     setNoResultsMessage("No debates found for the selected date range.");
                 }
@@ -214,10 +202,10 @@ const DebatesResults = () => {
                 <div className={styles.pageLayout}>
                     {noResultsMessage === "" ? (
                         <div className={styles.filterSection}>
-                            <PoliticalPartyFilter
-                              selectedParties={tempFilters.parties}
-                              onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                            />
+                            {/*<PoliticalPartyFilter*/}
+                            {/*  selectedParties={tempFilters.parties}*/}
+                            {/*  onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}*/}
+                            {/*/>*/}
                             {/*<TopicFilter*/}
                             {/*  selectedTopics={tempFilters.topics}*/}
                             {/*  onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}*/}
@@ -248,17 +236,28 @@ const DebatesResults = () => {
 
                     <div className={styles.browseSection}>
                         <div className={styles.speakerGrid}>
-                            {debates.map((debate, index) => (
-                              <DebateCard
-                                key={index}
-                                documentId={debate.documentId}
-                                date={debate.date}
-                                topics={debate.topics}
-                                session={debate.session}
-                                period={debate.period}
-                                meeting={debate.meeting}
+                            {primaryFilter === "debate-phrase"
+                              ? debates.map((debate, index) => (
+                                <DebateBig
+                                  key={index}
+                                  documentId={debate.debate_id}
+                                  title={debate.top_speech.id}
+                                  score={debate.top_speech.score}
+                                  speaker_name={debate.top_speech.speaker_name}
+                                  content={debate.top_speech.content}
                                 />
-                            ))}
+                              ))
+                              : debates.map((debate, index) => (
+                                <DebateCard
+                                  key={index}
+                                  documentId={debate.documentId}
+                                  date={debate.date}
+                                  topics={debate.topics}
+                                  session={debate.session}
+                                  period={debate.period}
+                                  meeting={debate.meeting}
+                                />
+                              ))}
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,7 @@ import TopicFilter from "@/app/components/Filters/TopicFilter/TopicFilter";
 import DynamicHeader from "@/utils/DynamicHeader";
 import {constants} from "../../../constants/constants.js";
 import {useSearchParams} from "next/navigation";
+import axios from "axios";
 
 
 const SpeakersResults = () => {
@@ -27,7 +28,12 @@ const SpeakersResults = () => {
     const [speakers, setSpeakers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const [inputValues, setInputValues] = useState({ speakerName: "", keyPhrase: "" });
+    const [inputValues, setInputValues] = useState({
+        speakerName: "",
+        keyPhrase: "",
+        parties: [],
+        topics: []
+    });
 
     const [noResultsMessage, setNoResultsMessage] = useState("");
 
@@ -62,7 +68,9 @@ const SpeakersResults = () => {
         setSearchPerformed(false); // Reset search state
         setInputValues({
             speakerName: "",
-            keyPhrase: ""
+            keyPhrase: "",
+            parties: [],
+            topics: []
         });
         setSpeakers([]);
     };
@@ -106,21 +114,38 @@ const SpeakersResults = () => {
 
         try {
             let endpoint;
+            let body = {};
+            // TODO: Add encode URI values in request body
             if (primaryFilter === "speaker-name") {
                 endpoint = `/api/strapi/speakers/name?name=${encodeURIComponent(inputValues.speakerName)}`;
             }
             else if (primaryFilter === "speaker-phrase") {
                 endpoint  = `/api/strapi/speakers/phrase?phrase=${encodeURIComponent(inputValues.keyPhrase)}`;
             }
+            else if (primaryFilter === "speaker-party") {
+                endpoint = `/api/strapi/speakers/party`;
+                body = {
+                    partyNames: inputValues.parties
+                }
+            }
+            else if (primaryFilter === "speaker-topic") {
+                endpoint = "/api/strapi/speakers/topic";
+                body = {
+                    topicNames: inputValues.topics
+                }
+            }
 
-            const response = await fetch(endpoint);
-            const data = await response.json();
+            console.log("Body being sent:", body);
 
-            if (data.length === 0) {
+
+            const response = await axios.post(endpoint, body);
+            console.log("Response: ", response.data);
+
+            if (response.data?.length === 0) {
                 setNoResultsMessage("No speakers were found, perform another search.");
             }
             else {
-                setSpeakers(data);
+                setSpeakers(response.data);
             }
 
         } catch (error) {
@@ -133,19 +158,8 @@ const SpeakersResults = () => {
     console.log("Speakers: ", speakers);
 
 
+    // TODO: Handle narrow down logic
 
-    // const filteredSpeakers = speakers.filter((speakerId) => {
-    //     const withinParty =
-    //         filters.parties.includes("ALL") || filters.parties.includes(speakerId.party);
-    //     const withinTopic =
-    //         filters.topics.includes("ALL") || filters.topics.some((topic) => speakerId.topics.includes(topic));
-    //     const withinAge =
-    //         speakerId.age >= filters.ageRange.min && speakerId.age <= filters.ageRange.max;
-    //     const withinGender =
-    //         !filters.gender || speakerId.gender === filters.gender;
-    //
-    //     return withinParty && withinAge && withinGender && withinTopic;
-    // });
 
     if (loading) {
         return <p>Loading ...</p>
@@ -172,14 +186,14 @@ const SpeakersResults = () => {
                 <div className={styles.pageLayout}>
                     {noResultsMessage === "" ? (
                       <div className={styles.filterSection}>
-                          <PoliticalPartyFilter
-                            selectedParties={tempFilters.parties}
-                            onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}
-                          />
-                          <TopicFilter
-                            selectedTopics={tempFilters.topics}
-                            onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}
-                          />
+                          {/*<PoliticalPartyFilter*/}
+                          {/*  selectedParties={tempFilters.parties}*/}
+                          {/*  onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}*/}
+                          {/*/>*/}
+                          {/*<TopicFilter*/}
+                          {/*  selectedTopics={tempFilters.topics}*/}
+                          {/*  onFilterChange={(updatedTopics) => handleTempFilterChange("topics", updatedTopics)}*/}
+                          {/*/>*/}
                           <PhraseFilter
                             phrase={tempFilters.phrase}
                             onPhraseChange={(updatedPhrase) => handleTempFilterChange("phrase", updatedPhrase)}

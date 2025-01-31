@@ -1,27 +1,63 @@
-import { constants } from "../../../../../../constants/constants.js";
+import axios from "axios";
+import {constants} from "../../../../../../constants/constants.js";
 
-const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
+export async function POST(req) {
+  console.log("Fetch debates by topic API got called");
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const partyName = searchParams.get("party"); // Retrieve 'party' query param
+  const {partyNames} = await req.json();
+  const STRAPI_URL = constants.STRAPI_URL;
+  const API_TOKEN = constants.API_TOKEN;
 
-  if (!partyName) {
-    return new Response(JSON.stringify({ error: "Political party name is required" }), { status: 400 });
-  }
+  // const topicNames = ["Global Europe"];
+
+  console.log("Received: ", partyNames);
 
   try {
-    const response = await fetch(
-      `${STRAPI_URL}/api/speakers?filters[political_parties][name][$containsi]=${partyName}&populate=*`,
+
+    const query = `
+      query ($partyNames: [String]!) {
+        speakers(
+          filters: { political_parties: { name: { in: $partyNames } } }
+          pagination: { limit: -1 }
+        ) {
+          documentId
+          speaker_name
+          image {
+            formats
+            url
+          }
+          political_parties {
+            documentId
+            name
+          }
+        }
+      }
+    `;
+
+    // console.log("GraphQL Query:", query);
+
+    const response = await axios.post(
+      `${STRAPI_URL}/graphql`,
       {
-        headers: { Authorization: `Bearer ${API_TOKEN}` },
+        query,
+        variables: { partyNames }, // Properly pass variables
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          "Content-Type": "application/json",
+        }
       }
     );
-    const data = await response.json();
-    return new Response(JSON.stringify(data?.data || []), { status: 200 });
+
+    // console.log("GraphQL Response:", response.data.data);
+    return new Response(JSON.stringify(response.data.data.speakers), {status: 200});
+
+
   } catch (error) {
-    console.error("Error fetching speakers by political party:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch speakers" }), { status: 500 });
+    console.error("Error Details:", error.response?.data || error.message);
+    return new Response("Failed to fetch debates associated with specific topics");
   }
+
+
 }

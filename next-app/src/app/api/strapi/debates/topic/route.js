@@ -30,7 +30,7 @@ export async function POST(req) {
       }
     `;
 
-    console.log("GraphQL Query:", query);
+    // console.log("GraphQL Query:", query);
 
     const response = await axios.post(
       `${STRAPI_URL}/graphql`,
@@ -46,7 +46,7 @@ export async function POST(req) {
       }
     );
 
-    console.log("GraphQL Response:", response.data.data);
+    // console.log("GraphQL Response:", response.data.data);
     return new Response(JSON.stringify(response.data.data.debates), {status: 200});
 
 
