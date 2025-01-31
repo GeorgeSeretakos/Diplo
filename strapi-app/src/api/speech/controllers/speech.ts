@@ -1,5 +1,5 @@
 /**
- * speech controller
+ * html controller
  */
 
 import { factories } from '@strapi/strapi'

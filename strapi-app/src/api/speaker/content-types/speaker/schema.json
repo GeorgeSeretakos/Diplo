@@ -8,17 +8,19 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "speaker_name": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "speaker_id": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "link": {
       "type": "string"
@@ -28,12 +30,6 @@
       "relation": "manyToMany",
       "target": "api::debate.debate",
       "inversedBy": "speakers"
-    },
-    "speeches": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::speech.speech",
-      "mappedBy": "speaker"
     },
     "image": {
       "type": "media",
@@ -84,6 +80,12 @@
       "relation": "manyToMany",
       "target": "api::topic.topic",
       "mappedBy": "speakers"
+    },
+    "speeches": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::speech.speech",
+      "inversedBy": "speakers"
     }
   }
 }

@@ -1,9 +1,19 @@
 import axios from "axios";
-import FormData from "form-data";
 import {formatDateToGreek} from "../../src/utils/Date/formatDate.js";
 import uploadImageToStrapi from "../utils/uploadImageToStrapi.js";
 import findOrCreatePoliticalParty from "./insertPoliticalParty.js";
 import {constants} from "../../constants/constants.js";
+
+import Database from "better-sqlite3";
+import path from "path";
+import {fileURLToPath} from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const strapiDbPath = path.join(__dirname, "../../../strapi-app/.tmp/data.db");  // Adjust path based on actual project structure
+const db = new Database(strapiDbPath);
+
+
 
 async function fetchSpeakerData(wikidataUrl) {
   try {
@@ -176,7 +186,6 @@ function formatFields(data) {
 }
 
 
-
 // Helper function to extract speech data
 export async function extractSpeakerData(speaker, debateId) {
   const wikidata = await fetchSpeakerData(speaker.href);
@@ -202,16 +211,11 @@ export async function extractSpeakerData(speaker, debateId) {
 
 
 // Function to find or create a speakerId
-async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
+async function createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
   try {
     const politicalPartyIds = [];
-
-    // Upload the speakerId's image to Strapi and get its ID
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
-
     const validatedData = formatFields(speakerData);
-
-    // console.log("Speaker data: ", validatedData);
 
     // Process all political parties
     if (validatedData.political_parties && validatedData.political_parties.length > 0) {
@@ -221,50 +225,16 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
           politicalPartyIds.push(partyId);
         }
       }
-      // // Link political parties of speakerId to debate, problem: what was the party of the speakerId during this debate?
-      // await axios.put(
-      //   `${STRAPI_URL}/api/debates/${debateId}`,
-      //   {
-      //     data: {
-      //       political_parties: {
-      //         connect: politicalPartyIds,
-      //       },
-      //     },
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${API_TOKEN}`,
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
     }
 
-
-    // Attempt to find the speakerId by unique field (e.g., speaker_id)
-    const response = await axios.get(
-      `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${validatedData.speaker_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-        },
-      }
-    );
-
-    // If speakerId exists, return its ID
-    if (response.data.data.length > 0) {
-      console.log(`Speaker ${validatedData.speaker_name} with documentId ${response.data.data} already exists.`);
-      return response.data.data[0].documentId;
-    }
-
-    // If speakerId does not exist, create a new speakerId
     const createResponse = await axios.post(
-      `${STRAPI_URL}/api/speakers`,
+      `${STRAPI_URL}/api/speakers?populate=false`,
       {
         data: {
           ...validatedData,
           image: imageId,
-          political_parties: politicalPartyIds, // Link all parties
+          political_parties: politicalPartyIds,
+          debates: debateId
         }
       },
       {
@@ -274,81 +244,98 @@ async function findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN)
         },
       }
     );
-
     console.log(`Speaker ${validatedData.speaker_name} created successfully.`);
     return createResponse.data.data.documentId;
   } catch (error) {
-    console.error("Error finding or creating speakerId:", error.response ? error.response.data : error);
+    console.error("Error finding or creating speakerId:");
+    console.log(error.message);
+    console.log(error.response ? error.response.data : error);
   }
 }
 
 
 
-async function connect(speakerId, debateId, STRAPI_URL, API_TOKEN) {
-  if (!speakerId || !debateId) {
+async function connect(speakerDocId, debate_id) {
+  if (!speakerDocId || !debate_id) {
     console.log("Skipping relationship establishment due to missing IDs.");
     return;
   }
 
   try {
-    await axios.put(
-      `${STRAPI_URL}/api/speakers/${speakerId}`,
-      {
-        data: {
-          debates: {
-            connect: [debateId]
-          }
-        }
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    await axios.put(
-      `${STRAPI_URL}/api/debates/${debateId}`,
-      {
-        data: {
-          speakers: {
-            connect: [speakerId]
-          }
-        }
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const speaker = db.prepare("SELECT id FROM speakers WHERE document_id = ?").get(speakerDocId);
+    if (!speaker) {
+      console.error(`❌ Speaker with documentId ${speakerDocId} not found.`);
+      return;
+    }
 
-    console.log(`Speaker ${speakerId} successfully connected to Debate ${debateId}`);
+    const existingConnection = db
+      .prepare("SELECT * FROM speakers_debates_lnk WHERE speaker_id = ? AND debate_id = ?")
+      .get(speaker.id, debate_id);
+
+    if (existingConnection) {
+      console.log(`⚠️ Relationship already exists between Speaker ${speakerDocId} and Debate ${debate_id}.`);
+      return;
+    }
+
+    db.prepare("INSERT INTO speakers_debates_lnk (speaker_id, debate_id) VALUES (?, ?)").run(speaker.id, debate_id);
+
+    console.log(`✅ Speaker ${speakerDocId} successfully linked to Debate ${debate_id}.`);
   } catch (error) {
-    console.error("Error establishing relationship between Speaker and Debate:", error.response ? error.response.data : error);
-    throw error;
+    console.error("❌ Error inserting relationship:", error);
   }
 }
 
-// Main function to handle speakerId insertion or connection
+
 export async function insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN) {
   try {
     // Extract the speakerId data from jsonData
     const speakers = jsonData.akomaNtoso.debate[0].meta[0].references[0].TLCPerson;
 
-    // Iterate over each speakerId and insert/connect it in Strapi
-    for (const speaker of speakers) {
-      const speakerData = await extractSpeakerData(speaker.$, debateId);
+    const uniqueSpeakers = Array.from(
+      new Map(
+        speakers.map(sp => [sp.$.eId, sp])
+      ).values()
+    );
 
-      // Find or create the speakerId, and get the speakerId ID
-      const speakerId = await findOrCreateSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN);
+    const debate = db.prepare("SELECT id FROM debates WHERE document_id = ?").get(debateId);
 
-      // Connect the speakerId to the debate, even if they already existed
-      await connect(speakerId, debateId, STRAPI_URL, API_TOKEN);
+    for (const speaker of uniqueSpeakers) {
+      let speakerId;
+      // console.log("Speaker: ", speaker);
+      // Attempt to find the speakerId by unique field speaker_id
+      const response = await axios.get(
+        `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${speaker.$.eId}`,
+        {headers: {Authorization: `Bearer ${API_TOKEN}`,},}
+      );
+
+      // console.log(`RESPONSE `, response);
+
+      if (response.data.data.length > 0) {
+        console.log(`Speaker ${speaker.$.showAs} with documentId ${response.data.data[0].documentId} already exists.`);
+        speakerId = response.data.data[0].documentId;
+        if (debate) {
+          await connect(speakerId, debate.id);
+        } else {
+          console.error(`❌ Debate with documentId ${debateId} not found.`);
+        }
+
+      }
+      else {
+        const speakerData = await extractSpeakerData(speaker.$, debateId);
+        await createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN);
+      }
+
+      // TODO:
+      // return unique speaker ids to use in insertSpeeches.
+      // When I insert a speech I have to compare the speaker_id of the speech to check
+      // that the same id is present in the same debates speakers list
+
+      // Add a delay between requests (e.g., 1000ms)
+      // await new Promise(resolve => setTimeout(resolve, 5000))
+
     }
   } catch (error) {
-    console.error("Error inserting or connecting speakerId:", error.response ? error.response.data : error);
+    console.error(`❌ Error inserting or connecting speakerId: ${error}`);
     throw error;
   }
 }

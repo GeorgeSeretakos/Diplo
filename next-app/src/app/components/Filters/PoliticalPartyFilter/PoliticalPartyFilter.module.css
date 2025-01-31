@@ -1,18 +1,19 @@
 .partyGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: .5rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
     /*margin-top: 10px;*/
 }
 
 .partyItem {
     display: flex;
+    background-color: white;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    height: 5rem;
-    width: 3rem;
+    height: 7.5rem;
+    width: 5rem;
     padding: 0 1rem;
     border: 2px solid transparent;
     border-radius: 8px;
@@ -37,19 +38,34 @@
     color: white;
 }
 
-.imageContainer {
-    width: 50px;
-    height: 50px;
-    border-radius: .5rem;
-    border: 2px solid transparent;
+.partyImages {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    /*justify-content: space-evenly;*/
+    border-radius: 2rem;
     overflow: hidden;
+    margin: 2rem 0;
+    gap: 1rem;
+    /*border: 2px solid yellow;*/
+}
+
+.imageContainer {
+    width: 6rem;
+    height: 6rem;
+    border-radius: inherit;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: .5rem;
 }
 
 .partyImage {
     height: 100%;
     width: 100%;
     object-fit: contain;
-    /*margin-bottom: 5px;*/
 }
 
 .partyLabel {

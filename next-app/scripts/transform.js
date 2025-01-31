@@ -6,7 +6,6 @@
  * even if it’s initiated by client-side code. The server executes any processing, then sends back a response.
  */
 
-import path from 'path';
 import xslt4node from 'xslt4node';
 import { parseStringPromise } from "xml2js";
 import fs from "fs";

@@ -1,5 +1,5 @@
 /**
- * speech router
+ * html router
  */
 
 import { factories } from '@strapi/strapi';

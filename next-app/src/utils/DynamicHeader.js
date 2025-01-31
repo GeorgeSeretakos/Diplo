@@ -7,6 +7,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
 import {TextField} from "@mui/material";
 import TopicFilter from "../app/components/Filters/TopicFilter/TopicFilter.js";
+import PoliticalPartyFilter from "../app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter.js";
 
 
 const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onInputChange }) => {
@@ -16,6 +17,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
   const [periods, setPeriods] = useState([]);
   const [meetings, setMeetings] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [selectedParties, setSelectedParties] = useState([]);
 
 
   const handleSearch = () => {
@@ -28,7 +30,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
 
   const renderOptionContent = (option, inputValues, handleInputChange) => {
 
-    switch(option) {
+    switch (option) {
       case "speaker-name":
         return (
           <div className="inputContainer query">
@@ -41,10 +43,30 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
             />
           </div>
         );
+      case "speaker-party":
+        const handlePartyFilterChange = (updatedParties) => {
+          setSelectedParties(updatedParties); // Update the selected topics state
+          handleInputChange("parties", updatedParties); // Sync with parent state
+          console.log("Selected Parties:", updatedParties); // Debugging
+        };
+
+        return (
+          <header>
+            <div>
+              <h1>Explore Parties</h1>
+              <PoliticalPartyFilter
+                selectedParties={selectedParties} // Ensure selectedTopics is defined
+                onFilterChange={handlePartyFilterChange} // Pass the change handler
+              />
+            </div>
+          </header>
+        );
+
+
       case "speaker-phrase":
       case "debate-phrase":
         return (
-          <div className= "query">
+          <div className="query">
             <input
               type="text"
               value={inputValues.keyPhrase || ""}
@@ -56,7 +78,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
         );
       case "speaker-topic":
       case "debate-topic":
-        const handleFilterChange = (updatedTopics) => {
+        const handleTopicFilterChange = (updatedTopics) => {
           setSelectedTopics(updatedTopics); // Update the selected topics state
           handleInputChange("topics", updatedTopics); // Sync with parent state
           console.log("Selected Topics:", updatedTopics); // Debugging
@@ -68,7 +90,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
               <h1>Explore Topics</h1>
               <TopicFilter
                 selectedTopics={selectedTopics} // Ensure selectedTopics is defined
-                onFilterChange={handleFilterChange} // Pass the change handler
+                onFilterChange={handleTopicFilterChange} // Pass the change handler
               />
             </div>
           </header>
@@ -127,96 +149,97 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
         }, []);
         return (
           <div className="inputContainer query">
-              {/* Session Input */}
-              <div>
-                <label htmlFor="session">Session:</label>
-                <select id="session" value={inputValues.session} onChange={(e) => handleInputChange("session", e.target.value)}>
-                  <option value="">-- Select Session --</option>
-                  {sessions.map((session, index) => (
-                    <option key={index} value={session}>
-                      {session}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {/* Session Input */}
+            <div>
+              <label htmlFor="session">Session:</label>
+              <select id="session" value={inputValues.session}
+                      onChange={(e) => handleInputChange("session", e.target.value)}>
+                <option value="">-- Select Session --</option>
+                {sessions.map((session, index) => (
+                  <option key={index} value={session}>
+                    {session}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              {/* Period Input */}
-              <div>
-                <label htmlFor="period">Period:</label>
-                <select id="period" value={inputValues.period} onChange={(e) => handleInputChange("period", e.target.value)}>
-                  <option value="">-- Select Period --</option>
-                  {periods.map((period, index) => (
-                    <option key={index} value={period}>
-                      {period}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {/* Period Input */}
+            <div>
+              <label htmlFor="period">Period:</label>
+              <select id="period" value={inputValues.period}
+                      onChange={(e) => handleInputChange("period", e.target.value)}>
+                <option value="">-- Select Period --</option>
+                {periods.map((period, index) => (
+                  <option key={index} value={period}>
+                    {period}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-              {/* Meeting Input */}
-              <div>
-                <label htmlFor="meeting">Meeting:</label>
-                <select id="meeting" value={inputValues.meeting} onChange={(e) => handleInputChange("meeting", e.target.value)}>
-                  <option value="">-- Select Meeting --</option>
-                  {meetings.map((meeting, index) => (
-                    <option key={index} value={meeting}>
-                      {meeting}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {/* Meeting Input */}
+            <div>
+              <label htmlFor="meeting">Meeting:</label>
+              <select id="meeting" value={inputValues.meeting}
+                      onChange={(e) => handleInputChange("meeting", e.target.value)}>
+                <option value="">-- Select Meeting --</option>
+                {meetings.map((meeting, index) => (
+                  <option key={index} value={meeting}>
+                    {meeting}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-      );
+        );
       default:
-      return null;
-      }
-      };
+        return null;
+    }
+  };
 
-      return (
-        <div>
-          <h1 className={`message ${!primaryFilter ? "home" : ""}`}>
-            {primaryFilter === "speaker-name" && (
-              <span>
-            Find speakers named{" "}
-                <span className="dynamic-content">{inputValues.speakerName || "speaker name"}</span>
-          </span>
-            )}
-            {primaryFilter === "speaker-phrase" && (
-              <span>
-            Find out which speakers have said:{" "}
-                <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches
-          </span>
-            )}
-            {primaryFilter === "speaker-topics" && (
-              <span>
-            Find out which speakers debating on:{" "}
-                <span className="dynamic-content">{inputValues.topics || "key phrase"}</span> in their speeches
-          </span>
-            )}
-
-            {primaryFilter === "debate-phrase" && (
-              <span>
-            Find out which debates include the phrase:{" "}
-                <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
-          </span>
-            )}
-            {primaryFilter === "debate-session" && (
-              <span>
-            Discover debates within the following parliament session:
-          </span>
-            )}
-            {primaryFilter === "debate-date" && (
+  return (
+    <div>
+      <h1 className={`message ${!primaryFilter ? "home" : ""}`}>
+        {primaryFilter === "speaker-name" && (
           <span>
-            Discover debates from {" "}
+                Find speakers named{" "}
+            <span className="dynamic-content">{inputValues.speakerName || "speaker name"}</span>
+              </span>
+        )}
+        {primaryFilter === "speaker-phrase" && (
+          <span>
+                Find out which speakers have said:{" "}
+            <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches
+              </span>
+        )}
+        {primaryFilter === "speaker-topics" && (
+          <span>
+                Find out which speakers debating on:{" "}
+            <span className="dynamic-content">{inputValues.topics || "key phrase"}</span> in their speeches
+              </span>
+        )}
+
+        {primaryFilter === "debate-phrase" && (
+          <span>
+                Find out which debates include the phrase:{" "}
+            <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span>
+              </span>
+        )}
+        {primaryFilter === "debate-session" && (
+          <span>Discover debates within the following parliament session:</span>
+        )}
+        {primaryFilter === "debate-date" && (
+          <span>
+                Discover debates from {" "}
             <span className="dynamic-content">{inputValues.startDate || "start date"} </span>
-            to <span className="dynamic-content">{inputValues.endDate || "end date"}</span>
-          </span>
+                to <span className="dynamic-content">{inputValues.endDate || "end date"}</span>
+              </span>
         )}
         {primaryFilter === "debate-topics" && (
           <span>
-            Find out which speakers have said:{" "}
+                Find out debates on:{" "}
             <span className="dynamic-content">{inputValues.keyPhrase || "key phrase"}</span> in their speeches
-          </span>
+              </span>
         )}
 
         {primaryFilter === "all-speakers" && (
@@ -229,15 +252,15 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
 
       <div className="buttonContainer">
         {renderOptionContent(primaryFilter, inputValues, onInputChange)}
-        {(primaryFilter !== "all-speakers" && primaryFilter !== "all-debates" ) && (
+        {(primaryFilter !== "all-speakers" && primaryFilter !== "all-debates") && (
           <>
             <button onClick={handleSearch}>Search</button>
           </>
-      )}
+        )}
+      </div>
     </div>
-</div>
-)
-  ;
+  )
+;
 };
 
 DynamicHeader.propTypes = {
