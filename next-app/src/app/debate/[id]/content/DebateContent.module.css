@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    /*width: 1200px;*/
+    margin: auto;
+    background-color: #555;
+}
+
+
+.layoutContainer {
+    display: flex;
+    background-color: #f4f2ea;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid green;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.contentContainer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    margin: auto;
+    background-color: #f4f2ea;
+}
+
+.speechTextContainer {
+    /*border: 2px solid red;*/
+    display: flex;
+    align-items: center;
+    width: 85%;
+}
+
+.speechContainer {
+    /*border: 2px solid yellow;*/
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.speakerInfo {
+    width: 15%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: .35rem;
+    /*border: 2px solid red;*/
+}
+
+.speakerImage {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    /*border: 2px solid #ddd;*/
+    margin-bottom: 10px;
+}
+
+.speakerName {
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column; /* Ensures words stack vertically */
+    align-items: center; /* Centers words */
+    text-align: center;
+    /*border: 2px solid red;*/
+}
+
+
+.speechText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #2B2D31;
+    border-radius: 1rem;
+    /*border: 1px solid white;*/
+}
+
+.speechParagraph {
+    line-height: 1.5;
+    color: #f4f2ea;
+    font-size: 1rem;
+}
+
+.loadingTrigger {
+    height: 20px;
+}
+
+.loadingText {
+    text-align: center;
+    font-size: 2rem;
+    color: black;
+}

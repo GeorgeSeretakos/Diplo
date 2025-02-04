@@ -50,17 +50,15 @@ export async function GET(request, { params }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`, // Add API token for authorization
+        Authorization: `Bearer ${API_TOKEN}`,
       },
       body: JSON.stringify({
-        query, // The GraphQL query
-        variables: { id }, // Pass the `id` as a variable
+        query,
+        variables: { id },
       }),
     });
-
     const data = await response.json();
 
-    // Handle errors from the GraphQL response
     if (data.errors) {
       return new Response(
         JSON.stringify({ error: data.errors.map((e) => e.message).join(", ") }),
@@ -68,13 +66,11 @@ export async function GET(request, { params }) {
       );
     }
 
-    // Return the data from the GraphQL response
     return new Response(JSON.stringify(data.data), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    // Handle network or server errors
     console.error("Error fetching debate data:", error);
     return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
   }

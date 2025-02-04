@@ -1,55 +1,108 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import {constants} from "../../../../../constants/constants.js";
+import { useState, useEffect, useRef } from 'react';
+import { useParams } from "next/navigation.js";
+import SpeakerCircle from "../../../components/Speaker/SpeakerCircle/SpeakerCircle.js";
+import { constants } from "../../../../../constants/constants.js";
+import styles from "./DebateContent.module.css";
 
-const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
-
-const DebateContent = () => {
+export default function Speeches() {
   const { id: documentId } = useParams();
-  const [htmlContent, setHtmlContent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [speeches, setSpeeches] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const limit = 10;
+  const observerRef = useRef(null);
+  const STRAPI_URL = constants.STRAPI_URL;
 
   useEffect(() => {
-    const fetchDebateHtml = async () => {
+    async function fetchSpeeches() {
+      if (loading || !hasMore) return;
+      setLoading(true);
+
       try {
-        const response = await fetch(`${STRAPI_URL}/api/debates/${documentId}?populate=html`, {
-          headers: {
-            Authorization: `Bearer ${API_TOKEN}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch debate content');
+        const res = await fetch(`/api/strapi/debates/content/${documentId}?page=${page}&limit=${limit}`);
+        const data = await res.json();
+        const newSpeeches = data.data.debate.speeches;
+
+        if (newSpeeches.length > 0) {
+          setSpeeches((prevSpeeches) => [...prevSpeeches, ...data.data.debate.speeches]);
+        } else {
+          console.log("HasMore: ", hasMore);
+          setHasMore(false);
         }
-        const data = await response.json();
-        console.log("Data: ", data);
-        setHtmlContent(data.data.html.html);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        console.error("Error fetching speeches: ", error);
       } finally {
         setLoading(false);
       }
-    };
+    }
 
-    fetchDebateHtml();
-  }, [documentId]);
+    fetchSpeeches();
+  }, [page, documentId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  console.log("Speeches: ", speeches);
+
+  useEffect(() => {
+    if (!observerRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          setPage((prevPage) => prevPage + 1); // Now `page` updates only when the user scrolls
+        }
+      },
+      { threshold: 0.8 }
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => observer.disconnect();
+  }, [hasMore, loading]);
 
   return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Debate Content</h1>
-      {htmlContent ? (
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      ) : (
-        <p>No content available</p>
-      )}
+    <div className={styles.container}>
+      <div className={styles.layoutContainer}>
+        <div className={styles.contentContainer}>
+          {speeches.map((speech) => {
+            const image = speech.speakers[0]?.image;
+            const imageUrl = image?.formats?.large?.url
+              ? `${STRAPI_URL}${image.formats.large.url}`
+              : image?.url
+                ? `${STRAPI_URL}${image.url}`
+                : null;
+
+            return (
+              <div key={speech.speech_id} className={styles.speechContainer}>
+                <div className={styles.speakerInfo}>
+                  {image &&
+                    <img src={imageUrl} alt={speech.speaker_name} className={styles.speakerImage} />}
+                  <div className={styles.speakerName}>
+                    {speech.speaker_name.split(" ").map((word, index) => (
+                      <span key={index}>{word}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.speechTextContainer}>
+                  <div className={styles.speechText}>
+                    {speech.content.paragraphs.map((paragraph, index) => (
+                      <p key={index} className={styles.speechParagraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/*<div className={styles.imageContainer}>*/}
+        {/*  <img src="/images/speaker/speakerPage.webp" alt="Parliament Debate" />*/}
+        {/*</div>*/}
+      </div>
+
+      {hasMore && <div ref={observerRef} className={styles.loadingTrigger} />}
+      {loading && <p className={styles.loadingText}>Loading more speeches ...</p>}
     </div>
   );
-};
-
-export default DebateContent;
+}

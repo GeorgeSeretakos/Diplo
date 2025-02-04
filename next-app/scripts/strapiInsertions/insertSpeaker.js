@@ -186,7 +186,6 @@ function formatFields(data) {
 }
 
 
-// Helper function to extract speech data
 export async function extractSpeakerData(speaker, debateId) {
   const wikidata = await fetchSpeakerData(speaker.href);
 
@@ -210,14 +209,12 @@ export async function extractSpeakerData(speaker, debateId) {
 }
 
 
-// Function to find or create a speakerId
 async function createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
   try {
     const politicalPartyIds = [];
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
     const validatedData = formatFields(speakerData);
 
-    // Process all political parties
     if (validatedData.political_parties && validatedData.political_parties.length > 0) {
       for (const party of validatedData.political_parties) {
         const partyId = await findOrCreatePoliticalParty(party, STRAPI_URL, API_TOKEN);
@@ -252,7 +249,6 @@ async function createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
     console.log(error.response ? error.response.data : error);
   }
 }
-
 
 
 async function connect(speakerDocId, debate_id) {
@@ -301,14 +297,11 @@ export async function insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN) {
 
     for (const speaker of uniqueSpeakers) {
       let speakerId;
-      // console.log("Speaker: ", speaker);
       // Attempt to find the speakerId by unique field speaker_id
       const response = await axios.get(
         `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${speaker.$.eId}`,
         {headers: {Authorization: `Bearer ${API_TOKEN}`,},}
       );
-
-      // console.log(`RESPONSE `, response);
 
       if (response.data.data.length > 0) {
         console.log(`Speaker ${speaker.$.showAs} with documentId ${response.data.data[0].documentId} already exists.`);
@@ -324,16 +317,9 @@ export async function insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN) {
         const speakerData = await extractSpeakerData(speaker.$, debateId);
         await createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN);
       }
-
-      // TODO:
-      // return unique speaker ids to use in insertSpeeches.
-      // When I insert a speech I have to compare the speaker_id of the speech to check
-      // that the same id is present in the same debates speakers list
-
-      // Add a delay between requests (e.g., 1000ms)
-      // await new Promise(resolve => setTimeout(resolve, 5000))
-
     }
+    return uniqueSpeakers;
+
   } catch (error) {
     console.error(`❌ Error inserting or connecting speakerId: ${error}`);
     throw error;

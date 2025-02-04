@@ -2,26 +2,23 @@ import axios from 'axios';
 import path from "path";
 import fs from "fs";
 
-async function extractSpeechData(speech, debateId, list_of_null_speakers, STRAPI_URL, API_TOKEN) {
+async function extractSpeechData(speech, debateId, uniqueSpeakers, list_of_null_speakers, STRAPI_URL, API_TOKEN) {
   const content = {
-    paragraphs: (speech.p || []).map(paragraph => ({
-      type: "paragraph",
-      text: paragraph._ || paragraph,
-    }))
+    paragraphs: (speech.p || []).map(paragraph => paragraph._ || paragraph)
   };
 
   const eId = speech.$.eId; // Unique ID for the speech
   const speakerName = speech.from[0] || "Unknown Speaker"; // Speaker's name
   const speaker_id = speech.$.by;
 
-  // TODO: Null speakers logic
-  const speakerId = await findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN);
-  if (speakerId == null) {
+  // There is a mismatch between the speaker of the speech, and the speakers stated at the begging of the debate
+  if (!(uniqueSpeakers.some(speaker => speaker['$'].eId === speaker_id))) {
     list_of_null_speakers.push({
-      speakerName: speakerName,
       speakerId: speaker_id
     });
   }
+
+  const speakerId = await findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN);
 
   return {
     speaker_name: speakerName,
@@ -66,7 +63,7 @@ function extractCombinedSpeechContent(speeches) {
   return combinedText.trim(); // Remove trailing space
 }
 
-export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
+export async function insertSpeech(jsonData, debateId, uniqueSpeakers, STRAPI_URL, API_TOKEN) {
   let list_of_null_speakers = [];
 
   try {
@@ -86,7 +83,7 @@ export async function insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN) {
         continue;
       }
 
-      const speechData = await extractSpeechData(speech, debateId, list_of_null_speakers, STRAPI_URL, API_TOKEN);
+      const speechData = await extractSpeechData(speech, debateId, uniqueSpeakers, list_of_null_speakers, STRAPI_URL, API_TOKEN);
       const response = await axios.post(
         `${STRAPI_URL}/api/speeches?populate=false`,
         {
