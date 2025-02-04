@@ -14,7 +14,7 @@ const DebateMetadata = () => {
 
   const STRAPI_URL = constants.STRAPI_URL;
 
-  const { id: documentId } = useParams(); // Fix like in speakers page
+  const { id: documentId } = useParams();
 
   useEffect(() => {
     if (!documentId) {

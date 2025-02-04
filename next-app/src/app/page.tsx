@@ -27,7 +27,6 @@ export default function Home() {
                 <SpeakersSection />
                 <DebatesSection />
                 <TopicsSection />
-                {/* Footer */}
             </div>
         </div>
     );

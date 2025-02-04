@@ -5,4 +5,6 @@ export const constants = {
   ELASTICSEARCH_URL: "https://localhost:9200",
   ELASTICSEARCH_USERNAME: "elastic",
   ELASTICSEARCH_PASSWORD: "elastic",
+  dark: "#2B2D31",
+  light: "#1E1F23"
 }

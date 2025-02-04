@@ -8,7 +8,7 @@ import {constants} from "../constants/constants.js"
 
 export default async function populate() {
   const xsltPath = path.join(process.cwd(), 'public', 'debate.xsl');
-  const xmlDir = path.join(process.cwd(), 'public', 'data', 'xml_files');
+  const xmlDir = path.join(process.cwd(), 'public', 'data', 'xml_files', 'xml_akn_files');
 
   const xmlFiles = fs
     .readdirSync(xmlDir)
@@ -22,7 +22,7 @@ export default async function populate() {
   const problematic_speakers = new Set();
 
   for (const file of xmlFiles) {
-    if (count >= 10) break;
+    if (count >= 5) break;
 
     count++;
     const xmlPath = path.join(xmlDir, file);
@@ -33,8 +33,8 @@ export default async function populate() {
       const debateId = await insertDebate(jsonData, htmlData, STRAPI_URL, API_TOKEN);
 
       if (debateId) {
-        await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
-        let list_of_null_speakers = await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
+        const uniqueSpeakers = await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
+        let list_of_null_speakers = await insertSpeech(jsonData, debateId, uniqueSpeakers, STRAPI_URL, API_TOKEN);
 
         console.log(`List of null speakers for debate ${count} is:`);
         console.table(list_of_null_speakers);
