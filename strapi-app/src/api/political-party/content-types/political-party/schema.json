@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "political_parties",
+  "info": {
+    "singularName": "political-party",
+    "pluralName": "political-parties",
+    "displayName": "Political Party",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "speakers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::speaker.speaker",
+      "mappedBy": "political_parties"
+    },
+    "debates": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::debate.debate",
+      "mappedBy": "political_parties"
+    }
+  }
+}

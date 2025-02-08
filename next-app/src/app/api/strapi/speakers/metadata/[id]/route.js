@@ -4,7 +4,7 @@ const STRAPI_URL = constants.STRAPI_URL;
 const API_TOKEN = constants.API_TOKEN;
 
 export async function GET(request, { params }) {
-  const { id } = await params; // Extract the dynamic `id` from the URL
+  const { id } =await params; // Extract the dynamic `id` from the URL
 
   if (!id) {
     return new Response(JSON.stringify({ error: "Speaker ID is required" }), { status: 400 });
@@ -22,6 +22,7 @@ export async function GET(request, { params }) {
           url
         }
         date_of_birth
+        link
         place_of_birth
         date_of_death
         educated_at
@@ -37,6 +38,7 @@ export async function GET(request, { params }) {
         }
         debates {
           documentId
+          title
           date
           period
           session

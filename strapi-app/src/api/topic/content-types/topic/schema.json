@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "topics",
+  "info": {
+    "singularName": "topic",
+    "pluralName": "topics",
+    "displayName": "Topic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "topic": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "debates": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::debate.debate",
+      "inversedBy": "topics"
+    },
+    "speakers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::speaker.speaker",
+      "inversedBy": "topics"
+    }
+  }
+}

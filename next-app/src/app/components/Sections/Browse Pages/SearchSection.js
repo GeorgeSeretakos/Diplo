@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SearchSection.module.css";
 
-const SearchSection = ({ title, imageUrl, description, onButtonClick }) => {
+const SearchSection = ({ title, imageUrl, onButtonClick }) => {
   return (
     <div className={styles.section} onClick={onButtonClick}>
       <div className={styles.content}>
@@ -11,7 +11,6 @@ const SearchSection = ({ title, imageUrl, description, onButtonClick }) => {
         <div className={styles.bottomSection}>
           {/*<div className={styles.button}>*/}
             <div className={styles.title}>{title}</div>
-            <div className={styles.description}>{description}</div>
           {/*</div>*/}
         </div>
       </div>

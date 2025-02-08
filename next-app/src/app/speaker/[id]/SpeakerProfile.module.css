@@ -6,52 +6,33 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
+    color: #2B2D31;
 }
 
 .sections {
     display: flex;
     align-items: center;
     overflow: hidden;
-    padding-left: 1rem;
     height: 100%;
 }
 
 /* Left Section */
-.middleSection{
-    /*height: 100vh;*/
-    width: 45%;
+.leftSection{
+    width: 60%;
+    padding: 2rem 4rem 2rem 4rem;
     position: relative;
-    margin: auto;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow-y: auto; /* Allow scrolling if content overflows */
     /*border: 2px solid red;*/
+    box-sizing: border-box;
 }
 
-.headerContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    border-radius: 2rem;
-    border: dotted white;
-    border-width: 0 3px 0 3px;
-}
-
-.textContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 70%;
-}
-
-.speakerName {
-    font-size: 2rem;
-    margin: 0;
+.title {
+    font-size: 2.75rem;
+    color: black;
+    text-align: center;
 }
 
 .description {
@@ -60,14 +41,16 @@
     margin-bottom: 0;
 }
 
+.debateContainer {
+    border: 2px solid red;
+}
+
 .partyImages {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    /*justify-content: space-evenly;*/
     border-radius: 2rem;
     overflow: hidden;
-    margin: 2rem 0;
     gap: 1rem;
     /*border: 2px solid yellow;*/
 }
@@ -75,13 +58,15 @@
 .imageContainer {
     width: 6rem;
     height: 6rem;
-    border-radius: inherit;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     padding: .5rem;
+    border-radius: 2rem;
+    border: 2px solid black;
+
 }
 
 .partyImage {
@@ -94,7 +79,6 @@
     line-height: 1.5rem;
 }
 
-
 .websiteSection {
     text-align: left;
     margin-top: 1rem;
@@ -103,21 +87,16 @@
 .websiteSection a {
     text-decoration: none;
     color: white;
-    background: #6a11cb;
+    background: black;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     font-size: 1rem;
     transition: background 0.3s;
 }
 
-.websiteSection a:hover {
-    background: #2575fc;
-}
-
-/* Right Section */
-.edgeSection {
+.rightSection {
     height: 100%;
-    width: 25%;
+    width: 40%;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -126,7 +105,6 @@
     position: fixed;
     top: 0;
     right: 0;
-    /*border-radius: 3rem 0 0 3rem;*/
     overflow: hidden;
 }
 
@@ -138,18 +116,6 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    filter: blur(2px);
-}
-
-.backgroundImageContainer2 {
-    background-image: url("../../../../public/images/speaker/speakerPage.webp");
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    filter: blur(2px);
 }
 
 .profilePictureContainer {
@@ -158,7 +124,7 @@
     align-items: center;
     height: 15rem;
     width: 10rem;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     overflow: hidden;
     border: 1.5px solid white;
 }
@@ -175,14 +141,10 @@
 }
 
 .section {
-    color: white;
+    margin-bottom: 1rem;
 }
 
-
 .partyDetails {
-    /*border: 2px solid red;*/
-    /*display: flex;*/
     align-items: center;
     justify-content: space-between;
-    /*text-align: center;*/
 }

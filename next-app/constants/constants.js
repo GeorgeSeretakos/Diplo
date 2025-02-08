@@ -6,5 +6,6 @@ export const constants = {
   ELASTICSEARCH_USERNAME: "elastic",
   ELASTICSEARCH_PASSWORD: "elastic",
   dark: "#2B2D31",
-  light: "#1E1F23"
+  light: "#1E1F23",
+  cream: "rgba(244, 242, 234, 0.8)"
 }

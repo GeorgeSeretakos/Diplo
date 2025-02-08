@@ -1,0 +1,33 @@
+.debateCard {
+    background-color: #1e1e1e; /* Dark theme for contrast */
+    color: #ffffff; /* White text for readability */
+    border: 1px solid #444; /* Subtle border */
+    border-radius: 1rem; /* Rounded corners */
+    padding: 1.5rem; /* Add internal spacing */
+    margin: 0.5rem; /* External spacing */
+    /*height: 12.5rem;*/
+    /*width: 30rem; !* Full width of parent *!*/
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effects */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.debateCard:hover {
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
+    cursor: pointer;
+}
+
+.date {
+    font-size: 1.2rem; /* Highlight the date */
+    font-weight: bold; /* Make it stand out */
+    margin-bottom: 0.5rem;
+    color: #f9d342; /* Accent color */
+}
+
+.session {
+    font-size: 0.9rem;
+    color: #aaa; /* Subtle text color */
+}

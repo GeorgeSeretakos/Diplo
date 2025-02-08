@@ -11,7 +11,6 @@ export async function GET() {
     const query = `
       query {
         topics (pagination: { limit: -1 }) {
-          documentId
           topic
         }
       }

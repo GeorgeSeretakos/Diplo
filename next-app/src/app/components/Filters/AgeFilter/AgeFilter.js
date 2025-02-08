@@ -3,7 +3,7 @@ import Slider from "@mui/material/Slider";
 import FilterSection from "../FilterSection.js";
 import styles from "./AgeFilter.module.css";
 
-const AgeFilter = ({ ageRange, onAgeRangeChange }) => {
+const AgeFilter = ({ ageRange=100 }) => {
   const [tempRange, setTempRange] = useState([ageRange.min, ageRange.max]);
 
   useEffect(() => {
@@ -12,7 +12,6 @@ const AgeFilter = ({ ageRange, onAgeRangeChange }) => {
 
   const handleSliderChange = (event, newValue) => {
     setTempRange(newValue);
-    onAgeRangeChange({ min: newValue[0], max: newValue[1] });
   };
 
   return (

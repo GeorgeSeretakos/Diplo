@@ -2,8 +2,8 @@
 
 import React from "react";
 import "../../../../styles/globals.css"
-import SpeakerCircle from "src/app/components/Speaker/SpeakerCircle/SpeakerCircle.js";
-import {TEXTS, TITLES} from "src/app/constants/texts.js";
+import SpeakerCircle from "/src/app/components/Speaker/SpeakerCircle/SpeakerCircle.js";
+import {TEXTS, TITLES} from "/src/app/constants/texts.js";
 import {useRouter} from "next/navigation.js";
 
 const SpeakersSection = () => {

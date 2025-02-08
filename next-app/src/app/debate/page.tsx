@@ -1,45 +1,32 @@
 'use client';
 
-import {useEffect, useState} from "react";
-import {fetchAndTransformClientSide} from "@/utils/clientTransformToHtml";
+import React, { useState } from "react";
+import FilterModal from "../../app/components/FilterModal/FilterModal"
+import AgeFilter from "../../app/components/Filters/AgeFilter/AgeFilter"; // Your existing speaker filter component
 
-const DebatePage = () => {
-    const [htmlContent, setHtmlContent] = useState<string>('');
-
-    useEffect(() => {
-        const loadContent = async () => {
-            try {
-                // Toggle between client-side and server-side transformation
-                const isClientSide = false; // Change to true to use client-side transformation
-
-                let html = '';
-
-                if (isClientSide) {
-                    html = await fetchAndTransformClientSide();
-                } else {
-                    const HtmlResponse = await fetch('/api/transformAPI?format=html');
-                    if (!HtmlResponse.ok) throw new Error("Failed to fetch transformed Html");
-                    html = await HtmlResponse.text();
-                    console.log("HTML response: ", html);
-                }
-                setHtmlContent(html);
-            } catch (error) {
-                console.error("Error loading debate content: ", error);
-            }
-        };
-
-        loadContent();
-    }, []);
+const FilterPage = () => {
+    const [activeFilter, setActiveFilter] = useState(null); // Tracks the active filter
 
     return (
         <div>
-            <h1>This is the Debate Page</h1>
-            <div
-                id="debate-content"
-                dangerouslySetInnerHTML={{__html: htmlContent}}
-            />
+            <h1>Search Debates</h1>
+
+            {/* Filter Buttons */}
+            <div className="filters">
+                <button onClick={() => setActiveFilter("speakers")}>👥 Select Speakers</button>
+                <button onClick={() => setActiveFilter("topics")}>📌 Select Topics</button>
+            </div>
+
+            {/* Render the Modal Only When a Filter is Active */}
+            <FilterModal
+                isOpen={!!activeFilter}
+                onClose={() => setActiveFilter(null)}
+                title={activeFilter === "speakers" ? "Select Speakers" : "Select Topics"}
+            >
+                {activeFilter === "speakers" && <AgeFilter />}
+            </FilterModal>
         </div>
     );
-}
+};
 
-export default DebatePage;
+export default FilterPage;

@@ -3,8 +3,7 @@ import {constants} from "../../../constants/constants.js";
 const WIKIDATA_URL = constants.WIKIDATA_URL;
 
 export const executeSparqlQuery = async (query) => {
-  const endpointUrl = WIKIDATA_URL;
-  const url = `${endpointUrl}?query=${encodeURIComponent(query)}&format=json`;
+  const url = `${WIKIDATA_URL}?query=${encodeURIComponent(query)}&format=json`;
 
   try {
     const response = await fetch(url);
