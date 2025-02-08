@@ -32,7 +32,6 @@ const BrowseSpeakers = () => {
                 <SearchSection
                     title="Speaker Name"
                     imageUrl="/images/politicians/speakers.webp"
-                    description="Click to search for speakers based on their name"
                     onButtonClick={() => handleFilterSelection("speaker-name")}
                 />
 
@@ -40,7 +39,6 @@ const BrowseSpeakers = () => {
                 <SearchSection
                     title="Political Party"
                     imageUrl="/images/parties/parties.jpg"
-                    description="Click to browse speakers grouped by their political party"
                     onButtonClick={() => handleFilterSelection("speaker-party")}
                 />
 
@@ -48,7 +46,6 @@ const BrowseSpeakers = () => {
                 <SearchSection
                     title="Key Phrase"
                     imageUrl="/images/politicians/key-phrase.jpg"
-                    description="Click to search for speakers who have said a specific phrase"
                     onButtonClick={() => handleFilterSelection("speaker-phrase")}
                 />
 
@@ -56,7 +53,6 @@ const BrowseSpeakers = () => {
                 <SearchSection
                     title="Topic"
                     imageUrl="/images/topics/topics.jpg"
-                    description="Click to browse speakers debating specific topics"
                     onButtonClick={() => handleFilterSelection("speaker-topic")}
                 />
             </div>

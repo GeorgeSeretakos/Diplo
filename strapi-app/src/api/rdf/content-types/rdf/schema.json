@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rdfs",
+  "info": {
+    "singularName": "rdf",
+    "pluralName": "rdfs",
+    "displayName": "RDF"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "RDFAsText": {
+      "type": "text"
+    },
+    "RDFAsJSON": {
+      "type": "json"
+    }
+  }
+}

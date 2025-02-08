@@ -3,7 +3,7 @@
 import React from "react";
 import "../../../../styles/globals.css";
 import styles from "./DebatesSection.module.css";
-import {TEXTS, TITLES} from "src/app/constants/texts.js";
+import {TEXTS, TITLES} from "/src/app/constants/texts.js";
 import {useRouter} from "next/navigation";
 
 const DebatesSection = () => {

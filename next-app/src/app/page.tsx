@@ -3,9 +3,11 @@ import ActionButtonsSection from "@/app/components/Sections/Home Page/ActionButt
 import DebatesSection from "@/app/components/Sections/Home Page/DebatesSection/DebatesSection";
 import TopicsSection from "@/app/components/Sections/Home Page/TopicsSection/TopicsSection";
 
+import "./styles/globals.css";
+
 export default function Home() {
     return (
-        <div style={{ width: "100%"}}>
+        <div style={{ width: "100%", color: "white"}}>
             {/* Video Section */}
             <div className="videoContainer">
                 <video

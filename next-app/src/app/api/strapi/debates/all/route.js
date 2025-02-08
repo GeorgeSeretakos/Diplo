@@ -8,6 +8,7 @@ export async function GET() {
     {
       debates(pagination: { limit: -1 }) {
         documentId
+        title
         date
         period
         session_date

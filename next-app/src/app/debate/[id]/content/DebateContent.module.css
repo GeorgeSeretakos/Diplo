@@ -1,15 +1,22 @@
 .container {
     display: flex;
     flex-direction: column;
-    /*width: 1200px;*/
+    width: 100%; /* Ensure it takes the full width */
     margin: auto;
     background-color: #555;
+    background-image: url("../../../../../public/images/parliament/vouli2.png");
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-attachment: fixed; /* Fix the background image in place */
+    position: relative; /* Needed for z-index to work */
+    overflow: hidden; /* Ensure the blur effect doesn't overflow */
+    z-index: 1; /* Ensure it stays above the blurred background */
 }
-
 
 .layoutContainer {
     display: flex;
-    background-color: #f4f2ea;
+    position: relative; /* Ensure it stays above the background */
+    z-index: 2; /* Ensure it stays above the background */
 }
 
 .imageContainer {
@@ -17,7 +24,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid green;
     height: 100vh;
     object-fit: cover;
 }
@@ -29,24 +35,22 @@
 }
 
 .contentContainer {
-    width: 90%;
+    width: 100%;
+    padding: 4rem 7rem 4rem 7rem;
     display: flex;
     flex-direction: column;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
     margin: auto;
-    background-color: #f4f2ea;
+    position: relative; /* Ensure it stays above the blurred background */
+    z-index: 2; /* Ensure it stays above the background */
 }
 
 .speechTextContainer {
-    /*border: 2px solid red;*/
     display: flex;
     align-items: center;
     width: 85%;
 }
 
 .speechContainer {
-    /*border: 2px solid yellow;*/
     margin-bottom: 30px;
     display: flex;
 }
@@ -57,7 +61,6 @@
     align-items: center;
     text-align: center;
     padding-top: .35rem;
-    /*border: 2px solid red;*/
 }
 
 .speakerImage {
@@ -65,20 +68,19 @@
     height: 5rem;
     border-radius: 50%;
     object-fit: cover;
-    /*border: 2px solid #ddd;*/
     margin-bottom: 10px;
+    border: 2px solid rgba(244, 242, 234, 0.8);
 }
 
 .speakerName {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.1rem;
     display: flex;
-    flex-direction: column; /* Ensures words stack vertically */
-    align-items: center; /* Centers words */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    /*border: 2px solid red;*/
+    color: white;
 }
-
 
 .speechText {
     display: flex;
@@ -86,14 +88,14 @@
     justify-content: center;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: #2B2D31;
+    background-color: rgba(244, 242, 234, 0.8);
     border-radius: 1rem;
-    /*border: 1px solid white;*/
 }
 
 .speechParagraph {
     line-height: 1.5;
-    color: #f4f2ea;
+    color: black;
+    font-weight: bolder;
     font-size: 1rem;
 }
 

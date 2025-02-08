@@ -17,7 +17,7 @@ const SpeakerCircle = ({ photo, name }) => {
         {/*</div>*/}
 
       </div>
-      <div style={{fontSize: "1.5rem"}}>{name}</div>
+      {/*<div style={{fontSize: "1.5rem"}}>{name}</div>*/}
     </>
   );
 };

@@ -14,6 +14,12 @@ import DebateCard from "../../components/Debate/DebateCard/DebateCard.js";
 const SpeakerPage = () => {
   const router = useRouter();
 
+  const initialDebatesShown = 4;
+
+  const [visibleDebates, setVisibleDebates] = useState(initialDebatesShown);
+  const [showMoreVisible, setShowMoreVisible] = useState(true); // Control visibility of "Show More" link
+
+
   const [speakerData, setSpeakerData] = useState(null);
   const [positionsHeld, setPositionsHeld] = useState([]);
   const [wikidataEntityId, setWikidataEntityId] = useState(null);
@@ -36,11 +42,14 @@ const SpeakerPage = () => {
         const response = await axios.get(`/api/strapi/speakers/metadata/${documentId}`);
         console.log(response);
         setSpeakerData(response.data.speaker);
+        console.log("Just set speakers data", speakerData);
 
         // Extract the link attribute and wikidata entity ID
-        const link = speakerData?.link;
+        const link = response.data.speaker?.link;
+        console.log("Link", link);
         if (link) {
           const entityId = link.split("/").pop();
+          console.log("EntityId: ", entityId);
           setWikidataEntityId(entityId);
         }
 
@@ -54,11 +63,14 @@ const SpeakerPage = () => {
 
   }, [documentId]);
 
+  console.log("Wikidata id: ", wikidataEntityId);
+
   useEffect(() => {
     if (!wikidataEntityId) return;
 
     const fetchWikidataPositions = async () => {
       try {
+        console.log("Called");
         const positions = await fetchPositionHeld(wikidataEntityId);
         const formattedPositions = formatPositionHeld(positions);
         setPositionsHeld(formattedPositions);
@@ -103,72 +115,53 @@ const SpeakerPage = () => {
     <div className={styles.pageLayout}>
       <div className={styles.sections}>
 
-        <div className={styles.edgeSection} style={{top: 0, left: 0, borderRadius: "0 1.5rem 1.5rem 0"}}>
-          <div className={styles.backgroundImageContainer2}></div>
-        </div>
-
-
-        {/* Left Section: Speaker Information */}
-        <div className={styles.middleSection}>
-          {/* Header Section */}
-          <div className={styles.headerContent}>
-            <div className={styles.textContent}>
-              {speaker_name && <h1 className={styles.speakerName}>{speaker_name}</h1>}
-              {description && <p className={styles.description}>{description}</p>}
+        <div className={styles.leftSection}>
+          {speaker_name && <h1 className={styles.title}>{speaker_name}</h1>}
+          {description &&
+            <div className={styles.section}>
+              <strong className="dynamic-content">Description:</strong> {description}
             </div>
-            <div className={styles.profilePictureContainer}>
-              <img src={imageUrl} alt="Speaker" className={styles.profilePicture}/>
+          }
+
+          {date_of_birth && place_of_birth && (
+            <div className={styles.section}>
+              <strong className="dynamic-content">Born:</strong> {date_of_birth}, {place_of_birth}
             </div>
-          </div>
+          )}
+          {date_of_death && <p><strong className="dynamic-content">Died:</strong> {date_of_death}</p>}
 
-          {/* About Section */}
-          <div className={styles.aboutSection}>
-            <div className={styles.personalDetails}>
-              {date_of_birth && place_of_birth && (
-                <p>
-                  <strong className="dynamic-content">Born:</strong> {date_of_birth}, {place_of_birth}
-                </p>
-              )}
-              {date_of_death && <p><strong className="dynamic-content">Died:</strong> {date_of_death}</p>}
+          {educated_at && (
+            <div className={styles.section}>
+              <strong className="dynamic-content">Education:</strong>
+              <ul className={styles.list}>
+                {educated_at.split(",").map((education, index) => (
+                  <li key={index} className={styles.educationItem}>
+                    {education.trim()}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className={styles.professionalDetails}>
-              {/* Education Section */}
-              {educated_at && (
-                <div className={styles.professionalDetails}>
-                  <strong className="dynamic-content">Education:</strong>
-                  <ul className={styles.list}>
-                    {educated_at.split(",").map((education, index) => (
-                      <li key={index} className={styles.educationItem}>
-                        {education.trim()}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+          )}
 
-              {occupation && occupation.length > 0 && (
-                <p>
-                  <strong className="dynamic-content">Occupation:</strong> {occupation}
-                </p>
-              )}
-
-              {languages && languages.length > 0 && (
-                <p><strong className="dynamic-content">Languages:</strong> {languages}</p>
-              )}
+          {occupation && occupation.length > 0 && (
+            <div className={styles.section}>
+              <strong className="dynamic-content">Occupation:</strong> {occupation}
             </div>
-          </div>
+          )}
 
-          {/*Extra Details*/}
-          <div className={styles.partyDetails}>
+          {languages && languages.length > 0 && (
+            <div className={styles.section}>
+              <strong className="dynamic-content">Languages:</strong> {languages}
+            </div>
+          )}
+
             {political_parties && political_parties.length > 0 && (
-              <div>
-                <p>
-                  <strong className="dynamic-content">Political Party: </strong>
-                  {political_parties.map((party) => party.name).join(", ")}
-                </p>
+              <div className={`${styles.section} ${styles.partyDetails}`}>
+                <strong className="dynamic-content">Political Party: </strong>
+                {political_parties.map((party) => party.name).join(", ")}
               </div>
             )}
-            <div className={styles.partyImages}>
+            <div className={`${styles.section} ${styles.partyImages}`}>
               {political_parties && political_parties.length > 0 && (
                 political_parties.map((party, index) => {
 
@@ -178,13 +171,12 @@ const SpeakerPage = () => {
                       ? `${STRAPI_URL}${party.image.url}`
                       : null;
 
-                  // If no image exists, return null
                   if (!partyImage) return null;
 
                   return (
                     <div className={styles.imageContainer} key={index}>
                       <img
-                        src={partyImage} // TODO: Add fallback image
+                        src={partyImage}
                         alt={`${party.name || "Political party"} photo`}
                         className={styles.partyImage}
                       />
@@ -192,7 +184,6 @@ const SpeakerPage = () => {
                   );
                 })
               )}
-            </div>
           </div>
 
 
@@ -222,10 +213,9 @@ const SpeakerPage = () => {
           )}
 
 
-
           <div className={metadataStyles.speakersSection} style={{marginTop: "2rem"}}>
             {debates && (
-              <p><strong className="dynamic-content">Debates</strong></p>
+              <p><strong className="dynamic-content">Debates {`(${debates.length})`}</strong></p>
             )}
             <div className={metadataStyles.grid}>
               {debates.map((debate, index) => {
@@ -238,28 +228,43 @@ const SpeakerPage = () => {
                     meeting={debate.meeting}
                     topics={debate.topics || []}
                     date={debate.date}
-                    // containerStyle={{width: "7.5rem", height: "12.5rem", borderRadius: "1rem"}}
+                    title={debate.title}
+                    // containerStyle={{width: "5rem", height: "12.5rem", borderRadius: "1rem"}}
                     // textStyle={{fontSize: ".5rem"}}
                   />
                 );
               })}
+              {showMoreVisible && debates.length > visibleDebates && (
+                <div
+                  onClick={() => setVisibleDebates(debates.length)}
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Show More ...
+                </div>
+              )}
+              {showMoreVisible && debates.length === visibleDebates && (
+                <div
+                  onClick={() => setVisibleDebates(initialDebatesShown)}
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Show Less
+                </div>
+              )}
             </div>
           </div>
-
-          <div className="buttonContainer" style={{marginBottom: "1rem", marginTop: "2rem"}}>
-            <button className="button" onClick={() => router.push(`/speakers-results/?searchPerformed=true`)}>Previous
-              Search
-            </button>
-            <button className="button" onClick={() => router.push("/browse-speakers/")}>Change Filter</button>
-            <button className="button" onClick={() => router.push("/")}>Exit</button>
-          </div>
-
-
         </div>
 
-        {/* Right Section: Image */}
-        <div className={styles.edgeSection} style={{borderRadius: "1.5rem 0 0 1.5rem"}}>
-          <div className={styles.backgroundImageContainer}></div>
+        <div className={styles.rightSection}>
+          {imageUrl ?
+            <img src={imageUrl} alt="Speaker" className={styles.profilePicture}/> :
+            <div className={styles.backgroundImageContainer}></div>
+          }
         </div>
       </div>
 

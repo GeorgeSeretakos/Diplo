@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../styles/globals.css";
 import styles from "./TopicsSection.module.css";
-import {TEXTS, TITLES} from "src/app/constants/texts.js";
+import {TEXTS, TITLES} from "/src/app/constants/texts.js";
 
 const TopicsSection = () => {
   return (
