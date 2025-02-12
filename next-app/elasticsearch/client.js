@@ -1,6 +1,8 @@
 import { Client } from '@elastic/elasticsearch';
 import { constants } from "../constants/constants.js";
 
+console.log("Initializing Elasticsearch client...");
+
 const client = new Client({
   node: constants.ELASTICSEARCH_URL, // ElasticSearch URL
   auth: {
@@ -8,16 +10,18 @@ const client = new Client({
     password: constants.ELASTICSEARCH_PASSWORD, // Password
   },
   tls: {
-    rejectUnauthorized: false, // Disable certificate validation (only for development) TODO: avoid in production
+    rejectUnauthorized: false, // Disable certificate validation (only for development)
   },
 });
 
-client.ping({}, (error, response) => {
-  if (error) {
+console.log("Pinging Elasticsearch server...");
+
+client.ping()
+  .then(() => {
+    console.log("Elasticsearch Connection Successful!");
+  })
+  .catch(error => {
     console.error("Elasticsearch Connection Error:", error);
-  } else {
-    console.log("Elasticsearch Connection Successful:", response);
-  }
-});
+  });
 
 export default client;

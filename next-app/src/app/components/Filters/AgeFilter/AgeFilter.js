@@ -22,8 +22,8 @@ const AgeFilter = ({ ageRange=100 }) => {
             value={tempRange}
             onChange={handleSliderChange}
             valueLabelDisplay="auto"
-            min={0}
-            max={100}
+            min={1980}
+            max={2025}
             marks
             sx={{
               color: "white", // Change the bar color
