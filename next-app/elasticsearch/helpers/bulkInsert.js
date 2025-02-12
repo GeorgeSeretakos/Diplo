@@ -2,7 +2,7 @@ import axios from "axios";
 import client from "../client.js"; // Elasticsearch client
 
 const INDEX_NAME = "speeches";
-const STRAPI_API_URL = "http://localhost:1337/api/speeches"; // Update with your Strapi endpoint
+const STRAPI_API_URL = "http://localhost:1338/api/speeches"; // Update with your Strapi endpoint
 const PAGE_SIZE = 100; // Number of items to fetch per page
 
 /**
@@ -47,7 +47,7 @@ async function bulkInsert() {
         !speech.speaker_name ||
         !speech.content ||
         !speech.speech_id ||
-        !speech.debate?.documentId
+        !speech.debates[0]?.documentId
       ) {
         console.warn(`Skipping speech with missing fields: ${speech.id}`);
         return [];
@@ -55,8 +55,10 @@ async function bulkInsert() {
 
       // Transform the content field to a single string
       const transformedContent = speech.content.paragraphs
-        .map((paragraph) => paragraph.text) // Extract text from each paragraph
+        .map((paragraph) => paragraph) // Extract text from each paragraph
         .join(' '); // Combine paragraphs into one string
+
+      console.log("Transformed Content: ", transformedContent);
 
       return [
         {
@@ -65,7 +67,7 @@ async function bulkInsert() {
         {
           speaker_name: speech.speaker_name,
           content: transformedContent,
-          debate_id: speech.debate.documentId,
+          debate_id: speech.debates[0].documentId,
           speaker_id: speech.speaker_id,
         },
       ];
