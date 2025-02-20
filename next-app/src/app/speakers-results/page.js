@@ -65,7 +65,7 @@ const SpeakersResults = () => {
     };
 
     const resetSearch = () => {
-        setSearchPerformed(false); // Reset search state
+        setSearchPerformed(false); // Reset search-debates state
         setInputValues({
             speakerName: "",
             keyPhrase: "",
@@ -142,7 +142,7 @@ const SpeakersResults = () => {
             console.log("Response: ", response.data);
 
             if (response.data?.length === 0) {
-                setNoResultsMessage("No speakers were found, perform another search.");
+                setNoResultsMessage("No speakers were found, perform another search-debates.");
             }
             else {
                 setSpeakers(response.data);
@@ -181,7 +181,7 @@ const SpeakersResults = () => {
                 )}
             </div>
 
-            {/* Only show content if search is performed */}
+            {/* Only show content if search-debates is performed */}
             {(searchPerformed || primaryFilter === "all-speakers") && (
                 <div className={styles.pageLayout}>
                     {noResultsMessage === "" ? (

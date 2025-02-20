@@ -1,20 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Label } from "@components/ui/label";
 import DebateBig from "../components/Debate/DebateBig/DebateBig";
 import SearchSection from "@components/ui/SearchSection";
 import Select from "react-select";
+import axios from "axios";
+import SideBar from "@components/Sidebar";
 
 
 export default function DebateSearch() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isClient, setIsClient] = useState(false);
     const [debates, setDebates] = useState([]);
     const [sessions, setSessions] = useState([]);
     const [periods, setPeriods] = useState([]);
     const [meetings, setMeetings] = useState([]);
     const [topics, setTopics] = useState([]);
     const [speakers, setSpeakers] = useState([]);
+    const [sortBy, setSortBy] = useState("newest");
+    const [page, setPage] = useState(1);
+    const [limit] = useState(5);
+    const [totalPages, setTotalPages] = useState(1);
     const [inputValues, setInputValues] = useState({
         startDate: "",
         endDate: "",
@@ -33,20 +40,30 @@ export default function DebateSearch() {
               ? prev.topics.filter(t => t !== topic)  // Remove if already selected
               : [...prev.topics, topic]              // Add if not selected
         }));
+        setPage(1);
     };
 
     useEffect(() => {
-        const fetchAllDebates = async () => {
+        setIsClient(true);
+    }, []);
+
+    useEffect(() => {
+        const searchDebates = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/strapi/debates/all`);
-                const data = await response.json();
-                setDebates(data);
+                const endpoint = "http://localhost:3000/api/search-debates";
+                const body = { ...inputValues, sortBy, page, limit };
+
+                const response = await axios.post(endpoint, body);
+                console.log("Search API Response: ", response);
+
+                setDebates(response.data.debates);
+                setTotalPages(response.data.totalPages);
             } catch (error) {
                 console.error("Error fetching all debates:", error);
             }
         };
-        fetchAllDebates();
-    }, []);
+        searchDebates();
+    }, [inputValues, sortBy, page]);
 
     useEffect(() => {
         const fetchParliamentSessionAttributes = async () => {
@@ -69,9 +86,6 @@ export default function DebateSearch() {
             try {
                 const response = await fetch(`http://localhost:3000/api/strapi/topics/all`);
                 const data = await response.json();
-
-                console.log("DATA: ", data);
-
                 setTopics(data);
             } catch (error) {
                 console.error("Error fetching topics:", error);
@@ -87,8 +101,6 @@ export default function DebateSearch() {
                 const data = await response.json();
 
                 const speakerNames = data.map((speaker) => speaker.speaker_name);
-
-                console.log("Processed Speaker Names: ", speakerNames);
                 setSpeakers(speakerNames);
 
                 console.log("DATA: ", data);
@@ -107,29 +119,36 @@ export default function DebateSearch() {
     };
 
     console.log("Input Values: ", inputValues);
+    console.log("Debates: ", debates);
+    console.log("Total Pages: ". totalPages);
 
     return (
-      <div className="bg-black">
-          <div className="flex items-center pt-8 pb-4 bg-black border-b-2 w-[80%] m-auto">
-              <div className="text-white flex justify-center text-4xl w-[30%] font-bold"><div>Search Debates</div></div>
+      <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
+          <div className="flex fixed bg-[#1E1F23] top-0 w-full items-center border-b-2 m-auto z-50">
+              <div className="text-white flex justify-center w-[30%] font-bold">
+                  <SideBar />
+              </div>
               <div className="w-[70%] pr-8 pl-8 flex justify-center">
-                  <SearchSection/>
+                  <SearchSection
+                    handleInputChange={handleInputChange}
+                    setSortBy={setSortBy}
+                    setPage={setPage}
+                  />
               </div>
           </div>
 
 
-          <div className="flex text-white w-[80%] m-auto">
+          <div className="flex text-white w-[100%] m-auto pt-[4rem] relative z-10">
           {/* Search Filters Sidebar */}
-              <div className={`space-y-6 p-10 h-fit bg-black w-[30%] min-h-[100vh] ${isDropdownOpen ? 'h-auto' : ''}`}>
+              <div className={`bg-[#1E1F23] space-y-6 p-10 h-fit w-[30%] min-h-[100vh] ${isDropdownOpen ? 'h-auto' : ''}`}>
 
                   <div className="mb-6">
-
                       {/* Start Date */}
                       <div className="flex flex-col space-y-2 mb-6">
                           <Label htmlFor="startDate">Start Date</Label>
                           <input
                             type="date"
-                            className="w-full bg-gray text-white p-2 rounded-md outline-none"
+                            className="w-full bg-gray text-white p-2 rounded-md outline-none border-none"
                             value={inputValues.startDate}
                             onChange={(e) => handleInputChange("startDate", e.target.value)}
                           />
@@ -140,7 +159,7 @@ export default function DebateSearch() {
                           <Label htmlFor="endDate">End Date</Label>
                           <input
                             type="date"
-                            className="w-full bg-gray text-white p-2 rounded-md outline-none"
+                            className="w-full bg-gray text-white p-2 rounded-md outline-none border-none"
                             value={inputValues.endDate}
                             onChange={(e) => handleInputChange("endDate", e.target.value)}
                           />
@@ -149,7 +168,7 @@ export default function DebateSearch() {
                       {/* Session Input */}
                       <div className="flex flex-col space-y-2 mb-6">
                           <Label htmlFor="session">Session</Label>
-                          <select id="session" className="text-xs" value={inputValues.session}
+                          <select id="session" className="text-xs border-none" value={inputValues.session}
                                   onChange={(e) => handleInputChange("session", e.target.value)}>
                               <option value="">-- Select Session --</option>
                               {sessions.map((session, index) => (
@@ -163,7 +182,7 @@ export default function DebateSearch() {
                       {/* Period Input */}
                       <div className="flex flex-col space-y-2 mb-6">
                           <Label htmlFor="period">Period</Label>
-                          <select id="period" className="text-xs" value={inputValues.period}
+                          <select id="period" className="text-xs border-none" value={inputValues.period}
                                   onChange={(e) => handleInputChange("period", e.target.value)}>
                               <option value="">-- Select Period --</option>
                               {periods.map((period, index) => (
@@ -177,7 +196,7 @@ export default function DebateSearch() {
                       {/* Meeting Input */}
                       <div className="flex flex-col space-y-2  mb-6">
                           <Label htmlFor="meeting">Meeting</Label>
-                          <select id="meeting" className="text-xs" value={inputValues.meeting}
+                          <select id="meeting" className="text-xs border-none" value={inputValues.meeting}
                                   onChange={(e) => handleInputChange("meeting", e.target.value)}>
                               <option value="">-- Select Meeting --</option>
                               {meetings.map((meeting, index) => (
@@ -192,7 +211,7 @@ export default function DebateSearch() {
                   {/* Participating Speakers Searchable Multi-Select */}
                   <div className="flex flex-col space-y-2 mb-6">
                       <Label htmlFor="speakers">Participating Speakers:</Label>
-                      <Select
+                      {isClient && <Select
                         isMulti
                         options={speakers.map((speaker) => ({ value: speaker, label: speaker }))} // ✅ Only using speaker_name
                         value={inputValues.speakers.map((s) => ({ value: s, label: s }))} // ✅ Properly formatted
@@ -250,13 +269,13 @@ export default function DebateSearch() {
                                     backgroundColor: "#4b5563", // bg-gray-600 on hover
                                 },
                             }),
+                            menuPortal: base => ({ ...base, zIndex: 9999 }) // Ensures dropdown is always on top
                         }}
                         menuPosition="absolute"
                         menuPortalTarget={document.body}
                       />
 
-
-
+                      }
 
                   </div>
 
@@ -283,7 +302,7 @@ export default function DebateSearch() {
               </div>
 
               {/* Debates List */}
-              <div className="w-[70%] flex flex-col items-center p-8 space-y-10 ">
+              <div className="w-[70%] flex flex-col items-center p-8 space-y-10">
                   {debates.map((debate, index) => (
                     <DebateBig
                       style={{width: "100%"}}
@@ -295,8 +314,39 @@ export default function DebateSearch() {
                       session={debate.session}
                       period={debate.period}
                       meeting={debate.meeting}
+                      // score={debate.top_speech?.score}
+                      content={debate.top_speech?.content}
+                      speaker_name={debate.top_speech?.speaker_name}
                     />
                   ))}
+                  {totalPages > 0 ? (
+                    <div className="flex justify-center mt-6 space-x-4">
+                        {/* Previous Button */}
+                        <button
+                          className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
+                          onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                          disabled={page === 1}
+                        >
+                            Previous
+                        </button>
+
+                        {/* Page Info */}
+                        <span className="text-black font-bold px-4 py-2">Page {page} of {totalPages}</span>
+
+                        {/* Next Button */}
+                        <button
+                          className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
+                          onClick={() => setPage(prev => prev + 1)}
+                          disabled={page >= totalPages}
+                        >
+                            Next
+                        </button>
+                    </div>
+                  ) :
+                    <div className="mt-20">
+                        <p className="font-bold">No results found for you search</p>
+                    </div>
+                  }
               </div>
           </div>
 

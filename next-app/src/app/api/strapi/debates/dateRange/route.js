@@ -1,6 +1,5 @@
 import axios from "axios";
 import { constants } from "../../../../../../constants/constants.js";
-import {start} from "node:repl";
 
 const STRAPI_URL = constants.STRAPI_URL;
 const API_TOKEN = constants.API_TOKEN;

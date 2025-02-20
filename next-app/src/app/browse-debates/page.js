@@ -3,14 +3,10 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import styles from "../browse-speakers/BrowseSpeakers.module.css";
-import SearchSection from "@/app/components/Sections/Browse Pages/SearchSection";
+import SearchSection from "@components/Sections/Browse Pages/SearchSection.js"
 
 const BrowseSpeakers = () => {
     const router = useRouter();
-
-    const handleFilterSelection = (filterType) => {
-        router.push(`/debates-results?primaryFilter=${encodeURIComponent(filterType)}`);
-    };
 
     return (
         <div className={styles.pageLayout}>
@@ -21,7 +17,6 @@ const BrowseSpeakers = () => {
                     title="Debate Date"
                     imageUrl="/images/debates/date.jpg"
                     description="Click to search for debates based on their date"
-                    onButtonClick={() => handleFilterSelection("debate-date")}
                 />
 
                 {/* Section 2: Find by Key Phrase */}
@@ -29,7 +24,6 @@ const BrowseSpeakers = () => {
                     title="Key Phrase"
                     imageUrl="/images/debates/key-phrase.jpg"
                     description="Click to search for debates mentioning a specific phrase"
-                    onButtonClick={() => handleFilterSelection("debate-phrase")}
                 />
 
                 {/* Section 3: Browse by Topic */}
@@ -37,7 +31,6 @@ const BrowseSpeakers = () => {
                     title="Parliament Session"
                     imageUrl="/images/debates/parliament-session.jpg"
                     description="Click to browse debates based on parliament session"
-                    onButtonClick={() => handleFilterSelection("debate-session")}
                 />
 
                 {/* Section 4: Browse by Party */}
@@ -45,21 +38,18 @@ const BrowseSpeakers = () => {
                     title="Debate Topic"
                     imageUrl="/images/debates/topics.png"
                     description="Click to browse debates grouped by their political party"
-                    onButtonClick={() => handleFilterSelection("debate-topic")}
                 />
 
             </div>
 
             <div className={`${styles.leftSection} ${styles.leftSectionInDebates}`}>
-                <h2>Browse debates</h2>
-                <p>
-                    Choose your initial filter and start searching for your favorite debates.
-                    Once applied, you will be able to narrow down your search applying more
-                    specific filters, such as participating speakers, participating parties, parliament session and
-                    more.
+                <h2 className="font-bold text-4xl mb-4">Debates</h2>
+                <p className="font-bold">
+                    Search debates based on date, key-phrase, parliament session, topics, participating speakers and
+                    combinations of these filters.
                 </p>
                 <div className="buttonContainer">
-                    <button className="button" onClick={() => handleFilterSelection("all-debates")}>Browse all</button>
+                    <button className="button mt-4" onClick={() => router.push("/debates-results")}>Browse all</button>
                 </div>
             </div>
         </div>

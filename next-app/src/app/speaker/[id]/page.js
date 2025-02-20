@@ -8,7 +8,6 @@ import {constants} from "../../../../constants/constants.js";
 import {useParams, useRouter} from "next/navigation";
 import axios from "axios";
 import metadataStyles from "../../debate/[id]/metadata/DebateMetadata.module.css";
-import SpeakerCard from "../../components/Speaker/SpeakerCard/SpeakerCard.js";
 import DebateCard from "../../components/Debate/DebateCard/DebateCard.js";
 
 const SpeakerPage = () => {
@@ -19,12 +18,10 @@ const SpeakerPage = () => {
   const [visibleDebates, setVisibleDebates] = useState(initialDebatesShown);
   const [showMoreVisible, setShowMoreVisible] = useState(true); // Control visibility of "Show More" link
 
-
   const [speakerData, setSpeakerData] = useState(null);
   const [positionsHeld, setPositionsHeld] = useState([]);
   const [wikidataEntityId, setWikidataEntityId] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   const STRAPI_URL = constants.STRAPI_URL;
 

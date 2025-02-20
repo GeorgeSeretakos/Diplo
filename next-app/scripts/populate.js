@@ -8,7 +8,7 @@ import {constants} from "../constants/constants.js"
 
 export default async function populate() {
   const xsltPath = path.join(process.cwd(), 'public', 'debate.xsl');
-  const xmlDir = path.join(process.cwd(), 'public', 'data', 'xml_files', 'xml_akn_files');
+  const xmlDir = path.join(process.cwd(), 'public', 'data', 'xml_files');
 
   const xmlFiles = fs
     .readdirSync(xmlDir)

@@ -1,8 +1,8 @@
 /* Container for the Action Buttons Section */
 .actionButtonsSection {
     display: flex;
-    justify-content: space-between; /* Space out buttons and search bar */
-    align-items: center; /* Align buttons and search bar vertically */
+    justify-content: space-between; /* Space out buttons and search-debates bar */
+    align-items: center; /* Align buttons and search-debates bar vertically */
     gap: 2rem; /* Space between sections */
     padding: 1rem 0; /* Add vertical padding */
     /*background-color: #f9f9f9; !* Light background for contrast *!*/
@@ -42,9 +42,9 @@
 
 /* Search Bar Container */
 .searchBar {
-    flex-grow: 1; /* Allow the search bar to grow and take up remaining space */
+    flex-grow: 1; /* Allow the search-debates bar to grow and take up remaining space */
     display: flex;
-    justify-content: center; /* Center-align the search bar */
+    justify-content: center; /* Center-align the search-debates bar */
 }
 
 .searchInput {

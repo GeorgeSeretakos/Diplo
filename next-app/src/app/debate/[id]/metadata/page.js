@@ -82,7 +82,7 @@ const DebateMetadata = () => {
         {topics && (
           <p>
             <strong className="dynamic-content">Topics:</strong>{" "}
-            {topics.map((t) => t.topics).join(", ")} {/* Extract topic values and join */}
+            {topics.map((t) => t.topic).join(", ")} {/* Extract topic values and join */}
           </p>
         )}
 
