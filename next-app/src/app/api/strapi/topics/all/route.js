@@ -28,8 +28,6 @@ export async function GET() {
       }
     );
 
-    console.log("GraphQL Response:", response.data.data);
-
     // Return response data
     return new Response(JSON.stringify(response.data.data.topics), { status: 200 });
   } catch (error) {

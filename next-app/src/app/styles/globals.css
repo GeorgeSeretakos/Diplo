@@ -1,7 +1,7 @@
+/* Ensure Tailwind imports remain */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 :root {
   --gradient3: #A9A9A9;
@@ -11,59 +11,65 @@
   --button: #093598;
   --functionality: #800080;
   --functionality1: #9F2B68;
-  /*--primary: #212121;*/
   --primary: #f4f2ea;
   --button-hover: white;
-  /*--gradient1: blue;*/
-  /*--gradient2: white;*/
 }
 
-
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   color: black;
   margin: 0;
-  background-color: #f4f2ea;
+  background-color: var(--primary);
   font-size: 1.15rem;
 }
 
-.link {
-  text-decoration: none; /* Remove default link underline */
-  color: inherit; /* Inherit text color from the parent element */
-  display: block; /* Ensure the link wraps the entire card */
-}
-
+/* 🎥 Video Container - Stays fixed and covers full screen */
 .videoContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh; /* Always full viewport height */
   z-index: -1;
   overflow: hidden;
+  transition: filter 0.5s ease-in-out;
 }
 
+/* 🎥 Video - Ensures full cover */
 .video {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure the video covers the container */
+  object-fit: cover;
+  transition: filter 0.5s ease-in-out;
 }
 
-/* Text Overlay */
+.videoContainer.scrolled .video {
+  filter: blur(15px); /* Adjust blur intensity */
+}
+
 .videoOverlay {
-  position: absolute; /* Position on top of the video */
-  bottom: 2rem;
-  left: 0;
+  position: absolute;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   text-align: center;
-  color: black; /* White text color for visibility */
+  color: white;
+  transition: opacity 0.5s ease-in-out;
 }
 
+/* 📝 Hide title on scroll */
+.videoOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Subtitle adjustments */
 .video-subtitle {
   font-size: 1.5rem;
 }
 
+/* Title adjustments */
 .mainTitle {
   font-size: 1rem;
   font-weight: bold;
@@ -72,274 +78,60 @@ body {
   color: white;
 }
 
+/* 📜 Main Content - Ensures content starts after video */
 .content {
-  border-radius: 4rem 4rem 0 0;
   overflow: hidden;
-  margin-top: calc(100vh - 20px);
-  background-color: var(--primary);
+  margin-top: 100vh; /* Ensures content starts AFTER the video */
   position: relative;
-  /*z-index: 1;*/
 }
 
-.dynamic-content {
-  background-color: black;
-  font-weight: bold;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-button {
-  /*padding: 10px 20px;*/
-  /*color: white;*/
-  /*border-radius: 10px;*/
-  /*font-size: 16px;*/
-  /*cursor: pointer;*/
-  /*font-weight: bold;*/
-  /*text-align: center;*/
-}
-
-button:hover {
-  /*background: black;*/
-  /*color: var(--button-hover);*/
-}
-
-/*input:valid {*/
-/*  border: 2px solid lime; !* White border when there's a number *!*/
-/*}*/
-
-/*input:invalid {*/
-/*  border: 2px solid red; !* Red border when the input is empty or not a number *!*/
-/*}*/
-
-input:focus {
-  /*border-color: white; !* Lime border when the input is focused *!*/
-}
-
-.buttonContainer {
-  /*text-align: center;*/
-  /*!*margin: 1rem;*!*/
-  /*font-size: 0.5rem;*/
-}
-
-.functionality {
-  border: 2px solid var(--button); /* Example border */
-  padding: 10px;
-  margin: 4px 0;
-  border-radius: 10px;
-  width: 10rem;
-  height: 10rem;
-  text-align: center;
+/* ✅ Button Styling */
+.button {
+  padding: 10px 20px;
   color: white;
-  background: black;
-}
-
-.functionality:hover {
-  background: linear-gradient(to right, var(--gradient1), var(--gradient2));
-  border: 2px solid white;
-}
-
-select {
-  overflow: hidden;
-  padding: 10px;
-  width: 100%;
-  border: 2px solid black;
-  background-color: #2B2D31;
-  border-radius: .5rem;
-}
-
-option {
-  padding: 15px;
-  background-color: #2B2D31;
-}
-
-select option:hover {
-  background-color: #444 !important; /* Change hover color */
-  color: white !important;
-}
-
-
-
-.inputContainer {
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  /*text-align: center;*/
-  /*margin-top: 2rem;*/
-}
-
-.inputContainer Button {
-  /*margin-top: 1rem;*/
-}
-
-input, .inputContainer {
-  width: 200px;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid black;
-  background-color: #2B2D31;
-  color: black;
+  border-radius: 10px;
   font-size: 16px;
-  text-align: left;
-}
-
-input {
-  border: 2px solid black; /* White border, 2 pixels thick */
-  padding: 10px; /* Some padding inside the input field */
-  font-size: 16px; /* Slightly larger text size for better readability */
-  border-radius: 10px;
-}
-
-input:focus {
-  border: 3px solid black;
-}
-
-h1, h2, h3 {
-  color: white;
-}
-
-.debate-container {
-  margin: 0 2rem;
-  background-color: black;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Metadata Section */
-.metadata {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 5px solid #0056b3;
-  margin-bottom: 20px;
-}
-
-.metadata h2 {
-  margin-top: 0;
-}
-
-.metadata p {
-  margin: 5px 0;
-}
-
-.section h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Opening and Main Debate Section Styles */
-.opening-section, .main-debate-section {
-  background-color: black;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border-left: 5px solid #444;
-}
-
-.opening-section p, .main-debate-section p {
-  margin: 10px 0;
-}
-
-/* Speech Styles */
-.speech {
-  background-color: black;
-  color: white;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #00796b;
-}
-
-.speech p {
-  margin: 5px 0;
-}
-
-.speech .speech-text {
-  font-style: italic;
-  color: white;
-}
-
-.speech .speech-text p {
-  margin: 5px 0;
-  padding-left: 10px;
-  position: relative;
-}
-
-/* Styling for paragraphs within each speech */
-.speech .speech-text p:before {
-  content: "»";
-  position: absolute;
-  left: 0;
-  color: #00796b;
+  cursor: pointer;
   font-weight: bold;
-}
-
-
-.belowHeroSection {
-  /*border: 2px solid red;*/
-  border-radius: 4rem;
-  margin-bottom: 3rem;
-  background-color: black;
-  /*height: 40rem;*/
-}
-
-.message {
-  color: white;
   text-align: center;
-  margin-top: 5rem;
-  font-size: 2rem;
+  border: 2px solid white;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+.button:hover {
+  background: white;
+  color: black;
+}
 
-/* Overall Layout */
+/* 🗂 Sections Layout */
 .sections {
   border: 1px solid white;
   border-radius: 4rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  margin-top: 1rem;
-  display: flex; /* Flexbox for two-column layout */
+  margin: 1rem;
+  display: flex;
   flex-direction: row;
-  justify-content: space-between; /* Space out the left and right sections */
-  align-items: center; /* Vertically align both sections */
-  /*width: 100%;*/
+  justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.title {
-  margin-left: 2rem;
-  font-size: .75rem;
-  border: 2px solid black;
-  border-bottom: 1px solid white;
-  margin: auto;
-  padding-top: 1rem;
-  width: 65%;
-  text-align: center;
-}
-
-/* Left Section */
+/* 📌 Left Section */
 .leftSection {
-  /*background-color: white;*/
-  width: 70%; /* Take half the available width */
+  width: 70%;
   height: 100%;
-  /*border: 2px solid purple;*/
 }
 
-.leftSection,
+/* 📌 Right Section */
 .rightSection {
-  box-sizing: border-box; /* Include padding and borders in the width calculation */
+  width: 30%;
+  height: auto;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-
+/* 🔎 Politician Container */
 .politicianContainer {
-  /*border: 2px solid red;*/
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -348,29 +140,10 @@ h1, h2, h3 {
   margin: auto;
 }
 
+/* 🏷 Subtitle */
 .subtitle {
-  /*border: 2px solid white;*/
-  /*margin: auto;*/
   text-align: center;
-  /*width: 100%;*/
   padding: 0rem 10%;
-  letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
   line-height: 2rem;
-}
-
-
-/* Right Section */
-.rightSection {
-  width:30%; /* Take the remaining width */
-  height: auto;
-  /*border: 2px solid purple;*/
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.rightImage {
-  width: 100%; /* Fixed width for larger screens */
-  height: 100%; /* Maintain aspect ratio */
-  object-fit: cover; /* Crop the image if necessary */
-  border-radius: 4rem;
 }

@@ -5,44 +5,34 @@
     min-height: 100vh; /* Ensure it takes the full viewport height */
     width: 100%; /* Full width of the viewport */
     margin: 0;
-    padding: 0;
+    padding: 0 4rem;
     box-sizing: border-box; /* Include padding and border in size */
+    color: white;
 }
 
 .leftSection {
-    width: 20%;
+    width: 40%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    /*border: 2px solid red;*/
-    padding: 0 2rem;
-    line-height: 1.4rem;
-    background-color: white;
-    border-radius: 0 4rem 4rem 0;
+    line-height: 1.6rem;
+    padding: 0 6rem;
+    /*background: linear-gradient(to right, #0f0c29, #302b63, #24243e); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+    /*border-radius: 0 2rem 2rem 0;*/
 }
 
 .leftSectionInDebates {
-    border-radius: 4rem 0 0 4rem;
+    border-radius: 2rem 0 0 2rem;
 }
-
-.leftSection h2 {
-    color: #333;
-}
-
-.leftSection p {
-    color: black;
-}
-
-
 
 .sections {
     /*border: 2px solid red;*/
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 60%;
     align-items: center;
     justify-content: center;
     margin: auto;

@@ -21,7 +21,7 @@ async function createIndex() {
           type: "text",
           analyzer: "custom_analyzer",
           search_analyzer: "custom_analyzer"
-        }, // Full-text search on content
+        }, // Full-text search-debates on content
         speaker_id: { type: "keyword" }, // Speaker relation (ID)
         debate_id: { type: "keyword" }, // Debate relation (ID)
       },

@@ -2,9 +2,6 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/navigation";
 
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { DatePicker } from "@mui/x-date-pickers";
 import {TextField} from "@mui/material";
 import TopicFilter from "../app/components/Filters/TopicFilter/TopicFilter.js";
 import PoliticalPartyFilter from "../app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter.js";
@@ -21,7 +18,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
 
 
   const handleSearch = () => {
-    onSearch(); // Notify the parent that a search was performed
+    onSearch(); // Notify the parent that a search-debates was performed
   };
 
   const handleSearchAgain = () => {

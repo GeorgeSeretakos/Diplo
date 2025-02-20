@@ -29,8 +29,6 @@ export async function GET(req, res) {
       }
     );
 
-    console.log("Response: ", response.data.data.debates);
-
     const data = response.data.data.debates;
 
     // Compute unique values for session, period, and meeting

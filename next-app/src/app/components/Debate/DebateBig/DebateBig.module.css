@@ -1,33 +1,86 @@
 .debateCard {
-    background-color: #1e1e1e; /* Dark theme for contrast */
-    color: #ffffff; /* White text for readability */
-    border: 1px solid #444; /* Subtle border */
-    border-radius: 1rem; /* Rounded corners */
-    padding: 1.5rem; /* Add internal spacing */
-    margin: 0.5rem; /* External spacing */
-    /*height: 12.5rem;*/
-    /*width: 30rem; !* Full width of parent *!*/
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add depth */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effects */
+    background-color: #252526;
+    color: #e0e0e0;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    padding: 1.8rem;
+    margin: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 0.8rem;
+    max-width: 750px;
 }
 
 .debateCard:hover {
-    transform: translateY(-5px); /* Lift on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     cursor: pointer;
 }
 
 .date {
-    font-size: 1.2rem; /* Highlight the date */
-    font-weight: bold; /* Make it stand out */
-    margin-bottom: 0.5rem;
-    color: #f9d342; /* Accent color */
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: #facc15;
+}
+
+.topics {
+    font-size: 1rem;
+    color: #b3b3b3;
+    font-weight: 500;
+    margin: 0.75rem 0;
+}
+
+.topics strong {
+    color: #ffffff;
 }
 
 .session {
-    font-size: 0.9rem;
-    color: #aaa; /* Subtle text color */
+    font-size: 0.95rem;
+    color: #b3b3b3;
 }
+
+.session p {
+    margin: 0.2rem 0;
+}
+
+.score {
+    font-size: 1rem;
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.speaker {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    align-items: center; /* Ensure all elements stay aligned in one row */
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.content {
+    display: inline; /* Ensures it stays inline with the speaker */
+    white-space: pre-line; /* Keeps formatting while wrapping text properly */
+    color: #d1d5db;
+    word-break: break-word; /* Prevents long words from breaking layout */
+    flex-grow: 1; /* Allows content to take remaining space */
+}
+
+.readMore {
+    border: none;
+    background: none;
+    color: white;
+    /*font-weight: bold;*/
+    cursor: pointer;
+    /*margin-left: 1rem;*/
+    white-space: nowrap; /* Prevents wrapping onto a new line */
+}
+
+.readMore:hover {
+    text-decoration: underline;
+}
+
