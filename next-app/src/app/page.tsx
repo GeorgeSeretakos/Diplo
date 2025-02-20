@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import BrowseDebates from "@/app/browse-debates/page";
 import BrowseSpeakers from "@/app/browse-speakers/page";
 import "./styles/globals.css";
+import { CgScrollV } from "react-icons/cg";
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -36,12 +37,15 @@ export default function Home() {
                 <div className={`videoOverlay ${scrolled ? "hidden" : ""}`}>
                     <h1 className="mainTitle">Welcome to the Greek Parliament Debates Portal</h1>
                     <h2 className="video-subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
+                    <div className="flex justify-center fixed mt-6 left-1/2">
+                        <CgScrollV size={35} />
+                    </div>
                 </div>
             </div>
 
             {/* 📜 Main Content */}
             <div className="content">
-                <BrowseDebates />
+                <BrowseDebates/>
                 <BrowseSpeakers />
             </div>
         </div>
