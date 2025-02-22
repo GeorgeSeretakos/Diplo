@@ -36,7 +36,7 @@ export default function Sidebar() {
 
       {/* Sidebar Menu */}
       <div
-        className={`fixed top-0 left-0 w-[30%] h-full bg-black transition-transform transform ${
+        className={`fixed top-0 left-0 w-[30%] h-full bg-[#1E1F23] transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } z-50`}
       >

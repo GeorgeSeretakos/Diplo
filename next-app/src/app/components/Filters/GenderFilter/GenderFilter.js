@@ -1,26 +1,27 @@
 import React from "react";
 import FilterSection from "../FilterSection.js";
-import styles from "./GenderFilter.module.css";
 
 const genderOptions = [
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
 ];
 
-const GenderFilter = ({ selectedGender = null, onFilterChange }) => {
+const GenderFilter = ({ selectedGender, onFilterChange }) => {
   const handleGenderSelection = (gender) => {
-    const newSelection = selectedGender === gender ? null : gender; // Toggle selection
+    const newSelection = selectedGender === gender ? "" : gender;
     onFilterChange(newSelection);
   };
 
   return (
     <FilterSection title="Gender">
-      <div className="buttonContainer">
+      <div className="flex gap-4">
         {genderOptions.map((gender) => (
           <button
             key={gender.value}
-            className={`button ${styles.genderItem} ${
-              selectedGender === gender.value ? styles.selected : styles.notSelected
+            className={`button transition ${
+              selectedGender === gender.value
+                ? "!bg-[#1a1a1a] !text-[white]"
+                : ""
             }`}
             onClick={() => handleGenderSelection(gender.value)}
           >

@@ -49,7 +49,7 @@ const BrowseSpeakers = () => {
                     combinations of these filters.
                 </p>
                 <div className="buttonContainer">
-                    <button className="button mt-4" onClick={() => router.push("/debates-results")}>Browse Debates</button>
+                    <button className="button mt-4" onClick={() => router.push("/search-debates")}>Browse Debates</button>
                 </div>
             </div>
         </div>

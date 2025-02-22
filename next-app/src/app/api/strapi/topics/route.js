@@ -1,5 +1,5 @@
 import axios from "axios";
-import { constants } from "../../../../../../constants/constants.js";
+import { constants } from "../../../../../constants/constants.js";
 
 export async function GET() {
   console.log("API got called");

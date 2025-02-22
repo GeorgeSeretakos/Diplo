@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 
-const SearchSection = ({handleInputChange, setSortBy, setPage}) => {
+const SearchSection = ({handleInputChange, setSortBy, setPage, placeholder}) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = (e) => {
@@ -29,8 +29,9 @@ const SearchSection = ({handleInputChange, setSortBy, setPage}) => {
       <div className="relative flex-1">
         <input
           type="text"
-          placeholder="Enter key phrase..."
-          className="w-full bg-gray text-white pr-20 pl-4 py-2 rounded-3xl border-none outline-none focus:outline-none focus:ring-0 focus:border-none focus:shadow-none"          value={query}
+          placeholder={placeholder}
+          className="w-full bg-gray text-white pr-20 pl-4 py-2 rounded-3xl border-none border-b-2 outline-none focus:outline-none focus:ring-0 focus:border-none focus:shadow-none"
+          value={query}
           onChange={handleSearch}
         />
 
@@ -47,7 +48,7 @@ const SearchSection = ({handleInputChange, setSortBy, setPage}) => {
         {/* Search Button Inside Input */}
         <button
           disabled
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700 p-2 rounded-full text-white"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-white"
         >
           <Search size={18}/>
         </button>

@@ -1,35 +1,51 @@
 import React, { useState, useRef, useEffect } from "react";
 import FilterSection from "../FilterSection.js";
 import styles from "./PhraseFilter.module.css";
+import {Search, X} from "lucide-react";
 
-const PhraseFilter = ({ phrase = "", onPhraseChange }) => {
-  const [tempPhrase, setTempPhrase] = useState(phrase);
-  const textareaRef = useRef(null);
+const PhraseFilter = ({ phrase, onFilterChange }) => {
+  const [query, setQuery] = useState("");
+  const handleX = () => {
+    onFilterChange("");
+    setQuery("");
+  }
 
-  const handleInputChange = (e) => {
-    setTempPhrase(e.target.value);
-    onPhraseChange(e.target.value);
-  };
-
-  useEffect(() => {
-    if (textareaRef.current) {
-      // Adjust height dynamically
-      textareaRef.current.style.height = "auto"; // Reset height to recalculate
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set height to content height
-    }
-  }, [tempPhrase]);
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+    onFilterChange(e.target.value);
+  }
 
   return (
-      <div className={styles.phraseContainer}>
-        <textarea
-          ref={textareaRef}
-          placeholder="Enter a phrase..."
-          value={tempPhrase}
-          onChange={handleInputChange}
-          className={styles.textarea}
-          rows={1} // Initial height: one line
+    <FilterSection title="Key Phrase">
+      {/* Search Input Container */}
+      <div className="relative flex-1">
+        <input
+          type="text"
+          placeholder="Enter a phrase ..."
+          className="w-full text-white placeholder-white bg-transparent pr-20 pl-4 py-2 rounded-3xl border-white border-1 outline-none focus:outline-none focus:ring-0 focus:shadow-none"
+          value={query}
+          onChange={handleSearch}
         />
+
+        {/* Clear Button (X) */}
+        {query && (
+          <button
+            onClick={handleX}
+            className="absolute right-14 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+          >
+            <X size={18}/>
+          </button>
+        )}
+
+        {/* Search Button Inside Input */}
+        <button
+          disabled
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-white"
+        >
+          <Search size={18}/>
+        </button>
       </div>
+    </FilterSection>
   );
 };
 

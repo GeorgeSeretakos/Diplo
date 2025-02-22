@@ -186,7 +186,7 @@ export async function POST(req) {
           ) {
             documentId
             date
-            title
+            session_date
             session
             meeting
             period
@@ -209,7 +209,8 @@ export async function POST(req) {
 
       return {
         documentId: strapiDebate.documentId,
-        title: strapiDebate.title,
+        date: strapiDebate.date,
+        session_date: strapiDebate.session_date,
         session: strapiDebate.session,
         meeting: strapiDebate.meeting,
         period: strapiDebate.period,

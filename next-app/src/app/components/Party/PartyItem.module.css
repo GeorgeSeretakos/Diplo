@@ -1,0 +1,52 @@
+.partyItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    width: 120px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+}
+
+.partyItem:hover {
+    transform: scale(1.05);
+}
+
+.partyImage {
+    padding: .5rem;
+}
+
+.imageContainer {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+    transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    position: relative;
+}
+
+.partyItem:hover .imageContainer {
+    filter: brightness(1.2);
+}
+
+.selected .partyLabel {
+    color: #8BFFCC;
+}
+
+.partyLabel {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 8px;
+    text-align: center;
+    line-height: 1.2;
+    min-height: 40px;
+    transition: color 0.2s ease-in-out;
+}
