@@ -1,14 +1,14 @@
 .ageRangeContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding-left: 1rem;
 }
 
 .toggleContainer {
     text-align: left;
 }
 
-.sliderContainer {
+.sliderContainer, .display {
     width: 60%;
 }
 

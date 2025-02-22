@@ -1,4 +1,3 @@
-/* Ensure Tailwind imports remain */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,19 +22,17 @@ body {
   font-size: 1.15rem;
 }
 
-/* 🎥 Video Container - Stays fixed and covers full screen */
 .videoContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* Always full viewport height */
+  height: 100vh;
   z-index: -1;
   overflow: hidden;
   transition: filter 0.5s ease-in-out;
 }
 
-/* 🎥 Video - Ensures full cover */
 .video {
   width: 100%;
   height: 100%;
@@ -44,7 +41,7 @@ body {
 }
 
 .videoContainer.scrolled .video {
-  filter: blur(15px); /* Adjust blur intensity */
+  filter: blur(15px);
 }
 
 .videoOverlay {
@@ -58,18 +55,15 @@ body {
   transition: opacity 0.5s ease-in-out;
 }
 
-/* 📝 Hide title on scroll */
 .videoOverlay.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* Subtitle adjustments */
 .video-subtitle {
   font-size: 1.5rem;
 }
 
-/* Title adjustments */
 .mainTitle {
   font-size: 1rem;
   font-weight: bold;
@@ -78,19 +72,25 @@ body {
   color: white;
 }
 
-/* 📜 Main Content - Ensures content starts after video */
 .content {
   overflow: hidden;
-  margin-top: 100vh; /* Ensures content starts AFTER the video */
+  margin-top: 100vh;
   position: relative;
 }
 
-/* ✅ Button Styling */
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .button {
-  padding: 10px 20px;
-  color: white;
+  padding: 5px 10px;
+  color: #1e1e1e;
+  background-color: white;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: .9rem;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
@@ -103,7 +103,6 @@ body {
   color: black;
 }
 
-/* 🗂 Sections Layout */
 .sections {
   border: 1px solid white;
   border-radius: 4rem;
@@ -116,21 +115,6 @@ body {
   overflow: hidden;
 }
 
-/* 📌 Left Section */
-.leftSection {
-  width: 70%;
-  height: 100%;
-}
-
-/* 📌 Right Section */
-.rightSection {
-  width: 30%;
-  height: auto;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-/* 🔎 Politician Container */
 .politicianContainer {
   display: flex;
   flex-direction: row;
@@ -140,10 +124,53 @@ body {
   margin: auto;
 }
 
-/* 🏷 Subtitle */
 .subtitle {
   text-align: center;
   padding: 0rem 10%;
   letter-spacing: 0.2rem;
   line-height: 2rem;
 }
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  background-color: #222;
+}
+
+input:hover,
+select:hover {
+  border-color: #1e1e1e;
+}
+
+input::placeholder {
+  color: white;
+  font-size: 13px;
+}
+
+select {
+  appearance: none;
+  cursor: pointer;
+}
+
+select option {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 10px;
+}
+
+
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+.showMoreButton {
+  font-weight: bold;
+  font-size: .75rem;
+}
+

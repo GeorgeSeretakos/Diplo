@@ -19,7 +19,7 @@ const BrowseSpeakers = () => {
                     they belong and combinations of these filter.
                 </p>
                 <div className="buttonContainer">
-                    <button className="button mt-4" onClick={() => router.push("speakers-results")}>Browse Speakers</button>
+                    <button className="button mt-4" onClick={() => router.push("search-speakers")}>Browse Speakers</button>
                 </div>
             </div>
 

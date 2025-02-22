@@ -14,13 +14,8 @@ const SpeakerCard = ({ documentId, image, speaker_name, containerStyle, textStyl
               </div>
               <div className={styles.contentContainer}>
                 <div className={styles.speakerName} style={textStyle}>{speaker_name}</div>
-                {/*<div className={styles.party}>{party}</div>*/}
               </div>
             </div>
-          </div>
-
-          <div className={styles.overlay}>
-            {/*<p>{description}</p>*/}
           </div>
         </div>
     </Link>

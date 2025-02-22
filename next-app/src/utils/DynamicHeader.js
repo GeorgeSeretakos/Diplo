@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import {TextField} from "@mui/material";
 import TopicFilter from "../app/components/Filters/TopicFilter/TopicFilter.js";
-import PoliticalPartyFilter from "../app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter.js";
+import PartyFilter from "../app/components/Filters/PartyFilter/PartyFilter.js";
 
 
 const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onInputChange }) => {
@@ -51,7 +51,7 @@ const DynamicHeader = ({ primaryFilter, onSearch, resetSearch, inputValues, onIn
           <header>
             <div>
               <h1>Explore Parties</h1>
-              <PoliticalPartyFilter
+              <PartyFilter
                 selectedParties={selectedParties} // Ensure selectedTopics is defined
                 onFilterChange={handlePartyFilterChange} // Pass the change handler
               />

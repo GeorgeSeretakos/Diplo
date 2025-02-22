@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import styles from "./DebateBig.module.css";
 import Link from "next/link";
 
-const DebateBig = ({ documentId, speaker_name, score, topics, content, title, session, period, meeting, style }) => {
+const DebateBig = ({ documentId, speaker_name, score, topics, content, session_date, date, session, period, meeting, style }) => {
 
   const [expanded, setExpanded] = useState(false);
-  const MAX_LENGTH = 300; // Show only first 200 characters initially
+  const MAX_LENGTH = 300;
 
   return (
     <div style={style} className={styles.debateCard}>
       <Link href={`/debate/${documentId}/metadata`} className="link">
 
         {/* Debate Title */}
-        <div className={styles.date}>{title}</div>
+        <div className={styles.date}>{date}</div>
 
         {/* Topics */}
         {topics && topics.length > 0 && (

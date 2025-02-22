@@ -1,9 +1,10 @@
 import React from 'react';
+import {Label} from "@components/ui/label.js";
 
-const FilterSection = ({ title, children }) => {
+const FilterSection = ({title, children}) => {
   return (
-    <div style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-      <h3 style={{ marginBottom: '10px' }}>{title}</h3>
+    <div className="flex flex-col space-y-2 mb-6">
+      <Label htmlFor="startDate">{title}</Label>
       {children}
     </div>
   );

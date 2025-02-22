@@ -1,62 +1,79 @@
 import React, { useEffect, useState } from "react";
 import FilterSection from "../FilterSection.js";
-import styles from "../PoliticalPartyFilter/PoliticalPartyFilter.module.css";
+import styles from "./TopicFilter.module.css";
+import { constants } from "../../../../../constants/constants.js";
+import axios from "axios";
 
-const TopicFilter = ({ selectedTopics = [], onFilterChange }) => {
+const PartyFilter = ({ selectedTopics = [], onFilterChange }) => {
   const [topics, setTopics] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const [loading, setLoading] = useState(true);
+  const STRAPI_URL = constants.STRAPI_URL;
 
-  // Fetch topics from Strapi API
   useEffect(() => {
-    const fetchAllTopics = async () => {
+    const fetchTopics = async () => {
       try {
-        const response = await fetch("/api/strapi/topics/all");
-        const data = await response.json();
+        const endpoint = "http://localhost:3000/api/strapi/topics";
+        const response = await axios.get(endpoint);
 
-        // Format the topics received from the API
-        const formattedTopics = data.map((topic) => ({
-          value: topic.topic,
-          label: topic.topic,
-          image: topic.image || "/images/topics/topics.jpg", // Use default image if none is provided
-        }));
-
-        setTopics(formattedTopics);
+        setTopics(response.data);
       } catch (error) {
-        console.error("Error fetching topics:", error.message);
+        console.error("Error fetching topics:", error);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchAllTopics();
+    fetchTopics();
   }, []);
 
-  const toggleTopicSelection = (topic) => {
+  const visibleTopics = topics.slice(0, visibleCount);
+
+  const toggleTopic = (topic) => {
     const isAlreadySelected = selectedTopics.includes(topic);
     const updatedSelection = isAlreadySelected
-      ? selectedTopics.filter((t) => t !== topic) // Remove if already selected
-      : [...selectedTopics, topic]; // Add the new topic
+      ? selectedTopics.filter((t) => t !== topic)
+      : [...selectedTopics, topic];
 
     onFilterChange(updatedSelection);
   };
 
   return (
-    <FilterSection title="Topic">
-      <div className={styles.partyGrid}>
-        {topics.map((topic) => (
-          <div
-            key={topic.value}
-            className={`${styles.partyItem} ${
-              selectedTopics.includes(topic.value) ? styles.selected : ""
-            }`}
-            onClick={() => toggleTopicSelection(topic.value)}
-          >
-            <div className={styles.imageContainer}>
-              <img src={topic.image} alt={topic.label} className={styles.partyImage} />
-            </div>
-            <p className={styles.partyLabel}>{topic.label}</p>
+    <FilterSection title="Topics Discussed">
+      {loading ? (
+        <p className="loadingText">Loading topics ...</p>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-3 rounded-lg">
+            {visibleTopics.map((topic, index) => (
+              <button
+                key={index}
+                onClick={() => toggleTopic(topic.topic)}
+                className={`button transition ${
+                  selectedTopics.includes(topic.topic)
+                    ? "!bg-[#1a1a1a] !text-[white]"
+                    : "hover:bg-white hover:text-[#1a1a1a]"
+                }`}
+              >
+                {topic.topic}
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
+
+          {visibleCount < topics.length && (
+            <button className="showMoreButton" onClick={() => setVisibleCount(visibleCount + 10)}>
+              Show more ...
+            </button>
+          )}
+
+          {visibleCount >= topics.length && (
+            <button className="showMoreButton" onClick={() => setVisibleCount(10)}>
+              Show less ...
+            </button>
+          )}
+        </>
+      )}
     </FilterSection>
   );
 };
 
-export default TopicFilter;
+export default PartyFilter;

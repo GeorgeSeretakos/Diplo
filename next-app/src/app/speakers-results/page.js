@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import styles from "./SpeakersResults.module.css";
 import SpeakerCard from "@/app/components/Speaker/SpeakerCard/SpeakerCard";
-import PoliticalPartyFilter from "@/app/components/Filters/PoliticalPartyFilter/PoliticalPartyFilter";
+import PoliticalPartyFilter from "@/app/components/Filters/PartyFilter/PartyFilter";
 import AgeFilter from "@/app/components/Filters/AgeFilter/AgeFilter";
 import GenderFilter from "@/app/components/Filters/GenderFilter/GenderFilter";
 import PhraseFilter from "@/app/components/Filters/PhraseFilter/PhraseFilter";
@@ -186,7 +186,7 @@ const SpeakersResults = () => {
                 <div className={styles.pageLayout}>
                     {noResultsMessage === "" ? (
                       <div className={styles.filterSection}>
-                          {/*<PoliticalPartyFilter*/}
+                          {/*<PartyFilter*/}
                           {/*  selectedParties={tempFilters.parties}*/}
                           {/*  onFilterChange={(updatedParties) => handleTempFilterChange("parties", updatedParties)}*/}
                           {/*/>*/}
