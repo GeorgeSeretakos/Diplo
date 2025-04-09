@@ -18,8 +18,8 @@ export async function POST(req) {
       topics,
       speakers,
       sortBy,
-      page,
-      limit
+      page = 1,
+      limit = 5
     } = body;
     console.log("Body: ", body);
     console.log("Keyphrase: ", keyPhrase);
@@ -186,7 +186,7 @@ export async function POST(req) {
           ) {
             documentId
             date
-            session_date
+            title
             session
             meeting
             period
@@ -210,7 +210,7 @@ export async function POST(req) {
       return {
         documentId: strapiDebate.documentId,
         date: strapiDebate.date,
-        session_date: strapiDebate.session_date,
+        title: strapiDebate.title,
         session: strapiDebate.session,
         meeting: strapiDebate.meeting,
         period: strapiDebate.period,

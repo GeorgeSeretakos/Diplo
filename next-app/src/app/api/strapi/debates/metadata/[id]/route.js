@@ -34,12 +34,6 @@ export async function GET(request, { params }) {
             url
           }
         }
-        political_parties {
-          name
-          image {
-            url
-          }
-        }
       }
     }
   `;

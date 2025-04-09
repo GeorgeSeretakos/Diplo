@@ -7,7 +7,7 @@ const DateRangeFilter = ({startDate, endDate, handleInputChange}) => {
       <FilterSection title="Start Date">
         <input
           type="date"
-          className="w-full bg-gray text-white p-2 rounded-md outline-none text-xs bg-transparent border-2 border-white"
+          className="w-full text-white p-2 rounded-md outline-none text-xs bg-transparent border-2 border-white"
           value={startDate}
           onChange={(e) => handleInputChange("startDate", e.target.value)}
         />
@@ -16,7 +16,7 @@ const DateRangeFilter = ({startDate, endDate, handleInputChange}) => {
       <FilterSection title="End Date">
         <input
           type="date"
-          className="w-full bg-gray text-white p-2 rounded-md outline-none text-xs bg-transparent border-2 border-white"
+          className="w-full text-white p-2 rounded-md outline-none text-xs bg-transparent border-2 border-white"
           value={endDate}
           onChange={(e) => handleInputChange("endDate", e.target.value)}
         />

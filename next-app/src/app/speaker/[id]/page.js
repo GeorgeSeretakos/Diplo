@@ -1,272 +1,110 @@
-'use client';
+"use client";
 
-import styles from "./SpeakerProfile.module.css";
-import React, { useEffect, useState } from "react";
-import {fetchPositionHeld} from "../../../utils/wikidata/dataFetchers.js";
-import {formatPositionHeld} from "../../../utils/wikidata/formatters.js";
-import {constants} from "../../../../constants/constants.js";
-import {useParams, useRouter} from "next/navigation";
+import React, {useEffect, useState} from "react";
+import SearchSection from "@components/Navigation/TopBarSearch";
 import axios from "axios";
-import metadataStyles from "../../debate/[id]/metadata/DebateMetadata.module.css";
-import DebateCard from "../../components/Debate/DebateCard/DebateCard.js";
+import SideBar from "@components/Navigation/SideBar";
+import styles from "./speaker.module.css";
+import SpeakerCard from "@components/Speaker/SpeakerCard/SpeakerCard.js";
+import {constants} from "../../../../constants/constants.js";
+import SpeakerBio from "@components/Speaker/SpeakerBio/[id]/SpeakerBio.js";
+import {useParams} from "next/navigation.js";
+import SpeakerSearch from "../../components/Speaker/SpeakerSearch/[id]/SpeakerSearch.js";
+import TopBarSearch from "../../components/Navigation/TopBarSearch.js";
+import SpeakerNavigation from "../../components/Navigation/SpeakerNavigation.js";
 
-const SpeakerPage = () => {
-  const router = useRouter();
 
-  const initialDebatesShown = 4;
-
-  const [visibleDebates, setVisibleDebates] = useState(initialDebatesShown);
-  const [showMoreVisible, setShowMoreVisible] = useState(true); // Control visibility of "Show More" link
-
-  const [speakerData, setSpeakerData] = useState(null);
-  const [positionsHeld, setPositionsHeld] = useState([]);
-  const [wikidataEntityId, setWikidataEntityId] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const STRAPI_URL = constants.STRAPI_URL;
+export default function DebateSearch() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [speakers, setSpeakers] = useState([]);
+  const [sortBy, setSortBy] = useState("newest");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
+  const [activeTab, setActiveTab] = useState("bio");
+  const [inputValues, setInputValues] = useState({
+    ageRange: { min: 18, max: 100},
+    gender: "",
+    keyPhrase: "",
+    topics: [],
+    speakerName: "",
+    parties: []
+  });
 
   const { id: documentId } = useParams();
 
   console.log("DocumentId:", documentId);
 
-  useEffect(() => {
-    if (!documentId) {
-      alert("documentId is missing");
-      return;
-    }
-    const fetchSpeakerData = async () => {
-      try {
-        const response = await axios.get(`/api/strapi/speakers/metadata/${documentId}`);
-        console.log(response);
-        setSpeakerData(response.data.speaker);
-        console.log("Just set speakers data", speakerData);
-
-        // Extract the link attribute and wikidata entity ID
-        const link = response.data.speaker?.link;
-        console.log("Link", link);
-        if (link) {
-          const entityId = link.split("/").pop();
-          console.log("EntityId: ", entityId);
-          setWikidataEntityId(entityId);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching speakerId data: ", error);
-        setLoading(false);
-      }
-    }
-    fetchSpeakerData();
-
-  }, [documentId]);
-
-  console.log("Wikidata id: ", wikidataEntityId);
+  const STRAPI_URL = constants.STRAPI_URL;
 
   useEffect(() => {
-    if (!wikidataEntityId) return;
-
-    const fetchWikidataPositions = async () => {
+    const searchSpeakers = async () => {
       try {
-        console.log("Called");
-        const positions = await fetchPositionHeld(wikidataEntityId);
-        const formattedPositions = formatPositionHeld(positions);
-        setPositionsHeld(formattedPositions);
+        // const endpoint = "http://localhost:3000/api/search-speakers";
+        const endpoint = "http://localhost:1338/api/speakers?populate=image";
+        // const body = { ...inputValues, sortBy, page, limit };
 
+        // const response = await axios.post(endpoint, body);
+        const response = await axios.get(endpoint);
+        console.log("Search API Response: ", response);
+
+        setSpeakers(response.data.data);
+        // setTotalPages(response.data.totalPages);
       } catch (error) {
-        console.error("Error fetching positions held: ", error);
+        console.error("Error fetching all speakers:", error);
       }
-    }
-    fetchWikidataPositions();
-  }, [wikidataEntityId]);
+    };
+    searchSpeakers();
+  }, [inputValues, sortBy, page]);
 
-  console.log("Speaker data: ", speakerData);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (!speakerData) return <p>No data available</p>
+  const handleInputChange = (name, value) => {
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
 
-  // Destructuring
-  const {
-    speaker_name,
-    description,
-    image,
-    date_of_birth,
-    place_of_birth,
-    date_of_death,
-    educated_at,
-    occupation,
-    website,
-    languages,
-    political_parties,
-    debates,
-  } = speakerData;
-
-
-  // Construct the full image URL
-  const imageUrl = image?.formats?.large?.url
-    ? `${STRAPI_URL}${image.formats.large.url}`
-    : image?.url
-      ? `${STRAPI_URL}${image.url}`
-      : null;
+  console.log("Input Values: ", inputValues);
+  console.log("Speakers: ", speakers);
+  console.log("Total Pages: ". totalPages);
 
   return (
-    <div className={styles.pageLayout}>
-      <div className={styles.sections}>
+    <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
+      <div className={styles.backgroundContainer}></div>;
 
-        <div className={styles.leftSection}>
-          {speaker_name && <h1 className={styles.title}>{speaker_name}</h1>}
-          {description &&
-            <div className={styles.section}>
-              <strong className="dynamic-content">Description:</strong> {description}
-            </div>
-          }
-
-          {date_of_birth && place_of_birth && (
-            <div className={styles.section}>
-              <strong className="dynamic-content">Born:</strong> {date_of_birth}, {place_of_birth}
-            </div>
-          )}
-          {date_of_death && <p><strong className="dynamic-content">Died:</strong> {date_of_death}</p>}
-
-          {educated_at && (
-            <div className={styles.section}>
-              <strong className="dynamic-content">Education:</strong>
-              <ul className={styles.list}>
-                {educated_at.split(",").map((education, index) => (
-                  <li key={index} className={styles.educationItem}>
-                    {education.trim()}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {occupation && occupation.length > 0 && (
-            <div className={styles.section}>
-              <strong className="dynamic-content">Occupation:</strong> {occupation}
-            </div>
-          )}
-
-          {languages && languages.length > 0 && (
-            <div className={styles.section}>
-              <strong className="dynamic-content">Languages:</strong> {languages}
-            </div>
-          )}
-
-            {political_parties && political_parties.length > 0 && (
-              <div className={`${styles.section} ${styles.partyDetails}`}>
-                <strong className="dynamic-content">Political Party: </strong>
-                {political_parties.map((party) => party.name).join(", ")}
-              </div>
-            )}
-            <div className={`${styles.section} ${styles.partyImages}`}>
-              {political_parties && political_parties.length > 0 && (
-                political_parties.map((party, index) => {
-
-                  const partyImage = party.image?.formats?.large?.url
-                    ? `${STRAPI_URL}${party.image.formats.large.url}`
-                    : party.image?.url
-                      ? `${STRAPI_URL}${party.image.url}`
-                      : null;
-
-                  if (!partyImage) return null;
-
-                  return (
-                    <div className={styles.imageContainer} key={index}>
-                      <img
-                        src={partyImage}
-                        alt={`${party.name || "Political party"} photo`}
-                        className={styles.partyImage}
-                      />
-                    </div>
-                  );
-                })
-              )}
-          </div>
-
-
-          <section className={styles.section}>
-            <strong className="dynamic-content">Positions held:</strong>
-            {positionsHeld && positionsHeld.length > 0 ? (
-              <ul className={styles.list}>
-                {positionsHeld.map((position, index) => (
-                  <li key={index} className={styles.positionItem}>
-                    {position}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No positions held available.</p>
-            )}
-          </section>
-
-
-          {/* Website Section */}
-          {website && (
-            <div className={styles.websiteSection}>
-              <a href={website} target="_blank" rel="noopener noreferrer">
-                Visit Website
-              </a>
-            </div>
-          )}
-
-
-          <div className={metadataStyles.speakersSection} style={{marginTop: "2rem"}}>
-            {debates && (
-              <p><strong className="dynamic-content">Debates {`(${debates.length})`}</strong></p>
-            )}
-            <div className={metadataStyles.grid}>
-              {debates.map((debate, index) => {
-                return (
-                  <DebateCard
-                    key={index}
-                    documentId={debate.documentId}
-                    period={debate.period}
-                    session={debate.session}
-                    meeting={debate.meeting}
-                    topics={debate.topics || []}
-                    date={debate.date}
-                    title={debate.title}
-                    // containerStyle={{width: "5rem", height: "12.5rem", borderRadius: "1rem"}}
-                    // textStyle={{fontSize: ".5rem"}}
-                  />
-                );
-              })}
-              {showMoreVisible && debates.length > visibleDebates && (
-                <div
-                  onClick={() => setVisibleDebates(debates.length)}
-                  style={{
-                    cursor: "pointer",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Show More ...
-                </div>
-              )}
-              {showMoreVisible && debates.length === visibleDebates && (
-                <div
-                  onClick={() => setVisibleDebates(initialDebatesShown)}
-                  style={{
-                    cursor: "pointer",
-                    fontWeight: "bold"
-                  }}
-                >
-                  Show Less
-                </div>
-              )}
-            </div>
-          </div>
+      <div className="flex fixed bg-[#1E1F23] top-0 w-full items-center border-b-2 m-auto z-50">
+        <div className="text-white flex justify-center w-[30%] font-bold">
+          <SideBar />
         </div>
-
-        <div className={styles.rightSection}>
-          {imageUrl ?
-            <img src={imageUrl} alt="Speaker" className={styles.profilePicture}/> :
-            <div className={styles.backgroundImageContainer}></div>
-          }
+        <div className="w-[70%] pr-8 pl-8 flex justify-center">
+          {/*<TopBarSearch*/}
+          {/*  onFilterChange={(updatedValue) => handleInputChange("speakerName", updatedValue)}*/}
+          {/*  setSortBy={setSortBy}*/}
+          {/*  setPage={setPage}*/}
+          {/*  placeholder="Enter speaker name ..."*/}
+          {/*/>*/}
+          <SpeakerNavigation
+            // speakerName="ΣΤΕΛΙΟΣ ΚΑΤΣΗΣ"
+            imageUrl="http://localhost:1338/uploads/image_e3d86dda2e.jpeg"
+            onTabChange={setActiveTab}
+          />
         </div>
       </div>
 
-    </div>
 
+      <div className="flex text-white w-[100%] m-auto pt-[2rem] relative z-10">
+        {activeTab === "bio" && <SpeakerBio documentId={documentId} />}
+        {activeTab === "search" && <SpeakerSearch speakerId={documentId}/> }
+          {/*// <div className="mt-12">*/}
+            {/*<div className="text-center text-3xl font-bold">*/}
+            {/*  <h1>Search Debates of ΣΤΕΛΙΟΣ ΚΑΤΣΗΣ</h1>*/}
+            {/*</div>*/}
+      </div>
+    </div>
   );
-};
-export default SpeakerPage;
+}

@@ -6,6 +6,8 @@ import styles from "./DebateMetadata.module.css";
 import SpeakerCard from "../../../components/Speaker/SpeakerCard/SpeakerCard.js";
 import { constants } from "../../../../../constants/constants.js";
 import axios from "axios";
+import Link from "next/link";
+
 
 const DebateMetadata = () => {
   const initialSpeakersShown = 3;
@@ -56,7 +58,7 @@ const DebateMetadata = () => {
       ? `${STRAPI_URL}${image.formats.large.url}`
       : image?.url
         ? `${STRAPI_URL}${image.url}`
-        : null;
+        : "/images/politicians/default.avif";
   };
 
 
@@ -67,9 +69,15 @@ const DebateMetadata = () => {
 
         {opening_section && <div className={styles.description}>{opening_section}</div>}
 
+        {topics && (
+          <p className="mb-[4rem]">
+            <strong className="dynamic-content">Topics Discussed:</strong>{" "}
+            {topics.map((t) => t.topic).join(", ")} {/* Extract topic values and join */}
+          </p>
+        )}
+
         {(session || period || meeting) && (
           <div>
-            <strong className="dynamic-content">Parliament Session:</strong>
             <ul className={styles.list}>
               <li><strong className="dynamic-content">Session Date:</strong> {session_date}</li>
               <li><strong className="dynamic-content">Period:</strong> {period}</li>
@@ -79,15 +87,8 @@ const DebateMetadata = () => {
           </div>
         )}
 
-        {topics && (
-          <p>
-            <strong className="dynamic-content">Topics:</strong>{" "}
-            {topics.map((t) => t.topic).join(", ")} {/* Extract topic values and join */}
-          </p>
-        )}
-
         {summary && (
-          <div>
+          <div className="mb-[4rem]">
             <strong className="dynamic-content">Summary</strong>
             <div>{summary}</div>
           </div>
@@ -95,7 +96,7 @@ const DebateMetadata = () => {
 
         {speakers && (
           <p>
-            <strong className="dynamic-content">Speakers {`(${speakers.length})`}</strong>
+            <strong className="dynamic-content">Participating Speakers {`(${speakers.length})`}</strong>
           </p>
         )}
 
@@ -104,14 +105,22 @@ const DebateMetadata = () => {
             const imageUrl = getImageUrl(speaker.image);
 
             return (
-              <SpeakerCard
-                key={index}
-                documentId={speaker.documentId}
-                image={imageUrl}
-                speaker_name={speaker.speaker_name}
-                containerStyle={{ width: "7.5rem", height: "12.5rem", borderRadius: "1rem" }}
-                textStyle={{ fontSize: ".5rem" }}
-              />
+              // eslint-disable-next-line react/jsx-no-undef
+              <Link key={index} href={`/speaker/${speaker.documentId}`} className={styles.speakerInfo}>
+                <div className="flex justify-center align-middle">
+                  <img
+                    src={imageUrl}
+                    alt={speaker.speaker_name}
+                    className={styles.speakerImage}
+                    onError={(e) => (e.currentTarget.src = "/images/default-speaker.jpg")} // Fallback image
+                  />
+                </div>
+                <div className={styles.speakerName}>
+                  {speaker.speaker_name.split(" ").map((word, idx) => (
+                    <span key={idx}>{word}</span>
+                  ))}
+                </div>
+              </Link>
             );
           })}
           {showMoreVisible && speakers.length > visibleSpeakers && (

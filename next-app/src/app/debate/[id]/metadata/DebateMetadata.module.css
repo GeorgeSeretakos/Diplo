@@ -9,23 +9,71 @@
 }
 
 .pageLayout {
-    height: 100%;
+    display: flex;
+    height: 100vh;
     width: 100%;
     overflow: hidden;
-    color: #2B2D31;
+    color: white;
+    background-color: #1e1e1e;
 }
 
-/* Left Section */
-.leftSection{
-    width: 60%;
-    padding: 2rem 4rem 2rem 4rem;
+.speakerInfo {
+    width: 15%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: .35rem;
+    /*border: 2px solid red;*/
+}
+
+.speakerImage {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid rgba(244, 242, 234, 0.8);
+}
+
+.speakerName {
+    font-weight: bold;
+    font-size: .6rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    align-items: center;
+    text-align: center;
+    color: white;
     /*border: 2px solid red;*/
-    box-sizing: border-box; /* Include padding and border in the element's total width */
 }
+
+.leftSection {
+    width: 60%;
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensures title is visible at the top */
+    overflow-y: auto; /* Enables vertical scrolling */
+    height: 100vh;
+    box-sizing: border-box;
+    position: relative;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #888 transparent; /* For Firefox */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+.leftSection::-webkit-scrollbar {
+    width: 8px; /* Make scrollbar thinner */
+}
+
+.leftSection::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar color */
+    border-radius: 4px;
+}
+
+.leftSection::-webkit-scrollbar-track {
+    background: transparent; /* Remove unnecessary background */
+}
+
 
 .textContent {
     width: 100%;
@@ -33,14 +81,14 @@
 
 .title {
     font-size: 2.75rem;
-    color: black;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .description {
     font-size: 1.2rem;
+    margin-bottom: 2rem;
     /*text-align: center;*/
-    margin-bottom: 4rem;
     /*border: 2px solid red;*/
 
 }
@@ -77,6 +125,8 @@
 
 .list {
     line-height: 1.5rem;
+    margin-bottom: 4rem;
+
 }
 
 .websiteSection {

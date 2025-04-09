@@ -1,12 +1,11 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import { Label } from "@components/ui/label";
 import DebateBig from "../components/Debate/DebateBig/DebateBig";
-import SearchSection from "@components/ui/SearchSection";
-import Select from "react-select";
+import SearchSection from "@components/Navigation/TopBarSearch";
 import axios from "axios";
-import SideBar from "@components/Sidebar";
+import {constants} from "../../../constants/constants.js"
+import SideBar from "@components/Navigation/Sidebar";
 import styles from "./SearchDebates.module.css";
 import TopicFilter from "../components/Filters/TopicFilter/TopicFilter.js";
 import SessionFilter from "../components/Filters/SessionFilter/SessionFilter.js";
@@ -34,16 +33,6 @@ export default function DebateSearch() {
         speakers: [],
     });
 
-    const toggleTopic = (topic) => {
-        setInputValues(prev => ({
-            ...prev,
-            topics: prev.topics.includes(topic)
-              ? prev.topics.filter(t => t !== topic)  // Remove if already selected
-              : [...prev.topics, topic]              // Add if not selected
-        }));
-        setPage(1);
-    };
-
     useEffect(() => {
         setIsClient(true);
     }, []);
@@ -70,19 +59,28 @@ export default function DebateSearch() {
     useEffect(() => {
         const fetchSpeakers = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/strapi/speakers/all`);
-                const data = await response.json();
+                const query = `
+                query {
+                  speakers(pagination: { limit: -1 }) {
+                    speaker_name
+                  }
+                }
+              `;
+        const response = await fetch(`${constants.STRAPI_URL}/graphql`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query }),
+        });
 
-                const speakerNames = data.map((speaker) => speaker.speaker_name);
-                setSpeakers(speakerNames);
-
-                console.log("DATA: ", data);
-            } catch (error) {
-                console.error("Error fetching topics:", error);
-            }
-        };
+        const result = await response.json();
+        const speakerNames = result.data.speakers.map((s) => s.speaker_name);
+        setSpeakers(speakerNames);
+    } catch (error) {
+        console.error("Error fetching speakers:", error);
+    }};
         fetchSpeakers();
     }, []);
+
 
     const handleInputChange = (name, value) => {
         setInputValues((prevValues) => ({
@@ -105,7 +103,7 @@ export default function DebateSearch() {
               </div>
               <div className="w-[70%] pr-8 pl-8 flex justify-center">
                   <SearchSection
-                    handleInputChange={handleInputChange}
+                    onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
                     setSortBy={setSortBy}
                     setPage={setPage}
                     placeholder="Enter key phrase ..."
@@ -134,12 +132,12 @@ export default function DebateSearch() {
                     handleInputChange={handleInputChange}
                   />
 
-                  <SpeakerNameFilter
+                  {isClient && <SpeakerNameFilter
                     options={speakers}
                     selectedValues={inputValues.speakers}
                     onChange={(updatedSelection) => handleInputChange("speakers", updatedSelection)}
                     placeholder="Search and select speakers..."
-                  />
+                  />}
 
                   <TopicFilter
                     selectedTopics={inputValues.topics}
@@ -150,25 +148,26 @@ export default function DebateSearch() {
 
               {/* Debates List */}
               <div className="w-[70%] flex flex-col items-center p-10 space-y-6">
-                  <div className="text-center text-3xl font-bold mb-6">
+                  <div className="text-center text-3xl font-bold">
                       <h1>Debates</h1>
                   </div>
-                  {debates.map((debate, index) => (
-                    <DebateBig
-                      style={{width: "100%"}}
-                      key={index}
-                      documentId={debate.documentId}
-                      session_date={debate.session_date}
-                      date={debate.date}
-                      topics={debate.topics}
-                      session={debate.session}
-                      period={debate.period}
-                      meeting={debate.meeting}
-                      // score={debate.top_speech?.score}
-                      content={debate.top_speech?.content}
-                      speaker_name={debate.top_speech?.speaker_name}
-                    />
-                  ))}
+                  <div className={styles.debateGrid}>
+                      {debates.map((debate, index) => (
+                        <DebateBig
+                          key={index}
+                          documentId={debate.documentId}
+                          session_date={debate.session_date}
+                          date={debate.date}
+                          topics={debate.topics}
+                          session={debate.session}
+                          period={debate.period}
+                          meeting={debate.meeting}
+                          // score={debate.top_speech?.score}
+                          content={debate.top_speech?.content}
+                          speaker_name={debate.top_speech?.speaker_name}
+                        />
+                      ))}
+                  </div>
                   {totalPages > 0 ? (
                       <div className="flex justify-center mt-6 space-x-4">
                           {/* Previous Button */}

@@ -33,12 +33,6 @@
       "relation": "manyToMany",
       "target": "api::speaker.speaker",
       "mappedBy": "political_parties"
-    },
-    "debates": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::debate.debate",
-      "mappedBy": "political_parties"
     }
   }
 }

@@ -1,12 +1,10 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import { Label } from "@components/ui/label";
 import DebateBig from "../components/Debate/DebateBig/DebateBig";
-import SearchSection from "@components/ui/SearchSection";
-import Select from "react-select";
+import SearchSection from "@components/Navigation/TopBarSearch";
 import axios from "axios";
-import SideBar from "@components/Sidebar";
+import SideBar from "@components/Navigation/Sidebar";
 import styles from "./searchSpeakers.module.css";
 import SpeakerCard from "@components/Speaker/SpeakerCard/SpeakerCard.js";
 import PartyFilter from "../components/Filters/PartyFilter/PartyFilter.js";
@@ -14,13 +12,13 @@ import TopicFilter from "../components/Filters/TopicFilter/TopicFilter.js";
 import AgeFilter from "../components/Filters/AgeFilter/AgeFilter.js";
 import GenderFilter from "../components/Filters/GenderFilter/GenderFilter.js";
 import PhraseFilter from "../components/Filters/PhraseFilter/PhraseFilter.js";
+import {constants} from "../../../constants/constants.js";
 
 
 export default function DebateSearch() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [speakers, setSpeakers] = useState([]);
-  const [name, setName] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
@@ -30,21 +28,25 @@ export default function DebateSearch() {
     gender: "",
     keyPhrase: "",
     topics: [],
-    name: "",
+    speakerName: "",
     parties: []
   });
+
+  const STRAPI_URL = constants.STRAPI_URL;
 
   useEffect(() => {
     const searchSpeakers = async () => {
       try {
-        const endpoint = "http://localhost:3000/api/search-speakers";
-        const body = { ...inputValues, sortBy, page, limit };
+        // const endpoint = "http://localhost:3000/api/search-speakers";
+        const endpoint = "http://localhost:1338/api/speakers?populate=image";
+        // const body = { ...inputValues, sortBy, page, limit };
 
-        const response = await axios.post(endpoint, body);
+        // const response = await axios.post(endpoint, body);
+        const response = await axios.get(endpoint);
         console.log("Search API Response: ", response);
 
-        setSpeakers(response.data.speakers);
-        setTotalPages(response.data.totalPages);
+        setSpeakers(response.data.data);
+        // setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error("Error fetching all speakers:", error);
       }
@@ -77,7 +79,7 @@ export default function DebateSearch() {
         </div>
         <div className="w-[70%] pr-8 pl-8 flex justify-center">
           <SearchSection
-            handleInputChange={handleInputChange}
+            onFilterChange={(updatedValue) => handleInputChange("speakerName", updatedValue)}
             setSortBy={setSortBy}
             setPage={setPage}
             placeholder="Enter speaker name ..."
@@ -128,22 +130,25 @@ export default function DebateSearch() {
           <div className="text-center text-3xl font-bold mb-6">
             <h1>Speakers</h1>
           </div>
-          {/*{speakers.map((debate, index) => (*/}
-          {/*  <DebateBig*/}
-          {/*    style={{width: "100%"}}*/}
-          {/*    key={index}*/}
-          {/*    documentId={debate.documentId}*/}
-          {/*    session_date={debate.session_date}*/}
-          {/*    date={debate.date}*/}
-          {/*    topics={debate.topics}*/}
-          {/*    session={debate.session}*/}
-          {/*    period={debate.period}*/}
-          {/*    meeting={debate.meeting}*/}
-          {/*    // score={debate.top_speech?.score}*/}
-          {/*    content={debate.top_speech?.content}*/}
-          {/*    speaker_name={debate.top_speech?.speaker_name}*/}
-          {/*  />*/}
-          {/*))}*/}
+          <div className={styles.speakerGrid}>
+            {speakers.map((speaker, index) => {
+              const speakerImage = speaker.image?.formats?.large?.url
+                ? `${STRAPI_URL}${speaker.image.formats.large.url}`
+                : speaker.image?.url
+                  ? `${STRAPI_URL}${speaker.image.url}`
+                  : "/images/politicians/default.avif";
+
+              return (
+                <SpeakerCard
+                  key={index}
+                  documentId={speaker.documentId}
+                  image={speakerImage}
+                  name={speaker.speaker_name}
+                />
+              );
+            })}
+          </div>
+
           {totalPages > 0 ? (
               <div className="flex justify-center mt-6 space-x-4">
                 {/* Previous Button */}

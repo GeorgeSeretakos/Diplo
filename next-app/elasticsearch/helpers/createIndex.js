@@ -2,7 +2,7 @@ import client from "../client.js"; // Elasticsearch client
 
 const INDEX_NAME = "speeches";
 
-async function createIndex() {
+async function createSpeechesIndex() {
   try {
     // Check if the index already exists
     const indexExists = await client.indices.exists({ index: INDEX_NAME });
@@ -53,4 +53,4 @@ async function createIndex() {
   }
 }
 
-createIndex();
+createSpeechesIndex();

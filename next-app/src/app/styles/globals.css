@@ -141,11 +141,11 @@ select {
   outline: none;
   transition: all 0.3s ease-in-out;
   background-color: #222;
+  border: 2px solid white;
 }
 
 input:hover,
 select:hover {
-  border-color: #1e1e1e;
 }
 
 input::placeholder {

@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FilterSection from "../FilterSection.js";
-import {Label} from "../../ui/label.js";
 
 const SessionFilter = ({ session, period, meeting, handleInputChange }) => {
 

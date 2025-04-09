@@ -71,13 +71,16 @@ export default function Speeches() {
               ? `${STRAPI_URL}${image.formats.large.url}`
               : image?.url
                 ? `${STRAPI_URL}${image.url}`
-                : null;
+                : "/images/politicians/default.avif";
 
             return (
               <div key={speech.speech_id} className={styles.speechContainer}>
                 <div className={styles.speakerInfo}>
                   {image &&
-                    <img src={imageUrl} alt={speech.speaker_name} className={styles.speakerImage} />}
+                    <div className="flex justify-center align-middle">
+                      <img src={imageUrl} alt={speech.speaker_name} className={styles.speakerImage} />
+                    </div>
+                  }
                   <div className={styles.speakerName}>
                     {speech.speaker_name.split(" ").map((word, index) => (
                       <span key={index}>{word}</span>
