@@ -46,23 +46,21 @@
       "target": "api::topic.topic",
       "mappedBy": "debates"
     },
-    "political_parties": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::political-party.political-party",
-      "inversedBy": "debates"
-    },
     "session": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "period": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "meeting": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "session_date": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "content": {
       "type": "json"

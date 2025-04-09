@@ -1,21 +1,20 @@
 /* Idio me SpeakerResults */
-
 .searchSection {
     border-bottom: 2px solid white;
 }
 
 .backgroundContainer {
-    position: fixed; /* Fixes it in place */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Full width */
-    height: 100vh; /* Full height */
+    width: 100vw;
+    height: 100vh;
     background-image: url("/images/parliament/vouli2.png");
-    background-size: cover; /* Ensures full coverage */
-    background-position: center; /* Centers the image */
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    filter: blur(5px); /* Applies blur effect */
-    z-index: -1; /* Places it behind everything */
+    filter: blur(8px);
+    z-index: -1;
 }
 
 
@@ -23,8 +22,18 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    /*height: 100vh;*/
     font-family: Arial, sans-serif;
     background-color: black;
     overflow: visible;
+}
+
+.debateGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 1rem;
+    justify-content: center;
+    align-items: start;
+    padding: 10px;
+    /*border: 2px solid red;*/
+    width: 100%;
 }

@@ -393,16 +393,12 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
       'api::debate.debate'
     > &
       Schema.Attribute.Private;
-    meeting: Schema.Attribute.String;
+    meeting: Schema.Attribute.String & Schema.Attribute.Required;
     opening_section: Schema.Attribute.String;
-    period: Schema.Attribute.String;
-    political_parties: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::political-party.political-party'
-    >;
+    period: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    session: Schema.Attribute.String;
-    session_date: Schema.Attribute.String;
+    session: Schema.Attribute.String & Schema.Attribute.Required;
+    session_date: Schema.Attribute.String & Schema.Attribute.Required;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
     summary: Schema.Attribute.Text;
@@ -432,7 +428,6 @@ export interface ApiPoliticalPartyPoliticalParty
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -445,32 +440,6 @@ export interface ApiPoliticalPartyPoliticalParty
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiRdfRdf extends Struct.CollectionTypeSchema {
-  collectionName: 'rdfs';
-  info: {
-    displayName: 'RDF';
-    pluralName: 'rdfs';
-    singularName: 'rdf';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::rdf.rdf'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    RDFAsJSON: Schema.Attribute.JSON;
-    RDFAsText: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -517,7 +486,9 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     speaker_id: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    speaker_name: Schema.Attribute.String & Schema.Attribute.Required;
+    speaker_name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
     topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -1104,7 +1075,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::debate.debate': ApiDebateDebate;
       'api::political-party.political-party': ApiPoliticalPartyPoliticalParty;
-      'api::rdf.rdf': ApiRdfRdf;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;
       'api::topic.topic': ApiTopicTopic;

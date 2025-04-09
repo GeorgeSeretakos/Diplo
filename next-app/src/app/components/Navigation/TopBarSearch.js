@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 
-const SearchSection = ({handleInputChange, setSortBy, setPage, placeholder}) => {
+const TopBarSearch = ({onFilterChange, setSortBy, setPage, placeholder}) => {
   const [query, setQuery] = useState("");
 
   const handleSearch = (e) => {
     const value = e.target.value;
     setQuery(value);
-    handleInputChange("keyPhrase", value);
+    onFilterChange(value);
   };
 
   const handleX = () => {
     setQuery("");
-    handleInputChange("keyPhrase", "")
+    onFilterChange("")
   }
 
   const handleSortChange = (e) => {
@@ -69,4 +69,4 @@ const SearchSection = ({handleInputChange, setSortBy, setPage, placeholder}) => 
   );
 };
 
-export default SearchSection;
+export default TopBarSearch;

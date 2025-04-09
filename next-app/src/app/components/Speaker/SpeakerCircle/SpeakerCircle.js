@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./SpeakerCircle.module.css";
 
-const SpeakerCircle = ({ photo, name }) => {
+const SpeakerCircle = ({ photo, name, style }) => {
   return (
     <>
-      <div className={styles.speakerContainer}>
+      <div className={styles.speakerContainer} style={style}>
         {/* Top half: politician's photo */}
         <div className={styles.photoContainer}>
           <img src={photo} alt={name} className={styles.photo}/>

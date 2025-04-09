@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import FilterSection from "../FilterSection.js";
-import styles from "./TopicFilter.module.css";
 import { constants } from "../../../../../constants/constants.js";
 import axios from "axios";
 
@@ -13,16 +12,28 @@ const PartyFilter = ({ selectedTopics = [], onFilterChange }) => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const endpoint = "http://localhost:3000/api/strapi/topics";
-        const response = await axios.get(endpoint);
+        const query = `
+          query {
+            topics(pagination: { limit: -1 }) {
+              topic
+            }
+          }
+        `;
 
-        setTopics(response.data);
+        const response = await axios.post(
+          `${STRAPI_URL}/graphql`,
+          { query },
+          { headers: { "Content-Type": "application/json" } }
+        );
+
+        setTopics(response.data.data.topics);
       } catch (error) {
         console.error("Error fetching topics:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchTopics();
   }, []);
 

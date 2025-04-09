@@ -6,7 +6,13 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    color: #2B2D31;
+    color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .sections {
@@ -18,7 +24,7 @@
 
 /* Left Section */
 .leftSection{
-    width: 60%;
+    width: 100%;
     padding: 2rem 4rem 2rem 4rem;
     position: relative;
     display: flex;
@@ -31,13 +37,11 @@
 
 .title {
     font-size: 2.75rem;
-    color: black;
     text-align: center;
 }
 
 .description {
     font-size: 1.2rem;
-    color: #666;
     margin-bottom: 0;
 }
 
@@ -66,7 +70,6 @@
     padding: .5rem;
     border-radius: 2rem;
     border: 2px solid black;
-
 }
 
 .partyImage {
@@ -86,8 +89,6 @@
 
 .websiteSection a {
     text-decoration: none;
-    color: white;
-    background: black;
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
     font-size: 1rem;
@@ -95,7 +96,7 @@
 }
 
 .rightSection {
-    height: 100%;
+    height: 70%;
     width: 40%;
     flex: 1;
     display: flex;
@@ -103,20 +104,12 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 15%;
+    right: 2%;
     overflow: hidden;
+    border-radius: 10%;
 }
 
-.backgroundImageContainer {
-    background-image: url("../../../../public/images/speaker/speakerPage.webp");
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-}
 
 .profilePictureContainer {
     display: flex;

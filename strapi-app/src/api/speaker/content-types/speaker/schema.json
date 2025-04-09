@@ -15,7 +15,7 @@
     "speaker_name": {
       "type": "string",
       "required": true,
-      "unique": false
+      "unique": true
     },
     "speaker_id": {
       "type": "string",

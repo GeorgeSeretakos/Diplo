@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { Label } from "../../ui/label.js";
 import FilterSection from "../FilterSection.js";
 
 const MultiSelectFilter = ({ options, selectedValues, onChange, placeholder }) => {

@@ -14,10 +14,26 @@ const PartyFilter = ({ selectedParties = [], onFilterChange }) => {
   useEffect(() => {
     const fetchParties = async () => {
       try {
-        const endpoint = "http://localhost:3000/api/strapi/parties";
-        const response = await axios.get(endpoint);
+        const query = `
+          query {
+            politicalParties(pagination: { limit: -1 }) {
+              documentId
+              name
+              image {
+                formats
+                url
+              }
+            }
+          }
+        `;
 
-        setParties(response.data);
+        const response = await axios.post(
+          `${STRAPI_URL}/graphql`,
+          { query },
+          { headers: { "Content-Type": "application/json" } }
+        );
+
+        setParties(response.data.data.politicalParties);
       } catch (error) {
         console.error("Error fetching parties:", error);
       } finally {
@@ -57,8 +73,8 @@ const PartyFilter = ({ selectedParties = [], onFilterChange }) => {
                   key={party.documentId}
                   name={party.name}
                   image={partyImage}
-                  isSelected={selectedParties.includes(party.documentId)}
-                  handleClick={() => togglePartySelection(party.documentId)}
+                  isSelected={selectedParties.includes(party.name)}
+                  handleClick={() => togglePartySelection(party.name)}
                 />
               );
             })}
