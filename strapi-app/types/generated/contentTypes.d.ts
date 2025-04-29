@@ -458,11 +458,12 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    age: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    date_of_birth: Schema.Attribute.String;
-    date_of_death: Schema.Attribute.String;
+    date_of_birth: Schema.Attribute.Date;
+    date_of_death: Schema.Attribute.Date;
     debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
     description: Schema.Attribute.Text;
     educated_at: Schema.Attribute.Text;

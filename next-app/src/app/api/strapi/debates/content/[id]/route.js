@@ -1,7 +1,6 @@
 import { constants } from "../../../../../../../constants/constants.js";
 
 const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
 
 export async function GET(request, { params }) {
   const { id } = params;
@@ -26,6 +25,7 @@ export async function GET(request, { params }) {
           documentId
           content
           speakers {
+            documentId
             image {
               url
             }
@@ -40,7 +40,6 @@ export async function GET(request, { params }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`,
       },
       body: JSON.stringify({
         query,

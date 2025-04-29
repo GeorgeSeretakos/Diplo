@@ -1,22 +1,26 @@
 import axios from "axios";
-import client from "../client.js"; // Elasticsearch client
+import client from "../client.js";
 
 const INDEX_NAME = "speeches";
-const STRAPI_API_URL = "http://localhost:1338/api/speeches"; // Update with your Strapi endpoint
-const PAGE_SIZE = 100; // Number of items to fetch per page
+const STRAPI_API_URL = "http://localhost:1338/api/speeches";
+const PAGE_SIZE = 1000;
 
-/**
- * Fetch speeches from Strapi API with pagination.
- * @param {number} page - Current page number.
- * @returns {Promise<Object>} - Data from Strapi API.
- */
+
+function extractSpeechNumber(speechId) {
+  const match = speechId.match(/speech_(\d+)$/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
 async function fetchSpeeches(page = 1) {
   try {
     const response = await axios.get(STRAPI_API_URL, {
       params: {
         "pagination[page]": page,
         "pagination[pageSize]": PAGE_SIZE,
-        populate: "*",
+        populate: {
+          speakers: { fields: ['documentId'] },
+          debates: { fields: ['documentId'] }
+        },
       },
     });
     return response.data;
@@ -26,9 +30,7 @@ async function fetchSpeeches(page = 1) {
   }
 }
 
-/**
- * Bulk insert speeches into Elasticsearch.
- */
+
 async function bulkInsert() {
   console.log(`Starting bulk insert into index: ${INDEX_NAME}`);
 
@@ -38,7 +40,7 @@ async function bulkInsert() {
   while (true) {
     const data = await fetchSpeeches(page);
     if (!data || data.data.length === 0) {
-      break; // Stop if no data is returned
+      break;
     }
 
     const bulkBody = data.data.flatMap((speech) => {
@@ -47,7 +49,8 @@ async function bulkInsert() {
         !speech.speaker_name ||
         !speech.content ||
         !speech.speech_id ||
-        !speech.debates[0]?.documentId
+        !speech.debates[0]?.documentId ||
+        !speech.speakers[0]?.documentId
       ) {
         console.warn(`Skipping speech with missing fields: ${speech.id}`);
         return [];
@@ -55,10 +58,15 @@ async function bulkInsert() {
 
       // Transform the content field to a single string
       const transformedContent = speech.content.paragraphs
-        .map((paragraph) => paragraph) // Extract text from each paragraph
-        .join(' '); // Combine paragraphs into one string
+        .map((paragraph) => paragraph)
+        .join(' ');
 
-      console.log("Transformed Content: ", transformedContent);
+      const speechNumber = extractSpeechNumber(speech.speech_id);
+
+      if (speechNumber === null) {
+        console.warn(`Skipping speech with unparseable id: ${speech.speech_id}`);
+        return [];
+      }
 
       return [
         {
@@ -68,7 +76,8 @@ async function bulkInsert() {
           speaker_name: speech.speaker_name,
           content: transformedContent,
           debate_id: speech.debates[0].documentId,
-          speaker_id: speech.speaker_id,
+          speaker_id: speech.speakers[0].documentId,
+          speech_number: speechNumber,
         },
       ];
     });

@@ -15,15 +15,21 @@ async function createSpeechesIndex() {
     // Define the index mappings to match the Strapi structure
     const mappings = {
       properties: {
-        speech_id: { type: "keyword" }, // Unique identifier
-        speaker_name: { type: "text" }, // Speaker name
+        speech_id: { type: "keyword" },
+        speaker_name: {
+          type: "text",
+          fields: {
+            keyword: { type: "keyword" }
+          }
+        },
         content: {
           type: "text",
           analyzer: "custom_analyzer",
           search_analyzer: "custom_analyzer"
-        }, // Full-text search-debates on content
-        speaker_id: { type: "keyword" }, // Speaker relation (ID)
-        debate_id: { type: "keyword" }, // Debate relation (ID)
+        },
+        speaker_id: { type: "keyword" },
+        debate_id: { type: "keyword" },
+        speech_number: { type: "integer" }
       },
     };
 

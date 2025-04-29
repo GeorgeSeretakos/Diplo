@@ -1,165 +1,153 @@
-import client from "../../../../elasticsearch/client.js"; // Elasticsearch client
-import axios from "axios";
-import { constants } from "../../../../constants/constants.js";
-
-const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
+import {searchDebatesKeyPhrase} from "@utils/search/searchDebatesKeyPhrase.js";
+import {searchSpeakersStrapiFilters} from "@utils/search/searchSpeakersStrapiFilters.js";
+import {getDetailedStrapiSpeakers} from "@utils/graphql/getDetailedStrapiSpeakers.js";
+import {getDetailedStrapiDebates} from "@utils/graphql/getDetailedStrapiDebates.js";
 
 export async function POST(req) {
   try {
     const body = await req.json();
     const {
-      keyPhrase,
-      speakerName,
-      parties,
-      topics,
-      ageRange,
-      gender,
-      sortBy,
-      page = 1,
-      limit = 10
+      keyPhrase = "",
+      strapiFilters = {},
     } = body;
 
-    console.log("Body: ", body);
+    console.log("Calling speeches-speakers api with: ", body);
 
-    console.log("🔍 Fetching speakers with filters...");
-    console.log("keyPhrase: ", keyPhrase);
-    console.log("speakerName: ", speakerName);
-    console.log("parties: ", parties);
-    console.log("topics: ", topics);
-    console.log("ageRange: ", ageRange);
-    console.log("gender: ", gender);
+    const hasKeyPhrase = keyPhrase.trim() !== "";
+    const hasStrapiFilters =
+      !!strapiFilters.speakerName ||
+      (strapiFilters.ageRange && (strapiFilters.ageRange.min !== 18 || strapiFilters.ageRange.max !== 100)) ||
+      !!strapiFilters.gender ||
+      !!(Array.isArray(strapiFilters.parties) && strapiFilters.parties.length > 0);
 
-    const offset = (page - 1) * limit;
+    console.log("hasKeyPhrase: ", hasKeyPhrase);
+    console.log("hasStrapiFilters: ", hasStrapiFilters);
 
-    let speakerIdsFromES = new Set();
+    let result = [];
 
-    if (keyPhrase) {
-      const esQuery = {
-        size: 0,
-        query: {
-          match_phrase: {
-            content: keyPhrase
-          }
-        },
-        aggs: {
-          unique_speakers: {
-            terms: {
-              field: "speaker_id.keyword",
-              size: 1000
-            }
-          }
-        }
-      };
+    if (hasKeyPhrase) {
+      const esResults = await searchDebatesKeyPhrase(keyPhrase);
+      console.log("esResults: ", esResults);
 
-      console.log("🔹 Elasticsearch Query:", JSON.stringify(esQuery, null, 2));
+      if(esResults.length === 0) {
+        return new Response(JSON.stringify({results: [], totalPages: 0}), {status: 200});
+      }
 
-      const esResponse = await client.search({
-        index: "speeches",
-        body: esQuery
+      let filteredSpeakerIds = esResults.map(d => d.speakerDocumentId);
+      let filteredDebateIds = esResults.map(d => d.debateDocumentId);
+
+      console.log("Filtered Speaker Ids: ", filteredSpeakerIds);
+      console.log("Filtered Debate Ids: ", filteredDebateIds);
+
+      if (hasStrapiFilters) {
+        const strapiResults = await searchSpeakersStrapiFilters(strapiFilters);
+        const strapiSpeakersSet = new Set(strapiResults.map(s => s.documentId));
+
+        filteredSpeakerIds = filteredSpeakerIds.filter(id => strapiSpeakersSet.has(id)).sort();
+        // Also filter debates to only keep debates linked to surviving speakers
+        filteredDebateIds = esResults
+          .filter(e => filteredSpeakerIds.includes(e.speakerDocumentId))
+          .map(e => e.debateDocumentId)
+          .sort();
+      }
+
+      if (filteredSpeakerIds.length === 0) {
+        return new Response(JSON.stringify({results: [], totalPages: 0}), {status: 200});
+      }
+
+      const detailedStrapiSpeakers = await getDetailedStrapiSpeakers({
+        ids: filteredSpeakerIds,
+        offset: 0,
+        limit: filteredSpeakerIds.length,
       });
 
-      console.log("🔹 Elasticsearch Response:", esResponse);
+      filteredDebateIds = Array.from(new Set(filteredDebateIds));
+      console.log("Unique filtered debate ids: ", filteredDebateIds);
 
-      // Extract unique speaker IDs from Elasticsearch response
-      speakerIdsFromES = new Set(esResponse.aggregations.unique_speakers.buckets.map(bucket => bucket.key));
-    }
+      const detailedStrapiDebates = await getDetailedStrapiDebates({
+        ids: filteredDebateIds,
+        offset: 0,
+        limit: filteredDebateIds.length,
+      })
 
-    // ✅ Step 2: Build Strapi Query (filters)
-    const filters = [];
+      console.log("Detailed strapi debates: ", detailedStrapiDebates);
 
-    if (speakerIdsFromES.size > 0) {
-      filters.push(`documentId: { in: [${[...speakerIdsFromES].map(id => `"${id}"`).join(", ")}] }`);
-    }
+      // Create easy lookup maps
+      const esMap = new Map(esResults.map(d => [d.speakerDocumentId, d]));
+      const debateMap = new Map(detailedStrapiDebates.map(d => [d.documentId, d]));
 
-    if (speakerName) {
-      filters.push(`speaker_name: { containsi: "${speakerName.trim().toUpperCase()}" }`);
-    }
+      console.log("esMap: ", esMap);
+      console.log("debateMap: ", debateMap);
 
-    if (gender) {
-      filters.push(`gender: { eq: "${gender}" }`);
-    }
+      result = detailedStrapiSpeakers.map(strapiSpeaker => {
+        const esEntry = esMap.get(strapiSpeaker.documentId);
+        if (!esEntry) return null; // safety
 
-    // if (topics?.length) {
-    //   filters.push(`topics: { topic: { in: [${topics.map(t => `"${t}"`).join(", ")}] } }`);
-    // }
+        const strapiDebate = debateMap.get(esEntry.debateDocumentId);
 
-    if (parties?.length) {
-      filters.push(`political_parties: { name: { in: [${parties.map(p => `"${p}"`).join(", ")}] } }`);
-    }
+        console.log("esEntry: ", esEntry);
+        console.log("strapiDebate: ", strapiDebate);
 
-    // if (ageRange?.min || ageRange?.max) {
-    //   filters.push(`age: { gte: ${ageRange.min}, lte: ${ageRange.max} }`);
-    // }
+        return {
+          documentId: strapiSpeaker.documentId,  // speaker documentId
+          speaker_name: strapiSpeaker.speaker_name,
+          image: strapiSpeaker.image,
+          age: strapiSpeaker.age,
+          gender: strapiSpeaker.gender,
+          // Top speech
+          top_speech: {
+            score: esEntry.top_speech.score,
+            content: esEntry.top_speech.content,
+            speaker_name: esEntry.top_speech.speaker_name,
+            speech_id: esEntry.top_speech.id,
+          },
+          // Debate metadata
+          debate: strapiDebate
+            ? {
+              documentId: strapiDebate.documentId,
+              date: strapiDebate.date,
+              title: strapiDebate.title,
+              session: strapiDebate.session,
+              meeting: strapiDebate.meeting,
+              period: strapiDebate.period,
+              topics: strapiDebate.topics,
+            }
+            : null,
+        };
+      }).filter(Boolean); // Remove any nulls
 
-    // ✅ Step 3: Query Strapi with the filters
-    const strapiQuery = `
-      query {
-        speakers(filters: { ${filters.join(", ")} }) {
-          documentId
-          speaker_name
-          gender
-          political_parties {
-            name
-          }
-          image {
-            formats
-            url
-          }
-        }
-      }
-    `;
+    } else if (hasStrapiFilters) {
+      const strapiResults = await searchSpeakersStrapiFilters(strapiFilters);
+      console.log("Strapi Results: ", strapiResults);
+      const allIds = strapiResults.map(d => d.documentId).sort();
 
-    console.log("🟡 Strapi Query:", strapiQuery);
+      result = await getDetailedStrapiSpeakers({
+        ids: allIds,
+        offset: 0,
+        limit: allIds.length,
+      });
 
-    const strapiResponse = await axios.post(
-      `${STRAPI_URL}/graphql`,
-      { query: strapiQuery },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          "Content-Type": "application/json"
-        },
-      }
-    );
-
-    const speakersFromStrapi = strapiResponse.data.data.speakers;
-    console.log("🟢 Strapi Response:", speakersFromStrapi);
-
-    // ✅ Step 4: Determine the final result based on filters
-    let finalSpeakers;
-
-    const hasElasticSearchInput = Boolean(keyPhrase);
-    const hasStrapiInput = Boolean(
-      speakerName || gender || ageRange || parties?.length || topics?.length
-    );
-
-    console.log("hasElasticSearchInput: ", hasElasticSearchInput);
-    console.log("hasStrapiInput: ", hasStrapiInput);
-
-    if (hasElasticSearchInput && hasStrapiInput) {
-      // Return only speakers that are present in both results (intersection)
-      finalSpeakers = speakersFromStrapi.filter(speaker => speakerIdsFromES.has(speaker.documentId));
-    } else if (hasElasticSearchInput) {
-      // Return speakers from Elasticsearch (since no other filters exist)
-      finalSpeakers = speakersFromStrapi.filter(speaker => speakerIdsFromES.has(speaker.documentId));
-    } else if (hasStrapiInput) {
-      // Return speakers from Strapi filtering
-      finalSpeakers = speakersFromStrapi;
+      console.log("Detailed speakers: ", result);
     } else {
-      // If no filters, return all speakers
-      finalSpeakers = speakersFromStrapi;
+      result = await getDetailedStrapiSpeakers({
+        ids: [],
+        offset: 0,
+        limit: 1000, // TODO: make dynamic
+      })
     }
 
-    console.log("✅ Final Speakers List:", finalSpeakers);
+    const totalPages = Math.ceil(result?.length / 5); // TODO: Set speakers per page number
 
     return new Response(
-      JSON.stringify(finalSpeakers),
-      { status: 200 }
+      JSON.stringify({
+        result,
+        totalPages,
+      }),
+      {status: 200}
     );
 
   } catch (error) {
-    console.error("❌ Error fetching speakers:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch speakers." }), { status: 500 });
+    console.error("Error in /api/speeches-speakers: ", error);
+    return new Response(JSON.stringify({error: "Failed to fetch speakers."}), {status: 500});
   }
 }

@@ -40,7 +40,7 @@ export async function POST(req) {
 
     if (!keyword) {
       return new Response(
-        JSON.stringify({ error: "Keyword is required for search-debates." }),
+        JSON.stringify({ error: "Keyword is required for speeches-debates." }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -175,10 +175,10 @@ export async function POST(req) {
       );
     }
   } catch (error) {
-    console.error("Error performing search-debates:", error.message);
+    console.error("Error performing speeches-debates:", error.message);
     return new Response(
       JSON.stringify({
-        error: "An error occurred while performing the search-debates.",
+        error: "An error occurred while performing the speeches-debates.",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );

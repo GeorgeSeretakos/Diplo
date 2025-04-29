@@ -1,10 +1,9 @@
 import axios from "axios";
 import {constants} from "../../../../../../constants/constants.js";
 
-const STRAPI_URL = constants.STRAPI_URL; // Use environment variable for Strapi URL
-const API_TOKEN = constants.API_TOKEN; // Use environment variable for API token
+const STRAPI_URL = constants.STRAPI_URL;
 
-export async function GET(req, res) {
+export async function GET() {
   try {
     // Define the GraphQL query to fetch unique values
     const query = `
@@ -21,12 +20,7 @@ export async function GET(req, res) {
     const response = await axios.post(
       `${STRAPI_URL}/graphql`,
       { query },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-      }
+      { headers: { "Content-Type": "application/json", }, }
     );
 
     const data = response.data.data.debates;

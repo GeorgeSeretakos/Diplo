@@ -63,12 +63,6 @@
     "languages": {
       "type": "text"
     },
-    "date_of_birth": {
-      "type": "string"
-    },
-    "date_of_death": {
-      "type": "string"
-    },
     "political_parties": {
       "type": "relation",
       "relation": "manyToMany",
@@ -86,6 +80,15 @@
       "relation": "manyToMany",
       "target": "api::speech.speech",
       "inversedBy": "speakers"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "date_of_birth": {
+      "type": "date"
+    },
+    "date_of_death": {
+      "type": "date"
     }
   }
 }

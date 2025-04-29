@@ -1,6 +1,6 @@
 .debateCard {
     /*background: linear-gradient(135deg, #1B1E23, #2E4053, #3A86FF);*/
-    background-color: #1e1e1e;
+    background-color: #1E1F23;
     color: #b3b3b3;
     border-radius: 12px;
     padding: 1.8rem;
@@ -15,8 +15,8 @@
     width: 75%;
     /*height: 300px;*/
     max-height: 600px;
-    border: 1px solid white;
-    opacity: .7;
+    /*border: 1px solid white;*/
+    /*opacity: .7;*/
     /*backdrop-filter: blur(10px); !* Blurs the background behind the card *!*/
 
 }
