@@ -1,18 +1,3 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Ensure it takes the full width */
-    margin: auto;
-    background-color: #555;
-    background-image: url("../../../../../public/images/parliament/vouli2.png");
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    background-size: cover; /* Ensure the image covers the entire container */
-    background-attachment: fixed; /* Fix the background image in place */
-    position: relative; /* Needed for z-index to work */
-    overflow: hidden; /* Ensure the blur effect doesn't overflow */
-    z-index: 1; /* Ensure it stays above the blurred background */
-}
-
 .layoutContainer {
     display: flex;
     position: relative; /* Ensure it stays above the background */
@@ -88,13 +73,13 @@
     flex-direction: column;
     justify-content: center;
     padding: 1rem;
-    background-color: rgba(244, 242, 234, 0.8);
+    background-color: #1e1e1e;
     border-radius: 1rem;
 }
 
 .speechParagraph {
     line-height: 1.5;
-    color: black;
+    color: white;
     font-weight: bolder;
     font-size: 1rem;
 }

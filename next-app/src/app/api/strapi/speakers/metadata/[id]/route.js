@@ -1,7 +1,6 @@
 import { constants } from "../../../../../../../constants/constants.js";
 
 const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
 
 export async function GET(request, { params }) {
   const { id } =await params; // Extract the dynamic `id` from the URL
@@ -57,11 +56,10 @@ export async function GET(request, { params }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`, // Add API token for authorization
       },
       body: JSON.stringify({
-        query, // The GraphQL query
-        variables: { id }, // Pass the `id` as a variable
+        query,
+        variables: { id },
       }),
     });
 

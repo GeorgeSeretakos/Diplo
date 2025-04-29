@@ -4,10 +4,11 @@
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    width: 120px;
+    width: 100px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     position: relative;
+    /*border: 2px solid red;*/
 }
 
 .partyItem:hover {
@@ -32,16 +33,12 @@
     position: relative;
 }
 
-.partyItem:hover .imageContainer {
-    filter: brightness(1.2);
-}
-
 .selected .partyLabel {
     color: #8BFFCC;
 }
 
 .partyLabel {
-    font-size: 10px;
+    font-size: 8px;
     color: white;
     font-weight: bold;
     margin-top: 8px;

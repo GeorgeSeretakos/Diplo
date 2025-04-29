@@ -1,24 +1,25 @@
+'use client';
+
 import React from "react";
-import styles from "./SpeakerCircle.module.css";
+import Link from "next/link";
 
-const SpeakerCircle = ({ photo, name, style }) => {
+const SpeakerCircle = ({ documentId, speakerName, imageUrl }) => {
   return (
-    <>
-      <div className={styles.speakerContainer} style={style}>
-        {/* Top half: politician's photo */}
-        <div className={styles.photoContainer}>
-          <img src={photo} alt={name} className={styles.photo}/>
-        </div>
-
-        {/*/!* Bottom half: politician's info *!/*/}
-        {/*<div className={styles.infoContainer}>*/}
-        {/*  <p className={styles.name}>{name}</p>*/}
-        {/*  <p className={styles.party}>{party}</p>*/}
-        {/*</div>*/}
-
+    <Link href={`/speaker/${documentId}`} className="flex flex-col items-center text-center space-y-2">
+      <div className="flex justify-center items-center w-24 h-24 rounded-full overflow-hidden bg-gray-300">
+        <img
+          src={imageUrl}
+          // alt={speakerName}
+          className="object-cover w-full h-full"
+          // onError={(e) => (e.currentTarget.src = "/images/default-speaker.jpg")}
+        />
       </div>
-      {/*<div style={{fontSize: "1.5rem"}}>{name}</div>*/}
-    </>
+      <div className="text-white font-semibold text-sm leading-tight">
+        {speakerName.split(" ").map((word, idx) => (
+          <span key={idx} className="block">{word}</span>
+        ))}
+      </div>
+    </Link>
   );
 };
 

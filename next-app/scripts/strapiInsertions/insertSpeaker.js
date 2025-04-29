@@ -134,7 +134,8 @@ async function fetchSpeakerData(wikidataUrl) {
 
 
 function formatFields(data) {
-  // Function to convert to uppercase and remove Greek tones
+
+  // TODO: Integrate with the other tones-function we have for the speeches-speakers api
   const removeGreekTones = (input) =>
     input
       .normalize("NFD") // Decompose characters into base and diacritics
@@ -147,8 +148,8 @@ function formatFields(data) {
     link: data.link?.toString() || null, // OK
     description: data.description?.toString() || null, // OK
     gender: data.gender?.toString() || null, // OK
-    date_of_birth: data.date_of_birth ? formatDateToGreek(data.date_of_birth) : null, // OK
-    date_of_death: data.date_of_death ? formatDateToGreek(data.date_of_death) : null, // OK
+    date_of_birth: data.date_of_birth || null, // OK
+    date_of_death: data.date_of_death || null, // OK
     place_of_birth: data.place_of_birth?.toString() || null, // OK
     educated_at: data.educated_at ? data.educated_at.join(", ").toString() : null,
     website: data.website?.toString() || null,
@@ -215,6 +216,36 @@ async function createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
     const imageId = await uploadImageToStrapi(speakerData.image, STRAPI_URL, API_TOKEN);
     const validatedData = formatFields(speakerData);
 
+    // Calculate age at the time of insertion
+    const calculateAge = (birthDate, deathDate = null) => {
+      if (!birthDate) {
+        return null; // Cannot calculate without birth date
+      }
+
+      const birth = (birthDate instanceof Date) ? birthDate : new Date(birthDate);
+      const end = (deathDate instanceof Date) ? deathDate : (deathDate ? new Date(deathDate) : new Date());
+
+      if (isNaN(birth.getTime()) || isNaN(end.getTime())) {
+        return null; // Invalid dates
+      }
+
+      let age = end.getFullYear() - birth.getFullYear();
+      const monthDiff = end.getMonth() - birth.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && end.getDate() < birth.getDate())) {
+        age--;
+      }
+
+      return age;
+    };
+
+
+    let calculatedAge = null;
+    if (validatedData.date_of_birth) {
+      calculatedAge = calculateAge(validatedData.date_of_birth, validatedData.date_of_death);
+      console.log("Calculated age function returns: ", typeof(calculatedAge), calculatedAge);
+    }
+
     if (validatedData.political_parties && validatedData.political_parties.length > 0) {
       for (const party of validatedData.political_parties) {
         const partyId = await findOrCreatePoliticalParty(party, STRAPI_URL, API_TOKEN);
@@ -229,6 +260,7 @@ async function createSpeaker(speakerData, debateId, STRAPI_URL, API_TOKEN) {
       {
         data: {
           ...validatedData,
+          age: calculatedAge,
           image: imageId,
           political_parties: politicalPartyIds,
           debates: debateId

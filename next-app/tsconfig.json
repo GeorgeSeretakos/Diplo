@@ -18,6 +18,10 @@
       "@components/*": ["app/components/*"],
       "@data/*": ["data/*"],
       "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"],
+      "@constants/*": ["../constants/*"],
+      "@stores/*": ["stores/*"],
+      "@elasticsearch/*": ["../elasticsearch/*"],
       "@/*": ["*"]
     },
     "plugins": [
