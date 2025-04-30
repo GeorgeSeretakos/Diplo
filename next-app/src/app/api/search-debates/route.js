@@ -3,6 +3,8 @@ import { searchDebatesStrapiFilters } from "@utils/search/searchDebatesStrapiFil
 import { getDetailedStrapiDebates } from "@utils/graphql/getDetailedStrapiDebates.js";
 
 export async function POST(req) {
+  const PAGE_SIZE = 15;
+
   try {
     const body = await req.json();
     const {
@@ -32,6 +34,15 @@ export async function POST(req) {
     }
 
     let filteredIds = esResults.map(d => d.documentId);
+
+    // Apply Strapi filters on top of ES if present
+    if (hasStrapiFilters) {
+      const strapiResults = await searchDebatesStrapiFilters(strapiFilters);
+      const strapiIds = strapiResults.map(d => d.documentId);
+
+      // Intersect ES and Strapi results
+      filteredIds = filteredIds.filter(id => strapiIds.includes(id));
+    }
 
     // Empty intersection
     if (filteredIds.length === 0) {
@@ -74,6 +85,7 @@ export async function POST(req) {
       // Only strapi filters
       const strapiResults = await searchDebatesStrapiFilters(strapiFilters);
       const allIds = strapiResults.map(d => d.documentId).sort();
+      console.log("Strapi query results: ", allIds);
 
       debates = await getDetailedStrapiDebates({
         ids: allIds,
@@ -82,22 +94,25 @@ export async function POST(req) {
         sortBy,
       });
 
+      console.log("Detailed fetch util returned: ", debates);
+
     } else {
       // Initial load - No filters
       debates = await getDetailedStrapiDebates({
-        ids: [], // no filter -> return all
+        fetchAll: true,
         offset: 0,
-        limit: 1000, // TODO:  ⚡ temporary limit to prevent overloading
+        limit: 10000, // TODO:  ⚡ temporary limit to prevent overloading
         sortBy,
       });
     }
 
-    const totalPages = Math.ceil(debates.length / 15); // TODO: Dynamic limit debates per page
+    const totalPages = Math.ceil(debates.length / PAGE_SIZE); // TODO: Dynamic limit debates per page
 
     return new Response(
       JSON.stringify({
         debates,
         totalPages,
+        totalDebates: debates.length,
       }),
       { status: 200 }
     );

@@ -5,33 +5,52 @@ const STRAPI_URL = constants.STRAPI_URL;
 const API_TOKEN = constants.API_TOKEN;
 
 export async function searchDebatesStrapiFilters({
-  startDate,
-  endDate,
-  session,
-  meeting,
-  period,
-  topics,
-  speakers
-}) {
-  const filters = [];
+                                                   startDate,
+                                                   endDate,
+                                                   session,
+                                                   meeting,
+                                                   period,
+                                                   topics,
+                                                   speakers,
+                                                 }) {
+  const andFilters = [];
 
-  const dateFilterParts = [];
-  if (startDate) dateFilterParts.push(`gte: "${startDate}"`);
-  if (endDate) dateFilterParts.push(`lte: "${endDate}"`);
-  if (dateFilterParts.length > 0) {
-    filters.push(`date: { ${dateFilterParts.join(", ")} }`);
+  // Date filter
+  const dateParts = [];
+  if (startDate) dateParts.push(`gte: "${startDate}"`);
+  if (endDate) dateParts.push(`lte: "${endDate}"`);
+  if (dateParts.length > 0) {
+    andFilters.push(`{ date: { ${dateParts.join(", ")} } }`);
   }
 
-  if (session) filters.push(`session: { eq: "${session}" }`);
-  if (meeting) filters.push(`meeting: { eq: "${meeting}" }`);
-  if (period) filters.push(`period: { eq: "${period}" }`);
-  if (topics?.length) filters.push(`topics: { topic: { in: [${topics.map(t => `"${t}"`).join(", ")}] } }`);
-  if (speakers?.length) filters.push(`speakers: { speaker_name: { in: [${speakers.map(s => `"${s}"`).join(", ")}] } }`);
+  // Session / Meeting / Period
+  if (session) andFilters.push(`{ session: { eq: "${session}" } }`);
+  if (meeting) andFilters.push(`{ meeting: { eq: "${meeting}" } }`);
+  if (period) andFilters.push(`{ period: { eq: "${period}" } }`);
 
+  // Topics
+  if (topics?.length > 0) {
+    const topicsList = topics.map(t => `"${t}"`).join(", ");
+    andFilters.push(`{ topics: { topic: { in: [${topicsList}] } } }`);
+  }
+
+  // Speakers (each must appear)
+  if (speakers?.length > 0) {
+    for (const s of speakers) {
+      andFilters.push(`{ speakers: { speaker_name: { eq: "${s}" } } }`);
+    }
+  }
+
+  // Final filter block
+  const filterBlock = andFilters.length > 0
+    ? `filters: { and: [${andFilters.join(", ")}] },`
+    : "";
+
+  // Final query
   const query = `
     query {
       debates(
-        filters: { ${filters.join(", ")} }
+        ${filterBlock}
         pagination: { limit: 10000 }
       ) {
         documentId
@@ -39,12 +58,23 @@ export async function searchDebatesStrapiFilters({
     }
   `;
 
-  const response = await axios.post(`${STRAPI_URL}/graphql`, { query }, {
-    headers: {
-      Authorization: `Bearer ${API_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-  });
+  console.log("Query sent to Strapi:\n", query);
 
-  return response?.data?.data?.debates || [];
+  try {
+    const response = await axios.post(
+      `${STRAPI_URL}/graphql`,
+      { query },
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response?.data?.data?.debates || [];
+  } catch (error) {
+    console.error("Strapi GraphQL request failed:", error.response?.data || error.message);
+    throw error;
+  }
 }

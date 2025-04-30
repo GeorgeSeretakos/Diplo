@@ -3,12 +3,25 @@ import {constants} from "@constants/constants.js";
 
 const STRAPI_URL = constants.STRAPI_URL;
 
-export async function getDetailedStrapiSpeakers({ ids = [], offset = 0, limit = 1000, }) {
+export async function getDetailedStrapiSpeakers({
+ids = [],
+offset = 0,
+limit = 1000,
+fetchAll = false,
+}) {
+
+  if (!fetchAll && (!ids || ids.length === 0)) {
+    return [];
+  }
+
+  const filtersBlock = !fetchAll && ids.length > 0
+    ? `filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } },`
+    : "";
 
   const query = `
     query {
       speakers(
-        filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } }
+        ${filtersBlock}
         pagination: { start: ${offset}, limit: ${limit} } 
       ) {
         documentId
