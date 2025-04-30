@@ -3,15 +3,26 @@ import { constants } from "@constants/constants.js";
 
 const STRAPI_URL = constants.STRAPI_URL;
 
-export async function getDetailedStrapiDebates({ ids, offset = 0, limit = 10000, sortBy = "newest" }) {
-  console.log("Debate ids received from util: ", ids);
+export async function getDetailedStrapiDebates({ ids, offset = 0, limit = 10000, sortBy = "newest", fetchAll = false }) {
+  console.log("Debate ids received from getDetailedStrapiDebates util: ", ids);
+
+  if (!fetchAll && (!ids || ids.length === 0)) {
+    return [];
+  }
+
+  const sort = sortBy === "newest" ? "date:desc" : "date:asc";
+
+  let filtersPart = "";
+  if (!fetchAll && ids && ids.length > 0) {
+    filtersPart = `filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } },`;
+  }
 
   const query = `
     query {
       debates(
-        filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } }
+        ${filtersPart}
         pagination: { start: ${offset}, limit: ${limit} }
-        sort: "date:${sortBy === "oldest" ? "asc" : "desc"}"
+        sort: "${sort}"
       ) {
         documentId
         date
@@ -24,7 +35,7 @@ export async function getDetailedStrapiDebates({ ids, offset = 0, limit = 10000,
     }
   `;
 
-  // console.log("Query: ", query);
+  console.log("get detailed strapi debates util query: ", query);
 
   const response = await axios.post(`${STRAPI_URL}/graphql`, { query }, {
     headers: {

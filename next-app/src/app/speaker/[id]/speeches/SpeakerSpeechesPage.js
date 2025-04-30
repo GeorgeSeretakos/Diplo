@@ -126,7 +126,9 @@ export default function DebateContentPage() {
         {/* Debates Section */}
         <div className="flex flex-col items-center justify-start w-full space-y-6">
           <div className="text-center text-3xl font-bold mb-6">
-            <h1>Speaker Debates</h1>
+            <h1>
+              Debates of {title} ({debates ? debates.length : 0})
+            </h1>
           </div>
 
           <div className={styles.debateGrid}>

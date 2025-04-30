@@ -34,6 +34,8 @@ export default function DebateSearch() {
     });
 
     const [limit] = useState(MAX_LIMIT); // Items per page
+    const [loading, setLoading] = useState(false);
+
 
     const [isClient, setIsClient] = useState(false);
     const [debates, setDebates] = useState([]);
@@ -76,6 +78,7 @@ export default function DebateSearch() {
     useEffect(() => {
         const fetchDebates = async () => {
             try {
+                setLoading(true);
                 const endpoint = "/api/search-debates";
                 const body = {
                     keyPhrase: inputValues.keyPhrase,
@@ -99,8 +102,9 @@ export default function DebateSearch() {
                 setTotalPages(response.data.totalPages);
             } catch (error) {
                 console.error("Error fetching debates:", error);
-            }
-        };
+            } finally {
+                setLoading(false);
+            }        };
         fetchDebates();
     }, [inputValues, sortBy]);
 
@@ -172,7 +176,7 @@ export default function DebateSearch() {
               {/* Debates Section */}
               <div className="w-[65%] flex flex-col items-center p-10 space-y-6">
                   <div className="text-center text-3xl font-bold">
-                      <h1>Debates</h1>
+                      <h1>Debates ({cachedDebates.length})</h1>
                   </div>
 
                   <div className={styles.debateGrid}>
@@ -209,6 +213,12 @@ export default function DebateSearch() {
                       ))}
                   </div>
 
+                  {/* Loading Spinner */}
+                  {loading && (
+                    <div className="flex justify-center py-10">
+                        <div className="w-10 h-10 border-4 border-white border-dashed rounded-full animate-spin"></div>
+                    </div>
+                  )}
 
                   {cachedDebates.length > 0 && (
                     <div className="flex justify-center mt-6 space-x-4">
@@ -221,8 +231,8 @@ export default function DebateSearch() {
                         </button>
 
                         <span className="text-white font-bold px-4 py-2">
-                Page {page} of {totalPages}
-              </span>
+                            Page {page} of {totalPages}
+                        </span>
 
                         <button
                           className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
@@ -234,12 +244,13 @@ export default function DebateSearch() {
                     </div>
                   )}
 
-                  {cachedDebates.length === 0 && (
+                  {!loading && cachedDebates.length === 0 && (
                     <div className="mt-20">
                         <p className="font-bold">The current filters applied return no results.</p>
                     </div>
                   )}
               </div>
+
           </div>
       </div>
     );

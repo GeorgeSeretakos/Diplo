@@ -15,7 +15,7 @@ export default function DebatePage() {
   console.log("Active Tab changed to:", activeTab);
 
   return (
-    <div className="relative min-h-screen mt-20 text-white bg-transparent overflow-x-hidden">
+    <div className="relative min-h-screen text-white bg-transparent overflow-x-hidden">
       {/* Background */}
       <div className="backgroundContainer"></div>
 

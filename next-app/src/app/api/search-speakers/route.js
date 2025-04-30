@@ -30,14 +30,14 @@ export async function POST(req) {
       console.log("esResults: ", esResults);
 
       if(esResults.length === 0) {
-        return new Response(JSON.stringify({results: [], totalPages: 0}), {status: 200});
+        return new Response(JSON.stringify({result: [], totalPages: 0}), {status: 200});
       }
 
-      let filteredSpeakerIds = esResults.map(d => d.speakerDocumentId);
-      let filteredDebateIds = esResults.map(d => d.debateDocumentId);
+      let filteredSpeakerIds = esResults.map(d => d.top_speech.speaker_id);
+      let filteredDebateIds = esResults.map(d => d.documentId);
 
-      console.log("Filtered Speaker Ids: ", filteredSpeakerIds);
-      console.log("Filtered Debate Ids: ", filteredDebateIds);
+      console.log("Filtered Speaker Ids without strapi filters: ", filteredSpeakerIds);
+      console.log("Filtered Debate Ids without strapi filters: ", filteredDebateIds);
 
       if (hasStrapiFilters) {
         const strapiResults = await searchSpeakersStrapiFilters(strapiFilters);
@@ -46,13 +46,15 @@ export async function POST(req) {
         filteredSpeakerIds = filteredSpeakerIds.filter(id => strapiSpeakersSet.has(id)).sort();
         // Also filter debates to only keep debates linked to surviving speakers
         filteredDebateIds = esResults
-          .filter(e => filteredSpeakerIds.includes(e.speakerDocumentId))
-          .map(e => e.debateDocumentId)
+          .filter(e => filteredSpeakerIds.includes(e.top_speech.speaker_id))
+          .map(e => e.documentId)
           .sort();
       }
 
+      console.log("Filtered Debate Ids after strapi filters: ", filteredDebateIds);
+
       if (filteredSpeakerIds.length === 0) {
-        return new Response(JSON.stringify({results: [], totalPages: 0}), {status: 200});
+        return new Response(JSON.stringify({result: [], totalPages: 0}), {status: 200});
       }
 
       const detailedStrapiSpeakers = await getDetailedStrapiSpeakers({
@@ -73,7 +75,7 @@ export async function POST(req) {
       console.log("Detailed strapi debates: ", detailedStrapiDebates);
 
       // Create easy lookup maps
-      const esMap = new Map(esResults.map(d => [d.speakerDocumentId, d]));
+      const esMap = new Map(esResults.map(d => [d.top_speech.speaker_id, d]));
       const debateMap = new Map(detailedStrapiDebates.map(d => [d.documentId, d]));
 
       console.log("esMap: ", esMap);
@@ -83,7 +85,7 @@ export async function POST(req) {
         const esEntry = esMap.get(strapiSpeaker.documentId);
         if (!esEntry) return null; // safety
 
-        const strapiDebate = debateMap.get(esEntry.debateDocumentId);
+        const strapiDebate = debateMap.get(esEntry.documentId);
 
         console.log("esEntry: ", esEntry);
         console.log("strapiDebate: ", strapiDebate);
@@ -130,6 +132,7 @@ export async function POST(req) {
       console.log("Detailed speakers: ", result);
     } else {
       result = await getDetailedStrapiSpeakers({
+        fetchAll: true,
         ids: [],
         offset: 0,
         limit: 1000, // TODO: make dynamic

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./styles/globals.css";
-import {colors} from "@/app/constants/colors";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,13 +28,6 @@ export default function RootLayout({
     <title>Parliament Debates</title>
       <head>
         <style>{`
-          :root {
-            --color-primary: ${colors.primary};
-            --color-secondary: ${colors.secondary};
-            --color-accent: ${colors.accent};
-            --color-background: ${colors.background};
-            --color-text: ${colors.text};
-          }
         `}</style>
       </head>
       <body

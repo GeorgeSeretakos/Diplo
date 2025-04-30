@@ -23,8 +23,8 @@ export default function DebateSearch() {
   const [speakers, setSpeakers] = useState([]);
   const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
-  const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [inputValues, setInputValues] = useState({
     ageRange: { min: 18, max: 100},
     gender: "",
@@ -38,6 +38,7 @@ export default function DebateSearch() {
   useEffect(() => {
     const searchSpeakers = async () => {
       try {
+        setLoading(true);
         const endpoint = "http://localhost:3000/api/search-speakers";
 
         const body = {
@@ -53,11 +54,13 @@ export default function DebateSearch() {
         const response = await axios.post(endpoint, body);
         console.log("Search API Response: ", response.data);
 
-        setSpeakers(response.data.result); // ✅ corrected
-        setTotalPages(response.data.totalPages); // ✅ corrected
-        setPage(1); // ⚡ Optional: Reset to first page when filters change
+        setSpeakers(response.data.result);
+        setTotalPages(response.data.totalPages);
+        setPage(1);
       } catch (error) {
         console.error("Error fetching speakers:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -142,7 +145,7 @@ export default function DebateSearch() {
         {/* Debates List */}
         <div className="w-[60%] flex flex-col items-center p-10 space-y-6">
           <div className="text-center text-3xl font-bold mb-6">
-            <h1>Speakers</h1>
+            <h1>Speakers ({speakers? speakers.length : 0})</h1>
           </div>
           <div className={styles.speakerGrid}>
             {Array.isArray(speakers) && speakers.length > 0 && speakers.map((speaker, index) => (
@@ -151,7 +154,7 @@ export default function DebateSearch() {
                   key={index}
                   speakerId={speaker.documentId}
                   speakerName={speaker.speaker_name}
-                  speakerImage={getImageUrl(speaker.image)} // if you have speakerImage; otherwise pass empty string
+                  speakerImage={getImageUrl(speaker.image)}
                   debateId={speaker.debate.documentId}
                   topics={speaker.debate.topics}
                   content={speaker.top_speech.content}
@@ -172,7 +175,14 @@ export default function DebateSearch() {
             ))}
           </div>
 
-          {totalPages > 0 ? (
+          {/* Loading Spinner */}
+          {loading && (
+            <div className="flex justify-center py-10">
+              <div className="w-10 h-10 border-4 border-white border-dashed rounded-full animate-spin"></div>
+            </div>
+          )}
+
+          {speakers?.length > 0 && (
               <div className="flex justify-center mt-6 space-x-4">
                 {/* Previous Button */}
                 <button
@@ -195,11 +205,15 @@ export default function DebateSearch() {
                   Next
                 </button>
               </div>
-            ) :
-            <div className="mt-20">
-              <p className="font-bold">No results found for you search</p>
-            </div>
+            )
           }
+
+          {!loading && speakers?.length === 0 && (
+            <div className="mt-20">
+              <p className="font-bold">The current filters applied return no results.</p>
+            </div>
+          )}
+
         </div>
       </div>
 
