@@ -1,105 +1,91 @@
-import axios from 'axios';
+import Database from "better-sqlite3";
 import path from "path";
-import fs from "fs";
+import { fileURLToPath } from "url";
 
-async function extractSpeechData(speech, debateId, uniqueSpeakers, list_of_null_speakers, STRAPI_URL, API_TOKEN) {
-  const content = {
-    paragraphs: (speech.p || []).map(paragraph => paragraph._ || paragraph)
-  };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, "../../../strapi-app/.tmp/data.db");
+const db = new Database(dbPath);
 
-  const eId = speech.$.eId; // Unique ID for the speech
-  const speakerName = speech.from[0] || "Unknown Speaker"; // Speaker's name
-  const speaker_id = speech.$.by;
+import { randomUUID } from 'crypto';
 
-  // There is a mismatch between the speaker of the speech, and the speakers stated at the begging of the debate
-  if (!(uniqueSpeakers.some(speaker => speaker['$'].eId === speaker_id))) {
-    list_of_null_speakers.push({
-      speakerId: speaker_id
-    });
-  }
-
-  const speakerId = await findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN);
-
-  return {
-    speaker_name: speakerName,
-    speaker_id: speaker_id,
-    speech_id: eId,
-    content: content,
-    debates: debateId,
-    speakers: speakerId ? speakerId : null
-  };
+function getInternalIdFromTable(table, field, value) {
+  const result = db.prepare(`SELECT id FROM ${table} WHERE ${field} = ?`).get(value);
+  return result ? result.id : null;
 }
 
-async function findSpeakerId(speaker_id, STRAPI_URL, API_TOKEN) {
-  try {
-    const response = await axios.get(
-      `${STRAPI_URL}/api/speakers?filters[speaker_id][$eq]=${speaker_id}`,
-      { headers: { Authorization: `Bearer ${API_TOKEN}` } }
-    );
+function insertSpeechRecord(speechData) {
+  const documentId = randomUUID();
 
-    if (response.data.data.length > 0) {
-      return response.data.data[0].documentId;
-    } else {
-      console.error(`Speaker with ID ${speaker_id} not found.`);
-      return null;
-    }
-  } catch (error) {
-    console.error("Error finding speakerId:", error.response ? error.response.data : error);
-    throw error;
-  }
+  const insert = db.prepare(
+    `INSERT INTO speeches (document_id, speech_id, speaker_name, speaker_id, content, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, datetime('now'), datetime('now'))`
+  );
+  const result = insert.run(
+    documentId,
+    speechData.speech_id,
+    speechData.speaker_name,
+    speechData.speaker_id,
+    JSON.stringify(speechData.content)
+  );
+  return result.lastInsertRowid;
 }
 
-// New function to extract and combine speech content
-function extractCombinedSpeechContent(speeches) {
-  let combinedText = "";
+function linkSpeechToDebate(speechId, debateId) {
+  db.prepare(
+    `INSERT OR IGNORE INTO speeches_debate_lnk (speech_id, debate_id)
+     VALUES (?, ?)`
+  ).run(speechId, debateId);
+}
+
+function linkSpeechToSpeaker(speechId, speakerId) {
+  db.prepare(
+    `INSERT OR IGNORE INTO speeches_speaker_lnk (speech_id, speaker_id)
+     VALUES (?, ?)`
+  ).run(speechId, speakerId);
+}
+
+export async function insertSpeech(jsonData, debateId) {
+
+  const speeches = jsonData.akomaNtoso.debate[0].debateBody[0].debateSection.flatMap(
+    section => section.speech || []
+  );
 
   for (const speech of speeches) {
-    if (speech.p) {
-      const speechText = speech.p.map(paragraph => paragraph._ || paragraph).join(" ");
-      combinedText += speechText + " ";
-    }
-  }
-
-  return combinedText.trim(); // Remove trailing space
-}
-
-export async function insertSpeech(jsonData, debateId, uniqueSpeakers, STRAPI_URL, API_TOKEN) {
-  let list_of_null_speakers = [];
-
-  try {
-    const speeches = jsonData.akomaNtoso.debate[0].debateBody[0].debateSection.flatMap(
-      section => section.speech || []
-    );
-
-    // Extract combined speech content
-    const combinedSpeechContent = extractCombinedSpeechContent(speeches);
-
-    const outputFile = path.join(process.cwd(), 'public', 'data', 'summary', 'test');
-    fs.writeFileSync(outputFile, JSON.stringify(combinedSpeechContent, null, 2), 'utf8');
-
-    for (const speech of speeches) {
-      if (!speech.$?.eId || !speech.from) {
-        console.log("Skipping speech due to missing essential fields:", speech);
-        continue;
-      }
-
-      const speechData = await extractSpeechData(speech, debateId, uniqueSpeakers, list_of_null_speakers, STRAPI_URL, API_TOKEN);
-      const response = await axios.post(
-        `${STRAPI_URL}/api/speeches?populate=false`,
-        {
-          data: speechData,
-        },
-        { headers: { Authorization: `Bearer ${API_TOKEN}`, 'Content-Type': 'application/json' } }
-      );
-
-      const speechId = response.data.data.documentId;
-      console.log("✅", speechData.speech_id);
+    if (!speech.$?.eId || !speech.from) {
+      console.log("Skipping speech due to missing essential fields:", speech);
+      continue;
     }
 
-    return list_of_null_speakers;
+    const content = (speech.p || []).map(paragraph => paragraph._ || paragraph);
+    const speech_id = speech.$.eId;
+    const speaker_id = speech.$.by;
+    const speaker_name = (speech.from[0] || "Unknown Speaker").toUpperCase();
 
-  } catch (error) {
-    console.error(`❌ Error inserting speech: ${error.response ? error.response.data : error}`);
-    throw error;
+    const speakerRowId = getInternalIdFromTable("speakers", "speaker_id", speaker_id);
+    const debateRowId = getInternalIdFromTable("debates", "document_id", debateId);
+
+    if (!debateRowId) {
+      console.error(`❌ Debate with documentId ${debateId} not found.`);
+      continue;
+    }
+
+    const newSpeechId = insertSpeechRecord({
+      speech_id,
+      speaker_id,
+      speaker_name,
+      content
+    });
+
+    console.log("✅", speech_id);
+
+    linkSpeechToDebate(newSpeechId, debateRowId);
+    // console.log(`🔗 Speech - Debate.`);
+
+
+    if (speakerRowId) {
+      linkSpeechToSpeaker(newSpeechId, speakerRowId);
+      // console.log(`🔗 Speech - Speaker.`);
+    }
   }
 }
