@@ -1,15 +1,23 @@
-import axios from "axios";
+import path from "path";
+import { fileURLToPath } from "url";
+import Database from "better-sqlite3";
+import { randomUUID } from "crypto";
 
-// Helper function to extract debate data
-function extractDebateData(jsonData, htmlData) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, "../../../strapi-app/.tmp/data.db");
+const db = new Database(dbPath);
+
+
+function extractDebateData(jsonData) {
   const dData = jsonData.akomaNtoso.debate[0].meta[0].identification[0];
-  const pData = jsonData.akomaNtoso.debate[0].preface[0].container[0].p;
   const opening_section = jsonData.akomaNtoso.debate[0].debateBody[0].debateSection[0].p[0];
 
-  // Extract the speech data from jsonData
-  const speeches = (jsonData.akomaNtoso.debate[0].debateBody[0].debateSection.flatMap(
-    section => section.speech || []
-  ));
+  const containers = jsonData.akomaNtoso.debate[0].preface[0].container;
+  const parliamentDetailsContainer = containers.find(
+    c => c.$?.name === "parliament_details"
+  );
+  const pData = parliamentDetailsContainer?.p || [];
 
   return {
     title: dData.FRBRWork[0].FRBRalias[0].$.value,
@@ -19,30 +27,29 @@ function extractDebateData(jsonData, htmlData) {
     session: pData[2] || "Unknown Session",
     meeting: pData[3] || "Unknown Meeting",
     session_date: pData[4] || "Unknown Session Date",
-    content: speeches,
-    // HTML: htmlData
   };
 }
 
-export async function insertDebate(jsonData, htmlData, STRAPI_URL, API_TOKEN) {
-  const debateData = extractDebateData(jsonData, htmlData);
+export async function insertDebate(jsonData) {
+  const debateData = extractDebateData(jsonData);
 
-  try{
+  const documentId = randomUUID();
+  const insert = db.prepare(
+    `INSERT INTO debates (document_id, title, date, opening_section, period, session, meeting, session_date, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`
+  );
 
-    const debateResponse = await axios.post(
-      `${STRAPI_URL}/api/debates?populate=false`,
-      { data: debateData },
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        }
-      }
-    );
-    console.log("Debate imported successfully.");
-    return debateResponse.data.data.documentId;
+  insert.run(
+    documentId,
+    debateData.title,
+    debateData.date,
+    debateData.opening_section,
+    debateData.period,
+    debateData.session,
+    debateData.meeting,
+    debateData.session_date
+  );
 
-  } catch (error) {
-    console.log(`❌ ${error}`);
-  }
+  console.log("✅ Debate inserted successfully.");
+  return documentId;
 }

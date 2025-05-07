@@ -22,12 +22,6 @@
       "required": true,
       "unique": false
     },
-    "speeches": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::speech.speech",
-      "mappedBy": "debates"
-    },
     "speakers": {
       "type": "relation",
       "relation": "manyToMany",
@@ -62,11 +56,11 @@
       "type": "string",
       "required": true
     },
-    "content": {
-      "type": "json"
-    },
-    "HTML": {
-      "type": "text"
+    "speeches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::speech.speech",
+      "mappedBy": "debate"
     }
   }
 }

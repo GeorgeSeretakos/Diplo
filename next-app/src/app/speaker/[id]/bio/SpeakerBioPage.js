@@ -185,7 +185,7 @@ const SpeakerBioPage = () => {
           })}
         </div>
 
-        {positionsHeld && (
+        {positionsHeld && positionsHeld.length > 0 && (
           <div>
             <strong className="strong">Positions Held</strong>
             <ul className={styles.list}>

@@ -20,9 +20,10 @@ export default async function populate() {
   let count = 0;
 
   const problematic_speakers = new Set();
+  const problematic_files = new Set();
 
   for (const file of xmlFiles) {
-    if (count >= 250) break;
+    // if (count >= 1000) break;
 
     count++;
     const xmlPath = path.join(xmlDir, file);
@@ -34,35 +35,32 @@ export default async function populate() {
 
       if (debateId) {
         const uniqueSpeakers = await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
-        let list_of_null_speakers = await insertSpeech(jsonData, debateId, uniqueSpeakers, STRAPI_URL, API_TOKEN);
+        await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
 
-        console.log(`List of null speakers for debate ${count} is:`);
-        console.table(list_of_null_speakers);
-
-        for (const speakerObj of list_of_null_speakers) {
-          problematic_speakers.add(JSON.stringify(speakerObj));
-        }
+        // for (const speakerObj of list_of_null_speakers) {
+        //   problematic_speakers.add(JSON.stringify(speakerObj));
+        // }
 
       } else {
         console.log("Debate insertion failed or debate already exists. Skipping Parliament Session, Speakers and Speeches insertion.");
       }
     } catch (error) {
-      console.error(`❌ ❌ ❌ Error processing file ${file}: `, error);
-      break;
-      return;
+      console.error(`❌ ❌ ❌ Error processing file ${file}:`, JSON.stringify(error.response?.data, null, 2));
+      problematic_files.add(file);
     }
   }
 
   console.log("All XML files have been inserted to Strapi.");
 
   const speakerArray = [...problematic_speakers].map(str => JSON.parse(str));
+  const speakerFile = path.join(process.cwd(), 'public', 'data', 'problematic_speakers.json');
+  fs.writeFileSync(speakerFile, JSON.stringify(speakerArray, null, 2), 'utf8');
 
-  // 4) Write the entire array to a local JSON file
-  const outputFile = path.join(process.cwd(), 'public', 'data', 'problematic_speakers.json');
-  fs.writeFileSync(outputFile, JSON.stringify(speakerArray, null, 2), 'utf8');
+  const problematicFileOutput = path.join(process.cwd(), 'public', 'data', 'problematic_files.json');
+  fs.writeFileSync(problematicFileOutput, JSON.stringify([...problematic_files], null, 2), 'utf8');
 
   console.log("Problematic speakers are: ", problematic_speakers);
-  return;
+  console.log("Count is: ", count);
 }
 
 populate();

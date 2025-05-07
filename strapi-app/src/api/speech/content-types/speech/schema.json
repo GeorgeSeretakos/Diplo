@@ -26,17 +26,17 @@
     "speaker_id": {
       "type": "string"
     },
-    "debates": {
+    "debate": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::debate.debate",
       "inversedBy": "speeches"
     },
-    "speakers": {
+    "speaker": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::speaker.speaker",
-      "mappedBy": "speeches"
+      "inversedBy": "speeches"
     }
   }
 }

@@ -381,12 +381,10 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    content: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Date & Schema.Attribute.Required;
-    HTML: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -400,7 +398,7 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     session: Schema.Attribute.String & Schema.Attribute.Required;
     session_date: Schema.Attribute.String & Schema.Attribute.Required;
     speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
-    speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
+    speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     summary: Schema.Attribute.Text;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -490,7 +488,7 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
     speaker_name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    speeches: Schema.Attribute.Relation<'manyToMany', 'api::speech.speech'>;
+    speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
     topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -515,7 +513,7 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
+    debate: Schema.Attribute.Relation<'manyToOne', 'api::debate.debate'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -523,9 +521,9 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    speaker: Schema.Attribute.Relation<'manyToOne', 'api::speaker.speaker'>;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String;
-    speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
     speech_id: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;

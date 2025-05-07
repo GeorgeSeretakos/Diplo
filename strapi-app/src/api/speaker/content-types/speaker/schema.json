@@ -75,12 +75,6 @@
       "target": "api::topic.topic",
       "mappedBy": "speakers"
     },
-    "speeches": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::speech.speech",
-      "inversedBy": "speakers"
-    },
     "age": {
       "type": "integer"
     },
@@ -89,6 +83,12 @@
     },
     "date_of_death": {
       "type": "date"
+    },
+    "speeches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::speech.speech",
+      "mappedBy": "speaker"
     }
   }
 }
