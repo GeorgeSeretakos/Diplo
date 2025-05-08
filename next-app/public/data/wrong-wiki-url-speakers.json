@@ -1,0 +1,4412 @@
+[
+  {
+    "speaker_name": "ΠΑΥΛΟΣ ΒΟΓΙΑΤΖΗΣ",
+    "speaker_id": "paulos_bogiatzis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΗ ΦΟΥΝΤΑ",
+    "speaker_id": "niki_founta",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konstantinos_geitonas",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q16331581"
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "konstantinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Β. ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_b._kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΕΖΔΡΕΒΑΝΗΣ",
+    "speaker_id": "ilias_bezdrebanis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΑΡΑΤΑΣΟΣ",
+    "speaker_id": "georgios_karatasos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΙΚΗ ΑΡΑΠΑΣΙΛΗ-ΚΑΡΑΓΙΑΝΝΗ",
+    "speaker_id": "basiliki_arapi-karagianni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΥΛΙΑΝΗ ΑΛΦΙΕΡΗ",
+    "speaker_id": "stuliani_alfieri",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΣΤΑΙΚΟΣ",
+    "speaker_id": "euaggelos_staikos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q20747249"
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nikolaos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΑΠΟΣΤΟΛΑΚΗΣ",
+    "speaker_id": "dimitrios_apostolakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΣΗΦ ΜΙΧΕΛΟΓΙΑΝΝΗΣ",
+    "speaker_id": "iosif_mixelogiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΚΟΝΤΑΞΗΣ",
+    "speaker_id": "athanasios_kontaxis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΑΡΓΥΡΗΣ",
+    "speaker_id": "euaggelos_arguris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΧΡΥΣΑΝΘΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "alexandros_xrusanthakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "stauros_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΦΑΝΗΣ ΔΗΜΟΣΧΑΚΗΣ",
+    "speaker_id": "theofanis_dimosxakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΤΥΧΙΟΣ ΚΟΝΤΟΜΑΡΗΣ",
+    "speaker_id": "eutuxios_kontomaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΓΙΑΝΝΑΚΗΣ",
+    "speaker_id": "ioannis_giannakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "theodoros_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΛΑΧΟΠΟΥΛΟΣ",
+    "speaker_id": "ilias_blaxopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΚΑΛΑΦΑΤΗΣ",
+    "speaker_id": "alexandros_kalafatis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΘΕΟΔΩΡΟΥ",
+    "speaker_id": "xristos_theodorou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΓΕΩΡΓΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_georgakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Β.ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_b.kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΧΡΙΣΤΟΔΟΥΛΑΚΗΣ",
+    "speaker_id": "nikolaos_xristodoulakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΣΩΤΗΡΛΗΣ",
+    "speaker_id": "dimitrios_sotirlis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ Ν.ΚΡΗΤΙΚΟΣ",
+    "speaker_id": "panagiotis_n.kritikos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q46994243"
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΒΑΡΙΝΟΣ",
+    "speaker_id": "athanasios_barinos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q35514588"
+  },
+  {
+    "speaker_name": "ΑΝΔΡΙΑΝΗ ΛΟΥΛΕ",
+    "speaker_id": "andriani_loule",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65497589"
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΦΛΩΡΟΣ",
+    "speaker_id": "nikolaos_floros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΔΙΑΜΑΝΟΠΟΥΛΟΥ",
+    "speaker_id": "anna_diamanopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ ΑΝΟΥΣΑΚΗ",
+    "speaker_id": "eleni_anousaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΕΥΜΟΙΡΙΔΗΣ",
+    "speaker_id": "konstantinos_eumoiridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΑΣ ΠΑΡΑΣΚΕΥΟΠΟΥΛΟΣ",
+    "speaker_id": "paraskeuas_paraskeuopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΑΤΣΙΜΠΑΡΔΗΣ",
+    "speaker_id": "georgios_katsimpardis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q19635767"
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΙΚΗ ΚΑΡΑΓΙΑΝΝΗ-ΑΡΑΠΗ",
+    "speaker_id": "basiliki_karagianni-arapi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΑΛΟΣ",
+    "speaker_id": "georgios_kalos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65497271"
+  },
+  {
+    "speaker_name": "ΠΕΙΡΑΙΚΗ ΟΡΕΙΧΑΛΚΟΥΡΓΙΑ",
+    "speaker_id": "peiraiki_oreixalkourgia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kostas_geitonas",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q16331581"
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmanouil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΚΩΝΣΤΑΝΤΟΠΟΥΛΟΥ",
+    "speaker_id": "maria_konstantopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΜΕΛΑΣ",
+    "speaker_id": "panagiotis_melas",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q120531256"
+  },
+  {
+    "speaker_name": "ΓΕΩΡΙΟΣ ΚΑΛΟΣ",
+    "speaker_id": "georios_kalos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65497271"
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΠΑΦΙΛΛΙΠΟΥ",
+    "speaker_id": "nikolaos_papafillipou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΑΖΑΡΟΣ ΛΩΤΙΔΗΣ",
+    "speaker_id": "lazaros_lotidis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q23636230"
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΑΝΑΣΤΑΣΟΠΟΥΛΟΣ",
+    "speaker_id": "nikolaos_anastasopoulos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q12881765"
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΣΠΗΛΙΟΠΟΥΛΟΣ",
+    "speaker_id": "konstantinos_spiliopoulos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q61912962"
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΛΕΞΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_alexopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "alexandros_papadopoulos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q20850344"
+  },
+  {
+    "speaker_name": "ΜΑΝΩΛΗΣ ΜΠΕΝΤΕΝΙΩΤΗΣ",
+    "speaker_id": "manolis_mpenteniotis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q19941955"
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΛ ΣΚΟΥΛΑΚΗΣ",
+    "speaker_id": "emmanoul_skoulakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ Ν. ΚΡΗΤΙΚΟΣ",
+    "speaker_id": "nikolaos_n._kritikos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q23636718"
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΠΑΠΠΑΣ",
+    "speaker_id": "basileios_pappas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΟΥΛΕΥΤΕΣ",
+    "speaker_id": "bouleutes",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q486839"
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΦΩΤΙΑΔΗΣ",
+    "speaker_id": "panagiotis_fotiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΛΕΓΚΑΣ",
+    "speaker_id": "nikolaos_legkas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΣΤΟΛΟΣ ΦΩΤΙΑΔΗΣ",
+    "speaker_id": "apostolos_fotiadis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65497430"
+  },
+  {
+    "speaker_name": "ΓΙΑΝΝΗ ΖΑΦΕΙΡΟΠΟΥΛΟΣ",
+    "speaker_id": "gianni_zafeiropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΔΙΑΜΙΑΝΟΣ",
+    "speaker_id": "theodoros_diamianos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΥΥΚΑΣ ΑΠΟΣΤΟΛΙΔΗΣ",
+    "speaker_id": "luukas_apostolidis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q23636196"
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΤΑΡΟΣ",
+    "speaker_id": "nikolaos_kataros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΤΣΕΤΙΝΕΣ",
+    "speaker_id": "dimitrios_tsetines",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ Β. ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitris_b._kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΑΡΠΑΘΟΣ-ΚΩΣ",
+    "speaker_id": "karpathos-kos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΟΔΩΡΟΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "thodoros_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Β. ΚΩΣΤΟΠΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_b._kostopopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΣΤΡΙΦΤΑΡΗΣ",
+    "speaker_id": "spuridon_striftaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΟΑΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nikoloas_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΚΑΛΗΠ ΓΚΑΛΗΠ",
+    "speaker_id": "gkalip_gkalip",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΓΑ",
+    "speaker_id": "elga",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΙΚΗ ΑΡΑΠΗ-ΚΑΡΑΓΙΑΝΗ",
+    "speaker_id": "basiliki_arapi-karagiani",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΚΑΤΣΙΜΠΑΡΔΗΣ",
+    "speaker_id": "giorgos_katsimpardis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΩΡΟΣ ΔΑΜΙΑΝΟΣ",
+    "speaker_id": "theoros_damianos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΟΚΡΑΤΙΑΣ ΤΗΣ ΓΕΡΜΑΝΙΑΣ",
+    "speaker_id": "dimokratias_tis_germanias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΚΕΦΑΛΛΟΓΙΑΝΗΣ",
+    "speaker_id": "emmanouil_kefallogianis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q6751217"
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΛ ΛΟΥΚΑΚΗΣ",
+    "speaker_id": "emmanoul_loukakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΕΖΡΕΒΑΝΗΣ",
+    "speaker_id": "ilias_bezrebanis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΕΛΛΑ ΑΛΦΙΕΡΗ",
+    "speaker_id": "stella_alfieri",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΙΚΗ-ΑΡΑΠΗ ΚΑΡΑΓΙΑΝΝΗ",
+    "speaker_id": "basiliki-arapi_karagianni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΚΕΔΙΚΟΓΚΛΟΥ",
+    "speaker_id": "basilis_kedikogklou",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q16328542"
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "athanasios_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΙΚΟΝΟΜΙΚΗ",
+    "speaker_id": "oikonomiki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΜΠΑΤΖΟΓΛΟΥ",
+    "speaker_id": "georgios_ampatzoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΩΝ",
+    "speaker_id": "paron",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΝΤΕΣ",
+    "speaker_id": "apontes",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΣ ΓΕΤΤΟΝΑΣ",
+    "speaker_id": "kostas_gettonas",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q16331581"
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΓΙΑΝΝΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "athanasios_giannakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΟΣΣΥΒΑΚΗΣ",
+    "speaker_id": "dimitrios_kossubakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΒΑΡΒΤΣΙΩΤΗΣ",
+    "speaker_id": "ioannis_barbtsiotis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1428443"
+  },
+  {
+    "speaker_name": "ΑΔΑΜ ΡΑΓΚΟΥΖΑΣ",
+    "speaker_id": "adam_ragkouzas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΨΗΦΙΣΑΝ",
+    "speaker_id": "psifisan",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΑΛΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nikoalos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΣΩΤΗΡΛΗΣ",
+    "speaker_id": "dimitris_sotirlis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΔΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "alexadros_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΙΝΑΚΑΣ Ι",
+    "speaker_id": "pinakas_i",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΙΟΣ ΣΚΥΛΛΑΚΟΣ",
+    "speaker_id": "antonios_skullakos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q23670611"
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΜΠΟΥΣΚΟΥ",
+    "speaker_id": "maria_mpouskou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΑΝΑΣΤΑΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "nikolaos_anastastopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΜΑΓΡΚΙΩΤΗΣ",
+    "speaker_id": "ioannis_magrkiotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΤΣΑΑΡΟΣ",
+    "speaker_id": "nikolaos_katsaaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΠΑΠΑΔΟΥΛΟΣ",
+    "speaker_id": "stauros_papadoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Β. ΚΩΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_b._kotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΧΩΡΕΜΗΣ",
+    "speaker_id": "anastasios_xoremis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΙΚΗ ΚΑΡΑΓΙΑΝΝΗ ΑΡΑΠΗ",
+    "speaker_id": "basiliki_karagianni_arapi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΛΙΣΑΒΕΤ ΠΑΠΑΔΗΜΗΤΡΙΟΥ",
+    "speaker_id": "ellisabet_papadimitriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΜΠΟΥΤΗΣ",
+    "speaker_id": "euaggelos_mpoutis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΒΑΡΒΙΣΤΙΩΤΗΣ",
+    "speaker_id": "ioannis_barbistiotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΑΛΑΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nikalaos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΣΗΦ ΒΑΛΥΡΑΚΗΣ",
+    "speaker_id": "iosif_balurakis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q12884280"
+  },
+  {
+    "speaker_name": "ΜΙΤΛΙΑΔΗΣ ΕΒΕΡΤ",
+    "speaker_id": "mitliadis_ebert",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1935856"
+  },
+  {
+    "speaker_name": "ΕΦΗΜΕΡΙΔΕΣ",
+    "speaker_id": "efimerides",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Β ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_b_kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΞΟΔΑ",
+    "speaker_id": "exoda",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΝΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "kosntantinos_brettos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65498173"
+  },
+  {
+    "speaker_name": "ΑΡΑ",
+    "speaker_id": "ara",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΤΥΧΗΣ ΚΟΝΤΟΜΑΡΗΣ",
+    "speaker_id": "eutuxis_kontomaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΚΟΡΚΟΠΟΥΛΟΣ",
+    "speaker_id": "basileios_korkopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΤΗΡΗΣΕΙΣ",
+    "speaker_id": "paratiriseis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΚΟΡΚΟΛΟΥΠΟΛΟΣ",
+    "speaker_id": "basileios_korkoloupolos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΟΚΡΑΤΙΑ ΤΗΣ ΓΕΩΡΓΙΑΣ",
+    "speaker_id": "dimokratia_tis_georgias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΝΗΤΡΙΟΣ ΓΕΩΡΓΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "dinitrios_georgakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΒΑΘΕΙΑΣ",
+    "speaker_id": "ioannis_batheias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΖΩΗ ΜΑΚΡΗ",
+    "speaker_id": "zoi_makri",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΣΚΟΠΕΛΙΤΗΣ",
+    "speaker_id": "stauros_skopelitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΤΡΟΣ ΜΑΝΤΟΥΒΑΛΟΣ",
+    "speaker_id": "petros_mantoubalos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΜΗΤΡΙΟΣ Ν.ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dmitrios_n.kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΟΥΚΟΣ ΑΠΟΣΤΟΛΙΔΗΣ",
+    "speaker_id": "loukos_apostolidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΙΟΝΥΣΙΟΣ ΓΚΟΥΣΚΟΣ",
+    "speaker_id": "dionusios_gkouskos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΚΕΔΙΚΟΥΓΛΟΥ",
+    "speaker_id": "basilis_kedikouglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΚΟΛΑΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nkolaos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΓΙΑΝΝΟΥΛΗΣ",
+    "speaker_id": "xristos_giannoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΗΣ ΚΑΠΠΑΤΟΣ",
+    "speaker_id": "panagis_kappatos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q85689470"
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΜΠΛΟΥΧΟΣ",
+    "speaker_id": "konstantinos_mplouxos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΜΑΝΑΤΙΔΗΣ",
+    "speaker_id": "georgios_amanatidis",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q124333034"
+  },
+  {
+    "speaker_name": "ΧΑΡΑΛΑΜΠΟΣ ΠΑΠΑΔΗΜΗΤΡΙΟΥ",
+    "speaker_id": "xaralampos_papadimitriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΤΣΑΚΛΟΓΛΟΥ",
+    "speaker_id": "panagiotis_tsakloglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΑΡΑΓΙΑΝΝΗΣ",
+    "speaker_id": "georgios_karagiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΙΟΣ ΜΥΛΩΝΑΚΗΣ",
+    "speaker_id": "antonios_mulonakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΑΡΙΝΟΣ",
+    "speaker_id": "georgios_marinos",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q21031018"
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΜΕΛΑΣ",
+    "speaker_id": "ioannis_melas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΧΑΡΗΣ ΘΕΟΧΑΡΗΣ",
+    "speaker_id": "theoxaris_theoxaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΒΑΣΙΛΕΙΑΔΗΣ",
+    "speaker_id": "basileios_basileiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΜΠΙΑΓΚΗΣ",
+    "speaker_id": "dimitrios_mpiagkis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΩΝΣΤΑΝΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_konstantopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΠΟΥΛΑΣ",
+    "speaker_id": "andreas_poulas",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q65272921"
+  },
+  {
+    "speaker_name": "ΚΑΡΑΓΙΑΝΝΗΣ ΓΕΩΡΓΙΟΣ",
+    "speaker_id": "karagiannis_georgios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΗ ΚΕΡΑΜΕΩΣ",
+    "speaker_id": "niki_kerameos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΣΚΥΛΑΚΑΚΗΣ",
+    "speaker_id": "theodoros_skulakakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΠΑΠΠΑΣ",
+    "speaker_id": "ioannis_pappas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΑΘΑΝΑΣΙΟΥ",
+    "speaker_id": "maria_athanasiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΩΤΕΙΝΗ ΠΙΠΙΛΗ",
+    "speaker_id": "foteini_pipili",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΣΥΡΙΓΟΣ",
+    "speaker_id": "euaggelos_surigos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΟΥΒΕΛΑΣ",
+    "speaker_id": "dimitrios_koubelas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΜΑΡΚΟΥ",
+    "speaker_id": "konstantinos_markou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΒΡΥΖΙΔΟΥ",
+    "speaker_id": "paraskeui_bruzidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "ioannis_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΥΡΑΝΑΚΗΣ",
+    "speaker_id": "konstantinos_kuranakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΥΛΙΑΝΗ ΜΕΝΔΩΝΗ",
+    "speaker_id": "stuliani_mendoni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΑΧ. ΚΑΡΑΜΑΝΛΗΣ",
+    "speaker_id": "konstantinos_ax._karamanlis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΤΑΡΑΝΤΙΛΗΣ",
+    "speaker_id": "xristos_tarantilis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΑΙΡΙΔΗΣ",
+    "speaker_id": "dimitrios_kairidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΧΑΤΖΗΔΑΚΗΣ",
+    "speaker_id": "konstantinos_xatzidakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΡΑΛΛΙΑ ΧΡΗΣΤΙΔΟΥ",
+    "speaker_id": "rallia_xristidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΥΘΕΡΙΟΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "eleutherios_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΑΜΑΝΑΤΙΔΗΣ",
+    "speaker_id": "ioannis_amanatidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΓΚΟΚΑΣ",
+    "speaker_id": "xristos_gkokas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΧΑΤΖΗΒΑΣΙΛΕΙΟΥ",
+    "speaker_id": "anastasios_xatzibasileiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΜΑΝΗ-ΠΑΠΑΔΗΜΗΤΡΙΟΥ",
+    "speaker_id": "anna_mani-papadimitriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΕΥΘΥΜΙΟΥ",
+    "speaker_id": "anna_euthumiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΜΩΡΑΙΤΗΣ",
+    "speaker_id": "athanasios_moraitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΑΡΑΓΚΟΥΝΗΣ",
+    "speaker_id": "konstantinos_karagkounis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΠΑΡΑΝ ΜΠΟΥΡΧΑΝ",
+    "speaker_id": "mparan_mpourxan",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΠΠΑΣ",
+    "speaker_id": "nikolaos_pappas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΛΙΑΚΟΣ",
+    "speaker_id": "euaggelos_liakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΛΑΜΠΟΥΛΗΣ",
+    "speaker_id": "georgios_lampoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΓΕΩΡΓΑΝΤΑΣ",
+    "speaker_id": "nikolaos_georgantas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ-ΕΛΕΝΗ ΣΟΥΚΟΥΛΗ-ΒΙΛΙΑΛΗ",
+    "speaker_id": "maria-eleni_soukouli-biliali",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΠΙΚΡΑΜΜΕΝΟΣ",
+    "speaker_id": "panagiotis_pikrammenos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΛΓΑ ΚΕΦΑΛΟΓΙΑΝΝΗ",
+    "speaker_id": "olga_kefalogianni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΩΤΣΗΡΑΣ",
+    "speaker_id": "georgios_kotsiras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΤΣΑΚΛΟΓΟΥ",
+    "speaker_id": "panagiotis_tsaklogou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΠΟΥΚΩΡΟΣ",
+    "speaker_id": "georgios_mpoukoros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΓΕΡΑΠΕΤΡΙΤΗΣ",
+    "speaker_id": "georgios_gerapetritis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΖΩΗ ΡΑΠΤΗ",
+    "speaker_id": "zoi_rapti",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΙΣΤΟΔΟΥΛΟΣ ΣΤΕΦΑΝΑΔΗΣ",
+    "speaker_id": "xristodoulos_stefanadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΠΟΥΡΧΑΝ ΜΠΑΡΑΝ",
+    "speaker_id": "mpourxan_mparan",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΕΠΙΣ-ΠΕΠΙΣ",
+    "speaker_id": "depis-pepis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "dimitrios_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΒΑΣΙΛΙΚΟΣ",
+    "speaker_id": "basileios_basilikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΟΑΚ",
+    "speaker_id": "boak",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΓΕΛΙΚΗ ΑΔΑΜΟΠΟΥΛΟΥΛΟΥ",
+    "speaker_id": "aggeliki_adamopouloulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΣΕΒΕ",
+    "speaker_id": "gsebe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟ Σ-ΝΙΚΟΛΑΟΣ ΥΨΗΛΑΝΤΗΣ",
+    "speaker_id": "basileio_s-nikolaos_upsilantis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΟΒΕ",
+    "speaker_id": "iobe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΠΑΠΑΓΓΕΛΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_papaggelopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΠΕΘΕ",
+    "speaker_id": "dipethe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΕΜΥ",
+    "speaker_id": "aemu",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΛΤΙΑΔΗΣ ΒΑΡΒΙΤΙΣΩΤΗΣ",
+    "speaker_id": "miltiadis_barbitisotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΧΑΤΖΗΒΑΣΙΛΕΟΥ",
+    "speaker_id": "anastasios_xatzibasileou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΙΟΣ ΔΙΑΜΑΤΑΡΗΣ",
+    "speaker_id": "antonios_diamataris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΝΤΙΝΟΣ ΧΑΤΖΗΔΑΚΗΣ",
+    "speaker_id": "kostantinos_xatzidakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ-ΑΔΩΝΙΣ-ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "spuridon-adonis-georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝΑΣΛΑΠΠΑΣ",
+    "speaker_id": "spuridonaslappas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΓΕΡΑΠΕΤΡΙΤΗΣ",
+    "speaker_id": "giorgos_gerapetritis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΤΕΛ",
+    "speaker_id": "ktel",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΣΤΟΛΙΔΗΣ ΦΩΤΙΑΔΗΣ",
+    "speaker_id": "apostolidis_fotiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΣΤΡΑΤΗΛΑΤΗΣ",
+    "speaker_id": "nikolaos_stratilatis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΣ",
+    "speaker_id": "panagiotis_panagiotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΕΛΙΟΣ ΜΑΤΖΑΠΕΤΑΚΗΣ",
+    "speaker_id": "stelios_matzapetakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΔΙΑΜΑΝΤΗΣ",
+    "speaker_id": "konstantinos_diamantis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΝΙΚΟΛΑΙΔΗΣ",
+    "speaker_id": "ioannis_nikolaidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitris_kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΥΝΗΜΜΕΝΟ",
+    "speaker_id": "sunimmeno",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΚΑΡΑ",
+    "speaker_id": "maria_kara",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΘΕΝΑ ΦΟΥΝΤΟΥΔΙΚΟΥ",
+    "speaker_id": "parthena_fountoudikou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΨΑΧΑΡΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_psaxaropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΘΩΜΑΣ",
+    "speaker_id": "georgios_thomas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΙ",
+    "speaker_id": "tei",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΩΜΑΣ ΓΕΩΡΓΙΟΣ",
+    "speaker_id": "thomas_georgios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΕΚΤΡΟΝΙΚΗ ΜΑΘΗΣΗ",
+    "speaker_id": "ilektroniki_mathisi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΡΩΝ",
+    "speaker_id": "iron",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΡΑΞΕ",
+    "speaker_id": "praxe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΕΚΤΡΟΝΙΚΟ ΕΠΙΧΕΙΡΕΙΝ",
+    "speaker_id": "ilektroniko_epixeirein",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΧΝΟΜΕΣΙΤΕΙΑ",
+    "speaker_id": "texnomesiteia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΒΕΤ",
+    "speaker_id": "pabet",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΔΤΚ",
+    "speaker_id": "mdtk",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΛΑΧΟΣ",
+    "speaker_id": "ilias_blaxos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΒΡΕΝΤΖΟΣ",
+    "speaker_id": "stauros_brentzos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΟΣ ΣΤΡΙΦΤΑΡΗΣ",
+    "speaker_id": "spuros_striftaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kontantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΑΛΕΥΡΑΣ",
+    "speaker_id": "athanasios_aleuras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΛΩΡΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ",
+    "speaker_id": "floros_konstantinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΤΑΣΡΟΣ",
+    "speaker_id": "nikolaos_katasros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΠΙΚΑΙΡΕΣ ΕΡΩΤΗΣΕΙΣ",
+    "speaker_id": "epikaires_erotiseis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΓΑΡΙΤΗΣ ΤΖΙΜΑΣ",
+    "speaker_id": "margaritis_tzimas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΚΑΤΣΙΓΙΑΝΝΗΣ",
+    "speaker_id": "xristos_katsigiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΕΦΑΝΟΣ ΣΤΕΦΑΝΟΠΟΥΛΟΣ",
+    "speaker_id": "stefanos_stefanopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΚΡΙΚΕΛΗΣ",
+    "speaker_id": "anastasios_krikelis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΩΡΑΙΤΗΣ",
+    "speaker_id": "georgios_moraitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΣΤΑΘΟΠΟΥΛΟΣ",
+    "speaker_id": "ioannis_stathopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΝΙΚΟΣ ΔΙΕΥΘΥΝΤΗΣ",
+    "speaker_id": "genikos_dieuthuntis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΛΕΞ",
+    "speaker_id": "telex",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΚΟΣΚΙΝΑΣ",
+    "speaker_id": "xristos_koskinas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΜΙΚΡΟΥΤΣΙΚΟΣ",
+    "speaker_id": "athanasios_mikroutsikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΚΟΚΚΙΝΟΒΑΣΙΛΗΣ",
+    "speaker_id": "xristos_kokkinobasilis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΦΡΑΓΚΟΣ",
+    "speaker_id": "dimitrios_fragkos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΑΥΓΕΡΙΝΙΔΗΣ",
+    "speaker_id": "nikolaos_augerinidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΑΧΥΔΡΟΜΟ",
+    "speaker_id": "taxudromo",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΓΟΥΝΑΤΙΔΗΣ",
+    "speaker_id": "konstantinos_gounatidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΠΑΥΛΑΚΑΚΗΣ",
+    "speaker_id": "georgios_paulakakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΚΟΚΕΛΙΔΗΣ",
+    "speaker_id": "theodoros_kokelidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΖΑΧΑΡΑΚΗΣ",
+    "speaker_id": "konstantinos_zaxarakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΟΙΚΟΝΟΜΙΔΗΣ",
+    "speaker_id": "panagiotis_oikonomidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΟΥΓΙΟΥΚΛΑΚΗΣ",
+    "speaker_id": "ilias_bougiouklakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΠΡΑΣΙΑΝΑΚΗΣ",
+    "speaker_id": "georgios_prasianakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΜΕΤ ΦΑΙΚΟΓΛΟΥ",
+    "speaker_id": "amet_faikoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΩΝΣΤΑΝΤΙΝΙΔΗΣ",
+    "speaker_id": "konstantinos_konstantinidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΡΗΓΑΣ",
+    "speaker_id": "konstantinos_rigas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΩΝ",
+    "speaker_id": "apon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΟΣΘΕΝΗΣ ΒΟΥΒΑΛΟΥΔΗΣ",
+    "speaker_id": "dimosthenis_boubaloudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΣΑΡΡΡΗΣ",
+    "speaker_id": "dimitrios_sarrris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΩΝΣΤΑΝΤΙΔΗΣ",
+    "speaker_id": "konstantinos_konstantidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΕΦΑΝΟΣ ΚΥΡΙΑΖΟΠΟΥΛΟΣ",
+    "speaker_id": "stefanos_kuriazopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΡΑΣΙΜΟΣ ΚΟΥΡΗΣ",
+    "speaker_id": "gerasimos_kouris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ Ν. ΞΑΡΧΑΣ",
+    "speaker_id": "athanasios_n._xarxas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΕΡΟΠΗ ΣΠΥΡΟΠΟΥΛΟΥ",
+    "speaker_id": "meropi_spuropoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΤΡΟΣ ΣΟΥΓΓΑΡΗΣ",
+    "speaker_id": "petros_souggaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΥΠΟΥΡΓΟΣ",
+    "speaker_id": "upourgos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "spuros_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΓΙΑΝΝΟΠΟΥΛΟΣ",
+    "speaker_id": "spuridon_giannopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΜΑΝΟΥΣΟΣ",
+    "speaker_id": "ioannis_manousos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΕΜΒΑΛΛΕΤΑΙ ΠΙΝΑΚΑΣ",
+    "speaker_id": "paremballetai_pinakas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΚΥ",
+    "speaker_id": "iku",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΙΟΝΥΣΙΟΣ ΜΠΕΧΡΑΚΗΣ",
+    "speaker_id": "dionusios_mpexrakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΦΑΡΑΝΤΟΥΡΗ",
+    "speaker_id": "maria_farantouri",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΦΛΩΡΟΣ",
+    "speaker_id": "konstantinos_floros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΚΑΤΣΙΓΙΑΝΝΝΗΣ",
+    "speaker_id": "xristos_katsigiannnis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΓΑΛΑΝΟΣ",
+    "speaker_id": "nikolaos_galanos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΚΤΙΜΩΝΤΑΣ",
+    "speaker_id": "ektimontas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΡΑΙΑΝΟΣ ΧΑΤΖΗΔΗΜΗΡΙΟΥ",
+    "speaker_id": "traianos_xatzidimiriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΠΑΥΛΑΚΑΚΗΣ",
+    "speaker_id": "giorgos_paulakakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ Γ. ΚΡΗΤΙΚΟΣ",
+    "speaker_id": "panagiotis_g._kritikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΜΠΑΓΚΑΛΟΣ",
+    "speaker_id": "theodoros_mpagkalos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΣΠΑΝΟΣ",
+    "speaker_id": "ioannis_spanos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΤΣΑΣΡΟΣ",
+    "speaker_id": "nikolaos_katsasros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΙΑΤΡΑΚΟΣ",
+    "speaker_id": "konstantinos_iatrakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΡΑΤΗΣΚΟΡΑΚΑΣ",
+    "speaker_id": "stratiskorakas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΛΗΣ ΣΙΔΕΡΗΣ",
+    "speaker_id": "mixalis_sideris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΙΝΑΚΑΣ",
+    "speaker_id": "pinakas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣΣΜΠΩΚΟΣ",
+    "speaker_id": "ioannissmpokos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΝΤΟΛΗ ΕΛΕΓΧΟΥ",
+    "speaker_id": "entoli_elegxou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΗΛ ΣΙΔΕΡΗΣ",
+    "speaker_id": "mixail_sideris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΜΗΤΡΗΣ ΓΕΩΡΓΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "dmitris_georgakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣΤΣΑΚΛΙΔΗΣ",
+    "speaker_id": "ioannistsaklidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΤΣΚΛΙΔΗΣ",
+    "speaker_id": "ioannis_tsklidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΜΟΔΙΟΣ",
+    "speaker_id": "armodios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "theodoros_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΔΡΑ",
+    "speaker_id": "edra",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΦΡΑΓΚΟΣ",
+    "speaker_id": "dimitris_fragkos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΟΔΩΡΟΣ ΚΟΚΕΛΙΔΗΣ",
+    "speaker_id": "thodoros_kokelidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΑΡΕΑ",
+    "speaker_id": "panagiotarea",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΜΕΣΑ",
+    "speaker_id": "amesa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΘΕΟΔΟΣΙΑΔΗΣ-ΓΙΑΝΝΕΛΛΗΣ",
+    "speaker_id": "ioannis_theodosiadis-giannellis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΚΟΚΚΕΛΙΔΗΣ",
+    "speaker_id": "theodoros_kokkelidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΜΑΝΤΖΩΡΗΣ",
+    "speaker_id": "basilis_mantzoris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΟΝ ΝΟΜΟ ΡΟΔΟΠΗΣ",
+    "speaker_id": "ston_nomo_rodopis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΠΑΣΤΑΣ",
+    "speaker_id": "xristos_pastas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΝΩΛΗΣ ΜΠΕΤΕΝΙΩΤΗΣ",
+    "speaker_id": "manolis_mpeteniotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΠΡΑΣΙΑΝΑΚΗΣ",
+    "speaker_id": "giorgos_prasianakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΠΠΑΦΙΛΙΠΟΥ",
+    "speaker_id": "nikolaos_pappafilipou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΙΤΙΟΛΟΓΙΑ",
+    "speaker_id": "aitiologia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ Ν. ΚΡΗΤΙΚΗΣ",
+    "speaker_id": "panagiotis_n._kritikis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΩΤΣΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_kotsopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΞΑΡΧΑΣ",
+    "speaker_id": "dimitrios_xarxas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΒΥΖΟΒΙΤΗΣ",
+    "speaker_id": "ilias_buzobitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "Μ Ε Τ Α Τ Η Δ Ι Α Κ Ο Π Η",
+    "speaker_id": "m_e_t_a_t_i_d_i_a_k_o_p_i",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΡΕΤΤΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ",
+    "speaker_id": "brettos_konstantinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΠΕΠΟΝΗΣ",
+    "speaker_id": "athanasios_peponis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΟΙΝΩΝΙΚΩΝ ΑΣΦΑΛΙΣΕΩΝ",
+    "speaker_id": "koinonikon_asfaliseon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΥΘΕΡΙΟΣ ΚΩΝΣΝΤΑΝΤΙΝΙΔΗΣ",
+    "speaker_id": "eleutherios_konsntantinidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΡΗΤΙΚΟΣ",
+    "speaker_id": "nikolaos_kritikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΙΣΤΟΤΕΛΗΣ ΜΙΜΜΗΣ",
+    "speaker_id": "aristotelis_mimmis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΞΩΤΕΡΙΚΩΝ",
+    "speaker_id": "exoterikon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΑΝΝΗΣ ΠΟΤΑΚΗΣ",
+    "speaker_id": "giannis_potakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΣΟΥΛΡΑΣ",
+    "speaker_id": "georgios_soulras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΦΑΜΡΑΚΗΣ",
+    "speaker_id": "nikolaos_famrakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣΚΑΡΑΓΚΟΥΝΗΣ",
+    "speaker_id": "andreaskaragkounis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΟΣ ΓΙΑΝΟΠΟΥΛΟΣ",
+    "speaker_id": "spuros_gianopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "nikos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΣΑΡΡΗΣ",
+    "speaker_id": "georgios_sarris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΕΡΓΙΝΑ",
+    "speaker_id": "bergina",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΡΥΞΕΛΛΕΣ",
+    "speaker_id": "bruxelles",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΦΡΑΓΚΟΣ_",
+    "speaker_id": "dimitrios_fragkos_",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΓΚΛΙΝΑΒΟΣ",
+    "speaker_id": "ioannis_gklinabos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΒΕΛΛΙΚΗΣ",
+    "speaker_id": "athanasios_bellikis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "basilis_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΙΔΗΣ ΜΕΛΙΔΗΣ",
+    "speaker_id": "ioannidis_melidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΗΣ ΣΚΥΛΛΑΚΟ",
+    "speaker_id": "antonis_skullako",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΕΤΑ ΤΗ ΔΙΑΚΟΠΗ",
+    "speaker_id": "meta_ti_diakopi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΜΑΜΩΝΑΣ",
+    "speaker_id": "nikolaos_mamonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΟΥΡΚΙΑ",
+    "speaker_id": "tourkia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΗΣ ΣΑΜΑΡΑΣ",
+    "speaker_id": "antonis_samaras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΚΟΠΟΣ",
+    "speaker_id": "skopos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΕΑ",
+    "speaker_id": "nea",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΘΝΟΣ",
+    "speaker_id": "ethnos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΥΠΟ",
+    "speaker_id": "upo",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΑΘΗΜΕΡΙΝΗ",
+    "speaker_id": "kathimerini",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΡΕΥΩΝ",
+    "speaker_id": "dreuon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΘΥΜΙΟΣ ΧΡΙΣΤΟΔΟΥΛΟΥ",
+    "speaker_id": "euthumios_xristodoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΔ",
+    "speaker_id": "ed",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΚΗΣ ΚΟΥΡΗΣ",
+    "speaker_id": "makis_kouris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΣΑΨΑΛΗΚΗΣ",
+    "speaker_id": "konstantinos_sapsalikis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗ ΤΡΙΟΣ ΦΡΑΓΚΟΣ",
+    "speaker_id": "dimi_trios_fragkos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΙΟΣ ΣΑΜΑΡΑΣ",
+    "speaker_id": "antonios_samaras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΟΙΝΟΠΟΙΕΙΤΑΙ",
+    "speaker_id": "koinopoieitai",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΣΤΙΚΟΤΗΤΑ",
+    "speaker_id": "astikotita",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΣΤΙΚΟΣ",
+    "speaker_id": "astikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΒΟΥΝΑΤΣΟΣ",
+    "speaker_id": "dimitris_bounatsos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΗΓΗ",
+    "speaker_id": "pigi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΕΥΤΕΡΗΣ ΠΑΠΑΓΕΩΡΟΠΟΥΛΟΣ",
+    "speaker_id": "leuteris_papageoropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΑΝΔΡΟΥΚΗΣ",
+    "speaker_id": "dimitrios_androukis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΟΣ ΞΑΡΧΑΣ",
+    "speaker_id": "athanasos_xarxas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ Ν. ΚΤΗΤΙΚΟΣ",
+    "speaker_id": "panagiotis_n._ktitikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΟΣ ΓΙΑΝΝΟΠΟΠΟΥΛΟΣ",
+    "speaker_id": "spuros_giannopopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΠΟΡΙΟΥ",
+    "speaker_id": "emporiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΑΝΤΙΝΟΣ ΡΗΓΑΣ",
+    "speaker_id": "kontantinos_rigas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣΚΕΔΙΚΟΓΛΟΥ",
+    "speaker_id": "basiliskedikoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΣΤΑΝΤΙΝΟΣ ΡΗΓΑΣ",
+    "speaker_id": "konstastantinos_rigas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "Ο ΑΝΑΠΛΗΡΩΤΗΣ ΥΠΟΥΡΓΟΣ",
+    "speaker_id": "o_anaplirotis_upourgos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΤΗΡΗΣΗ",
+    "speaker_id": "paratirisi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΜΠΕΤΕΝΙΩΤΗΣ",
+    "speaker_id": "emmanouil_mpeteniotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΡΑΚΤΟΡΕΙΑ",
+    "speaker_id": "praktoreia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΙΚΠΑ",
+    "speaker_id": "pikpa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΑΡΧΟΣ",
+    "speaker_id": "dimarxos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΥΡΙΟΣ",
+    "speaker_id": "kurios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΘΗΤΕΣ",
+    "speaker_id": "mathites",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΘΗΤΗΣ",
+    "speaker_id": "mathitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΙΤΗΜΑ",
+    "speaker_id": "aitima",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΜΠΡΑΚΑΤΟΥΛΑΣ",
+    "speaker_id": "basilis_mprakatoulas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΚΡΙΒΑΚΗΣ",
+    "speaker_id": "akribakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΡΑΜΜΑΤΙΚΟΣ",
+    "speaker_id": "grammatikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΩΤΟΓΡΑΦΙΑ",
+    "speaker_id": "fotografia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΙΟΜΗΧΑΝΙΑΣ-ΕΝΕΡΓΕΙΑΣ",
+    "speaker_id": "biomixanias-energeias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΝΗΣ ΒΑΣΙΛΕΙΑΔΗΣ",
+    "speaker_id": "nnis_basileiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΥΘΕΡΙΟΣΒΕΡΥΒΑΚΗΣ",
+    "speaker_id": "eleutheriosberubakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "athanasios_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΟΣ ΚΑΤΣΙΜΠΑΡΔΗΣ",
+    "speaker_id": "georgos_katsimpardis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΗΛ",
+    "speaker_id": "til",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΠΡΑΣΙΑΝΑΚΗΣΣ",
+    "speaker_id": "georgios_prasianakiss",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΘΥΜΙΟΣ ΧΡΙΣΤΟΔΟΥΛΟΣ",
+    "speaker_id": "euthumios_xristodoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΣΑΡΗΣ",
+    "speaker_id": "dimitrios_saris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΓΓΕΛΟΣ ΓΙΑΝΝΟΠΟΥΛΟΣ",
+    "speaker_id": "euggelos_giannopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΙ ΥΠΟΥΡΓΟΙ",
+    "speaker_id": "oi_upourgoi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΜΜΩΝΑΣ ΝΙΚΟΛΑΟΣ",
+    "speaker_id": "mammonas_nikolaos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΣΤΑΡΟΣ",
+    "speaker_id": "nikolaos_kastaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΡΙΟΣ ΦΡΑΓΚΟΣ",
+    "speaker_id": "dimirios_fragkos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΣΑΡΑΓΚΟΥΔΗΣ",
+    "speaker_id": "georgios_saragkoudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΔΗΜΗΤΡΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_dimitrakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΜΕΡ",
+    "speaker_id": "imer",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΡΟΕΔΡΟΣ ΚΥΒΕΡΝΗΣΕΩΣ",
+    "speaker_id": "proedros_kuberniseos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΣ ΜΠΑΝΤΟΥΒΑΣ",
+    "speaker_id": "kostas_mpantoubas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΒΑΣ. ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_bas._kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΙΘ",
+    "speaker_id": "arith",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΟ",
+    "speaker_id": "no",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΣΤΑΜΑΤΗΣ",
+    "speaker_id": "konstantinos_stamatis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΑΛΟΥΔΗΣ",
+    "speaker_id": "nikolaos_kaloudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΑΓΑΠΗΤΟΣ",
+    "speaker_id": "giorgos_agapitos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΗΛ ΓΑΓΕΝΙΑΝΟΣ",
+    "speaker_id": "mixail_gagenianos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΟΥΤΖΟΥΡΙΔΗΣ",
+    "speaker_id": "georgios_moutzouridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΟΙΝ. ΑΣΦΑΛΙΣΕΩΝ",
+    "speaker_id": "koin._asfaliseon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΕΡΙΚΑΣ",
+    "speaker_id": "georgios_merikas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΗΛΕΓΡΑΦΗΜΑΤΑ",
+    "speaker_id": "tilegrafimata",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΜΑΝΙΚΑΣ",
+    "speaker_id": "dimitrios_manikas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΓΚΑΜΑΛΕΤΣΟΣ",
+    "speaker_id": "theodoros_gkamaletsos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΔΕΣΠΟΤΟΠΟΥΛΟΣ",
+    "speaker_id": "konstantinos_despotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΠΑΠΑΧΡΗΣΤΟΥ",
+    "speaker_id": "athanasios_papaxristou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΑΣΤΡΑΚΟΣ",
+    "speaker_id": "euaggelos_astrakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΛΑΔΟΣ",
+    "speaker_id": "klados",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΣΥΝΟΔΙΝΟΥ-ΜΑΡΙΝΑΚΗ",
+    "speaker_id": "anna_sunodinou-marinaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΠΑΠΑΝΙΚΟΛΑΟΥ",
+    "speaker_id": "dimitrios_papanikolaou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΑΔ",
+    "speaker_id": "iad",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΜΕΡΙΚΑΣ",
+    "speaker_id": "giorgos_merikas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΝΑ ΔΙΖΗ-ΠΑΤΡΣΟΥΡΕΑ",
+    "speaker_id": "marina_dizi-patrsourea",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΣΜΑΗΛ ΜΟΛΛΑ",
+    "speaker_id": "ismail_molla",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΜΑΝΙΚΑΣ",
+    "speaker_id": "dimitris_manikas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΝΑ ΔΙΖΗ",
+    "speaker_id": "marina_dizi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΡΑΦΕΙΑ",
+    "speaker_id": "grafeia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΡΙΒΑΛΛΟΝ",
+    "speaker_id": "periballon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΝΕΡΓΕΙΑ",
+    "speaker_id": "energeia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΙΔΕΙΑ",
+    "speaker_id": "paideia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "Ο ΠΡΩΘΥΠΟΥΡΓΟΣ",
+    "speaker_id": "o_prothupourgos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΣΗΜΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_asimakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "Ν. ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "n._katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΑΝΑΓΝΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "nikolaos_anagnostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΤΡΙΑΡΙΔΗΣ",
+    "speaker_id": "ioannis_triaridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΕΟΠΑΓΙΤΕΣ",
+    "speaker_id": "areopagites",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΡΗΓΟΡΙΟΣ ΣΟΛΩΜΟΣ",
+    "speaker_id": "grigorios_solomos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΥΛΟΣ ΜΠΑΚΟΓΙΑΝΝΗΣ",
+    "speaker_id": "paulos_mpakogiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΣΥΝΟΔΙΝΟΥ ΜΑΡΙΝΑΚΗ",
+    "speaker_id": "anna_sunodinou_marinaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΣΑΑΚ ΛΑΡΕΥΝΤΙΔΗΣ",
+    "speaker_id": "isaak_lareuntidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΚΑΛΟΥΣΗΣ",
+    "speaker_id": "spuridon_kalousis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΗΜ",
+    "speaker_id": "sim",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "Θ. ΑΝΑΓΝΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "th._anagnostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΗΛΙΩΝΑΣ",
+    "speaker_id": "georgios_milionas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΕΩΝΙΔΑΣ ΠΑΠΑΧΡΗΣΤΟΣ",
+    "speaker_id": "leonidas_papaxristos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΛΗΝΙΚΗ ΑΣΤΥΝΟΜΙΑ",
+    "speaker_id": "elliniki_astunomia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΡΑΓΚΙΣΚΟΣ ΠΑΡΑΣΥΡΗΣ",
+    "speaker_id": "fragkiskos_parasuris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΗΛ ΓΑΥΓΙΩΤΑΚΗΣ",
+    "speaker_id": "mixail_gaugiotakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΣΤΙΓΚΑΣ",
+    "speaker_id": "basileios_stigkas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΩΜΑΙΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "thomais_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΣΠΙΩΤΗΣ",
+    "speaker_id": "georgios_aspiotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΙΣΤΟΤΕΛΗΣ ΣΠΑΝΙΑΣ",
+    "speaker_id": "aristotelis_spanias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΚΑΠΕΤΑΝΟΣ",
+    "speaker_id": "xristos_kapetanos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΒΟΡΥΛΛΑΣ",
+    "speaker_id": "andreas_borullas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΟΣ ΘΕΜΙΣΤΟΚΛΕΟΥΣ",
+    "speaker_id": "marios_themistokleous",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΑΠΟΣΤΟΛΑΚΗΣ",
+    "speaker_id": "georgios_apostolakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΣ",
+    "speaker_id": "andreas_panagiotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΑ ΚΕΦΑΛΑ",
+    "speaker_id": "georgia_kefala",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΤΣΙΜΑΡΗΣ",
+    "speaker_id": "ioannis_tsimaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΗ",
+    "speaker_id": "niki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΒΡΕΤΤΑΚΟΣ",
+    "speaker_id": "georgios_brettakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΝΙΚΟΛΑΙΔΗΣ",
+    "speaker_id": "anastasios_nikolaidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΛΕΥΣΗ ΕΛ.",
+    "speaker_id": "pleusi_el.",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΑΡΑΛΑΜΠΟΓΙΑΝΝΗ",
+    "speaker_id": "paraskeui_xaralampogianni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΡΟΥΝΤΑΣ",
+    "speaker_id": "georgios_rountas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΓΙΩΡΓΟΣ",
+    "speaker_id": "ioannis_giorgos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΑ ΣΔΟΥΚΟΥ",
+    "speaker_id": "alexandra_sdoukou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΧΝΑΡΗΣ",
+    "speaker_id": "emmanouil_xnaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΝΑ ΚΟΝΤΟΤΟΛΗ",
+    "speaker_id": "marina_kontotoli",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΠΑΠΑΣΤΕΡΓΙΟΥ",
+    "speaker_id": "dimitrios_papastergiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΛΤΙΑΔΗΣ ΒΑΡΒΙΤΣΩΤΗΣ",
+    "speaker_id": "miltiadis_barbitsotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΚΑΡΙΟΤΑΤΟΣ ΑΡΧΙΕΠΙΣΚΟΠΟΣ ΑΘΗΝΩΝ ΚΑΙ ΠΑΣΗΣ ΕΛΛΑΔΟΣ",
+    "speaker_id": "makariotatos_arxiepiskopos_athinon_kai_pasis_ellados",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΙΑ ΑΝΤΩΝΙΟΥ",
+    "speaker_id": "antonia_antoniou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΑ ΑΝΑΓΩΝΣΤΟΠΟΥΛΟΥ",
+    "speaker_id": "athanasia_anagonstopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΟΛΛΙΑΣ",
+    "speaker_id": "konstantinos_kollias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ ΣΤΕΦΑΝΟΥ",
+    "speaker_id": "eleni_stefanou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΥΡΙΑΖΙΔΗΣ",
+    "speaker_id": "nikolaos_kuriazidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΚΟΥΡΗΣ",
+    "speaker_id": "nikolaos_kouris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΦΑΤΟΥΡΟΣ",
+    "speaker_id": "dimitrios_fatouros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΟΙΚΟΝΟΜΟΠΟΥΛΟΣ",
+    "speaker_id": "nikolaos_oikonomopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΡΩΤΑΤΑΙ Η ΚΥΒΕΡΝΗΣΗ",
+    "speaker_id": "erotatai_i_kubernisi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΣ ΓΕΙΝΟΝΑΣ",
+    "speaker_id": "kostas_geinonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konstas_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΠΙΠΕΡΙΑΣ",
+    "speaker_id": "dimitrios_piperias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝ. Ν. ΚΡΗΤΙΚΟΣ",
+    "speaker_id": "pan._n._kritikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ Ν. ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitris_n._kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΝΤΟΥΤΣΟΣ",
+    "speaker_id": "andreas_ntoutsos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠ",
+    "speaker_id": "ap",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΡΩΤΩΝΤΑΙ",
+    "speaker_id": "erotontai",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΟΣΘΕΝΗΣ ΚΟΥΜΠΟΥΡΗΣ",
+    "speaker_id": "dimosthenis_koumpouris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΚΑΒΑΡΑΤΖΣΗΣ",
+    "speaker_id": "ioannis_kabaratzsis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΟΠΗ",
+    "speaker_id": "kopi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΓΕΩΡΓΑΚΟΠΟΥΛΟΥ",
+    "speaker_id": "dimitris_georgakopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΟΜΙΣΜΑΤΟΣ",
+    "speaker_id": "nomismatos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΘΝΙΚΗΣ ΟΙΚΟΝΟΜΙΑΣ ΟΙΚΟΝΟΜΙΚΩΝ",
+    "speaker_id": "ethnikis_oikonomias_oikonomikon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΥΣΚΕΥΑΣΙΑ",
+    "speaker_id": "suskeuasia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΑΚΑΡΙΣΜΑ",
+    "speaker_id": "lakarisma",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΕΤΑΛΛΑ",
+    "speaker_id": "metalla",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΙΝΙΡΙΣΜΑ",
+    "speaker_id": "finirisma",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΡΟΣ",
+    "speaker_id": "baros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΙΘΜΗΣΗ",
+    "speaker_id": "arithmisi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΙΑ",
+    "speaker_id": "dia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΑΘΗΓΗΤΕΣ",
+    "speaker_id": "kathigites",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΥΠΗΡΕΣΙΑ",
+    "speaker_id": "upiresia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΕΟΝΑΡΔΟΣ ΧΑΤΖΑΝΔΡΕΟΥ",
+    "speaker_id": "leonardos_xatzandreou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΧΑΤΖΗΔΗΜΗΡΙΟΥ",
+    "speaker_id": "konstantinos_xatzidimiriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΦΑΡΜΑΚΗΣ",
+    "speaker_id": "ioannis_farmakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΕΜΒΑΛΛΕΤΑΙ ΔΙΑΓΡΑΜΜΑ",
+    "speaker_id": "paremballetai_diagramma",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΠΑΛΜΟΣ",
+    "speaker_id": "panagiotis_palmos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΩΡΟΤΑΞΙΑΣ ΚΑΙ",
+    "speaker_id": "xorotaxias_kai",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΙΚΟΝΟΜΙΚΩΝ",
+    "speaker_id": "oikonomikon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΕΣΤΗΣ ΣΑΑΤΖΟΓΛΟΥ",
+    "speaker_id": "anestis_saatzoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΟΥΚΑΣ ΤΟΥ ΛΟΥΞΕΜΒΟΥΡΓΟΥ",
+    "speaker_id": "doukas_tou_louxembourgou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΖΑΚΟΛΙΚΟΣ",
+    "speaker_id": "panagiotis_zakolikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΗΣ ΛΕΝΤΑΚΗΣ",
+    "speaker_id": "antonis_lentakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΗΣ ΣΚΛΥΛΛΑΚΟΣ",
+    "speaker_id": "antonis_sklullakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΕΚΟ",
+    "speaker_id": "deko",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΚΟΥΡΑΚΗΣ",
+    "speaker_id": "anastasios_kourakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΟΥΚΟΔΗΜΟΣ",
+    "speaker_id": "konstantinos_koukodimos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΙΣΤΕΙΔΗΣ ΜΠΑΛΤΑΣ",
+    "speaker_id": "aristeidis_mpaltas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΡΑΣΚΕΥΟΠΟΥΛΟΣ",
+    "speaker_id": "nikolaos_paraskeuopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΞΥΔΑΚΗΣ",
+    "speaker_id": "nikolaos_xudakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΛΑΖΑΡΙΔΗΣ",
+    "speaker_id": "georgios_lazaridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΚΑΡΑΓΙΑΝΝΗΣ",
+    "speaker_id": "ioannis_karagiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ ΖΑΡΟΥΛΙΑ",
+    "speaker_id": "eleni_zaroulia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΟΥΡΣΟΥΖΙΔΗΣ",
+    "speaker_id": "georgios_oursouzidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΟΣ ΠΑΡΑΣΤΑΤΙΔΗΣ",
+    "speaker_id": "theodoros_parastatidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΑΝΤΖΙΔΗΣ",
+    "speaker_id": "marantzidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΟΣ ΚΑΜΜΕΝΟΣ",
+    "speaker_id": "panos_kammenos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ-ΣΠΕΝΣΕΡ-ΝΙΚΟΛΑΟΣ ΚΟΥΙΚ",
+    "speaker_id": "terens-spenser-nikolaos_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΤΡΟΠΟΥΛΟΣ",
+    "speaker_id": "petropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΠΑΝΤΖΑΣ",
+    "speaker_id": "georgios_pantzas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΑΝΝΗΣ ΜΑΝΙΑΤΗΣ",
+    "speaker_id": "giannis_maniatis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΦΩΤΑΚΗΣ",
+    "speaker_id": "konstantinos_fotakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΓΑΒΡΟΓΛΟΥ",
+    "speaker_id": "konstantinos_gabroglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ-ΣΠΕΝΣΕΡ-ΝΙΚΟΛΑΟΣ-ΚΟΥΙΚ",
+    "speaker_id": "terens-spenser-nikolaos-kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝΑΣ ΠΝΕΥΜΑΤΙΚΟΣ",
+    "speaker_id": "spuridonas_pneumatikos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΙΠΙΛΗ ΦΩΤΕΙΝΗ",
+    "speaker_id": "pipili_foteini",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΕΥΤΕΡΟΣ ΟΜΙΛΗΤΗΣ",
+    "speaker_id": "deuteros_omilitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΟΛΟΝΤΙΜΙΡ ΖΕΛΕΝΣΚΙ",
+    "speaker_id": "bolontimir_zelenski",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΡΩΤΟΣ ΟΜΙΛΗΤΗΣ",
+    "speaker_id": "protos_omilitis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΚΕΦΑΛΑ",
+    "speaker_id": "maria_kefala",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΜΕΠΑ",
+    "speaker_id": "elmepa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΚΟΝΣΟΛΑΣ",
+    "speaker_id": "panagiotis_konsolas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΛΛΩΝ",
+    "speaker_id": "apollon",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΟΥΔΗΣ ΒΟΡΙΔΗΣ",
+    "speaker_id": "maroudis_boridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΕΡΑ ΝΙΚΟΛΑΙΔΟΥ",
+    "speaker_id": "bera_nikolaidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΣΙΔΗΡΟΠΟΥΛΟΣ",
+    "speaker_id": "anastasios_sidiropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΠΑΠΑΓΕΩΡΓΙΟΥ",
+    "speaker_id": "athanasios_papageorgiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΣΤΕΡΙΟΣ ΡΟΝΤΟΥΛΗΣ",
+    "speaker_id": "asterios_rontoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΠΡΩΤΟΥΛΗΣ",
+    "speaker_id": "ioannis_protoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ ΦΙΛΙΝΗ",
+    "speaker_id": "anna_filini",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΤΣΟΥΚΑΛΗΣ",
+    "speaker_id": "nikolaos_tsoukalis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΣΤΑΘΙΟΣ ΚΟΥΤΜΕΡΙΔΗΣ",
+    "speaker_id": "eustathios_koutmeridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΕΒΡΩΝΙΑ ΠΑΤΡΙΑΝΑΚΟΥ",
+    "speaker_id": "febronia_patrianakou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΑΜΟΙΡΙΔΗΣ",
+    "speaker_id": "ioannis_amoiridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΛΑΜΠΙΡΗΣ",
+    "speaker_id": "ilias_lampiris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΖΩΙΔΗΣ",
+    "speaker_id": "nikolaos_zoidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΠΑΡΙΣΗΣ",
+    "speaker_id": "alexandros_parisis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑ ΜΕΛΑ",
+    "speaker_id": "eua_mela",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΑΛΑΣΣΙΝΟΣ ΘΑΛΑΣΣΙΝΟΣ",
+    "speaker_id": "thalassinos_thalassinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΡΟΒΛΙΑΣ",
+    "speaker_id": "konstantinos_roblias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΟΘΩΝΑΣ",
+    "speaker_id": "emmanouil_othonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΒΛΑΤΗΣ",
+    "speaker_id": "ioannis_blatis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΠΑΠΑΧΡΗΣΤΟΣ",
+    "speaker_id": "xristos_papaxristos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΣΑΜΠΑΖΙΩΤΗΣ",
+    "speaker_id": "dimitrios_sampaziotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΓΕΛΙΚΗ ΓΚΕΡΕΚΟΥ",
+    "speaker_id": "aggeliki_gkerekou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΒΑΣΙΛΕΙΟΥ",
+    "speaker_id": "georgios_basileiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΤΡΟΣ-ΠΑΥΛΟΣ ΑΛΙΒΙΖΑΤΟΣ",
+    "speaker_id": "petros-paulos_alibizatos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΔΡΕΒΕΛΕΓΚΑΣ",
+    "speaker_id": "ioannis_drebelegkas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΧΡΥΣΗΣ",
+    "speaker_id": "basileios_xrusis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΑΝΝΗΣ ΙΩΑΝΝΙΔΗΣ",
+    "speaker_id": "giannis_ioannidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΝΟΥΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmnouil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΠΙΔΑ ΣΧΟΙΝΑΡΑΚΗ-ΗΛΙΑΚΗ",
+    "speaker_id": "elpida_sxoinaraki-iliaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΣΑΜΠΑΤΖΙΩΤΗΣ",
+    "speaker_id": "dimitrios_sampatziotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΜΑΝΤΟΥΒΑΣ",
+    "speaker_id": "konstantinos_mantoubas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕ",
+    "speaker_id": "pe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕ",
+    "speaker_id": "te",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΕ",
+    "speaker_id": "de",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΥΕ",
+    "speaker_id": "ue",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kostantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΥΣΗΣ ΒΑΣΙΛΕΙΟΣ",
+    "speaker_id": "xrusis_basileios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΚΤΩΡ ΝΑΣΙΩΚΑΣ",
+    "speaker_id": "ektor_nasiokas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΒΤΑ",
+    "speaker_id": "abta",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΙΚΑΤΕΡΙΝΗ ΞΗΡΟΤΥΡΗ-ΑΙΚΑΤΕΡΙΝΑΡΗ",
+    "speaker_id": "aikaterini_xiroturi-aikaterinari",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΓΑΡΟΥΦΙΑΛΙΑΣ",
+    "speaker_id": "georgios_garoufialias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΠΙΤΤΑΣ",
+    "speaker_id": "ioannis_pittas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΒΡΕΤΟΣ",
+    "speaker_id": "konstantinos_bretos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΔΩΝΙΣ-ΣΠΥΡΙΔΩΝ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "adonis-spuridon_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΑ-ΣΥΛΒΑΝΑ ΡΑΠΤΗ",
+    "speaker_id": "anastasia-sulbana_rapti",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΛΟΙ ΟΙΒΟΥΛΕΥΤΕΣ",
+    "speaker_id": "oloi_oibouleutes",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΖΙΜΑΣ ΜΑΡΓΑΡΙΤΗΣ",
+    "speaker_id": "tzimas_margaritis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΔΕΡΜΕΤΖΟΠΟΥΛΟΣ",
+    "speaker_id": "alexandros_dermetzopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΑΘΗ-ΡΟΖΑ ΒΡΕΤΤΟΥ",
+    "speaker_id": "agathi-roza_brettou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΓΕΛΟΣ ΑΡΓΥΡΗΣ",
+    "speaker_id": "euagggelos_arguris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΠΑΠΑΧΡΗΣΤΟΥ",
+    "speaker_id": "euaggelos_papaxristou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΑΝΤΩΝΙΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "panagiotis_antoniakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmanoul_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΡΟΖΑ-ΑΓΑΘΗ ΒΡΕΤΤΟΥ",
+    "speaker_id": "roza-agathi_brettou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΣΤΟΛΟΣ-ΙΩΑΝΝΗΣ ΤΖΙΤΖΙΚΩΣΤΑΣ",
+    "speaker_id": "apostolos-ioannis_tzitzikostas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΑ ΡΑΓΙΟΥ-ΜΕΝΤΖΕΛΟΠΟΥΛΟΥ",
+    "speaker_id": "anastasia_ragiou-mentzelopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΔΩΝΙΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "adonis_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΑΔΩΝΙΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "spuridon_adonis_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΣΤΟΛΟΣ ΤΖΙΤΖΙΚΩΣΤΑΣ",
+    "speaker_id": "apostolos_tzitzikostas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΧΑΛΑΒΑΤΖΗΣ",
+    "speaker_id": "spuridon_xalabatzis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΑΡΑΛΑΜΠΟΣ ΚΑΣΤΣΑΝΙΔΗΣ",
+    "speaker_id": "xaralampos_kastsanidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗ ΜΑΓΚΡΙΩΤΗΣ",
+    "speaker_id": "ioanni_magkriotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΝΗΚΙΑΤΙΑΔΗΣ",
+    "speaker_id": "georgios_nikiatiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΚΗΣ ΒΟΡΙΔΗΣ",
+    "speaker_id": "makis_boridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΑΖΑΚΟΣ",
+    "speaker_id": "konstantinos_kazakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΛΑΜΠΙΔΗΣ",
+    "speaker_id": "ilias_lampidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΧΑΙΟΛΟΓΙΚΟΙ ΧΩΡΟΙ",
+    "speaker_id": "arxaiologikoi_xoroi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΣΚΟΠΕΛΙΔΗΣ",
+    "speaker_id": "stauros_skopelidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ-ΜΑΡΙΑ ΑΠΟΣΤΟΛΑΚΗ",
+    "speaker_id": "eleni-maria_apostolaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΘΙΑΓΕ",
+    "speaker_id": "ethiage",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΙΟΣ ΜΗΤΡΟΠΟΥΛΟΣ",
+    "speaker_id": "alexios_mitropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΡΑΚΛΗΣ ΑΚΤΥΠΗΣ",
+    "speaker_id": "iraklis_aktupis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΟΡΦΑΝΟΣ",
+    "speaker_id": "nikolaos_orfanos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΕΛ",
+    "speaker_id": "anel",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΗΛ ΤΑΜΗΛΟΣ",
+    "speaker_id": "mixail_tamilos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΘΕΟΧΑΡΗ",
+    "speaker_id": "maria_theoxari",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΑ ΖΟΥΝΗ",
+    "speaker_id": "panagiota_zouni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΠΑΚΩΝΣΤΑΝΤΙΝΟΥ",
+    "speaker_id": "nikolaos_papakonstantinou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΑΡΑΛΑΜΠΟΣ ΠΑΜΠΟΥΚΗΣ",
+    "speaker_id": "xaralampos_pampoukis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΕΙΟΣ ΜΟΥΛΟΠΟΥΛΟΣ",
+    "speaker_id": "basileios_moulopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΤΡΙΑΝΤΑΦΥΛΛΟΠΟΥΛΟΣ",
+    "speaker_id": "andreas_triantafullopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΚΥΡΙΑΚΟΠΟΥΛΟΥ",
+    "speaker_id": "maria_kuriakopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΜΟΣΙΑΛΟΣ",
+    "speaker_id": "ilias_mosialos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΑΔΩΝΙΣ-ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "spuridon_adonis-georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΤΕΛΗΣ ΚΑΨΗΣ",
+    "speaker_id": "pantelis_kapsis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΚΑΡΑΜΠΕΛΑΣ",
+    "speaker_id": "ioannis_karampelas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΓΕΛΑΛΗΣ",
+    "speaker_id": "dimitris_gelalis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΝΤΑΒΡΗΣ",
+    "speaker_id": "georgios_ntabris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΟΣΤΟΛΟΣ ΑΛΕΞΟΠΟΥΛΟΣ",
+    "speaker_id": "apostolos_alexopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΑΒΡΙΗΛ ΑΒΡΑΜΙΔΗΣ",
+    "speaker_id": "gabriil_abramidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΝΟΣ ΟΥΖΟΥΝΙΔΗΣ",
+    "speaker_id": "marinos_ouzounidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΤΖΑΒΑΡΑΣ",
+    "speaker_id": "konstantinos_tzabaras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ ΛΙΒΙΕΡΑΤΟΣ",
+    "speaker_id": "euaggelos_libieratos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΚΥΡΙΤΣΗΣ",
+    "speaker_id": "georgios_kuritsis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΑΝΗ ΛΟΥΛΕ",
+    "speaker_id": "andrani_loule",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΟΚΟΛΑΟΣ ΚΑΤΣΑΡΟΣ",
+    "speaker_id": "niokolaos_katsaros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΣΠΕΛ",
+    "speaker_id": "espel",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΠΑΠΑΛΕΞΗΣ",
+    "speaker_id": "konstantinos_papalexis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΣ ΑΡΝΑΟΥΤΑΚΗΣ",
+    "speaker_id": "stauros_arnaoutakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΕΤ",
+    "speaker_id": "net",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΕΝΝΑ",
+    "speaker_id": "antenna",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΦΑ",
+    "speaker_id": "alfa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΕΩΝΙΔΑΣ ΛΥΜΠΕΡΑΚΙΔΗΣ",
+    "speaker_id": "leonidas_lumperakidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΦΡΙΑΓΚΙΑΔΟΥΛΑΚΗΣ",
+    "speaker_id": "emmanouil_friagkiadoulakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΙΟ",
+    "speaker_id": "theio",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΙΔΗΡΟΣ",
+    "speaker_id": "sidiros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΖΩΤΟ",
+    "speaker_id": "azoto",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΕΛΙΟ",
+    "speaker_id": "nikelio",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΝΑΔΙΟ",
+    "speaker_id": "banadio",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kosantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "kostantinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΝΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kosntantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΣΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kontstantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΓΝ ΚΑΤ",
+    "speaker_id": "pgn_kat",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ Ν. ΓΕΩΡΓΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_n._georgakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΓΑΡΟΥΦΑΛΛΙΑΣ",
+    "speaker_id": "georgios_garoufallias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΕΒ",
+    "speaker_id": "seb",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ ΜΑΡΙΑ ΑΠΟΣΤΟΛΑΚΗ",
+    "speaker_id": "eleni_maria_apostolaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "kontantinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΧΟΥΡΜΟΥΖΙΑΔΗΣ",
+    "speaker_id": "giorgos_xourmouziadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΡΑΓΚΙΣΚΟΣ ΠΑΠΑΣΥΡΗΣ",
+    "speaker_id": "fragkiskos_papasuris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΑΝΤΙΝΟΣ ΣΠΗΛΙΟΠΟΥΛΟΣ",
+    "speaker_id": "kostantinos_spiliopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΗΝΕΛΟΠΗ ΝΙΚΟΛΕ",
+    "speaker_id": "pinelopi_nikole",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΝΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konsnantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΜΟΥΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmamouil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΕΥΘΥΜΙΟΠΟΥΛΟΣ",
+    "speaker_id": "ilias_euthumiopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΦΤΕ",
+    "speaker_id": "efte",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΔΑΜ ΡΕΓΚΟΥΔΑΣ",
+    "speaker_id": "adam_regkoudas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "panagiotis_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΣΤΟΛΟΣ ΦΩΤΙΑΔΗΣ",
+    "speaker_id": "apstolos_fotiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "konstantantinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΑΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konstanatinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΤΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konstantintos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΙΣΤΙΝΑ ΣΠΥΡΑΚΗΣ",
+    "speaker_id": "xristina_spurakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΑΤΕΡΙΝΗ ΠΑΠΑΚΩΣΤΑ-ΣΙΔΗΡΟΠΟΥΛΟΥ",
+    "speaker_id": "katerini_papakosta-sidiropoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΣΠΗΛΙΩΤΟΠΟΥΛΟΣ",
+    "speaker_id": "anastasios_spiliotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΒΡΕΤΤΤΟΣ",
+    "speaker_id": "konstantinos_bretttos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΑΤΑΝΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "konatantinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "panagiotis_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΝΑΕ",
+    "speaker_id": "enae",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΘΕΝΑ ΦΟΥΝΤΟΥΝΙΔΟΥ",
+    "speaker_id": "parthena_fountounidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΝΣΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "konnstantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΜΝΟΥΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmamnouil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΣΤΑΝΤΙΝΟΣ ΓΕΙΤΟΝΑΣ",
+    "speaker_id": "kosstantinos_geitonas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΣΤΡΙΦΤΡΑΡΗΣ",
+    "speaker_id": "spuridon_striftraris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΣΠΗΛΙΩΤΟΠΟΥΛΟΣ",
+    "speaker_id": "konstantinos_spiliotopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ-ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "alexandros-papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ Ν. ΚΑΜΜΕΝΟΣ",
+    "speaker_id": "panagiotis_n._kammenos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΕΩΝΙΔΑΣ ΓΡΗΡΟΡΑΚΟΣ",
+    "speaker_id": "leonidas_grirorakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ ΣΤΡΙΦΤΑΡΗΣ.",
+    "speaker_id": "spuridon_striftaris.",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΩΡΟΣ ΚΩΝΣΤΑΝΤΙΝΟΥ",
+    "speaker_id": "loros_konstantinou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΓΕΝΙΟΣ ΧΑΙΔΗΣ",
+    "speaker_id": "eugenios_xaidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΚΗΣ ΚΕΔΙΚΟΓΛΟΥ",
+    "speaker_id": "basikis_kedikoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΑΣΙΩΚΑΣ ΕΚΤΩΡΑΣ",
+    "speaker_id": "nasiokas_ektoras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΥΑΓΓΕΛΟΣ ΑΡΓΥΡΗΣ",
+    "speaker_id": "uaggelos_arguris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΨΑΧΑΡΟΠΟΥΛΟΣ",
+    "speaker_id": "panagiotis_psaxaropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΔΑΒΑΚΗΣ",
+    "speaker_id": "georgios_dabakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΣΤΡΙΦΤΑΡΗΣ",
+    "speaker_id": "panagiotis_striftaris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΛΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emmanoulil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΑΝΗ ΧΑΛΚΙΑ",
+    "speaker_id": "fani_xalkia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΜΙΣΤΟΚΛΗΣ ΞΑΝΘΟΠΟΛΟΣ",
+    "speaker_id": "themistoklis_xanthopolos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΡΩΤΑΣΘΕ",
+    "speaker_id": "erotasthe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΡΙΣΤΟΦΥΛΛΟΠΟΥΛΟΥ",
+    "speaker_id": "paraskeui_xristofullopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΤΡΟΣ ΑΛΙΒΙΖΑΤΟΣ",
+    "speaker_id": "petros_alibizatos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ-ΕΛΕΝΗ ΑΠΟΣΤΟΛΑΚΗ",
+    "speaker_id": "maria-eleni_apostolaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΑΝΤΩΝΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "ilias_antonakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΕΤΕ",
+    "speaker_id": "sete",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΤΕΚ",
+    "speaker_id": "otek",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΥ",
+    "speaker_id": "emu",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΛΗΣ ΧΡΥΣΟΧΟΙΙΔΗΣ",
+    "speaker_id": "mixalis_xrusoxoiidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΔΔΡΑΓΑΣΑΚΗΣ",
+    "speaker_id": "ioannis_ddragasakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΕΤ",
+    "speaker_id": "fet",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΝΟΣ ΦΡΙΑΓΚΙΑΔΟΥΛΑΚΗΣ",
+    "speaker_id": "manos_friagkiadoulakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΚΑΤΣΙΚΟΓΙΑΝΝΗΣ",
+    "speaker_id": "athanasios_katsikogiannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΛΕΒΕΝΤΗ",
+    "speaker_id": "athanasios_lebenti",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΠΙΜΕΛΕΙΑ",
+    "speaker_id": "epimeleia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΤΑ",
+    "speaker_id": "eta",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΙΛΙΠΠΟΣ ΤΣΑΛΙΚΗΣ",
+    "speaker_id": "filippos_tsalikis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΑΘΗ ΒΡΕΤΤΟΥ",
+    "speaker_id": "agathi_brettou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΡΙΣΟΦΙΛΟΠΟΥΛΟΥ",
+    "speaker_id": "paraskeui_xrisofilopoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΙΤΟΝΑΣ ΚΩΝΣΤΑΝΤΙΝΟΣ",
+    "speaker_id": "geitonas_konstantinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛ ΕΙΟΣ ΟΙΚΟΝΟΜΟΥ",
+    "speaker_id": "basil_eios_oikonomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΛΕΒΕΡΔΟΣ",
+    "speaker_id": "andreas_leberdos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΚΠΑ",
+    "speaker_id": "ekpa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΠΑ",
+    "speaker_id": "opa",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΠΘ",
+    "speaker_id": "dpth",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΠΘ",
+    "speaker_id": "apth",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΙ ΚΑΒΑΛΑΣ",
+    "speaker_id": "tei_kabalas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΤΕΡΙΟΣ ΡΟΝΤΟΥΛΗΣ",
+    "speaker_id": "aterios_rontoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΟΡΙΔΗΣ ΜΑΥΡΟΥΔΗΣ",
+    "speaker_id": "boridis_mauroudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΡΑΕ",
+    "speaker_id": "rae",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΣΤΗΣ ΧΑΤΖΗΔΑΚΗΣ",
+    "speaker_id": "kostis_xatzidakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΤΥΡΑΣ",
+    "speaker_id": "marturas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΠΑΠ",
+    "speaker_id": "opap",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΕΡΝΙΚΟΛΑΙΔΟΥ",
+    "speaker_id": "bernikolaidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΠΑΝΑΡΕΤΟΣ",
+    "speaker_id": "ioannis_panaretos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΛΓΑ ΡΕΝΤΑΡΗ-ΤΕΝΤΕ",
+    "speaker_id": "olga_rentari-tente",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΣ ΤΣΟΥΚΑΛΗΣ",
+    "speaker_id": "nikolas_tsoukalis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ-ΓΛΥΚΕΡΙΑ ΤΣΟΚΛΗ",
+    "speaker_id": "maria-glukeria_tsokli",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΧΑΝΤΑΒΑΣ",
+    "speaker_id": "athanasios_xantabas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ-ΑΔΩΝΙΣΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "spuridon-adonisgeorgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΩΤΕΙΝΗ ΠΙΠΙΙΛΗ",
+    "speaker_id": "foteini_pipiili",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΟΣ ΜΑΡΙΝΟΣ",
+    "speaker_id": "georgos_marinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΤΑΤΙΔΗΣ ΘΕΟΔΩΡΟΣ",
+    "speaker_id": "parastatidis_theodoros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΚΑΡΥΔΗΣ",
+    "speaker_id": "dimitris_karudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΤΙΝΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "konstatinos_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΟΣ ΚΑΜΕΝΟΣ",
+    "speaker_id": "panos_kamenos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΓΙΑ ΤΣΟΚΛΗ",
+    "speaker_id": "magia_tsokli",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ-ΕΡΝΕΣΤΟΣ ΧΑΡΑΛΑΜΠΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios-ernestos_xaralampopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΛΕΝΗ ΤΣΑΟΥΣΗ",
+    "speaker_id": "eleni_tsaousi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΡΓΥΡΗΣ ΕΥΑΓΓΕΛΟΣ",
+    "speaker_id": "arguris_euaggelos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΡΟΝΤΟΥΛΗΣ",
+    "speaker_id": "athanasios_rontoulis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΡΟΤΕΜ",
+    "speaker_id": "agrotem",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΕΡΝΕΣΤΟΣ ΧΑΡΑΛΑΜΠΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_ernestos_xaralampopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΣΑΝΤΙΝΟΣ ΧΑΤΖΗΔΑΚΗΣ",
+    "speaker_id": "konstsantinos_xatzidakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΖΗΣΗ ΤΖΗΚΑΛΑΓΙΑ",
+    "speaker_id": "zisi_tzikalagia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΟΛΙΑΣ",
+    "speaker_id": "konstantinos_kolias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΓΕΛΟΣ ΝΑΝΟΣ",
+    "speaker_id": "aggelos_nanos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΚΟΥΡΑΚΗΣ",
+    "speaker_id": "athanasios_kourakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΥΡΙΑΚΟΠΟΥΛΟΣ ΒΕΛΟΠΟΥΛΟΣ",
+    "speaker_id": "kuriakopoulos_belopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΧΡΙΣΤΟΦΙΑΣ",
+    "speaker_id": "dimitrios_xristofias",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΧΑΡΑΛΑΜΠΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_xaralampopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ-ΕΡΝΕΣΤΟΣ ΧΑΡΑΜΠΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios-ernestos_xarampopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΔΥΣΣΕΑΣ ΚΩΣΤΑΝΤΙΝΟΠΟΥΛΟΣ",
+    "speaker_id": "odusseas_kostantinopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗΣ ΜΟΥΛΟΠΟΥΛΟΣ",
+    "speaker_id": "basilis_moulopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΕΜΗ ΖΟΥΝΗ",
+    "speaker_id": "pemi_zouni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΔΔΗΧ",
+    "speaker_id": "oddix",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΤΡΙΑΝΤΑΦΥΛΟΠΟΥΛΟΣ",
+    "speaker_id": "andreas_triantafulopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΡΟΣ ΧΡΥΣΑΝΘΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "alexanros_xrusanthakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΣΤΕΡΙΟΣ ΡΟΝΤΟΛΗΣ",
+    "speaker_id": "asterios_rontolis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΙΤΣΑ ΑΜΜΑΝΑΤΙΔΟΥ-ΠΑΠΑΣΧΑΛΙΔΟΥ",
+    "speaker_id": "litsa_ammanatidou-papasxalidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΝΑΝΟΥΗΛ ΣΤΡΑΤΑΚΗΣ",
+    "speaker_id": "emnanouil_stratakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΟΥΚΑΣ ΠΑΠΑΔΗΜΟΣ",
+    "speaker_id": "loukas_papadimos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΑΝΔΡΟΣ ΧΡΥΣΑΝΑΘΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "alexandros_xrusanathakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΝΩΛΗΣ ΜΠΕΝΤΕΝΙΩΝΤΗΣ",
+    "speaker_id": "manolis_mpenteniontis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΠΑΠΑΚΩΝΣΤΙΝΟΥ",
+    "speaker_id": "nikolaos_papakonstinou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΣΤΑΥΡΟΠΟΥΛΟΣ",
+    "speaker_id": "georgios_stauropoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΙΣΗΣ ΑΠΟΣΤΟΛΑΤΟΣ",
+    "speaker_id": "baisis_apostolatos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΙΛΙΤΙΔΗΣ",
+    "speaker_id": "konstantinos_kilitidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΑΓΓΕΛΟΣ |ΑΡΓΥΡΗΣ",
+    "speaker_id": "euaggelos_|arguris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΠΑΜΠΙΝΙΩΤΗΣ",
+    "speaker_id": "georgios_mpampiniotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ-ΣΠΕΝΣΕΡ ΝΙΚΟΛΑΟΣ-ΚΟΥΙΚ",
+    "speaker_id": "terens-spenser_nikolaos-kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ ΣΠΕΝΣΕΡ ΝΙΚΟΛΑΟΣ ΚΟΥΙΚ",
+    "speaker_id": "terens_spenser_nikolaos_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΥΣΟΥΛΑ-ΜΑΡΙΑ ΓΙΑΤΑΓΑΝΑ",
+    "speaker_id": "xrusoula-maria_giatagana",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΗΛ ΚΑΣΣΗΣ",
+    "speaker_id": "mixail_kassis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΩΤΕΙΝΗ ΣΚΟΠΟΥΛΗ",
+    "speaker_id": "foteini_skopouli",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΜΑΥΡΑΓΑΝΝΗΣ",
+    "speaker_id": "georgios_mauragannis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ-ΣΠΕΝΣΕΡ ΝΙΚΟΛΑΟΣ ΚΟΥΙΚ",
+    "speaker_id": "terens-spenser_nikolaos_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΓΝΗ ΚΑΛΟΓΕΡΗ",
+    "speaker_id": "agni_kalogeri",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΓΕΛΑΛΗΣ",
+    "speaker_id": "dimitrios_gelalis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΡΙΣΤΟΦΙΛΙΠΟΥΛΟΥ",
+    "speaker_id": "paraskeui_xristofilipoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΜΙΧΑΣ",
+    "speaker_id": "nikolaos_mixas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΝΑΓΙΩΤΗΣ ΜΑΥΡΑΓΑΝΗΣ",
+    "speaker_id": "panagiotis_mauraganis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΥΓΕΝΙΑ ΒΑΜΒΑΚΑ",
+    "speaker_id": "eugenia_bambaka",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΣΠΑΣΙΑ ΜΑΝΔΡΕΚΑ",
+    "speaker_id": "aspasia_mandreka",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΑΝΑΓΝΩΣΤΑΚΗΣ",
+    "speaker_id": "dimitris_anagnostakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΑΝΤΙΝΟΣ ΚΟΥΤΣΟΓΙΑΝΝΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "kontantinos_koutsogiannakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ ΣΠΕΝΣΕΡ-ΝΙΚΟΛΑΟΣ ΚΟΥΙΚ",
+    "speaker_id": "terens_spenser-nikolaos_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΥΡΟΥΔΗ ΒΟΡΙΔΗΣ",
+    "speaker_id": "mauroudi_boridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΤΩΝΗΣ Κ. ΣΑΜΑΡΑΣ",
+    "speaker_id": "antonis_k._samaras",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΔΡΕΑΣ ΜΑΡΙΝΟΣ",
+    "speaker_id": "andreas_marinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ ΣΠΕΝΣΕΡ-ΚΟΥΙΚ",
+    "speaker_id": "terens_spenser-kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΖΑΒΑΡΑΣ ΚΩΝΣΤΑΝΤΙΝΟΣ",
+    "speaker_id": "tzabaras_konstantinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΕΡΕΝΣ-ΝΙΚΟΛΑΟΣ-ΣΠΕΝΣΕΡ ΚΟΥΙΚ",
+    "speaker_id": "terens-nikolaos-spenser_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΤΙΟΣ ΚΟΥΡΑΚΗΣ",
+    "speaker_id": "anastastios_kourakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΡΙΣΤΟΦΙΛΟΥΠΟΥΛΟΥ",
+    "speaker_id": "paraskeui_xristofiloupoulou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΑΝΑΣΙΟΣ ΝΤΑΒΟΥΡΟΣ",
+    "speaker_id": "athanasios_ntabouros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΝΤΑΒΛΟΥΡΟΣ",
+    "speaker_id": "ioannis_ntablouros",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΕΝΣΕΡ-ΤΕΡΕΝΣ-ΝΙΚΟΛΑΟΣ ΚΟΥΙΚ",
+    "speaker_id": "spenser-terens-nikolaos_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΡΙΑ ΧΡΥΣΟΒΕΛΩΝΗ",
+    "speaker_id": "maria_xrusobeloni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝ-ΑΔΩΝΙΣ ΓΕΩΓΙΑΔΗΣ",
+    "speaker_id": "spuridon-adonis_geogiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΛΤΙΑΔΗΣΒΑΡΒΙΤΣΙΩΤΗΣ",
+    "speaker_id": "miltiadisbarbitsiotis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΩΑΝΝΗΣ ΚΑΛΑΝΤΖΗΣ",
+    "speaker_id": "ioannis_kalantzis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΟΥΤΣΟΓΙΑΝΑΚΟΠΟΥΛΟΣ",
+    "speaker_id": "konstantinos_koutsogianakopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΟΦΙΑ ΒΟΛΤΕΨΗ",
+    "speaker_id": "sofia_boltepsi",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ-ΣΠΕΝΣΕΡ-ΤΕΡΕΝΣ ΚΟΥΙΚ",
+    "speaker_id": "nikolaos-spenser-terens_kouik",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΟΥΤΣΟΓΙΑΝΝΟΠΟΥΛΟΣ",
+    "speaker_id": "konstantinos_koutsogiannopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΥΣΟΥΛΑ ΚΑΦΑΝΤΑΡΗ",
+    "speaker_id": "xrusoula_kafantari",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΑΥΡΟΥΔΗΣ ΒΑΡΙΔΗΣ",
+    "speaker_id": "mauroudis_baridis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΜΙΧΑΛΗΣ ΚΑΣΣΗΣ",
+    "speaker_id": "mixalis_kassis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΙΤΣΑ ΑΜΜΑΝΑΤΙΔΟΥ-ΠΑΣΧΑΔΙΔΟΥ",
+    "speaker_id": "litsa_ammanatidou-pasxadidou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΦΩΤΕΙΝΗ ΚΟΥΒΕΛΑ",
+    "speaker_id": "foteini_koubela",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΤΑΥΡΟΥΛΑ ΞΟΥΛΙΔΙΟΥ",
+    "speaker_id": "stauroula_xoulidiou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΡΑΧΗΛ ΜΑΡΚΗ",
+    "speaker_id": "raxil_marki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΕΞΙΟΣ ΜΗΤΡΟΠΟΛΟΣ",
+    "speaker_id": "alexios_mitropolos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΤΑΝΤΙΝΟΣ ΚΑΡΑΓΚΟΥΝΗΣ",
+    "speaker_id": "kontantinos_karagkounis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΤΣΟΥΚΑΛΑΣ",
+    "speaker_id": "nikolaos_tsoukalas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΔΥΣΣΕΥΣ ΒΟΥΔΟΥΡΗΣ",
+    "speaker_id": "odusseus_boudouris",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΑΣΘ",
+    "speaker_id": "oasth",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΦΑΝΗΣ ΚΟΥΡΕΜΠΕΣ",
+    "speaker_id": "theofanis_kourempes",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΡΑΣΚΕΥΗ ΧΡΙΣΤΟΦΙΛΟΠΟΛΟΥ",
+    "speaker_id": "paraskeui_xristofilopolou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΛΑΠΑΒΙΤΣΑΣ",
+    "speaker_id": "konstantinos_lapabitsas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΟΣ ΜΑΡΙΝΟΣ",
+    "speaker_id": "giorgos_marinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΛΟΝΝΗΣΟΣ",
+    "speaker_id": "alonnisos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΚΙΑΘΟΣ",
+    "speaker_id": "skiathos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΚΟΠΕΛΟΣ",
+    "speaker_id": "skopelos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΗ ΚΕΔΙΚΟΓΛΟΥ",
+    "speaker_id": "basili_kedikoglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΒΑΡΙΝΟΣ",
+    "speaker_id": "anastasios_barinos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΟΣ ΒΡΕΤΤΟΣ",
+    "speaker_id": "konstantios_brettos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΘΝΑΣΙΟΣ ΚΟΝΤΑΞΗΣ",
+    "speaker_id": "athnasios_kontaxis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΙΚΟΛΑΟΣ ΣΑΛΑΓΚΟΥΔΗΣ",
+    "speaker_id": "nikolaos_salagkoudis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΠΡΩΤΟΑΠΑΠΑΣ",
+    "speaker_id": "xristos_protoapapas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΒΑΣΙΛΙΚΗ ΑΡΑΠΗ-ΚΡΑΓΙΑΝΝΗ",
+    "speaker_id": "basiliki_arapi-kragianni",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΟΣ Β. ΚΩΣΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitros_b._kostopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΙΩΡΓΙΟΣ ΚΑΤΣΙΜΠΑΡΔΗΣ",
+    "speaker_id": "giorgios_katsimpardis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΠΑΛΛΗΣ",
+    "speaker_id": "georgios_pallis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΖΩΗ ΛΙΒΑΝΙΟΥ",
+    "speaker_id": "zoi_libaniou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΙΣΤΟΦΟΡΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ",
+    "speaker_id": "xristoforos_papadopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΝΑ ΜΠΕΙ Η",
+    "speaker_id": "na_mpei_i",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΚΟΥΡΑΚΗΣΑΝΑΣΤΑΣΙΟΣ ΚΟΥΡΑΚΗΣ",
+    "speaker_id": "anastasios_kourakisanastasios_kourakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΠΑΥΛΙΔΗΣ",
+    "speaker_id": "konstantinos_paulidis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΔΟΕ",
+    "speaker_id": "sdoe",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΠΑΠΑΓΓΕΛΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitris_papaggelopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΑΣΤΑΣΙΟΣ ΤΑΣΟΣ ΚΟΥΡΑΚΗΣ",
+    "speaker_id": "anastasios_tasos_kourakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΚΩΝΣΤΑΝΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitrios_konstanopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΘΕΟΔΩΡΑ ΜΕΓΑΛΟΟΙΚΟΝΟΜΟΜΟΥ",
+    "speaker_id": "theodora_megalooikonomomou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΛΥΔΙΑ ΚΟΝΙΟΡΔΟΥ",
+    "speaker_id": "ludia_koniordou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΙΟΣ ΛΙΑΚΟΣ",
+    "speaker_id": "dimitrios_liakos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΓΕΩΡΓΙΟΣ ΒΑΣΙΛΕΙΑΔΗΣ",
+    "speaker_id": "georgios_basileiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΕΜΜΑΝΟΥΗΛ ΣΥΝΤΥΧΑΚΗ",
+    "speaker_id": "emmanouil_suntuxaki",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΗΜΗΤΡΗΣ ΚΩΝΣΤΑΝΤΟΠΟΥΛΟΣ",
+    "speaker_id": "dimitris_konstantopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΟΥΡΑΚΗΣ ΑΝΑΣΤΑΣΙΟΣ",
+    "speaker_id": "kourakis_anastasios",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΗΛΙΑΣ ΚΩΣΤΟΠΑΝΑΓΙΩΤΟΥ",
+    "speaker_id": "ilias_kostopanagiotou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΟΤΑΜΙ",
+    "speaker_id": "potami",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΓΡΑΒΡΟΓΛΟΥ",
+    "speaker_id": "konstantinos_grabroglou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΚΩΝΣΤΑΝΤΙΝΟΣ ΣΤΡΑΤΗΣ",
+    "speaker_id": "konstantinos_stratis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΡΙΝΑ ΓΕΡΟΒΑΓΙΑ",
+    "speaker_id": "irina_gerobagia",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΣΠΥΡΙΔΩΝΑΣ-ΑΔΩΝΙΣ ΓΕΩΡΓΙΑΔΗΣ",
+    "speaker_id": "spuridonas-adonis_georgiadis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΤΟ ΠΟΤΑΜΙ",
+    "speaker_id": "to_potami",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΧΡΗΣΤΟΣ ΠΩΤΟΠΑΠΑΣ",
+    "speaker_id": "xristos_potopapas",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΠΑΥΛΟΣ ΜΑΚΡΑΚΗΣ",
+    "speaker_id": "paulos_makrakis",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΟΔΥΣΣΕΑΣ ΚΩΝΤΑΝΣΤΙΝΟΠΟΥΛΟΣ",
+    "speaker_id": "odusseas_kontanstinopoulos",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΙΕΡΕΥΣ",
+    "speaker_id": "iereus",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΑΝΝΑ-ΜΑΝΗ ΠΑΠΑΔΗΜΗΤΡΙΟΥ",
+    "speaker_id": "anna-mani_papadimitriou",
+    "wikidata_url": ""
+  },
+  {
+    "speaker_name": "ΔΙΟΝΥΣΙΟΣ ΚΑΛΑΜΑΤΙΑΝΟΣ",
+    "speaker_id": "dionusios_kalamatianos",
+    "wikidata_url": ""
+  }
+]
