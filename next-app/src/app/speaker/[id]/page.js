@@ -26,7 +26,6 @@ export default function SpeakerPage() {
         tabs={["Speaker Bio", "Speaker Speeches"]}
       />
 
-
       {/* Content */}
       <div className="flex justify-center">
         {activeTab === 'Speaker Bio' && <SpeakerBioPage />}

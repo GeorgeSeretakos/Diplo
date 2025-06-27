@@ -88,3 +88,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.list {
+    @apply list-disc list-inside pl-4 mt-2 space-y-1;
+}

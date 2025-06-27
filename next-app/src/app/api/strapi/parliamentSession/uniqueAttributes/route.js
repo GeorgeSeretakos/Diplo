@@ -8,7 +8,7 @@ export async function GET() {
     // Define the GraphQL query to fetch unique values
     const query = `
       query {
-        debates {
+        debates(pagination: { limit: 6000 }) {
           session
           period
           meeting

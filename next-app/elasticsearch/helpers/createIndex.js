@@ -1,10 +1,9 @@
-import client from "../client.js"; // Elasticsearch client
+import client from "../client.js";
 
 const INDEX_NAME = "speeches";
 
 async function createSpeechesIndex() {
   try {
-    // Check if the index already exists
     const indexExists = await client.indices.exists({ index: INDEX_NAME });
 
     if (indexExists) {
@@ -12,7 +11,6 @@ async function createSpeechesIndex() {
       return;
     }
 
-    // Define the index mappings to match the Strapi structure
     const mappings = {
       properties: {
         speech_id: { type: "keyword" },
@@ -44,7 +42,6 @@ async function createSpeechesIndex() {
       }
     }
 
-    // Create the index with the specified mappings
     const response = await client.indices.create({
       index: INDEX_NAME,
       body: {

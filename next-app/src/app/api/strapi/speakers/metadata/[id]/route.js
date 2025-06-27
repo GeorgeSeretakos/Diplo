@@ -35,17 +35,6 @@ export async function GET(request, { params }) {
             url
           }
         }
-        debates {
-          documentId
-          title
-          date
-          period
-          session
-          meeting
-          topics {
-            topic
-          }
-        }
       }
     }
   `;

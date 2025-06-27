@@ -4,7 +4,7 @@ export function getImageUrl(image, type = "speaker") {
   const defaultImage =
     type === "party"
       ? "/images/parties/european_union_flag.jpg"
-      : "images/politicians/default.avif";
+      : "/images/politicians/default.jpg";
 
   if (!image) return defaultImage;
 

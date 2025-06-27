@@ -30,8 +30,8 @@ export default async function populate() {
     console.log("INSERTING FILE", count, ": ", file);
 
     try {
-      const { jsonData, htmlData } = await transform(xmlPath, xsltPath);
-      const debateId = await insertDebate(jsonData, htmlData, STRAPI_URL, API_TOKEN);
+      const jsonData = await transform(xmlPath);
+      const debateId = await insertDebate(jsonData, STRAPI_URL, API_TOKEN);
 
       if (debateId) {
         const uniqueSpeakers = await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
@@ -45,7 +45,7 @@ export default async function populate() {
         console.log("Debate insertion failed or debate already exists. Skipping Parliament Session, Speakers and Speeches insertion.");
       }
     } catch (error) {
-      console.error(`❌ ❌ ❌ Error processing file ${file}:`, JSON.stringify(error.response?.data, null, 2));
+      console.error(`❌ ❌ ❌ Error processing file ${file}:`, error);
       problematic_files.add(file);
     }
   }

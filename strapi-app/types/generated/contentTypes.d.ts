@@ -381,6 +381,7 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    content: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -403,7 +404,7 @@ export interface ApiDebateDebate extends Struct.CollectionTypeSchema {
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
+    topics: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -489,7 +490,6 @@ export interface ApiSpeakerSpeaker extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     speeches: Schema.Attribute.Relation<'oneToMany', 'api::speech.speech'>;
-    topics: Schema.Attribute.Relation<'manyToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -514,13 +514,39 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     debate: Schema.Attribute.Relation<'manyToOne', 'api::debate.debate'>;
+    emotional_intensity: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 1;
+        },
+        number
+      >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::speech.speech'
     > &
       Schema.Attribute.Private;
+    polarity_strength: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: -1;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
+    rhetorical_intent: Schema.Attribute.String;
+    sentiment: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: -1;
+        },
+        number
+      >;
+    sentiment_json: Schema.Attribute.JSON;
     speaker: Schema.Attribute.Relation<'manyToOne', 'api::speaker.speaker'>;
     speaker_id: Schema.Attribute.String;
     speaker_name: Schema.Attribute.String;
@@ -530,36 +556,7 @@ export interface ApiSpeechSpeech extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
-  collectionName: 'topics';
-  info: {
-    description: '';
-    displayName: 'Topic';
-    pluralName: 'topics';
-    singularName: 'topic';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    debates: Schema.Attribute.Relation<'manyToMany', 'api::debate.debate'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    speakers: Schema.Attribute.Relation<'manyToMany', 'api::speaker.speaker'>;
-    topic: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
+    valuable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -1076,7 +1073,6 @@ declare module '@strapi/strapi' {
       'api::political-party.political-party': ApiPoliticalPartyPoliticalParty;
       'api::speaker.speaker': ApiSpeakerSpeaker;
       'api::speech.speech': ApiSpeechSpeech;
-      'api::topic.topic': ApiTopicTopic;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

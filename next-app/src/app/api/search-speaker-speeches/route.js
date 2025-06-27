@@ -1,4 +1,3 @@
-import { searchDebateKeyPhrase } from "@utils/search/searchInDebate.js";
 import { searchDebatesStrapiFilters } from "@utils/search/searchDebatesStrapiFilters.js";
 import { getDetailedStrapiDebates } from "@utils/graphql/getDetailedStrapiDebates.js";
 import { getSpeakerDebateIds } from "@utils/graphql/getSpeakerDebateIds.js";
@@ -28,7 +27,6 @@ export async function POST(req) {
       !!strapiFilters.period ||
       !!(Array.isArray(strapiFilters.sentiments) && strapiFilters.sentiments.length > 0) ||
       !!(Array.isArray(strapiFilters.topics) && strapiFilters.topics.length > 0);
-    ;
 
     // Step 1: Fetch all debate IDs where the speaker has participated
     let speakerDebateIds = await getSpeakerDebateIds({ speakerId });
@@ -122,7 +120,6 @@ export async function POST(req) {
         sortBy,
       });
 
-      // ✨ You must ADD this:
       // For each debate, fetch ONE random speech of this speaker.
       debates = await Promise.all(
         detailedStrapiDebates.map(async (debate) => {

@@ -37,6 +37,31 @@
       "relation": "manyToOne",
       "target": "api::speaker.speaker",
       "inversedBy": "speeches"
+    },
+    "valuable": {
+      "type": "boolean",
+      "default": false
+    },
+    "sentiment": {
+      "type": "integer",
+      "max": 1,
+      "min": -1
+    },
+    "polarity_strength": {
+      "type": "integer",
+      "max": 1,
+      "min": -1
+    },
+    "emotional_intensity": {
+      "type": "integer",
+      "min": 1,
+      "max": 3
+    },
+    "rhetorical_intent": {
+      "type": "string"
+    },
+    "sentiment_json": {
+      "type": "json"
     }
   }
 }

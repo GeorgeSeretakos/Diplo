@@ -6,11 +6,11 @@ console.log("Initializing Elasticsearch client...");
 const client = new Client({
   node: constants.ELASTICSEARCH_URL, // ElasticSearch URL
   auth: {
-    username: constants.ELASTICSEARCH_USERNAME, // Username
-    password: constants.ELASTICSEARCH_PASSWORD, // Password
+    username: constants.ELASTICSEARCH_USERNAME,
+    password: constants.ELASTICSEARCH_PASSWORD,
   },
   tls: {
-    rejectUnauthorized: false, // Disable certificate validation (only for development)
+    rejectUnauthorized: false,
   },
 });
 

@@ -37,6 +37,8 @@
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
+    <filter-actions connection-id="ff381930-108a-4985-a27a-dbd18c688762" dataset="main.speeches" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="ff381930-108a-4985-a27a-dbd18c688762" dataset="main.speakers" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="ff381930-108a-4985-a27a-dbd18c688762" dataset="main.debates" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">

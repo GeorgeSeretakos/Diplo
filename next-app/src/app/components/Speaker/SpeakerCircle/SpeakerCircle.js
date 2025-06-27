@@ -9,9 +9,7 @@ const SpeakerCircle = ({ documentId, speakerName, imageUrl }) => {
       <div className="flex justify-center items-center w-24 h-24 rounded-full overflow-hidden bg-gray-300">
         <img
           src={imageUrl}
-          // alt={speakerName}
           className="object-cover w-full h-full"
-          // onError={(e) => (e.currentTarget.src = "/images/default-speaker.jpg")}
         />
       </div>
       <div className="text-white font-semibold text-sm leading-tight">

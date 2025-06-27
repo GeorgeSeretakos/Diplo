@@ -18,8 +18,8 @@ async function fetchSpeeches(page = 1) {
         "pagination[page]": page,
         "pagination[pageSize]": PAGE_SIZE,
         populate: {
-          speakers: { fields: ['documentId'] },
-          debates: { fields: ['documentId'] }
+          speaker: { fields: ['documentId'] },
+          debate: { fields: ['documentId'] }
         },
       },
     });
@@ -57,7 +57,7 @@ async function bulkInsert() {
       }
 
       // Transform the content field to a single string
-      const transformedContent = speech.content.paragraphs
+      const transformedContent = speech.content
         .map((paragraph) => paragraph)
         .join(' ');
 
@@ -75,8 +75,8 @@ async function bulkInsert() {
         {
           speaker_name: speech.speaker_name,
           content: transformedContent,
-          debate_id: speech.debates[0].documentId,
-          speaker_id: speech.speakers[0].documentId,
+          debate_id: speech.debate.documentId,
+          speaker_id: speech.speaker.documentId,
           speech_number: speechNumber,
         },
       ];
@@ -102,7 +102,7 @@ async function bulkInsert() {
           (item) => item.index && item.index.status < 400
         ).length;
 
-        totalIndexed += successfulInserts; // Increment totalIndexed
+        totalIndexed += successfulInserts;
         console.log(`Successfully indexed ${successfulInserts} documents on page ${page}.`);
       }
     } catch (error) {

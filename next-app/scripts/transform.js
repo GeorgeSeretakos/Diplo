@@ -11,7 +11,7 @@ import { parseStringPromise } from "xml2js";
 import fs from "fs";
 
 
-export async function transform(xmlPath, xsltPath) {
+export async function transform(xmlPath) {
   // Perform XML to JSON transformation
   const xmlData = fs.readFileSync(xmlPath, 'utf-8');
   const jsonData = await parseStringPromise(xmlData, {
@@ -19,22 +19,6 @@ export async function transform(xmlPath, xsltPath) {
     preserveChildrenOrder: true,
   });
 
-  // Perform XML to HTML transformation
-  const config = {
-    sourcePath: xmlPath, // Path to XML file
-    xsltPath, // Path to XSLT file
-    result: String, // Return result as a string
-  };
-
-  const htmlData = await new Promise((resolve, reject) => {
-    xslt4node.transform(config, (error, result) => {
-      if (error) reject(error);
-      else resolve(result);
-    });
-  });
-
-  console.log()
-
-  return { jsonData, htmlData };
+  return jsonData;
 }
 

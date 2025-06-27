@@ -69,12 +69,6 @@
       "target": "api::political-party.political-party",
       "inversedBy": "speakers"
     },
-    "topics": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::topic.topic",
-      "mappedBy": "speakers"
-    },
     "age": {
       "type": "integer"
     },

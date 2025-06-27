@@ -1,4 +1,4 @@
-import client from "../client.js"; // Elasticsearch client
+import client from "../client.js";
 
 const INDEX_NAME = "speeches";
 

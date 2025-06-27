@@ -34,12 +34,6 @@
     "summary": {
       "type": "text"
     },
-    "topics": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::topic.topic",
-      "mappedBy": "debates"
-    },
     "session": {
       "type": "string",
       "required": true
@@ -61,6 +55,12 @@
       "relation": "oneToMany",
       "target": "api::speech.speech",
       "mappedBy": "debate"
+    },
+    "content": {
+      "type": "text"
+    },
+    "topics": {
+      "type": "json"
     }
   }
 }

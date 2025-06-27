@@ -56,44 +56,51 @@ const DebateMetadataPage = () => {
       {/* Navbar + Tabs */}
       <NavigationBar title={title} showSearch={false}/>
 
-      <div className="w-1/2 m-auto text-justify flex flex-col justify-center p-10">
+      <div className="w-3/4 max-w-4xl mx-auto px-6 py-12 text-justify flex flex-col gap-8">
         <h1 className="text-3xl text-center font-bold mb-6">{title}</h1>
 
         {opening_section && (
-          <div className="mb-6">
-            <strong className="strong">Opening Section</strong>
-            <p>{opening_section}</p>
+          <div>
+            <strong className="strong">Opening Section:</strong>
+            <p className="mt-2">{opening_section}</p>
           </div>
         )}
 
         {topics?.length > 0 && (
-          <div className="mb-4">
-            <p className="">
-              <strong className="strong">Topics Discussed</strong>
-              {/*{topics.map(t => t.topic).join(", ")}*/}
-            </p>
-            {topics.map(t => t.topic).join(", ")}
+          <div>
+            <strong className="strong">Topics Discussed:</strong>
+            <ul className="list-disc list-inside mt-2">
+              {topics.map((t, idx) => (
+                <li key={idx}>{t.topic}</li>
+              ))}
+            </ul>
           </div>
         )}
 
-        <ul className="mb-6">
-          {session_date && <li><strong className="strong">Session Date:</strong> {session_date}</li>}
-          {period && <li><strong className="strong">Period:</strong> {period}</li>}
-          {session && <li><strong className="strong">Session:</strong> {session}</li>}
-          {meeting && <li><strong className="strong">Meeting:</strong> {meeting}</li>}
-        </ul>
+        <div>
+          <strong className="strong">Debate Info:</strong>
+          <ul className="list-disc list-inside mt-2">
+            {session_date && <li>Session Date: {session_date}</li>}
+            {period && <li>Period: {period}</li>}
+            {session && <li>Session: {session}</li>}
+            {meeting && <li>Meeting: {meeting}</li>}
+          </ul>
+        </div>
 
         {summary && (
-          <div className="mb-6">
-            <strong className="strong">Summary</strong>
-            <p>{summary}</p>
+          <div>
+            <strong className="strong">Summary:</strong>
+            <p className="mt-2">{summary}</p>
           </div>
         )}
 
         {speakers?.length > 0 && (
-          <>
-            <p className="font-semibold mb-4"><strong className="strong">Participating Speakers </strong>({speakers.length})</p>
-            <div className="flex flex-wrap gap-4">
+          <div>
+            <p className="mb-4">
+              <strong className="strong">Participating Speakers:</strong> ({speakers.length})
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {speakers.slice(0, visibleSpeakers).map((speaker, idx) => (
                 <SpeakerCircle
                   key={idx}
@@ -104,25 +111,29 @@ const DebateMetadataPage = () => {
               ))}
             </div>
 
-            {visibleSpeakers < speakers.length && (
-              <button
-                className="mt-4 underline font-bold"
-                onClick={() => setVisibleSpeakers(speakers.length)}
-              >
-                Show More
-              </button>
-            )}
+            <div className="mt-6 text-center">
+              {visibleSpeakers < speakers.length && (
+                <button
+                  className="underline font-bold"
+                  onClick={() => setVisibleSpeakers(speakers.length)}
+                >
+                  Show All
+                </button>
+              )}
 
-            {visibleSpeakers >= speakers.length && speakers.length > initialSpeakersShown && (
-              <button
-                className="mt-4 underline font-bold"
-                onClick={() => setVisibleSpeakers(initialSpeakersShown)}
-              >
-                Show Less
-              </button>
-            )}
-          </>
+              {visibleSpeakers >= speakers.length && speakers.length > initialSpeakersShown && (
+                <button
+                  className="underline font-bold"
+                  onClick={() => setVisibleSpeakers(initialSpeakersShown)}
+                >
+                  Show Less
+                </button>
+              )}
+            </div>
+          </div>
         )}
+
+
       </div>
     </div>
   );

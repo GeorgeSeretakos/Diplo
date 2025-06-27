@@ -16,14 +16,14 @@ export default function DebateContentPage() {
   const { id: documentId } = useParams();
   const [speeches, setSpeeches] = useState([]);
   const [title, setTitle] = useState('');
-  const [page, setPage] = useState(1);
-  const [isClient, setIsClient] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); // ✅ FIX 1: Explicit page tracking
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observerRef = useRef(null);
-  const limit = 10;
+  const isFetchingRef = useRef(false); // ✅ FIX 3: Prevent overlapping requests
+
   const [inputValues, setInputValues] = useState({
-    ageRange: { min: 18, max: 100},
+    ageRange: { min: 18, max: 100 },
     gender: "",
     keyPhrase: "",
     topics: [],
@@ -32,15 +32,11 @@ export default function DebateContentPage() {
     sentiments: []
   });
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const limit = 10;
 
-  // Fetch first speeches
   useEffect(() => {
     async function fetchInitialSpeeches() {
       setLoading(true);
-
       try {
         const response = await axios.get(`/api/strapi/debates/content/${documentId}`, {
           params: { page: 1, limit }
@@ -51,6 +47,7 @@ export default function DebateContentPage() {
 
         setSpeeches(initialSpeeches);
         setTitle(fetchedTitle);
+        setCurrentPage(1); // ✅ FIX 2: Reset page count correctly
 
         if (initialSpeeches.length < limit) {
           setHasMore(false);
@@ -67,7 +64,6 @@ export default function DebateContentPage() {
     }
   }, [documentId]);
 
-  // Load more speeches on scroll
   useEffect(() => {
     if (!observerRef.current || !hasMore || loading) return;
 
@@ -83,10 +79,12 @@ export default function DebateContentPage() {
   }, [hasMore, loading]);
 
   async function loadMoreSpeeches() {
+    if (isFetchingRef.current) return; // ✅ FIX 3: Skip if already fetching
+    isFetchingRef.current = true;
     setLoading(true);
 
     try {
-      const nextPage = Math.floor(speeches.length / limit) + 1;
+      const nextPage = currentPage + 1; // ✅ FIX 1: Use explicit currentPage
       const response = await axios.get(`/api/strapi/debates/content/${documentId}`, {
         params: { page: nextPage, limit }
       });
@@ -95,6 +93,7 @@ export default function DebateContentPage() {
 
       if (newSpeeches.length > 0) {
         setSpeeches((prev) => [...prev, ...newSpeeches]);
+        setCurrentPage(nextPage); // ✅ FIX 2: Update currentPage
       } else {
         setHasMore(false);
       }
@@ -102,17 +101,24 @@ export default function DebateContentPage() {
       console.error("Error fetching more speeches:", error);
     } finally {
       setLoading(false);
+      isFetchingRef.current = false; // ✅ FIX 3: Release the lock
     }
   }
 
+  // ✅ FIX 4: Prevent rendering duplicates
+  const deduplicatedSpeeches = speeches.filter(
+    (speech, index, self) =>
+      index === self.findIndex((s) => s.speech_id === speech.speech_id)
+  );
+
   return (
     <div className="relative min-h-screen w-full bg-transparent text-white">
-
       {/* Navigation */}
       <NavigationBar title={title} showSearch={true} placeholder="Enter a keyphrase ..." />
 
       {/* Main Layout */}
       <div className="flex text-white w-[100%] m-auto pt-[2rem] relative z-10">
+
         {/* Filters Section */}
         <div className="mb-6 px-8 w-1/4">
           <div className="text-center text-3xl font-bold mb-6">
@@ -123,23 +129,19 @@ export default function DebateContentPage() {
             selectedName={inputValues.speakerName}
             onFilterChange={(updatedName) => handleInputChange("speakerName", updatedName)}
           />
-
           <PartyFilter
             selectedParties={inputValues.parties}
             onFilterChange={(updatedSelection) => handleInputChange("parties", updatedSelection)}
           />
-
           <TopicFilter
             selectedTopics={inputValues.topics}
             onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
           />
-
           <SentimentFilter
             selectedSentiments={inputValues.sentiments}
             onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
             disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
           />
-
         </div>
 
         {/* Speeches */}
@@ -148,31 +150,27 @@ export default function DebateContentPage() {
             <h1>Debate Content</h1>
           </div>
 
-          {speeches.map((speech) => {
-            return (
-              <div key={speech.speech_id} className="flex w-full justify-start px-6 pb-6">
-
-                {/* Speaker Column */}
-                <div className="w-[200px] flex flex-col items-center justify-start text-center space-y-2">
-                  <SpeakerCircle
-                    speakerName={speech.speaker_name}
-                    documentId={speech.speakers[0]?.documentId}
-                    imageUrl={getImageUrl(speech.speakers[0]?.image)}
-                  />
-                </div>
-
-                {/* Speech Text Column */}
-                <div className="flex-1 p-6 bg-none bg-opacity-70 rounded-3xl shadow-2xl border-2">
-                  {speech.content.paragraphs.map((paragraph, index) => (
-                    <p key={index} className="mb-4 text-justify leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
+          {deduplicatedSpeeches.map((speech) => (
+            <div key={speech.speech_id} className="flex w-full justify-start px-6 pb-6">
+              {/* Speaker Column */}
+              <div className="w-[200px] flex flex-col items-center justify-start text-center space-y-2">
+                <SpeakerCircle
+                  speakerName={speech.speaker_name}
+                  documentId={speech.speaker?.documentId}
+                  imageUrl={getImageUrl(speech.speaker?.image)}
+                />
               </div>
 
-            );
-          })}
+              {/* Speech Text Column */}
+              <div className="flex-1 p-6 bg-none bg-opacity-70 rounded-3xl shadow-2xl border-2">
+                {speech.content.map((paragraph, index) => (
+                  <p key={index} className="mb-4 text-justify leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          ))}
 
           {/* Loading Spinner */}
           {loading && (

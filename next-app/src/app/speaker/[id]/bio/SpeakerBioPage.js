@@ -8,21 +8,16 @@ import axios from "axios";
 import PartyItem from "@components/Party/PartyItem.js";
 import {getImageUrl} from "@utils/getImageUrl.js";
 import {useParams} from "next/navigation";
-import NavigationBar from "../../../components/Navigation/NavigationBar.js";
-import SpeakerCard from "../../../components/Speaker/SpeakerCard/SpeakerCard.js";
+import NavigationBar from "@components/Navigation/NavigationBar.js";
+import SpeakerCard from "@components/Speaker/SpeakerCard/SpeakerCard.js";
 
 const SpeakerBioPage = () => {
-  const initialDebatesShown = 4;
   const {id: documentId} = useParams();
-
-  const [visibleDebates, setVisibleDebates] = useState(initialDebatesShown);
-  const [showMoreVisible, setShowMoreVisible] = useState(true);
 
   const [speakerData, setSpeakerData] = useState(null);
   const [positionsHeld, setPositionsHeld] = useState([]);
   const [wikidataEntityId, setWikidataEntityId] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   console.log("Speaker Bio received DocumentId:", documentId);
 
@@ -92,7 +87,6 @@ const SpeakerBioPage = () => {
     website,
     languages,
     political_parties,
-    debates,
   } = speakerData;
 
 
@@ -108,10 +102,10 @@ const SpeakerBioPage = () => {
         showSearch={false}
       />
 
-      <div className="w-1/2 m-auto text-justify flex flex-col justify-center p-10">
+      <div className="w-3/4 max-w-4xl mx-auto px-6 py-12 text-justify flex flex-col gap-8">
 
         {speaker_name &&
-          <div className={`flex items-center ${image ? 'justify-between' : 'justify-center'}`}>
+          <div className={`flex items-center ${image ? 'justify-evenly' : 'justify-center'}`}>
             {image && <SpeakerCard image={imageUrl} disableClick={true}/>}
             <h1 className="text-3xl text-center font-bold mb-12">{speaker_name}</h1>
           </div>
@@ -119,21 +113,48 @@ const SpeakerBioPage = () => {
 
         {description &&
           <div>
-            <strong className="strong">Description:</strong> {description}
+            <strong className="strong">Description:</strong>
+            <p className="mt-2">{description}</p>
           </div>
         }
 
         {date_of_birth && place_of_birth && (
           <div>
-            <strong className="strong">Born:</strong> {date_of_birth}, {place_of_birth}
+            <strong className="strong">Born:</strong>
+            <p className="mt-2">{date_of_birth}, {place_of_birth}</p>
           </div>
         )}
         {date_of_death &&
           <p>
             <strong className="strong">Died:</strong>
-            {date_of_death}
+            <p className="mt-2">{date_of_death}</p>
           </p>
         }
+
+        {political_parties && political_parties.length > 0 && (
+          <>
+            <div className={`${styles.partyDetails}`}>
+              <strong className="strong">Member of Political Parties: </strong>
+            </div>
+            {/*<div className="mb-6">*/}
+            {/*  {political_parties.map((party) => party.name).join(", ")}*/}
+            {/*</div>*/}
+            <div className={`${styles.partyImages}`}>
+              {political_parties.map((party) => {
+                const partyImage = getImageUrl(party.image, "party")
+
+                return (
+                  <PartyItem
+                    key={party.name}
+                    name={party.name}
+                    image={partyImage}
+                    style={{pointerEvents: "none"}}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
 
         {educated_at && (
           <div>
@@ -150,43 +171,32 @@ const SpeakerBioPage = () => {
 
         {occupation && occupation.length > 0 && (
           <div>
-            <strong className="strong">Occupation:</strong> {occupation}
+            <strong className="strong">Occupation:</strong>
+            <ul className={styles.list}>
+              {occupation.split(",").map((job, index) => (
+                <li key={index}>
+                  {job.trim()}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
+
 
         {languages && languages.length > 0 && (
           <div>
-            <strong className="strong">Languages:</strong> {languages}
+            <strong className="strong">Languages:</strong>
+            <ul className={styles.list}>
+              {languages.split(",").map((lang, index) => (
+                <li key={index}>{lang.trim()}</li>
+              ))}
+            </ul>
           </div>
         )}
 
-        {political_parties && political_parties.length > 0 && (
-          <>
-            <div className={`${styles.partyDetails}`}>
-              <strong className="strong">Political Parties </strong>
-            </div>
-            <div className="mb-6">
-              {political_parties.map((party) => party.name).join(", ")}
-            </div>
-          </>
-        )}
-        <div className={`${styles.partyImages}`}>
-          {political_parties.map((party) => {
-            const partyImage = getImageUrl(party.image, "party")
-
-            return (
-              <PartyItem
-                key={party.name}
-                name={party.name}
-                image={partyImage}
-                style={{pointerEvents: "none"}}
-              />
-            );
-          })}
-        </div>
 
         {positionsHeld && positionsHeld.length > 0 && (
-          <div>
+          <div className="mb-6">
             <strong className="strong">Positions Held</strong>
             <ul className={styles.list}>
               {positionsHeld.map((position, index) => (
@@ -201,18 +211,16 @@ const SpeakerBioPage = () => {
 
         {/* Website Section */}
         {website && (
-          <div className={styles.websiteSection}>
-            <button>
-              <a href={website} target="_blank" rel="noopener noreferrer">
-              Visit Website
-              </a>
-            </button>
+          <div className="pt-2 m-auto">
+            <a href={website} target="_blank" rel="noopener noreferrer">
+              <button className="button">Visit Personal Website</button>
+            </a>
           </div>
         )}
-      </div>
-</div>
 
-)
-  ;
+      </div>
+    </div>
+
+  );
 };
 export default SpeakerBioPage;

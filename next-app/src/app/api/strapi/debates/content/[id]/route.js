@@ -24,7 +24,7 @@ export async function GET(request, { params }) {
           speaker_name
           documentId
           content
-          speakers {
+          speaker {
             documentId
             image {
               url

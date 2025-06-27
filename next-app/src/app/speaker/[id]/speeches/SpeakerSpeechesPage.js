@@ -11,7 +11,7 @@ import SentimentFilter from "@components/Filters/SentimentFilter.js";
 import DateRangeFilter from "@components/Filters/DateRangeFilter.js";
 import SessionFilter from "@components/Filters/SessionFilter.js";
 import styles from "../../../search-debates/SearchDebates.module.css";
-import DebateBig from "../../../components/Debate/DebateBig/DebateBig.js";
+import DebateBig from "@components/Debate/DebateBig/DebateBig.js";
 
 export default function DebateContentPage() {
   const { id: speakerDocumentId } = useParams();
@@ -32,7 +32,6 @@ export default function DebateContentPage() {
     sentiments: [],
   });
   const [sortBy, setSortBy] = useState("newest");
-
 
   const handleInputChange = (name, value) => {
     setPage(1);

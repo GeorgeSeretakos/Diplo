@@ -31,6 +31,6 @@ export async function getSpeakerDebateIds({ speakerId, offset = 0, limit = 10000
     return response?.data?.data?.speakers?.[0]?.debates || [];
   } catch (error) {
     console.error("Failed to fetch speaker debates:", error);
-    throw error; // Re-throw for the caller to handle
+    throw error;
   }
 }

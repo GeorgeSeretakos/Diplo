@@ -9,25 +9,12 @@ import uploadImageToStrapi from "../utils/uploadImageToStrapi.js";
 import findOrCreatePoliticalParty from "./insertPoliticalParty.js";
 import axios from "axios";
 
+import calculateAge from "../utils/calculateAge.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const strapiDbPath = path.join(__dirname, "../../../strapi-app/.tmp/data.db");
 const db = new Database(strapiDbPath);
-
-
-function calculateAge(birthDate, deathDate = null) {
-  if (!birthDate) return null;
-  const birth = new Date(birthDate);
-  const end = deathDate ? new Date(deathDate) : new Date();
-  if (isNaN(birth.getTime()) || isNaN(end.getTime())) return null;
-
-  let age = end.getFullYear() - birth.getFullYear();
-  const monthDiff = end.getMonth() - birth.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && end.getDate() < birth.getDate())) {
-    age--;
-  }
-  return age;
-}
 
 function getInternalIdFromTable(table, field, value) {
   const result = db.prepare(`SELECT id FROM ${table} WHERE ${field} = ?`).get(value);

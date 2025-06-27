@@ -41,8 +41,8 @@ const DebateBig = ({
 
         {/* Session Details */}
         <div className={styles.session}>
+          {/*<p><strong>Meeting:</strong> {meeting}</p>*/}
           <p><strong>Session:</strong> {session}</p>
-          <p><strong>Meeting:</strong> {meeting}</p>
           <p><strong>Period:</strong> {period}</p>
         </div>
 
