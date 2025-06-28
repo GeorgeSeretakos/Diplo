@@ -8,7 +8,6 @@ import { getImageUrl } from "@utils/getImageUrl.js";
 import axios from "axios";
 
 const DebateMetadataPage = () => {
-  const router = useRouter();
   const { id: documentId } = useParams();
 
   const initialSpeakersShown = 3;
@@ -26,7 +25,7 @@ const DebateMetadataPage = () => {
 
     const fetchDebateData = async () => {
       try {
-        const response = await axios.get(`/api/strapi/debates/metadata/${documentId}`);
+        const response = await axios.get(`http://localhost:3000/api/strapi/debates/metadata/${documentId}`);
         setDebateData(response.data.debate);
       } catch (error) {
         console.error("Error fetching debate metadata:", error);
@@ -52,23 +51,27 @@ const DebateMetadataPage = () => {
 
   return (
     <div className="text-white w-full min-h-screen bg-transparent">
+      <NavigationBar title={title} showSearch={false} />
 
-      {/* Navbar + Tabs */}
-      <NavigationBar title={title} showSearch={false}/>
+      <div className="w-3/4 max-w-4xl mx-auto px-6 py-12 flex flex-col gap-8">
 
-      <div className="w-3/4 max-w-4xl mx-auto px-6 py-12 text-justify flex flex-col gap-8">
-        <h1 className="text-3xl text-center font-bold mb-6">{title}</h1>
+        {/* Title */}
+        <div className="w-full text-center mb-8">
+          <h1 className="text-3xl font-extrabold">{title}</h1>
+        </div>
 
+        {/* Opening Section */}
         {opening_section && (
-          <div>
-            <strong className="strong">Opening Section:</strong>
+          <div className="bg-white/5 rounded-xl shadow p-6">
+            <strong className="text-lg">Εναρκτήρια Ενότητα</strong>
             <p className="mt-2">{opening_section}</p>
           </div>
         )}
 
+        {/* Topics */}
         {topics?.length > 0 && (
-          <div>
-            <strong className="strong">Topics Discussed:</strong>
+          <div className="bg-white/5 rounded-xl shadow p-6">
+            <strong className="text-lg">Θέματα Συζήτησης</strong>
             <ul className="list-disc list-inside mt-2">
               {topics.map((t, idx) => (
                 <li key={idx}>{t.topic}</li>
@@ -77,29 +80,31 @@ const DebateMetadataPage = () => {
           </div>
         )}
 
-        <div>
-          <strong className="strong">Debate Info:</strong>
+        {/* Metadata */}
+        <div className="bg-white/5 rounded-xl shadow p-6">
+          <strong className="text-lg">Πληροφορίες Συνεδρίασης</strong>
           <ul className="list-disc list-inside mt-2">
-            {session_date && <li>Session Date: {session_date}</li>}
-            {period && <li>Period: {period}</li>}
-            {session && <li>Session: {session}</li>}
-            {meeting && <li>Meeting: {meeting}</li>}
+            {session && <li>Σύνοδος: {session}</li>}
+            {period && <li>Περίοδος: {period}</li>}
+            {meeting && <li>Συνεδρίαση: {meeting}</li>}
+            {session_date && <li>Ημερομηνία: {session_date}</li>}
           </ul>
         </div>
 
+        {/* Summary */}
         {summary && (
-          <div>
-            <strong className="strong">Summary:</strong>
+          <div className="bg-white/5 rounded-xl shadow p-6">
+            <strong className="text-lg">Περίληψη</strong>
             <p className="mt-2">{summary}</p>
           </div>
         )}
 
+        {/* Speakers */}
         {speakers?.length > 0 && (
-          <div>
+          <div className="bg-white/5 rounded-xl shadow p-6">
             <p className="mb-4">
-              <strong className="strong">Participating Speakers:</strong> ({speakers.length})
+              <strong className="text-lg">Συμμετέχοντες Ομιλητές</strong> ({speakers.length})
             </p>
-
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {speakers.slice(0, visibleSpeakers).map((speaker, idx) => (
                 <SpeakerCircle
@@ -111,32 +116,31 @@ const DebateMetadataPage = () => {
               ))}
             </div>
 
+            {/* Toggle Button */}
             <div className="mt-6 text-center">
-              {visibleSpeakers < speakers.length && (
+              {visibleSpeakers < speakers.length ? (
                 <button
-                  className="underline font-bold"
+                  className="text-white border border-white rounded-full px-4 py-1 hover:bg-white hover:text-black transition"
                   onClick={() => setVisibleSpeakers(speakers.length)}
                 >
-                  Show All
+                  Προβολή Όλων
                 </button>
-              )}
-
-              {visibleSpeakers >= speakers.length && speakers.length > initialSpeakersShown && (
+              ) : speakers.length > initialSpeakersShown && (
                 <button
-                  className="underline font-bold"
+                  className="text-white border border-white rounded-full px-4 py-1 hover:bg-white hover:text-black transition"
                   onClick={() => setVisibleSpeakers(initialSpeakersShown)}
                 >
-                  Show Less
+                  Απόκρυψη
                 </button>
               )}
             </div>
           </div>
         )}
 
-
       </div>
     </div>
   );
+
 };
 
 export default DebateMetadataPage;

@@ -4,7 +4,7 @@ import { constants } from "../constants/constants.js";
 console.log("Initializing Elasticsearch client...");
 
 const client = new Client({
-  node: constants.ELASTICSEARCH_URL, // ElasticSearch URL
+  node: constants.ELASTICSEARCH_URL,
   auth: {
     username: constants.ELASTICSEARCH_USERNAME,
     password: constants.ELASTICSEARCH_PASSWORD,

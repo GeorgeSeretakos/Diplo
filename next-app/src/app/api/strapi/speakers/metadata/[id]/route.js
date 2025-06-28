@@ -16,6 +16,7 @@ export async function GET(request, { params }) {
         documentId
         speaker_name
         description
+        age
         image {
           formats
           url

@@ -72,16 +72,16 @@ imageUrl
         >
           <div className="flex justify-between items-center p-4 border-b-2">
             <Landmark size={38} className="text-white"/>
-            <span className="text-2xl font-bold">Debates Portal</span>
+            <span className="text-2xl font-bold">Πρακτικά Βουλής</span>
             <button onClick={() => setIsOpen(false)} className="text-white">
               <X size={24}/>
             </button>
           </div>
 
           <nav className="p-4 text-s space-y-4">
-            <Link href="/" className="block p-2 hover:bg-gray-700 rounded">Home</Link>
-            <Link href="/search-debates" className="block p-2 hover:bg-gray-700 rounded">Debates</Link>
-            <Link href="/search-speakers" className="block p-2 hover:bg-gray-700 rounded">Speakers</Link>
+            <Link href="/" className="block p-2 hover:bg-gray-700 rounded">Αρχική</Link>
+            <Link href="/search-debates" className="block p-2 hover:bg-gray-700 rounded">Αναζήτηση Πρακτικών</Link>
+            <Link href="/search-speakers" className="block p-2 hover:bg-gray-700 rounded">Αναζήτηση Ομιλητών</Link>
           </nav>
         </div>
       </div>
@@ -118,14 +118,14 @@ imageUrl
 
           {/* Sort select (only if showSortBy = true) */}
           {showSortBy && (
-            <div className="flex items-center gap-4 w-1/2">
-              <span className="text-white w-full font-semibold">Sort By</span>
+            <div className="flex items-center w-1/2">
+              <span className="text-white w-full font-semibold">Ταξινόμηση</span>
               <select
                 className="bg-[#1E1F23] text-white text-xs p-2 rounded-lg outline-none border-none w-full"
                 onChange={handleSortChange}
               >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
+                <option value="newest">Νεώτερα</option>
+                <option value="oldest">Παλαιότερα</option>
               </select>
             </div>
           )}

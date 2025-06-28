@@ -18,9 +18,6 @@ export async function GET(request, { params }) {
         title
         opening_section
         summary
-        topics {
-          topic
-        }
         period
         session_date
         session

@@ -20,7 +20,6 @@
       "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["../constants/*"],
-      "@stores/*": ["stores/*"],
       "@elasticsearch/*": ["../elasticsearch/*"],
       "@/*": ["*"]
     },

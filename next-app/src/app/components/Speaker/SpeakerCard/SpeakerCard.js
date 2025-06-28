@@ -1,17 +1,14 @@
 import React from "react";
 import styles from "./SpeakerCard.module.css";
 import Link from "next/link";
-import useSearchFilters from "../../../../stores/searchFilters.js";
 
-const SpeakerCard = ({ documentId, image, name, currentFilters, disableClick = false }) => {
-  const setFilters = useSearchFilters((state) => state.setFilters);
+const SpeakerCard = ({ documentId, image, name, disableClick = false }) => {
 
   const handleClick = (e) => {
     if (disableClick) {
       e.preventDefault(); // 🛑 Stop Link navigation if disabled
       return;
     }
-    setFilters(currentFilters);
   };
 
   return (

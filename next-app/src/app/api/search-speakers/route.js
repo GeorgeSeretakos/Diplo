@@ -1,7 +1,7 @@
 import {searchDebatesKeyPhrase} from "@utils/search/searchDebatesKeyPhrase.js";
-import {searchSpeakersStrapiFilters} from "@utils/search/searchSpeakersStrapiFilters.js";
 import {getDetailedStrapiSpeakers} from "@utils/graphql/getDetailedStrapiSpeakers.js";
 import {getDetailedStrapiDebates} from "@utils/graphql/getDetailedStrapiDebates.js";
+import { queryStrapiSpeakers } from "@utils/search/queryStrapiSpeakers.js";
 
 export async function POST(req) {
   try {
@@ -9,9 +9,12 @@ export async function POST(req) {
     const {
       keyPhrase = "",
       strapiFilters = {},
+      sortBy = "newest",
+      page = 1,
+      pageSize = 45
     } = body;
 
-    console.log("Calling speeches-speakers api with: ", body);
+    const offset = (page - 1) * pageSize;
 
     const hasKeyPhrase = keyPhrase.trim() !== "";
     const hasStrapiFilters =
@@ -20,10 +23,8 @@ export async function POST(req) {
       !!strapiFilters.gender ||
       !!(Array.isArray(strapiFilters.parties) && strapiFilters.parties.length > 0);
 
-    console.log("hasKeyPhrase: ", hasKeyPhrase);
-    console.log("hasStrapiFilters: ", hasStrapiFilters);
-
     let result = [];
+    let total = 0;
 
     if (hasKeyPhrase) {
       const esResults = await searchDebatesKeyPhrase(keyPhrase);
@@ -33,118 +34,116 @@ export async function POST(req) {
         return new Response(JSON.stringify({result: [], totalPages: 0}), {status: 200});
       }
 
-      let filteredSpeakerIds = esResults.map(d => d.top_speech.speaker_id);
-      let filteredDebateIds = esResults.map(d => d.documentId);
-
-      console.log("Filtered Speaker Ids without strapi filters: ", filteredSpeakerIds);
-      console.log("Filtered Debate Ids without strapi filters: ", filteredDebateIds);
-
-      if (hasStrapiFilters) {
-        const strapiResults = await searchSpeakersStrapiFilters(strapiFilters);
-        const strapiSpeakersSet = new Set(strapiResults.map(s => s.documentId));
-
-        filteredSpeakerIds = filteredSpeakerIds.filter(id => strapiSpeakersSet.has(id)).sort();
-        // Also filter debates to only keep debates linked to surviving speakers
-        filteredDebateIds = esResults
-          .filter(e => filteredSpeakerIds.includes(e.top_speech.speaker_id))
-          .map(e => e.documentId)
-          .sort();
-      }
-
-      console.log("Filtered Debate Ids after strapi filters: ", filteredDebateIds);
-
-      if (filteredSpeakerIds.length === 0) {
-        return new Response(JSON.stringify({result: [], totalPages: 0}), {status: 200});
-      }
-
-      const detailedStrapiSpeakers = await getDetailedStrapiSpeakers({
-        ids: filteredSpeakerIds,
-        offset: 0,
-        limit: filteredSpeakerIds.length,
-      });
-
-      filteredDebateIds = Array.from(new Set(filteredDebateIds));
-      console.log("Unique filtered debate ids: ", filteredDebateIds);
-
-      const detailedStrapiDebates = await getDetailedStrapiDebates({
-        ids: filteredDebateIds,
-        offset: 0,
-        limit: filteredDebateIds.length,
-      })
-
-      console.log("Detailed strapi debates: ", detailedStrapiDebates);
-
-      // Create easy lookup maps
-      const esMap = new Map(esResults.map(d => [d.top_speech.speaker_id, d]));
-      const debateMap = new Map(detailedStrapiDebates.map(d => [d.documentId, d]));
+      // 1️⃣ Map of speaker_id -> top speech info from ES
+      const esMap = new Map(
+        esResults.map(e => [
+          e.top_speech.speaker_id,
+          {
+            top_speech: e.top_speech,
+            debateDocumentId: e.documentId
+          }
+        ])
+      );
 
       console.log("esMap: ", esMap);
+
+      const allowedSpeakerIds = [...esMap.keys()];
+
+      // Apply Strapi filters AND restrict to speakers matched in ES
+      const { speakers: strapiSpeakers, total: strapiTotal } = await queryStrapiSpeakers({
+        ...strapiFilters,
+        allowedIds: allowedSpeakerIds,
+        offset,
+        limit: pageSize,
+      })
+
+      total = strapiTotal;
+
+      if (strapiSpeakers.length === 0) {
+        return new Response(JSON.stringify({ result: [], totalPages: 0 }), { status: 200 });
+      }
+
+      // Extract relevant debate IDs (to enrich each result with debate info)
+      const uniqueDebateIds = [
+        ...new Set(
+          strapiSpeakers
+            .map(s => esMap.get(s.documentId)?.debateDocumentId)
+            .filter(Boolean)
+        ),
+      ];
+      console.log("Unique Debate Ids: ", uniqueDebateIds);
+
+      // Fetch full debate info (Strapi)
+      const detailedStrapiDebates = await getDetailedStrapiDebates({
+        ids: uniqueDebateIds,
+      });
+      console.log("detailedStrapiDebates: ", detailedStrapiDebates);
+
+      const debateMap = new Map(detailedStrapiDebates.map(d => [d.documentId, d]));
       console.log("debateMap: ", debateMap);
 
-      result = detailedStrapiSpeakers.map(strapiSpeaker => {
-        const esEntry = esMap.get(strapiSpeaker.documentId);
-        if (!esEntry) return null; // safety
-
-        const strapiDebate = debateMap.get(esEntry.documentId);
-
-        console.log("esEntry: ", esEntry);
-        console.log("strapiDebate: ", strapiDebate);
+      // Enrich final speaker results with top_speech and debate info
+      result = strapiSpeakers.map(speaker => {
+        console.log("Speaker: ", speaker);
+        const esData = esMap.get(speaker.documentId);
+        const debate = esData ? debateMap.get(esData.debateDocumentId) : null;
 
         return {
-          documentId: strapiSpeaker.documentId,  // speaker documentId
-          speaker_name: strapiSpeaker.speaker_name,
-          image: strapiSpeaker.image,
-          age: strapiSpeaker.age,
-          gender: strapiSpeaker.gender,
-          // Top speech
-          top_speech: {
-            score: esEntry.top_speech.score,
-            content: esEntry.top_speech.content,
-            speaker_name: esEntry.top_speech.speaker_name,
-            speech_id: esEntry.top_speech.id,
-          },
-          // Debate metadata
-          debate: strapiDebate
+          ...speaker,
+          top_speech: esData?.top_speech || null,
+          debate: debate
             ? {
-              documentId: strapiDebate.documentId,
-              date: strapiDebate.date,
-              title: strapiDebate.title,
-              session: strapiDebate.session,
-              meeting: strapiDebate.meeting,
-              period: strapiDebate.period,
-              topics: strapiDebate.topics,
+              documentId: debate.documentId,
+              date: debate.date,
+              title: debate.title,
+              session: debate.session,
+              period: debate.period,
+              topics: debate.topics,
             }
             : null,
         };
-      }).filter(Boolean); // Remove any nulls
+      });
 
     } else if (hasStrapiFilters) {
-      const strapiResults = await searchSpeakersStrapiFilters(strapiFilters);
-      console.log("Strapi Results: ", strapiResults);
-      const allIds = strapiResults.map(d => d.documentId).sort();
-
-      result = await getDetailedStrapiSpeakers({
-        ids: allIds,
-        offset: 0,
-        limit: allIds.length,
+      const { speakers: strapiSpeakers, total: strapiTotal } = await queryStrapiSpeakers({
+        ...strapiFilters,
+        offset,
+        limit: pageSize,
+        sortBy
       });
+
+      total = strapiTotal;
+
+      result = strapiSpeakers.map(speaker => ({
+        ...speaker,
+        top_speech: null,
+        debate: null,
+      }));
 
       console.log("Detailed speakers: ", result);
     } else {
-      result = await getDetailedStrapiSpeakers({
-        fetchAll: true,
-        ids: [],
-        offset: 0,
-        limit: 1000, // TODO: make dynamic
-      })
+      const { speakers: strapiSpeakers, total: strapiTotal } = await queryStrapiSpeakers({
+        offset,
+        limit: pageSize,
+        sortBy
+      });
+
+      total = strapiTotal
+
+      result = strapiSpeakers.map(speaker => ({
+        ...speaker,
+        top_speech: null,
+        debate: null,
+      }));
     }
 
-    const totalPages = Math.ceil(result?.length / 5); // TODO: Set speakers per page number
+    const totalPages = Math.ceil(total / pageSize);
 
     return new Response(
       JSON.stringify({
         result,
         totalPages,
+        totalSpeakers: total,
       }),
       {status: 200}
     );

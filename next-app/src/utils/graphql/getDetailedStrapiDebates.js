@@ -3,34 +3,33 @@ import { constants } from "@constants/constants.js";
 
 const STRAPI_URL = constants.STRAPI_URL;
 
-export async function getDetailedStrapiDebates({ ids, offset = 0, limit = 10000, sortBy = "newest", fetchAll = false }) {
+export async function getDetailedStrapiDebates({
+  ids,
+  sortBy = "newest",
+  fetchAll = false
+}) {
   console.log("Debate ids received from getDetailedStrapiDebates util: ", ids);
 
   if (!fetchAll && (!ids || ids.length === 0)) {
     return [];
   }
 
-  const sort = sortBy === "newest" ? "date:desc" : "date:asc";
-
-  let filtersPart = "";
-  if (!fetchAll && ids && ids.length > 0) {
-    filtersPart = `filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } },`;
-  }
+  const filtersPart = !fetchAll && ids && ids.length > 0
+    ? `filters: { documentId: { in: [${ids.map(id => `"${id}"`).join(", ")}] } },`
+    : "";
 
   const query = `
     query {
       debates(
         ${filtersPart}
-        pagination: { start: ${offset}, limit: ${limit} }
-        sort: "${sort}"
+        pagination: { limit: 10000 }
+        sort: "${sortBy === "newest" ? "date:desc" : "date:asc"}"
       ) {
         documentId
         date
         title
         session
-        meeting
         period
-        topics { topic }
       }
     }
   `;

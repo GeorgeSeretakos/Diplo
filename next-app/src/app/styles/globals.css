@@ -102,7 +102,7 @@ body {
 .button {
   padding: 5px 10px;
   color: white;
-  background-color: #1e1e1e;
+  background-color: transparent;
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;

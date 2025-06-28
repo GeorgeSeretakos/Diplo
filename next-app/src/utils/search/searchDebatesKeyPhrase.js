@@ -19,7 +19,7 @@ function preprocessGreekKeyword(keyword) {
   };
 }
 
-export async function searchDebatesKeyPhrase(keyPhrase) {
+export async function searchDebatesKeyPhrase(keyPhrase, sortBy="newest") {
   if (!keyPhrase || keyPhrase.trim() === "") return [];
 
   try {
@@ -59,7 +59,7 @@ export async function searchDebatesKeyPhrase(keyPhrase) {
           },
         },
         size: 10000,
-        sort: [{ _score: "desc" }],
+        sort: [{ speech_date: sortBy === "oldest" ? "asc" : "desc" }],
       },
     });
 

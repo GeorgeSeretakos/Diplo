@@ -6,7 +6,7 @@ import DebateMetadataPage from './metadata/DebateMetadataPage.js';
 import DebateContentPage from './content/DebateContentPage.js';
 
 export default function DebatePage() {
-  const [activeTab, setActiveTab] = useState('Metadata');
+  const [activeTab, setActiveTab] = useState('Πλήρες Περιεχόμενο Συνεδρίασης');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -23,14 +23,14 @@ export default function DebatePage() {
       <SwitchTab
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        tabs={["Metadata", "Search Content"]}
+        tabs={["Μεταδεδομένα Συνεδρίασης", "Πλήρες Περιεχόμενο Συνεδρίασης"]}
       />
 
 
       {/* Content */}
       <div className="flex justify-center">
-        {activeTab === 'Metadata' && <DebateMetadataPage />}
-        {activeTab === 'Search Content' && <DebateContentPage />}
+        {activeTab === 'Μεταδεδομένα Συνεδρίασης' && <DebateMetadataPage />}
+        {activeTab === 'Πλήρες Περιεχόμενο Συνεδρίασης' && <DebateContentPage />}
       </div>
     </div>
   );

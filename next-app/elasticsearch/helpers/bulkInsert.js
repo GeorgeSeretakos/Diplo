@@ -30,6 +30,12 @@ async function fetchSpeeches(page = 1) {
   }
 }
 
+function extractSpeechDate(speechId) {
+  const match = speechId.match(/debate_(\d{4}-\d{2}-\d{2})_/);
+  return match ? `${match[1]}T00:00:00` : null;
+}
+
+
 
 async function bulkInsert() {
   console.log(`Starting bulk insert into index: ${INDEX_NAME}`);
@@ -49,10 +55,17 @@ async function bulkInsert() {
         !speech.speaker_name ||
         !speech.content ||
         !speech.speech_id ||
-        !speech.debates[0]?.documentId ||
-        !speech.speakers[0]?.documentId
+        !speech.debate?.documentId ||
+        !speech.speaker?.documentId
       ) {
         console.warn(`Skipping speech with missing fields: ${speech.id}`);
+        return [];
+      }
+
+      // Extract speech date
+      const speechDate = extractSpeechDate(speech.speech_id);
+      if (!speechDate) {
+        console.warn(`Skipping speech with invalid date in id: ${speech.speech_id}`);
         return [];
       }
 
@@ -78,6 +91,7 @@ async function bulkInsert() {
           debate_id: speech.debate.documentId,
           speaker_id: speech.speaker.documentId,
           speech_number: speechNumber,
+          speech_date: speechDate
         },
       ];
     });

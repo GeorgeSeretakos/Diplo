@@ -17,14 +17,19 @@ import NavigationBar from "@components/Navigation/NavigationBar.js";
 import SpeakerDebate from "../components/SpeakerDebate/SpeakerDebate.js";
 
 
-export default function DebateSearch() {
+export default function SpeakerSearch() {
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const [isClient, setIsClient] = useState(false);
   const [speakers, setSpeakers] = useState([]);
   const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isFirstLoadDone, setIsFirstLoadDone] = useState(false);
+  const [totalSpeakers, setTotalSpeakers] = useState(0);
+
   const [inputValues, setInputValues] = useState({
     ageRange: { min: 18, max: 100},
     gender: "",
@@ -36,60 +41,70 @@ export default function DebateSearch() {
   });
 
   useEffect(() => {
-    const searchSpeakers = async () => {
-      try {
-        setLoading(true);
-        const endpoint = "http://localhost:3000/api/search-speakers";
+    const timeoutId = setTimeout(() => {
+      const searchSpeakers = async () => {
+        try {
+          setLoading(true);
+          setSpeakers(null); // Hide the previous results
+          setTotalSpeakers(0);
+          setTotalPages(1);
 
-        const body = {
-          keyPhrase: inputValues.keyPhrase,
-          strapiFilters: {
-            speakerName: inputValues.speakerName,
-            ageRange: inputValues.ageRange,
-            gender: inputValues.gender,
-            parties: inputValues.parties,
-          },
-        };
+          const endpoint = "http://localhost:3000/api/search-speakers";
 
-        const response = await axios.post(endpoint, body);
-        console.log("Search API Response: ", response.data);
+          const body = {
+            keyPhrase: inputValues.keyPhrase,
+            strapiFilters: {
+              speakerName: inputValues.speakerName,
+              ageRange: inputValues.ageRange,
+              gender: inputValues.gender,
+              parties: inputValues.parties,
+            },
+            page,
+            sortBy
+          };
 
-        setSpeakers(response.data.result);
-        setTotalPages(response.data.totalPages);
-        setPage(1);
-      } catch (error) {
-        console.error("Error fetching speakers:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+          const response = await axios.post(endpoint, body);
+          setSpeakers(response.data.result);
+          setTotalPages(response.data.totalPages);
+          setTotalSpeakers(response.data.totalSpeakers);
+          setIsFirstLoadDone(true);
+        } catch (error) {
+          console.error("Error fetching speakers:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    searchSpeakers();
-  }, [inputValues, sortBy]);
+      searchSpeakers();
+    }, 1000); // 1s debounce
+
+    return () => clearTimeout(timeoutId); // cancel if input changes again
+  }, [inputValues, page, sortBy]);
 
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
+
+
   const handleInputChange = (name, value) => {
+    setPage(1);
     setInputValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
-  console.log("Input Values: ", inputValues);
-  console.log("Speakers: ", speakers);
-  console.log("Total Pages: ". totalPages);
-
-
   return (
     <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
       <div className={styles.backgroundContainer}></div>;
 
       <NavigationBar
-        title="Search Speakers"
+        title="Αναζήτηση Ομιλητών"
         showSearch={true}
         placeholder="Enter key phrase..."
         onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
@@ -98,40 +113,45 @@ export default function DebateSearch() {
       />
 
 
-      <div className="flex text-white w-[100%] m-auto pt-[2rem] relative z-10">
+      <div className="flex text-white w-[100%] m-auto mt-[6rem] relative z-10">
 
         <div className={` space-y-6 p-10 rounded-br-2xl h-fit w-[40%] min-h-[100vh] ${isDropdownOpen ? 'h-auto' : ''}`}>
 
           {/* Filters Section */}
           <div className="mb-6">
             <div className="text-center text-3xl font-bold mb-6">
-              <h1>Filters</h1>
+              <h1>Φίλτρα Αναζήτησης</h1>
             </div>
 
-            <NameFilter
-              selectedName={inputValues.speakerName}
-              onFilterChange={(updatedName) => handleInputChange("speakerName", updatedName)}
-            />
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <NameFilter
+                selectedName={inputValues.speakerName}
+                onFilterChange={(updatedName) => handleInputChange("speakerName", updatedName)}
+              />
+            </div>
 
-            <PartyFilter
-              selectedParties={inputValues.parties}
-              onFilterChange={(updatedSelection) => handleInputChange("parties", updatedSelection)}
-            />
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <PartyFilter
+                selectedParties={inputValues.parties}
+                onFilterChange={(updatedSelection) => handleInputChange("parties", updatedSelection)}
+              />
+            </div>
 
-            <GenderFilter
-              selectedGender={inputValues.gender}
-              onFilterChange={(updatedValue) => handleInputChange("gender", updatedValue)}
-            />
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <GenderFilter
+                selectedGender={inputValues.gender}
+                onFilterChange={(updatedValue) => handleInputChange("gender", updatedValue)}
+              />
+            </div>
 
-            <TopicFilter
-              selectedTopics={inputValues.topics}
-              onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
-            />
-
-            {isClient && <AgeFilter
-              selectedAgeRange={inputValues.ageRange}
-              onFilterChange={(updatedRange) => handleInputChange("ageRange", updatedRange)}
-            />}
+            {isClient &&
+              <div className="border-b border-gray-400 pb-4 mb-4">
+                <AgeFilter
+                selectedAgeRange={inputValues.ageRange}
+                onFilterChange={(updatedRange) => handleInputChange("ageRange", updatedRange)}
+                />
+              </div>
+            }
 
             <SentimentFilter
               selectedSentiments={inputValues.sentiments}
@@ -142,37 +162,10 @@ export default function DebateSearch() {
           </div>
         </div>
 
-        {/* Debates List */}
+
         <div className="w-[60%] flex flex-col items-center p-10 space-y-6">
           <div className="text-center text-3xl font-bold mb-6">
-            <h1>Speakers ({speakers? speakers.length : 0})</h1>
-          </div>
-          <div className={styles.speakerGrid}>
-            {Array.isArray(speakers) && speakers.length > 0 && speakers.map((speaker, index) => (
-              speaker.top_speech ? (
-                <SpeakerDebate
-                  key={index}
-                  speakerId={speaker.documentId}
-                  speakerName={speaker.speaker_name}
-                  speakerImage={getImageUrl(speaker.image)}
-                  debateId={speaker.debate.documentId}
-                  topics={speaker.debate.topics}
-                  content={speaker.top_speech.content}
-                  session_date={speaker.debate.session_date}
-                  date={speaker.debate.date}
-                  session={speaker.debate.session}
-                  period={speaker.debate.period}
-                  meeting={speaker.debate.meeting}
-                />
-              ) : (
-                <SpeakerCard
-                  key={index}
-                  documentId={speaker.documentId}
-                  image={getImageUrl(speaker.image)}
-                  name={speaker.speaker_name}
-                />
-              )
-            ))}
+            <h1>Ομιλητές ({totalSpeakers})</h1>
           </div>
 
           {/* Loading Spinner */}
@@ -182,9 +175,36 @@ export default function DebateSearch() {
             </div>
           )}
 
-          {speakers?.length > 0 && (
+          {!loading && Array.isArray(speakers) && speakers.length > 0 && (
+            <div className={styles.speakerGrid}>
+              {speakers.map((speaker, index) =>
+                speaker.top_speech ? (
+                  <SpeakerDebate
+                    key={index}
+                    speakerId={speaker.documentId}
+                    speakerName={speaker.speaker_name}
+                    speakerImage={getImageUrl(speaker.imageUrl)}
+                    debateId={speaker.debate.documentId}
+                    // topics={speaker.debate.topics}
+                    content={speaker.top_speech.content}
+                    date={speaker.debate.date}
+                    session={speaker.debate.session}
+                    period={speaker.debate.period}
+                  />
+                ) : (
+                  <SpeakerCard
+                    key={index}
+                    documentId={speaker.documentId}
+                    image={getImageUrl(speaker.imageUrl)}
+                    name={speaker.speaker_name}
+                  />
+                )
+              )}
+            </div>
+          )}
+
+          {totalSpeakers > 0 && (
               <div className="flex justify-center mt-6 space-x-4">
-                {/* Previous Button */}
                 <button
                   className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
                   onClick={() => setPage(prev => Math.max(prev - 1, 1))}
@@ -193,10 +213,10 @@ export default function DebateSearch() {
                   Previous
                 </button>
 
-                {/* SpeakerSpeechesPage Info */}
-                <span className="text-white font-bold px-4 py-2">Page {page} of {totalPages}</span>
+                <span className="text-white font-bold px-4 py-2">
+                  Page {page} of {totalPages}
+                </span>
 
-                {/* Next Button */}
                 <button
                   className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
                   onClick={() => setPage(prev => prev + 1)}
@@ -208,9 +228,12 @@ export default function DebateSearch() {
             )
           }
 
-          {!loading && speakers?.length === 0 && (
-            <div className="mt-20">
-              <p className="font-bold">The current filters applied return no results.</p>
+          {/* No Results Message (only after loading and after at least one real search) */}
+          {!loading && isFirstLoadDone && Array.isArray(speakers) && speakers.length === 0 && (
+            <div className="flex flex-col justify-center items-center h-[60vh] px-6 text-center">
+              <p className="font-bold text-gray-300 text-base max-w-xl">
+                Τα φίλτρα με τα οποία αναζητήσατε δεν επέστρεψαν αποτελέσματα.
+              </p>
             </div>
           )}
 

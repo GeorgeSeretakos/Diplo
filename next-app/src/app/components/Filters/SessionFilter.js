@@ -170,7 +170,7 @@ const SessionFilter = ({ session, handleInputChange }) => {
 
   return (
     <>
-      <FilterSection title="Session / Period">
+      <FilterSection title="Σύνοδος / Περίοδος">
         <select
           id="session-period"
           className="text-xs bg-transparent border-2 border-white text-white w-full"

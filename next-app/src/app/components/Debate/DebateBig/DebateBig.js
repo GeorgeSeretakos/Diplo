@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./DebateBig.module.css";
 import Link from "next/link";
-import useSearchFilters from "../../../../stores/searchFilters.js";
 
 const DebateBig = ({
   documentId,
@@ -13,18 +12,14 @@ const DebateBig = ({
   date,
   session,
   period,
-  meeting,
   style,
-  currentFilters,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const MAX_LENGTH = 300;
-  const setFilters = useSearchFilters((state) => state.setFilters);
 
   return (
       <Link
         href={`/debate/${documentId}`}
-        onClick={() => setFilters(currentFilters)}
         className={styles.debateCard}
         style={style}
       >

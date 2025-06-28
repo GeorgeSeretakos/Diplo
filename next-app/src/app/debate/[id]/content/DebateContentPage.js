@@ -22,6 +22,8 @@ export default function DebateContentPage() {
   const observerRef = useRef(null);
   const isFetchingRef = useRef(false); // ✅ FIX 3: Prevent overlapping requests
 
+  const [showFilters, setShowFilters] = useState(true);
+
   const [inputValues, setInputValues] = useState({
     ageRange: { min: 18, max: 100 },
     gender: "",
@@ -85,7 +87,7 @@ export default function DebateContentPage() {
 
     try {
       const nextPage = currentPage + 1; // ✅ FIX 1: Use explicit currentPage
-      const response = await axios.get(`/api/strapi/debates/content/${documentId}`, {
+      const response = await axios.get(`http://localhost:3000/api/strapi/debates/content/${documentId}`, {
         params: { page: nextPage, limit }
       });
 
@@ -114,40 +116,52 @@ export default function DebateContentPage() {
   return (
     <div className="relative min-h-screen w-full bg-transparent text-white">
       {/* Navigation */}
-      <NavigationBar title={title} showSearch={true} placeholder="Enter a keyphrase ..." />
+      <NavigationBar title={title} showSearch={true} placeholder="Εισαγωγή λέξης / φράσης-κλειδιού ..."/>
 
-      {/* Main Layout */}
-      <div className="flex text-white w-[100%] m-auto pt-[2rem] relative z-10">
-
-        {/* Filters Section */}
-        <div className="mb-6 px-8 w-1/4">
-          <div className="text-center text-3xl font-bold mb-6">
-            <h1>Filters</h1>
-          </div>
-
-          <NameFilter
-            selectedName={inputValues.speakerName}
-            onFilterChange={(updatedName) => handleInputChange("speakerName", updatedName)}
-          />
-          <PartyFilter
-            selectedParties={inputValues.parties}
-            onFilterChange={(updatedSelection) => handleInputChange("parties", updatedSelection)}
-          />
-          <TopicFilter
-            selectedTopics={inputValues.topics}
-            onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
-          />
-          <SentimentFilter
-            selectedSentiments={inputValues.sentiments}
-            onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-            disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
-          />
+      {/* Toggle Button - Always Visible in Corner */}
+      {!showFilters && (
+        <div className="fixed bottom-[2rem] left-6 z-50">
+          <button
+            onClick={() => setShowFilters(true)}
+            className="button bg-white"
+          >
+            →
+          </button>
         </div>
+      )}
 
-        {/* Speeches */}
-        <div className="flex flex-col items-center justify-start w-full space-y-6">
+
+
+      <div className="flex text-white w-full m-auto pt-[2rem] relative z-10">
+        {showFilters && (
+          <div className="mb-6 px-8 w-1/4 transition-all duration-300">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-3xl font-bold">Φίλτρα</h1>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="button"
+              >
+                Απόκρυψη
+              </button>
+            </div>
+
+            <NameFilter
+              selectedName={inputValues.speakerName}
+              onFilterChange={(updatedName) => handleInputChange("speakerName", updatedName)}
+            />
+            <SentimentFilter
+              selectedSentiments={inputValues.sentiments}
+              onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
+              disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
+            />
+          </div>
+        )}
+
+        {/* Speeches Section */}
+        <div
+          className={`flex flex-col items-center justify-start ${showFilters ? 'w-3/4' : 'w-full'} space-y-6 transition-all duration-300`}>
           <div className="text-center text-3xl font-bold mb-6">
-            <h1>Debate Content</h1>
+            <h1>Περιεχόμενο Ομιλιών</h1>
           </div>
 
           {deduplicatedSpeeches.map((speech) => (
@@ -162,7 +176,7 @@ export default function DebateContentPage() {
               </div>
 
               {/* Speech Text Column */}
-              <div className="flex-1 p-6 bg-none bg-opacity-70 rounded-3xl shadow-2xl border-2">
+              <div className="flex-1 p-6 bg-none backdrop-blur rounded-3xl shadow-2xl border-2">
                 {speech.content.map((paragraph, index) => (
                   <p key={index} className="mb-4 text-justify leading-relaxed">
                     {paragraph}

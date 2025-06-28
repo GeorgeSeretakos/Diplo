@@ -1,5 +1,5 @@
 import { searchDebateKeyPhrase } from "@utils/searchInDebate.js";
-import { searchStrapiFilters } from "@utils/searchDebatesStrapiFilters.js";
+import { searchStrapiFilters } from "@utils/queryStrapiDebates.js";
 import { mergeDebateIds } from "@utils/mergeDebateIds.js";
 import { getDetailedStrapiDebates } from "@utils/graphql/getDetailedStrapiDebates.js";
 

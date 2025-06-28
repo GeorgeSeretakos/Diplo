@@ -1,9 +1,7 @@
 import { searchDebatesKeyPhrase } from "@utils/search/searchDebatesKeyPhrase.js";
-import { searchDebatesStrapiFilters } from "@utils/search/searchDebatesStrapiFilters.js";
-import { getDetailedStrapiDebates } from "@utils/graphql/getDetailedStrapiDebates.js";
+import { queryStrapiDebates, getSpeakerImages } from "@utils/search/queryStrapiDebates.js";
 
 export async function POST(req) {
-  const PAGE_SIZE = 15;
 
   try {
     const body = await req.json();
@@ -11,7 +9,11 @@ export async function POST(req) {
       keyPhrase = "",
       strapiFilters = {},
       sortBy = "newest",
+      page = 1,
+      pageSize = 30
     } = body;
+
+    const offset = (page - 1) * pageSize;
 
     const hasKeyPhrase = keyPhrase.trim() !== "";
     const hasStrapiFilters =
@@ -24,95 +26,102 @@ export async function POST(req) {
       (Array.isArray(strapiFilters.speakers) && strapiFilters.speakers.length > 0);
 
     let debates = [];
+    let total = 0;
 
   if (hasKeyPhrase) {
     const esResults = await searchDebatesKeyPhrase(keyPhrase);
-    console.log("search debate key phrase returned esResults: ", esResults);
+    console.log("esResults: ", esResults);
 
     if (esResults.length === 0) {
       return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
     }
 
-    let filteredIds = esResults.map(d => d.documentId);
+    // Preserve elastic order and attach top speech info
+    const esMap = new Map(esResults.map(d => [d.documentId, d]));
+    let sortedIds = esResults.map(d => d.documentId); // already sorted by elastic query
 
-    // Apply Strapi filters on top of ES if present
-    if (hasStrapiFilters) {
-      const strapiResults = await searchDebatesStrapiFilters(strapiFilters);
-      const strapiIds = strapiResults.map(d => d.documentId);
+    // Apply Strapi filters on top of ES if present, or else fetch full strapi details from the elastic ids
+    const { debates: strapiDebates, total: strapiTotal } = await queryStrapiDebates({
+      ...strapiFilters, // may be empty if no extra filters
+      allowedIds: sortedIds,
+      offset,
+      limit: pageSize,
+      sortBy
+    });
 
-      // Intersect ES and Strapi results
-      filteredIds = filteredIds.filter(id => strapiIds.includes(id));
-    }
+    total = strapiTotal;
 
-    // Empty intersection
-    if (filteredIds.length === 0) {
+    if (strapiDebates.length === 0) {
       return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
     }
 
-    const detailedStrapiDebates = await getDetailedStrapiDebates({
-      ids: filteredIds,
-      offset: 0,
-      limit: filteredIds.length,
-      sortBy,
-    });
+    const speakerIds = strapiDebates
+      .map(d => esMap.get(d.documentId)?.top_speech?.speaker_id)
+      .filter(Boolean);
 
-    // Form return object
-    const esMap = new Map(esResults.map(d => [d.documentId, d]));
+    const speakerImageMap = getSpeakerImages([...new Set(speakerIds)]);
 
-    debates = detailedStrapiDebates.map(strapiDebate => {
+
+    debates = strapiDebates.map(strapiDebate => {
       const esDebate = esMap.get(strapiDebate.documentId);
+      const top = esDebate?.top_speech;
 
       return {
-        documentId: strapiDebate.documentId,
-        date: strapiDebate.date,
-        title: strapiDebate.title,
-        session: strapiDebate.session,
-        meeting: strapiDebate.meeting,
-        period: strapiDebate.period,
-        topics: strapiDebate.topics,
-        top_speech: esDebate
+        ...strapiDebate,
+        top_speech: top
           ? {
-            score: esDebate.top_speech.score,
-            speaker_name: esDebate.top_speech.speaker_name,
-            content: esDebate.top_speech.content,
-            speaker_id: esDebate.top_speech.speaker_id,
+            ...top,
+            imageUrl: speakerImageMap.get(top.speaker_id) ?? null
           }
-          : null,
-        };
+          : null
+      };
       });
 
     } else if (hasStrapiFilters) {
       // Only strapi filters
-      const strapiResults = await searchDebatesStrapiFilters(strapiFilters);
-      const allIds = strapiResults.map(d => d.documentId).sort();
-      console.log("Strapi query results: ", allIds);
-
-      debates = await getDetailedStrapiDebates({
-        ids: allIds,
-        offset: 0,
-        limit: allIds.length,
-        sortBy,
+    const { debates: strapiDebates, total: strapiTotal } = await queryStrapiDebates({
+        ...strapiFilters,
+        offset,
+        limit: pageSize,
+        sortBy
       });
+
+    total = strapiTotal;
+
+      if (strapiDebates.length === 0) {
+        return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
+      }
+
+      debates = strapiDebates.map(debate => ({
+        ...debate,
+        top_speech: null, // No elastic data
+      }));
 
       console.log("Detailed fetch util returned: ", debates);
 
     } else {
-      // Initial load - No filters
-      debates = await getDetailedStrapiDebates({
-        fetchAll: true,
-        offset: 0,
-        limit: 10000, // TODO:  ⚡ temporary limit to prevent overloading
+      // Initial load – No filters applied
+      const { debates: strapiDebates, total: strapiTotal } = await queryStrapiDebates({
+        offset,
+        limit: pageSize,
         sortBy,
       });
+
+      total = strapiTotal;
+
+      debates = strapiDebates.map(debate => ({
+        ...debate,
+        top_speech: null,
+      }));
     }
 
-    const totalPages = Math.ceil(debates.length / PAGE_SIZE); // TODO: Dynamic limit debates per page
+    const totalPages = Math.ceil(total / pageSize);
 
     return new Response(
       JSON.stringify({
         debates,
         totalPages,
-        totalDebates: debates.length,
+        totalDebates: total,
       }),
       { status: 200 }
     );

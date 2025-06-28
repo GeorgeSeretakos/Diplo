@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import debounce from "lodash";
 
 import DebateBig from "@components/Debate/DebateBig/DebateBig";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
@@ -14,13 +15,19 @@ import SpeakerDebate from "@components/SpeakerDebate/SpeakerDebate.js";
 
 import styles from "./SearchDebates.module.css";
 
-import {useDebatesCacheStore} from "@stores/useDebatesCacheStore.js";
-import {getImageUrl} from "../../utils/getImageUrl.js";
-import SentimentFilter from "../components/Filters/SentimentFilter.js";
+import {getImageUrl} from "@utils/getImageUrl.js";
+import SentimentFilter from "@components/Filters/SentimentFilter.js";
 
 export default function DebateSearch() {
 
-    const MAX_LIMIT = 15;
+    const [isClient, setIsClient] = useState(false);
+    const [debates, setDebates] = useState([]);
+    const [sortBy, setSortBy] = useState("newest");
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [isFirstLoadDone, setIsFirstLoadDone] = useState(false);
+    const [totalDebates, setTotalDebates] = useState(0);
 
     const [inputValues, setInputValues] = useState({
         startDate: "",
@@ -33,88 +40,65 @@ export default function DebateSearch() {
         speakers: [],
     });
 
-    const [limit] = useState(MAX_LIMIT); // Items per page
-    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            const fetchDebates = async () => {
+                try {
+                    setLoading(true);
+                    setDebates(null);
+                    setTotalDebates(0);
+                    setTotalPages(1);
 
+                    const endpoint = "/api/search-debates";
+                    const body = {
+                        page,
+                        keyPhrase: inputValues.keyPhrase,
+                        strapiFilters: {
+                            startDate: inputValues.startDate,
+                            endDate: inputValues.endDate,
+                            session: inputValues.session,
+                            meeting: inputValues.meeting,
+                            period: inputValues.period,
+                            topics: inputValues.topics,
+                            speakers: inputValues.speakers,
+                            sentiments: inputValues.sentiments
+                        },
+                        sortBy
+                    };
 
-    const [isClient, setIsClient] = useState(false);
-    const [debates, setDebates] = useState([]);
-    const [sortBy, setSortBy] = useState("newest");
+                    const response = await axios.post(endpoint, body);
+                    setDebates(response.data.debates);
+                    setTotalPages(response.data.totalPages);
+                    setTotalDebates(response.data.totalDebates);
+                    setIsFirstLoadDone(true);
+                } catch (error) {
+                    console.error("Error fetching debates:", error);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-    const {
-        cachedDebates,
-        totalPages,
-        page,
-        setCachedDebates,
-        setTotalPages,
-        setPage,
-        resetCache,
-    } = useDebatesCacheStore();
+            fetchDebates();
+        }, 1000); // 1s debounce
 
-    console.log("Cached Debates Store: ",
-      cachedDebates,
-      totalPages,
-      page,
-      setCachedDebates,
-      setTotalPages,
-      setPage,
-      resetCache,
-    );
-
-    const handleInputChange = (name, value) => {
-        setPage(1); // Reset to page 1 on any input change
-        setInputValues((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
+        return () => clearTimeout(timeoutId);
+    }, [inputValues, page, sortBy]);
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    // 👇 When filters change, fetch new debates
     useEffect(() => {
-        const fetchDebates = async () => {
-            try {
-                setLoading(true);
-                const endpoint = "/api/search-debates";
-                const body = {
-                    keyPhrase: inputValues.keyPhrase,
-                    strapiFilters: {
-                        startDate: inputValues.startDate,
-                        endDate: inputValues.endDate,
-                        session: inputValues.session,
-                        meeting: inputValues.meeting,
-                        period: inputValues.period,
-                        topics: inputValues.topics,
-                        speakers: inputValues.speakers,
-                    },
-                    sortBy,
-                };
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [page]);
 
-                const response = await axios.post(endpoint, body);
-                console.log("Fetched Debates:", response.data);
-
-                setDebates(response.data.debates);
-                setCachedDebates(response.data.debates);
-                setTotalPages(response.data.totalPages);
-            } catch (error) {
-                console.error("Error fetching debates:", error);
-            } finally {
-                setLoading(false);
-            }        };
-        fetchDebates();
-    }, [inputValues, sortBy]);
-
-    // Helper to get paginated debates to show
-    const getPaginatedDebates = () => {
-        const start = (page - 1) * limit;
-        const end = start + limit;
-        return cachedDebates.slice(start, end);
+    const handleInputChange = (name, value) => {
+        setPage(1);
+        setInputValues((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
-
 
     console.log("Debates returned: ", debates);
 
@@ -122,11 +106,10 @@ export default function DebateSearch() {
       <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
           <div className={styles.backgroundContainer}></div>
 
-          {/* Top Navbar */}
           <NavigationBar
-            title="Search Debates"
+            title="Αναζήτηση Πρακτικών"
             showSearch={true}
-            placeholder="Enter key phrase..."
+            placeholder="Λέξη / Φράση - κλειδί..."
             onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
             showSortBy={true}
             setSortBy={setSortBy}
@@ -135,58 +118,76 @@ export default function DebateSearch() {
 
 
           {/* Main Layout */}
-          <div className="flex text-white w-full m-auto pt-[6rem] relative z-10">
+          <div className="flex text-white w-full m-auto mt-[6rem] relative z-10">
               {/* Filters Sidebar */}
               <div className="space-y-6 p-10 rounded-br-2xl h-fit w-[35%] min-h-[100vh]">
-                  <div className="text-center text-3xl font-bold mb-6">
-                      <h1>Filters</h1>
+                  <div className="text-center text-3xl font-bold mb-14">
+                      <h1>Φίλτρα Αναζήτησης</h1>
                   </div>
 
-                  <DateRangeFilter
-                    startDate={inputValues.startDate}
-                    endDate={inputValues.endDate}
-                    handleInputChange={handleInputChange}
-                  />
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <DateRangeFilter
+                        startDate={inputValues.startDate}
+                        endDate={inputValues.endDate}
+                        handleInputChange={handleInputChange}
+                      />
+                  </div>
 
-                  <SessionFilter
-                    session={inputValues.session}
-                    period={inputValues.period}
-                    meeting={inputValues.meeting}
-                    handleInputChange={handleInputChange}
-                  />
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <SessionFilter
+                        session={inputValues.session}
+                        period={inputValues.period}
+                        meeting={inputValues.meeting}
+                        handleInputChange={handleInputChange}
+                      />
+                  </div>
 
-                  <SpeakerOptionsFilter
-                    selectedValues={inputValues.speakers}
-                    onChange={(updatedSelection) => handleInputChange("speakers", updatedSelection)}
-                    placeholder="Search and select speakers..."
-                  />
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <SpeakerOptionsFilter
+                        selectedValues={inputValues.speakers}
+                        onChange={(updatedSelection) => handleInputChange("speakers", updatedSelection)}
+                        placeholder="Search and select speakers..."
+                      />
+                  </div>
 
-                  <TopicFilter
-                    selectedTopics={inputValues.topics}
-                    onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
-                  />
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <TopicFilter
+                        selectedTopics={inputValues.topics}
+                        onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
+                      />
+                  </div>
 
-                  <SentimentFilter
-                    selectedSentiments={inputValues.sentiments}
-                    onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-                    disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
-                  />
+                  <div>
+                      <SentimentFilter
+                        selectedSentiments={inputValues.sentiments}
+                        onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
+                        disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
+                      />
+                  </div>
               </div>
 
-              {/* Debates Section */}
+
               <div className="w-[65%] flex flex-col items-center p-10 space-y-6">
                   <div className="text-center text-3xl font-bold">
-                      <h1>Debates ({cachedDebates.length})</h1>
+                      <h1>Κοινοβουλευτικά Πρακτικά ({totalDebates})</h1>
                   </div>
 
-                  <div className={styles.debateGrid}>
-                      {getPaginatedDebates().map((debate, index) => (
+                  {/* Loading Spinner */}
+                  {loading && (
+                    <div className="flex justify-center py-10">
+                        <div className="w-10 h-10 border-4 border-white border-dashed rounded-full animate-spin"></div>
+                    </div>
+                  )}
+
+                  {!loading && Array.isArray(debates) && debates.length > 0 && (
+                    <div className={styles.debateGrid}>
+                      {debates.map((debate, index) => (
                         debate.top_speech ? (
                           <SpeakerDebate
                             key={index}
                             speakerId={debate.top_speech.speaker_id}
                             speakerName={debate.top_speech.speaker_name}
-                            speakerImage={getImageUrl()} // if you have speakerImage; otherwise pass empty string
+                            speakerImage={getImageUrl(debate.top_speech.imageUrl)}
                             debateId={debate.documentId}
                             topics={debate.topics}
                             content={debate.top_speech.content}
@@ -206,21 +207,15 @@ export default function DebateSearch() {
                             session={debate.session}
                             period={debate.period}
                             meeting={debate.meeting}
-                            content={null} // or you can pass undefined if DebateBig expects it
+                            content={null}
                             speaker_name={null}
                           />
                         )
                       ))}
-                  </div>
-
-                  {/* Loading Spinner */}
-                  {loading && (
-                    <div className="flex justify-center py-10">
-                        <div className="w-10 h-10 border-4 border-white border-dashed rounded-full animate-spin"></div>
                     </div>
                   )}
 
-                  {cachedDebates.length > 0 && (
+                  {totalDebates > 0 && (
                     <div className="flex justify-center mt-6 space-x-4">
                         <button
                           className="bg-[#1E1F23] text-white px-4 py-2 rounded-md disabled:opacity-50"
@@ -244,11 +239,13 @@ export default function DebateSearch() {
                     </div>
                   )}
 
-                  {!loading && cachedDebates.length === 0 && (
+                  {/* No Results Message (only after loading and after at least one real search) */}
+                  {!loading && isFirstLoadDone && Array.isArray(debates) && debates.length === 0 && (
                     <div className="mt-20">
-                        <p className="font-bold">The current filters applied return no results.</p>
+                        <p className="font-bold">Τα φίλτρα με τα οποία αναζητήσατε δεν επέστρεψαν αποτελέσματα.</p>
                     </div>
                   )}
+
               </div>
 
           </div>

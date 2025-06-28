@@ -72,7 +72,7 @@ export async function searchSpeakerKeyPhrase(keyPhrase, speakerId, speakerDebate
     const topSpeech = hit.inner_hits.top_speech.hits.hits[0];
     return {
       speakerDocumentId: hit._source.speaker_id,
-      debateDocumentId: hit._source.debate_id, // top document
+      debateDocumentId: hit._source.debate_id,
       top_speech: {
         id: topSpeech._id,
         score: topSpeech._score,

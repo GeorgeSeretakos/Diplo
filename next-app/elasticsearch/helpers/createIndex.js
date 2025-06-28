@@ -27,7 +27,8 @@ async function createSpeechesIndex() {
         },
         speaker_id: { type: "keyword" },
         debate_id: { type: "keyword" },
-        speech_number: { type: "integer" }
+        speech_number: { type: "integer" },
+        speech_date: { type: "date" }
       },
     };
 
