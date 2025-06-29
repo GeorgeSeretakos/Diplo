@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import debounce from "lodash";
 
 import DebateBig from "@components/Debate/DebateBig/DebateBig";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
@@ -34,8 +33,6 @@ export default function DebateSearch() {
         endDate: "",
         keyPhrase: "",
         session: "",
-        meeting: "",
-        period: "",
         topics: [],
         speakers: [],
     });
@@ -51,18 +48,16 @@ export default function DebateSearch() {
 
                     const endpoint = "/api/search-debates";
                     const body = {
-                        page,
                         keyPhrase: inputValues.keyPhrase,
                         strapiFilters: {
                             startDate: inputValues.startDate,
                             endDate: inputValues.endDate,
                             session: inputValues.session,
-                            meeting: inputValues.meeting,
-                            period: inputValues.period,
                             topics: inputValues.topics,
                             speakers: inputValues.speakers,
                             sentiments: inputValues.sentiments
                         },
+                        page,
                         sortBy
                     };
 
@@ -99,8 +94,6 @@ export default function DebateSearch() {
             [name]: value,
         }));
     };
-
-    console.log("Debates returned: ", debates);
 
     return (
       <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
@@ -161,7 +154,7 @@ export default function DebateSearch() {
                       <SentimentFilter
                         selectedSentiments={inputValues.sentiments}
                         onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-                        disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
+                        disabled={inputValues.keyPhrase.trim()}
                       />
                   </div>
               </div>

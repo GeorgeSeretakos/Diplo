@@ -35,7 +35,7 @@ imageUrl
   };
 
   return (
-    <div className="flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white bg-black text-white z-50">
+    <div className="flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white bg-black/40 backdrop-blur-md text-white z-50">
 
       <div className="flex items-center gap-4 w-2/5">
         <div className="text-white flex items-center gap-2">
@@ -94,7 +94,7 @@ imageUrl
             <input
               type="text"
               placeholder={placeholder}
-              className="w-full bg-[#1E1F23] text-white pr-20 pl-4 py-2 rounded-xl border-white border-0"
+              className="w-full bg-white/20 text-white placeholder-white pr-20 pl-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40 transition duration-150"
               value={query}
               onChange={handleSearch}
             />
@@ -107,7 +107,7 @@ imageUrl
                 <X size={18}/>
               </button>
             )}
-            {/* Search icon (disabled button) */}
+            {/* Search icons (disabled button) */}
             <button
               disabled
               className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-white"
@@ -121,7 +121,7 @@ imageUrl
             <div className="flex items-center w-1/2">
               <span className="text-white w-full font-semibold">Ταξινόμηση</span>
               <select
-                className="bg-[#1E1F23] text-white text-xs p-2 rounded-lg outline-none border-none w-full"
+                className="bg-white/20 text-white text-xs p-2 rounded-lg outline-none border border-white/20 w-full focus:ring-2 focus:ring-white/40 transition"
                 onChange={handleSortChange}
               >
                 <option value="newest">Νεώτερα</option>
@@ -132,5 +132,5 @@ imageUrl
         </div>
       )}
     </div>
-  );
+  )
 }

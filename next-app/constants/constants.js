@@ -5,8 +5,6 @@ export const constants = {
   ELASTICSEARCH_URL: "https://localhost:9200",
   ELASTICSEARCH_USERNAME: "elastic",
   ELASTICSEARCH_PASSWORD: "elastic",
-  OPENROUTER_API_KEY: "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",
-  OPENROUTER_API_URL: "https://openrouter.ai/api/v1/chat/completions",
   dark: "#2B2D31",
   light: "#1E1F23",
   cream: "rgba(244, 242, 234, 0.8)",

@@ -3,7 +3,7 @@ import { constants } from "../../constants/constants.js";
 export function getImageUrl(image, type = "speaker") {
   const defaultImage =
     type === "party"
-      ? "/images/parties/european_union_flag.jpg"
+      ? "/icons/parliament_2.png"
       : "/images/politicians/default.jpg";
 
   // Case 1: No image provided

@@ -80,10 +80,10 @@ sentiments = [],
 
     return response.hits.hits.map(hit => ({
       id: hit._id,
-      score: hit._score,
       speaker_name: hit._source.speaker_name,
       speaker_id: hit._source.speaker_id,
       content: hit.highlight?.content?.join(" ") || hit._source.content,
+      speech_number: hit._source.speech_number,
     }));
 
   } catch (error) {

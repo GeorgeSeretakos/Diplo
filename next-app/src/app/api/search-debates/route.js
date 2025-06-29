@@ -20,7 +20,6 @@ export async function POST(req) {
       !!strapiFilters.startDate ||
       !!strapiFilters.endDate ||
       !!strapiFilters.session ||
-      !!strapiFilters.meeting ||
       !!strapiFilters.period ||
       (Array.isArray(strapiFilters.topics) && strapiFilters.topics.length > 0) ||
       (Array.isArray(strapiFilters.speakers) && strapiFilters.speakers.length > 0);

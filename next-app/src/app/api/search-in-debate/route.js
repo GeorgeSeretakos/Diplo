@@ -31,7 +31,8 @@ export async function POST(req) {
       return new Response(JSON.stringify({ speeches: [], totalPages: 0 }), { status: 200 });
     }
 
-    const pageSize = 5; // Optional: can be made dynamic via `body.pageSize`
+    // Refactor
+    const pageSize = 5;
     const totalPages = Math.ceil(speeches.length / pageSize);
 
     return new Response(

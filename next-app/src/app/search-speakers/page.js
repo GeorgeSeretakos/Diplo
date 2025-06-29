@@ -101,12 +101,12 @@ export default function SpeakerSearch() {
 
   return (
     <div className="bg-[rgba(244, 242, 234, 0.8)] text-black">
-      <div className={styles.backgroundContainer}></div>;
+      <div className={styles.backgroundContainer}></div>
 
       <NavigationBar
         title="Αναζήτηση Ομιλητών"
         showSearch={true}
-        placeholder="Enter key phrase..."
+        placeholder="Λέξη / φράση-κλειδί"
         onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
         setSortBy={setSortBy}
         setPage={setPage}

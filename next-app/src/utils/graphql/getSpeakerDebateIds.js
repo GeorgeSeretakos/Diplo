@@ -1,36 +1,26 @@
-import axios from "axios";
-import { constants } from "@constants/constants.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import Database from "better-sqlite3";
 
-const STRAPI_URL = constants.STRAPI_URL;
+// Setup DB
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.join(__dirname, "../../../../strapi-app/.tmp/data.db");
+const db = new Database(dbPath, { readonly: true });
 
-export async function getSpeakerDebateIds({ speakerId, offset = 0, limit = 10000 }) {
-  console.log("Util received speakerId: ", speakerId);
-  try {
-    const query = `
-      query {
-        speakers(
-          filters: { documentId: { eq: "${speakerId}" } }
-        ) {
-          debates(
-            pagination: { start: ${offset}, limit: ${limit} } 
-          ) {
-            documentId
-          }
-        }
-      }
-    `;
+export function getSpeakerDebateIds(speakerId) {
+  const stmt = db.prepare(`
+    SELECT
+        d.document_id AS documentId,
+        s.speaker_name AS speakerName,
+        s.document_id AS speakerDocumentId
+    FROM debates d
+    JOIN speakers_debates_lnk sdl ON sdl.debate_id = d.id
+    JOIN speakers s ON s.id = sdl.speaker_id
+    WHERE s.document_id = ?
+  `);
 
-    // console.log("Query: ", query);
+  const rows = stmt.all(speakerId);
 
-    const response = await axios.post(`${STRAPI_URL}/graphql`, { query }, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return response?.data?.data?.speakers?.[0]?.debates || [];
-  } catch (error) {
-    console.error("Failed to fetch speaker debates:", error);
-    throw error;
-  }
+  return rows;
 }

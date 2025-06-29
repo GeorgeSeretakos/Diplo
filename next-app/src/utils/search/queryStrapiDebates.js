@@ -16,6 +16,7 @@ export function queryStrapiDebates({
   period,
   topics,
   speakers,
+  speakingSpeakerId = null,
   allowedIds = [],
   offset = 0,
   limit = 20,
@@ -52,7 +53,7 @@ export function queryStrapiDebates({
     params.period = period;
   }
 
-  // Speakers filter (if needed)
+  // Participating speakers filter
   if (speakers?.length > 0) {
     for (let i = 0; i < speakers.length; i++) {
       const alias = `s${i}`;
@@ -64,6 +65,20 @@ export function queryStrapiDebates({
       params[`speaker${i}`] = speakers[i];
     }
   }
+
+  // Filter debates where the specified speaker has at least one speech
+  if (speakingSpeakerId) {
+    whereClauses.push(`EXISTS (
+      SELECT 1
+      FROM speeches sp
+      JOIN speeches_debate_lnk sdl ON sdl.speech_id = sp.id
+      JOIN speeches_speaker_lnk ssl ON ssl.speech_id = sp.id
+      JOIN speakers s ON s.id = ssl.speaker_id
+      WHERE sdl.debate_id = d.id AND s.document_id = @speakerId
+    )`);
+    params.speakerId = speakingSpeakerId;
+  }
+
 
   const whereSQL = whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "";
   const orderSQL = sortBy === "newest" ? "ORDER BY d.date DESC" : "ORDER BY d.date ASC";
@@ -118,4 +133,3 @@ export function getSpeakerImages(speakerIds = []) {
 
   return map;
 }
-
