@@ -8,7 +8,6 @@ const DebateBig = ({
   score,
   topics,
   content,
-  session_date,
   date,
   session,
   period,
@@ -27,19 +26,19 @@ const DebateBig = ({
         {/* Debate Title */}
         <div className={styles.date}>{date}</div>
 
-        {/* Topics */}
-        {topics && topics.length > 0 && (
-          <div className={styles.topics}>
-            <strong>Topics:</strong> {topics.map((t) => t.topic).join(", ")}
-          </div>
-        )}
-
         {/* Session Details */}
         <div className={styles.session}>
           {/*<p><strong>Meeting:</strong> {meeting}</p>*/}
-          <p><strong>Session:</strong> {session}</p>
-          <p><strong>Period:</strong> {period}</p>
+          <p><strong>Σύνοδος:</strong> {session}</p>
+          <p><strong>Περίοδος:</strong> {period}</p>
         </div>
+
+        {/* Topics */}
+        {topics && topics.length > 0 && (
+          <div className={styles.topics}>
+            <strong>Συζητήθηκαν:</strong> {topics.map((t) => t).join(", ")}
+          </div>
+        )}
 
         {/* Score */}
         {score && (

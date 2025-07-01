@@ -11,41 +11,39 @@ const BrowseSpeakers = () => {
     return (
         <div className={styles.pageLayout}>
 
-            <div className={styles.leftSection}>
-                <h2 className="font-bold text-4xl mb-4">Speakers</h2>
+            <div className={`${styles.leftSection} text-left`}>
+                <h2 className="font-bold text-4xl mb-4">Πολιτικά Πρόσωπα</h2>
                 <p className="font-bold">
-                    Find speakers based on their name, the topics they discussed,
-                    a key-phrase they said, the political party
-                    they belong and combinations of these filter.
+                    Ανακαλύψτε πληροφορίες για πολιτικά πρόσωπα, το έργο και τις τοποθετήσεις τους, μέσα από τις ομιλίες και τις θεματικές ενότητες στις οποίες συμμετείχαν.
                 </p>
-                <div className="buttonContainer">
-                    <button className="button mt-4" onClick={() => router.push("search-speakers")}>Browse Speakers</button>
+                <div className="w-full">
+                    <button className="button mt-4" onClick={() => router.push("search-speakers")}>Αναζήτηση Ομιλητών</button>
                 </div>
             </div>
 
             <div className={styles.sections}>
                 {/* Section 1: Find by Name */}
                 <SearchSection
-                    title="Speaker Name"
-                    imageUrl="/images/politicians/speakers.webp"
+                    title="Όνοματεπώνυμο"
+                    imageUrl="/images/politicians/politicians.jpg"
                 />
 
                 {/* Section 2: Browse by Party */}
                 <SearchSection
-                    title="Political Party"
-                    imageUrl="/images/parties/parties.jpg"
+                    title="Πολιτικό Κόμμα"
+                    imageUrl="/images/parties/political-parties.jpg"
                 />
 
                 {/* Section 3: Find by Key Phrase */}
                 <SearchSection
-                    title="Key Phrase"
-                    imageUrl="/images/politicians/key-phrase.jpg"
+                    title="Λέξη / Φράση-κλειδί"
+                    imageUrl="/images/debates/key-phrase.webp"
                 />
 
                 {/* Section 4: Browse by Topic */}
                 <SearchSection
-                    title="Topic"
-                    imageUrl="/images/topics/topics.jpg"
+                    title="Συναισθηματικό Φορτίο"
+                    imageUrl="/images/politicians/key-phrase.jpg"
                 />
             </div>
         </div>

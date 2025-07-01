@@ -31,6 +31,9 @@ export async function GET(request, { params }) {
             url
           }
         }
+        topics {
+          name
+        }
       }
     }
   `;

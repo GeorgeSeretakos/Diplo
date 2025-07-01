@@ -14,28 +14,28 @@ const BrowseSpeakers = () => {
             <div className={styles.sections}>
                 {/* Section 1: Find by Name */}
                 <SearchSection
-                    title="Debate Date"
+                    title="Εύρος Ημερομηνιών"
                     imageUrl="/images/debates/date.jpg"
                     description="Click to search for debates based on their date"
                 />
 
                 {/* Section 2: Find by Key Phrase */}
                 <SearchSection
-                    title="Key Phrase"
-                    imageUrl="/images/debates/key-phrase.jpg"
+                    title="Συμμετέχοντες Ομιλητές"
+                    imageUrl="/images/politicians/speakers.webp"
                     description="Click to search for debates mentioning a specific phrase"
                 />
 
                 {/* Section 3: Browse by Topic */}
                 <SearchSection
-                    title="Parliament Session"
+                    title="Κοινοβουλευτική Σύνοδος"
                     imageUrl="/images/debates/parliament-session.jpg"
                     description="Click to browse debates based on parliament session"
                 />
 
                 {/* Section 4: Browse by Party */}
                 <SearchSection
-                    title="Debate Topic"
+                    title="Θέματα Συζήτησης"
                     imageUrl="/images/debates/topics.png"
                     description="Click to browse debates grouped by their political party"
                 />
@@ -43,13 +43,12 @@ const BrowseSpeakers = () => {
             </div>
 
             <div className={`${styles.leftSection} ${styles.leftSectionInDebates}`}>
-                <h2 className="font-bold text-4xl mb-4">Debates</h2>
+                <h2 className="font-bold text-4xl mb-4">Κοινοβουλευτικά Πρακτικά</h2>
                 <p className="font-bold">
-                    Search debates based on date, key-phrase, parliament session, topics, participating speakers and
-                    combinations of these filters.
+                    Περιηγηθείτε σε πρακτικά συνεδριάσεων της Βουλής, αναζητώντας περιεχόμενο που σας ενδιαφέρει βάσει θεματικής, χρονικής περιόδου ή παρεμβάσεων συγκεκριμένων ομιλητών.
                 </p>
-                <div className="buttonContainer">
-                    <button className="button mt-4" onClick={() => router.push("/search-debates")}>Browse Debates</button>
+                <div className="w-full flex justify-end">
+                    <button className="button mt-4" onClick={() => router.push("/search-debates")}>Αναζήτηση Πρακτικών</button>
                 </div>
             </div>
         </div>

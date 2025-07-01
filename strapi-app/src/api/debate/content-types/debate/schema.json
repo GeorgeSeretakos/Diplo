@@ -60,7 +60,10 @@
       "type": "text"
     },
     "topics": {
-      "type": "json"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "debates"
     }
   }
 }

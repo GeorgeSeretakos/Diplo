@@ -6,7 +6,7 @@ import axios from "axios";
 import { Search, X } from "lucide-react";
 import { getImageUrl } from "../../../utils/getImageUrl.js";
 
-const SpeakerOptionsFilter = ({ selectedValues = [], onChange }) => {
+const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
   const [speakers, setSpeakers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [tempSelection, setTempSelection] = useState(selectedValues);
@@ -18,7 +18,22 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange }) => {
   const fetchSpeakers = async () => {
     setLoading(true);
     try {
-      const query = `
+      const query = debateId
+        ? `
+        query ($debateId: ID!) {
+          speakers(
+            filters: { debates: { documentId: { eq: $debateId } } }
+            pagination: { limit: -1 }
+          ) {
+            documentId
+            speaker_name
+            image {
+              url
+            }
+          }
+        }
+      `
+        : `
         query {
           speakers(pagination: { limit: -1 }) {
             documentId
@@ -29,18 +44,24 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange }) => {
           }
         }
       `;
+
+      const variables = debateId ? { debateId } : {};
+
       const response = await axios.post(
         `${STRAPI_URL}/graphql`,
-        { query },
+        { query, variables },
         { headers: { "Content-Type": "application/json" } }
       );
+
       setSpeakers(response.data.data.speakers || []);
     } catch (err) {
-      console.error("Error fetching speakers:", err);
+      console.error("Error fetching speakers:", err.response?.data || err);
     } finally {
       setLoading(false);
     }
   };
+
+
 
   const toggleSpeaker = (name) => {
     setTempSelection((prev) =>
@@ -150,7 +171,7 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange }) => {
 
             {/* Speaker grid */}
             {loading ? (
-              <p className="text-white">Loading speakers...</p>
+              <p className="text-white">Φόρτωση Ομιλητών...</p>
             ) : (
               <div
                 className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-6 max-h-[450px] overflow-y-auto overflow-x-hidden px-6">

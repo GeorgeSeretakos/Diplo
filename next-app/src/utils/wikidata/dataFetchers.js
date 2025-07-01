@@ -1,5 +1,3 @@
-// utils/wikidata/dataFetchers.js
-
 import { executeSparqlQuery } from "./fetchData.js";
 import { getPositionHeldQuery } from "./queries.js";
 

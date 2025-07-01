@@ -1,5 +1,4 @@
 import {searchDebatesKeyPhrase} from "@utils/search/searchDebatesKeyPhrase.js";
-import {getDetailedStrapiSpeakers} from "@utils/graphql/getDetailedStrapiSpeakers.js";
 import {getDetailedStrapiDebates} from "@utils/graphql/getDetailedStrapiDebates.js";
 import { queryStrapiSpeakers } from "@utils/search/queryStrapiSpeakers.js";
 

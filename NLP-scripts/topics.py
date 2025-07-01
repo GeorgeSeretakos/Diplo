@@ -15,6 +15,14 @@ url_topic = f"http://{ec2_ip}:8060/api/topic"
 username = "anotrandom-EMP-USER"
 password = "EMP-EC2_123_TEXT_PROC"
 
+# Load LLM → Greek topic mappings
+base_dir = os.path.dirname(__file__)
+mapping_path = os.path.join(base_dir, "llm_to_greek_topic.json")
+
+with open(mapping_path, "r", encoding="utf-8") as f:
+    llm_to_greek_topic = json.load(f)
+
+
 shutdown_event = threading.Event()
 unique_topics = set()
 
@@ -58,7 +66,11 @@ def classify_topics(summary, source_name="text", threshold=0.65):
         for topic_obj in parsed_result:
             topic_label = topic_obj.get("topic")
             if topic_label:
-                unique_topics.add(topic_label.strip())
+                clean_label = topic_label.strip()
+                unique_topics.add(clean_label)
+
+                greek_topic = llm_to_greek_topic.get(clean_label)
+                print(f"🧾 Model returned topic: '{clean_label}' → 🇬🇷 Greek mapping: '{greek_topic}'")
 
         return parsed_result
 
@@ -79,7 +91,9 @@ if __name__ == "__main__":
             break
 
         print(f"\n[{index}/{total}] 🧠 Collecting topics for debate {debate_id}...")
-        classify_topics(summary, source_name=f"debate-{debate_id}")
+        parsed_topics = classify_topics(summary, source_name=f"debate-{debate_id}")
+
+        update_topics_in_db(DB_PATH, debate_id, parsed_topics)
 
     # Fallback print if the script finishes normally
     print("\n✅ Finished. Unique topics returned:")

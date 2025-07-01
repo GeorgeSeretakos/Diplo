@@ -78,39 +78,66 @@ def update_summary_in_db(db_path, debate_id, summary_text):
 
 
 def get_debates_with_summary_without_topics(db_path):
-    """Fetch debates that have a summary but no topics yet."""
+    """Fetch debates that have a summary but no related topics yet."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT id, summary
-        FROM debates
-        WHERE summary IS NOT NULL AND TRIM(summary) != ''
-        AND (topics IS NULL OR TRIM(topics) = '')
+        SELECT d.id, d.summary
+        FROM debates d
+        WHERE d.summary IS NOT NULL AND TRIM(d.summary) != ''
+        AND NOT EXISTS (
+            SELECT 1
+            FROM topics_debates_lnk tdl
+            WHERE tdl.debate_id = d.id
+        )
     """)
     result = cursor.fetchall()
     conn.close()
 
-    # Returns a list of (id, summary) tuples
     return result
 
 
-def update_topics_in_db(db_path, debate_id, topics_list):
-    """Update the topics column in the debates table."""
+
+import os
+
+# Load the mapping just once
+base_dir = os.path.dirname(__file__)
+mapping_path = os.path.join(base_dir, "llm_to_greek_topic.json")
+with open(mapping_path, "r", encoding="utf-8") as f:
+    llm_to_greek_topic = json.load(f)
+
+def update_topics_in_db(db_path, debate_id, llm_topics):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    topics_json = json.dumps(topics_list, ensure_ascii=False)
+    for topic_obj in llm_topics:
+        llm_label = topic_obj.get("topic")
+        if not llm_label:
+            continue
 
-    cursor.execute("""
-        UPDATE debates
-        SET topics = ?
-        WHERE id = ?
-    """, (topics_json, debate_id))
+        greek_label = llm_to_greek_topic.get(llm_label.strip())
+        if not greek_label:
+            print(f"⚠️ LLM topic '{llm_label}' not found in mapping.")
+            continue
+
+        # Get topic ID for Greek label
+        cursor.execute("SELECT id FROM topics WHERE name = ?", (greek_label,))
+        row = cursor.fetchone()
+        if not row:
+            print(f"❌ Topic '{greek_label}' not found in DB.")
+            continue
+
+        topic_id = row[0]
+
+        # Link to debate
+        cursor.execute("""
+            INSERT OR IGNORE INTO topics_debates_lnk (topic_id, debate_id)
+            VALUES (?, ?)
+        """, (topic_id, debate_id))
 
     conn.commit()
     conn.close()
-    print(f"✅ Topics saved to DB for debate {debate_id}: {topics_json}")
 
 import sqlite3
 

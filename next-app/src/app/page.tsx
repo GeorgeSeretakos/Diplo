@@ -35,10 +35,15 @@ export default function Home() {
                 />
                 {/* Title Overlay */}
                 <div className={`videoOverlay ${scrolled ? "hidden" : ""}`}>
-                    <h1 className="mainTitle">Welcome to the Greek Parliament Debates Portal</h1>
-                    <h2 className="video-subtitle">Search and explore debates, speakers, and topics from past and current sessions</h2>
+                    <h1 className="text-2xl font-bold">Καλώς ήρθατε στην Πύλη Πρακτικών της Ελληνικής Βουλής</h1>
+                    <h2 className="text-sm mt-2 text-center">
+                        Περιηγηθείτε σε συνεδριάσεις, ομιλητές και θεματικές ενότητες από το παρελθόν και το παρόν.
+                        <br/>
+                        <span
+                            className="text-yellow-300 font-semibold">Κάντε κύλιση προς τα κάτω για να ξεκινήσετε</span>
+                    </h2>
                     <div className="flex justify-center fixed mt-6 left-1/2">
-                        <CgScrollV size={35} />
+                        <CgScrollV size={30}/>
                     </div>
                 </div>
             </div>
@@ -46,7 +51,7 @@ export default function Home() {
             {/* 📜 Main Content */}
             <div className="content">
                 <BrowseDebates/>
-                <BrowseSpeakers />
+                <BrowseSpeakers/>
             </div>
         </div>
     );

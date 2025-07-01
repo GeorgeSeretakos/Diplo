@@ -66,6 +66,21 @@ export function queryStrapiDebates({
     }
   }
 
+  // Topic filter (OR logic)
+  if (topics?.length > 0) {
+    const topicPlaceholders = topics.map((_, i) => `@topic${i}`).join(", ");
+    whereClauses.push(`
+      EXISTS (
+        SELECT 1 FROM topics_debates_lnk tdl
+        JOIN topics t ON t.id = tdl.topic_id
+        WHERE tdl.debate_id = d.id AND t.name IN (${topicPlaceholders})
+      )
+    `);
+    topics.forEach((topic, i) => {
+      params[`topic${i}`] = topic;
+    });
+  }
+
   // Filter debates where the specified speaker has at least one speech
   if (speakingSpeakerId) {
     whereClauses.push(`EXISTS (
@@ -78,7 +93,6 @@ export function queryStrapiDebates({
     )`);
     params.speakerId = speakingSpeakerId;
   }
-
 
   const whereSQL = whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "";
   const orderSQL = sortBy === "newest" ? "ORDER BY d.date DESC" : "ORDER BY d.date ASC";
@@ -93,7 +107,7 @@ export function queryStrapiDebates({
 
   // Main query
   const dataQuery = `
-    SELECT d.document_id AS documentId, d.date, d.title, d.session, d.period
+    SELECT d.id, d.document_id AS documentId, d.date, d.title, d.session, d.period
     FROM debates d
     ${whereSQL}
     ${orderSQL}
@@ -106,8 +120,44 @@ export function queryStrapiDebates({
     offset,
   });
 
-  return { debates, total };
+  // Fetch topics per debate
+  const debateIds = debates.map(d => d.id);
+  let topicsMap = new Map();
+
+  if (debateIds.length > 0) {
+    const placeholders = debateIds.map(() => '?').join(', ');
+    const rows = db.prepare(`
+      SELECT tdl.debate_id, t.name
+      FROM topics_debates_lnk tdl
+      JOIN topics t ON t.id = tdl.topic_id
+      WHERE tdl.debate_id IN (${placeholders});
+    `).all(...debateIds);
+
+    for (const row of rows) {
+      if (!topicsMap.has(row.debate_id)) {
+        topicsMap.set(row.debate_id, []);
+      }
+      topicsMap.get(row.debate_id).push(row.name);
+    }
+  }
+
+  // Combine
+  const result = debates.map(d => {
+    return {
+      id: d.id, // needed for topic mapping
+      documentId: d.documentId,
+      date: d.date,
+      title: d.title,
+      session: d.session,
+      period: d.period,
+      topics: topicsMap.get(d.id) || [],
+    };
+  }).map(({ id, ...rest }) => rest); // remove `id` before returning
+
+
+  return { debates: result, total };
 }
+
 
 export function getSpeakerImages(speakerIds = []) {
   if (speakerIds.length === 0) return new Map();

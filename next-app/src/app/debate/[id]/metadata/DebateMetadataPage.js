@@ -74,7 +74,7 @@ const DebateMetadataPage = () => {
             <strong className="text-lg">Θέματα Συζήτησης</strong>
             <ul className="list-disc list-inside mt-2">
               {topics.map((t, idx) => (
-                <li key={idx}>{t.topic}</li>
+                <li key={idx}>{t.name}</li>
               ))}
             </ul>
           </div>

@@ -35,7 +35,7 @@ imageUrl
   };
 
   return (
-    <div className="flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white bg-black/40 backdrop-blur-md text-white z-50">
+    <div className="flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white bg-black/40 text-white z-50">
 
       <div className="flex items-center gap-4 w-2/5">
         <div className="text-white flex items-center gap-2">
@@ -66,7 +66,7 @@ imageUrl
 
         {/* Sidebar content */}
         <div
-          className={`fixed top-0 left-0 w-[30%] h-full bg-[#1E1F23] transition-transform transform ${
+          className={`fixed top-0 left-0 w-[30%] h-full bg-[#1E1F23] backdrop-blur-none transition-transform transform ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } z-50`}
         >
