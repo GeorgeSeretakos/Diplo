@@ -1,27 +1,34 @@
 import { Client } from '@elastic/elasticsearch';
-import { constants } from "../constants/constants.js";
+import dotenv from "dotenv";
 
-console.log("Initializing Elasticsearch client...");
+dotenv.config();
 
 const client = new Client({
-  node: constants.ELASTICSEARCH_URL,
+  node: process.env.ELASTICSEARCH_URL,
   auth: {
-    username: constants.ELASTICSEARCH_USERNAME,
-    password: constants.ELASTICSEARCH_PASSWORD,
+    username: process.env.ELASTICSEARCH_USERNAME,
+    password: process.env.ELASTICSEARCH_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
   },
 });
 
-console.log("Pinging Elasticsearch server...");
+// Async function to validate connection
+async function verifyElasticsearchConnection() {
+  try {
+    await client.ping();
+    if (process.env.NODE_ENV !== 'production') {
+      console.log("✅ Elasticsearch Connection Successful");
+    }
+  } catch (error) {
+    console.error("❌ Elasticsearch Connection Error:", error.message);
+    // Optionally throw to crash the process if it's critical
+    throw new Error("Failed to connect to Elasticsearch. Exiting...");
+  }
+}
 
-client.ping()
-  .then(() => {
-    console.log("Elasticsearch Connection Successful!");
-  })
-  .catch(error => {
-    console.error("Elasticsearch Connection Error:", error);
-  });
+// Immediately verify connection once (synchronously triggered)
+verifyElasticsearchConnection();
 
 export default client;

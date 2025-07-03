@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import DebateBig from "@components/Debate/DebateBig/DebateBig";
+import Debate from "@components/Debate/Debate";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
 
 import TopicFilter from "@components/Filters/TopicFilter.js";
@@ -16,10 +16,11 @@ import styles from "./SearchDebates.module.css";
 
 import {getImageUrl} from "@utils/getImageUrl.js";
 import SentimentFilter from "@components/Filters/SentimentFilter.js";
+import RhetoricalIntentFilter from "@components/Filters/RhetoricalIntentFilter.js";
+import HighIntensityFilter from "@components/Filters/HighIntensityFilter.js";
 
 export default function DebateSearch() {
 
-    const [isClient, setIsClient] = useState(false);
     const [debates, setDebates] = useState([]);
     const [sortBy, setSortBy] = useState("newest");
     const [page, setPage] = useState(1);
@@ -35,6 +36,9 @@ export default function DebateSearch() {
         session: "",
         topics: [],
         speakers: [],
+        rhetoricalIntent: "",
+        sentiment: "",
+        highIntensity: false
     });
 
     useEffect(() => {
@@ -49,14 +53,14 @@ export default function DebateSearch() {
                     const endpoint = "/api/search-debates";
                     const body = {
                         keyPhrase: inputValues.keyPhrase,
-                        strapiFilters: {
-                            startDate: inputValues.startDate,
-                            endDate: inputValues.endDate,
-                            session: inputValues.session,
-                            topics: inputValues.topics,
-                            speakers: inputValues.speakers,
-                            sentiments: inputValues.sentiments
-                        },
+                        sentiment: inputValues.sentiment,
+                        rhetoricalIntent: inputValues.rhetoricalIntent,
+                        highIntensity: inputValues.highIntensity,
+                        startDate: inputValues.startDate,
+                        endDate: inputValues.endDate,
+                        session: inputValues.session,
+                        topics: inputValues.topics,
+                        speakers: inputValues.speakers,
                         page,
                         sortBy
                     };
@@ -74,14 +78,10 @@ export default function DebateSearch() {
             };
 
             fetchDebates();
-        }, 1000); // 1s debounce
+        }, 1500); // 1.5s debounce
 
         return () => clearTimeout(timeoutId);
     }, [inputValues, page, sortBy]);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -102,7 +102,7 @@ export default function DebateSearch() {
           <NavigationBar
             title="Αναζήτηση Πρακτικών"
             showSearch={true}
-            placeholder="Λέξη / Φράση - κλειδί..."
+            placeholder="Λέξη / Φράση - κλειδί... (αναζητούμε σε ποιές συζητήσεις ειπώθηκε)"
             onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
             showSortBy={true}
             setSortBy={setSortBy}
@@ -150,13 +150,24 @@ export default function DebateSearch() {
                       />
                   </div>
 
-                  <div>
-                      <SentimentFilter
-                        selectedSentiments={inputValues.sentiments}
-                        onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-                        disabled={inputValues.keyPhrase.trim()}
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <RhetoricalIntentFilter
+                        selectedRhetoricalIntent={inputValues.rhetoricalIntent}
+                        onFilterChange={(updatedSelection) => handleInputChange("rhetoricalIntent", updatedSelection)}
                       />
                   </div>
+
+                  <div className="border-b border-gray-400 pb-4 mb-4">
+                      <SentimentFilter
+                        selectedSentiment={inputValues.sentiment}
+                        onFilterChange={(updatedSelection) => handleInputChange("sentiment", updatedSelection)}
+                      />
+                  </div>
+
+                  <HighIntensityFilter
+                    selectedIntensity={inputValues.highIntensity}
+                    onFilterChange={(updatedSelection) => handleInputChange("highIntensity", updatedSelection)}
+                  />
               </div>
 
 
@@ -191,7 +202,7 @@ export default function DebateSearch() {
                             meeting={debate.meeting}
                           />
                         ) : (
-                          <DebateBig
+                          <Debate
                             key={index}
                             documentId={debate.documentId}
                             session_date={debate.session_date}

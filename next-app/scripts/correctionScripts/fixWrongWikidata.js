@@ -1,9 +1,12 @@
 import fs from "fs";
-import {constants} from "../../constants/constants.js";
+import dotenv from "dotenv";
 import enrichSpeakerFromWikidata from "../utils/enrichSpeakerFromWikidata.js";
 
-const STRAPI_URL = constants.STRAPI_URL;
-const API_TOKEN = constants.API_TOKEN;
+// Load environment variables
+dotenv.config();
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const API_TOKEN = process.env.API_TOKEN;
 
 const inputPath = "../../public/data/wrong-wiki-url-speakers.json";
 

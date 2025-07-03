@@ -1,6 +1,6 @@
 import { queryStrapiDebates } from "@utils/search/queryStrapiDebates.js";
 import { getSpeakerDebateIds } from "@utils/graphql/getSpeakerDebateIds.js";
-import {searchSpeakerKeyPhrase} from "@utils/search/searchSpeakerKeyPhrase.js";
+import { queryElasticSpeakers } from "@utils/search/queryElasticSpeakers.js";
 import {getRandomSpeakerSpeechInDebate} from "@utils/getRandomSpeakerSpeechInDebate.js";
 
 export async function POST(req) {
@@ -9,7 +9,13 @@ export async function POST(req) {
     const {
       speakerId,
       keyPhrase = "",
-      strapiFilters = {},
+      startDate,
+      endDate,
+      session,
+      topics = [],
+      sentiment = "",
+      rhetoricalIntent = "",
+      highIntensity = false,
       page = 1,
       pageSize = 25,
       sortBy = "newest",
@@ -20,8 +26,27 @@ export async function POST(req) {
     }
 
     const offset = (page - 1) * pageSize;
+    const elasticFilters = {
+      keyPhrase,
+      rhetoricalIntent,
+      sentiment,
+      highIntensity,
+    }
+    const strapiFilters = {
+      startDate,
+      endDate,
+      session,
+      topics
+    }
+    console.log("ElasticFilters: ", elasticFilters);
+    console.log("StrapiFilters: ", strapiFilters);
 
-    const hasKeyPhrase = keyPhrase.trim() !== "";
+    const hasElasticFilters =
+      elasticFilters.keyPhrase.trim() !== "" ||
+      elasticFilters.highIntensity === true ||
+      !!elasticFilters.sentiment ||
+      !!elasticFilters.rhetoricalIntent;
+
     let debates = [];
     let total = 0;
 
@@ -34,9 +59,12 @@ export async function POST(req) {
       return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
     }
 
-
-    if (hasKeyPhrase) {
-      const esResults = await searchSpeakerKeyPhrase(keyPhrase, speakerId, speakerDebateIds);
+    if (hasElasticFilters) {
+      const esResults = await queryElasticSpeakers({
+        ...elasticFilters,
+        speakerId,
+        speakerDebateIds
+      });
 
       if (esResults.length === 0) {
         return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });

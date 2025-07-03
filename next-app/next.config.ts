@@ -5,7 +5,17 @@ const nextConfig: NextConfig = {
         config.infrastructureLogging = { level: "error" }; // Suppress Webpack warnings
         return config;
     },
-    reactStrictMode: false, // (Optional) Disable React Strict Mode if needed
+    reactStrictMode: false, // Optional
+    images: {
+        remotePatterns: [
+            {
+                protocol: "http",
+                hostname: "localhost",
+                port: "1338",
+                pathname: "/uploads/**",
+            },
+        ],
+    },
 };
 
 export default nextConfig;

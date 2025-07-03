@@ -1,30 +1,7 @@
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import FilterSection from "./FilterSection";
-
-const PREDEFINED_TOPICS = [
-  "Οικονομική Πολιτική και Δημοσιονομικά",
-  "Ανάπτυξη, Ανταγωνιστικότητα και Επενδύσεις",
-  "Εργασιακές Σχέσεις και Κοινωνική Ασφάλιση",
-  "Παιδεία, Θρησκεύματα, Έρευνα και Καινοτομία",
-  "Υγεία και Κοινωνική Πρόνοια",
-  "Εξωτερική Πολιτική και Ευρωπαϊκές Υποθέσεις",
-  "Εθνική Άμυνα",
-  "Δικαιοσύνη και Ανθρώπινα Δικαιώματα",
-  "Δημόσια Τάξη και Προστασία του Πολίτη",
-  "Περιβάλλον, Ενέργεια και Κλιματική Αλλαγή",
-  "Υποδομές, Μεταφορές και Δίκτυα",
-  "Αγροτική Ανάπτυξη και Τρόφιμα",
-  "Τουρισμός",
-  "Πολιτισμός και Αθλητισμός",
-  "Ψηφιακή Διακυβέρνηση και Επικοινωνίες",
-  "Στεγαστική Πολιτική και Αστικός Σχεδιασμός",
-  "Δημόσια Διοίκηση και Αποκέντρωση",
-  "Μετανάστευση και Άσυλο",
-  "Ναυτιλία και Νησιωτική Πολιτική",
-  "Θεσμικά Ζητήματα και Κοινοβουλευτικές Διαδικασίες",
-  "Άλλο / Γενικά Θέματα",
-];
+import topics_list from "/public/data/topics_list.json";
 
 const TopicFilter = ({ selectedTopics = [], onFilterChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +77,7 @@ const TopicFilter = ({ selectedTopics = [], onFilterChange }) => {
             <div
               className="flex flex-wrap gap-3 max-h-96 overflow-y-auto justify-center scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent"
             >
-              {PREDEFINED_TOPICS.map((topic, index) => (
+              {topics_list.map((topic, index) => (
                 <label
                   key={index}
                   className={`cursor-pointer font-bold px-4 py-2 rounded-full border text-sm text-center transition

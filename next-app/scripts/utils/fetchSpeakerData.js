@@ -1,5 +1,7 @@
 import axios from "axios";
-import { constants } from "../../constants/constants.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default async function fetchSpeakerData(wikidataUrl) {
   try {
@@ -44,7 +46,7 @@ export default async function fetchSpeakerData(wikidataUrl) {
       }
     `;
 
-    const response = await axios.get(constants.WIKIDATA_URL, {
+    const response = await axios.get(process.env.WIKIDATA_URL, {
       headers: { Accept: "application/sparql-results+json" },
       params: { query: sparqlQuery, format: "json" },
     });

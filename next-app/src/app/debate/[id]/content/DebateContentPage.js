@@ -5,30 +5,31 @@ import { useParams } from "next/navigation";
 import axios from 'axios';
 import NavigationBar from "@components/Navigation/NavigationBar";
 import { getImageUrl } from "@utils/getImageUrl";
-import NameFilter from "@components/Filters/NameFilter.js";
 import SentimentFilter from "@components/Filters/SentimentFilter.js";
 import SpeakerCircle from "@components/Speaker/SpeakerCircle/SpeakerCircle.js";
-import SpeakerOptionsFilter from "../../../components/Filters/SpeakerOptionsFilter.js";
+import SpeakerOptionsFilter from "@components/Filters/SpeakerOptionsFilter.js";
+import RhetoricalIntentFilter from "@components/Filters/RhetoricalIntentFilter.js";
+import HighIntensityFilter from "@components/Filters/HighIntensityFilter.js";
 
 export default function DebateContentPage() {
   const { id: documentId } = useParams();
   const [speeches, setSpeeches] = useState([]);
   const [title, setTitle] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [fetchedPages, setFetchedPages] = useState(new Set([1]));
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observerRef = useRef(null);
   const isFetchingRef = useRef(false);
   const [showFilters, setShowFilters] = useState(true);
 
-  const [matchSpeechNumbers, setMatchSpeechNumbers] = useState([]);
   const [matchSpeechIds, setMatchSpeechIds] = useState([]);
 
   const [inputValues, setInputValues] = useState({
     keyPhrase: "",
     speakers: [],
-    sentiments: []
+    rhetoricalIntent: "",
+    sentiment: "",
+    highIntensity: false
   });
 
   const limit = 10;
@@ -37,7 +38,7 @@ export default function DebateContentPage() {
     async function fetchInitialSpeeches() {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/strapi/debates/content/${documentId}`, {
+        const response = await axios.get(`/api/debates/content/${documentId}`, {
           params: { page: 1, limit }
         });
 
@@ -47,7 +48,6 @@ export default function DebateContentPage() {
         setSpeeches(initialSpeeches);
         setTitle(fetchedTitle);
         setCurrentPage(1);
-        setFetchedPages(new Set([1]));
 
         if (initialSpeeches.length < limit) {
           setHasMore(false);
@@ -68,6 +68,33 @@ export default function DebateContentPage() {
   useEffect(() => {
     if (!observerRef.current || !hasMore || loading) return;
 
+    async function loadMoreSpeeches() {
+      if (isFetchingRef.current) return;
+      isFetchingRef.current = true;
+      setLoading(true);
+
+      try {
+        const nextPage = currentPage + 1;
+        const response = await axios.get(`/api/debates/content/${documentId}`, {
+          params: { page: nextPage, limit }
+        });
+
+        const newSpeeches = response.data.data.debate.speeches;
+
+        if (newSpeeches.length > 0) {
+          setSpeeches((prev) => [...prev, ...newSpeeches]);
+          setCurrentPage(nextPage);
+        } else {
+          setHasMore(false);
+        }
+      } catch (error) {
+        console.error("Error fetching more speeches:", error);
+      } finally {
+        setLoading(false);
+        isFetchingRef.current = false;
+      }
+    }
+
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !loading) {
         loadMoreSpeeches();
@@ -77,46 +104,19 @@ export default function DebateContentPage() {
     observer.observe(observerRef.current);
 
     return () => observer.disconnect();
-  }, [hasMore, loading]);
+  }, [hasMore, loading, currentPage, documentId]);
 
-
-  async function loadMoreSpeeches() {
-    if (isFetchingRef.current) return;
-    isFetchingRef.current = true;
-    setLoading(true);
-
-    try {
-      const nextPage = currentPage + 1;
-      const response = await axios.get(`/api/strapi/debates/content/${documentId}`, {
-        params: { page: nextPage, limit }
-      });
-
-      const newSpeeches = response.data.data.debate.speeches;
-
-      if (newSpeeches.length > 0) {
-        setSpeeches((prev) => [...prev, ...newSpeeches]);
-        setFetchedPages((prev) => new Set(prev).add(nextPage));
-        setCurrentPage(nextPage);
-      } else {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Error fetching more speeches:", error);
-    } finally {
-      setLoading(false);
-      isFetchingRef.current = false;
-    }
-  }
 
   useEffect(() => {
     const delayDebounce = setTimeout(async () => {
       const hasActiveFilters =
         inputValues.keyPhrase.trim() !== "" ||
         inputValues.speakers.length > 0 ||
-        inputValues.sentiments.length > 0;
+        inputValues.sentiment.trim() !== "" ||
+        inputValues.rhetoricalIntent.trim() !== "" ||
+        inputValues.highIntensity !== null;
 
       if (!hasActiveFilters) {
-        setMatchSpeechNumbers([]);
         setMatchSpeechIds([]);
         return;
       }
@@ -126,33 +126,38 @@ export default function DebateContentPage() {
           debateId: documentId,
           keyPhrase: inputValues.keyPhrase,
           speakers: inputValues.speakers,
-          sentiments: inputValues.sentiments,
+          sentiment: inputValues.sentiment,
+          rhetoricalIntent: inputValues.rhetoricalIntent,
+          highIntensity: inputValues.highIntensity
         });
 
         const matches = res.data.speeches;
-        setMatchSpeechNumbers(matches.map((s) => s.speech_number));
         setMatchSpeechIds(matches.map((s) => s.id));
       } catch (err) {
         console.error("Search failed", err);
       }
-    }, 1000); // debounce 1s
+    }, 1500); // debounce 1.5s
 
     return () => clearTimeout(delayDebounce);
   }, [inputValues, documentId]);
 
 
-  const handleInputChange = (field, value) => {
-    setInputValues((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange = (name, value) => {
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const deduplicatedSpeeches = speeches.filter(
-    (speech, index, self) =>
-      index === self.findIndex((s) => s.speech_id === speech.speech_id)
-  );
 
   return (
     <div className="relative min-h-screen w-full bg-transparent text-white">
-      <NavigationBar title={title} showSearch={true} placeholder="Λέξη / φράση-κλειδί ..." />
+      <NavigationBar
+        title={title}
+        showSearch={true}
+        placeholder="Λέξη / φράση-κλειδί ..."
+        onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
+      />
 
       {!showFilters && (
         <div className="fixed bottom-[2rem] left-6 z-50">
@@ -162,26 +167,44 @@ export default function DebateContentPage() {
 
       <div className="flex text-white w-full m-auto pt-[2rem] relative z-10">
         {showFilters && (
-          <div className="mb-6 px-8 w-1/4 transition-all duration-300">
+          <div className="mb-6 px-8 w-1/3 transition-all duration-300">
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-3xl font-bold">Φίλτρα</h1>
               <button onClick={() => setShowFilters(false)} className="button">Απόκρυψη</button>
             </div>
-            <SpeakerOptionsFilter
-              selectedValues={inputValues.speakers}
-              onChange={(updatedSelection) => handleInputChange("speakers", updatedSelection)}
-              placeholder="Search and select speakers..."
-              debateId={documentId}
-            />
-            <SentimentFilter
-              selectedSentiments={inputValues.sentiments}
-              onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-              disabled={inputValues.keyPhrase.trim()}
+
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <SpeakerOptionsFilter
+                selectedValues={inputValues.speakers}
+                onChange={(updatedSelection) => handleInputChange("speakers", updatedSelection)}
+                placeholder="Search and select speakers..."
+                debateId={documentId}
+              />
+            </div>
+
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <RhetoricalIntentFilter
+                selectedRhetoricalIntent={inputValues.rhetoricalIntent}
+                onFilterChange={(updatedSelection) => handleInputChange("rhetoricalIntent", updatedSelection)}
+              />
+            </div>
+
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <SentimentFilter
+                selectedSentiment={inputValues.sentiment}
+                onFilterChange={(updatedSelection) => handleInputChange("sentiment", updatedSelection)}
+              />
+            </div>
+
+            <HighIntensityFilter
+              selectedIntensity={inputValues.highIntensity}
+              onFilterChange={(updatedSelection) => handleInputChange("highIntensity", updatedSelection)}
             />
           </div>
         )}
 
-        <div className={`flex flex-col items-center justify-start ${showFilters ? 'w-3/4' : 'w-full'} space-y-6 transition-all duration-300`}>
+        <div
+          className={`flex flex-col items-center justify-start ${showFilters ? 'w-2/3' : 'w-full'} space-y-6 transition-all duration-300`}>
           <div className="text-center text-3xl font-bold mb-6">
             <h1>Περιεχόμενο Ομιλιών</h1>
           </div>
@@ -191,10 +214,11 @@ export default function DebateContentPage() {
               index === self.findIndex((s) => s.speech_id === speech.speech_id)
             )
             .map((speech) => {
-              const isMatch = matchSpeechIds.includes(speech.speech_id); // <== Must match data shape!
+              const isMatch = matchSpeechIds.includes(speech.speech_id);
 
               return (
-                <div key={speech.speech_id} id={`speech-${speech.speech_number}`} className="flex w-full justify-start px-6 pb-6">
+                <div key={speech.speech_id} id={`speech-${speech.speech_number}`}
+                     className="flex w-full justify-start px-6 pb-6">
                   <div className="w-[200px] flex flex-col items-center justify-start text-center space-y-2">
                     <SpeakerCircle
                       speakerName={speech.speaker_name}
@@ -203,7 +227,7 @@ export default function DebateContentPage() {
                     />
                   </div>
                   <div className={`flex-1 p-6 backdrop-blur rounded-3xl shadow-2xl border-2 transition-all duration-300 ${
-                    isMatch ? "bg-gray-800/80" : "bg-white/10 border-white/30"
+                    isMatch ? "bg-gray-800" : "bg-white/10 border-white/30"
                   }`}>
                     {speech.content.map((paragraph, index) => (
                       <p key={index} className="mb-4 text-justify leading-relaxed">{paragraph}</p>
@@ -212,8 +236,6 @@ export default function DebateContentPage() {
                 </div>
               );
             })}
-
-
 
           {loading && (
             <div className="flex justify-center py-10">

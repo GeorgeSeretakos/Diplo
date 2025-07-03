@@ -1,4 +1,4 @@
-import { searchDebatesKeyPhrase } from "@utils/search/searchDebatesKeyPhrase.js";
+import { queryElasticDebates } from "@utils/search/queryElasticDebates.js";
 import { queryStrapiDebates, getSpeakerImages } from "@utils/search/queryStrapiDebates.js";
 
 export async function POST(req) {
@@ -7,29 +7,57 @@ export async function POST(req) {
     const body = await req.json();
     const {
       keyPhrase = "",
-      strapiFilters = {},
+      rhetoricalIntent = "",
+      sentiment = "",
+      highIntensity = false,
+      startDate,
+      endDate,
+      session,
+      topics = [],
+      speakers = [],
       sortBy = "newest",
       page = 1,
       pageSize = 30
     } = body;
 
     const offset = (page - 1) * pageSize;
+    const elasticFilters = {
+      keyPhrase,
+      rhetoricalIntent,
+      sentiment,
+      highIntensity,
+    }
+    const strapiFilters = {
+      startDate,
+      endDate,
+      session,
+      topics,
+      speakers,
+    }
+    console.log("ElasticFilters: ", elasticFilters);
+    console.log("StrapiFilters: ", strapiFilters);
 
-    const hasKeyPhrase = keyPhrase.trim() !== "";
+    const hasElasticFilters =
+      elasticFilters.keyPhrase.trim() !== "" ||
+      elasticFilters.highIntensity === true ||
+      !!elasticFilters.sentiment ||
+      !!elasticFilters.rhetoricalIntent;
+
     const hasStrapiFilters =
       !!strapiFilters.startDate ||
       !!strapiFilters.endDate ||
       !!strapiFilters.session ||
-      !!strapiFilters.period ||
       (Array.isArray(strapiFilters.topics) && strapiFilters.topics.length > 0) ||
       (Array.isArray(strapiFilters.speakers) && strapiFilters.speakers.length > 0);
 
     let debates = [];
     let total = 0;
 
-  if (hasKeyPhrase) {
-    const esResults = await searchDebatesKeyPhrase(keyPhrase);
-    console.log("esResults: ", esResults);
+  if (hasElasticFilters) {
+    const esResults = await queryElasticDebates({
+      ...elasticFilters,
+      sortBy
+    });
 
     if (esResults.length === 0) {
       return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
@@ -78,14 +106,14 @@ export async function POST(req) {
 
     } else if (hasStrapiFilters) {
       // Only strapi filters
-    const { debates: strapiDebates, total: strapiTotal } = await queryStrapiDebates({
+      const { debates: strapiDebates, total: strapiTotal } = await queryStrapiDebates({
         ...strapiFilters,
         offset,
         limit: pageSize,
         sortBy
       });
 
-    total = strapiTotal;
+      total = strapiTotal;
 
       if (strapiDebates.length === 0) {
         return new Response(JSON.stringify({ debates: [], totalPages: 0 }), { status: 200 });
@@ -95,8 +123,6 @@ export async function POST(req) {
         ...debate,
         top_speech: null, // No elastic data
       }));
-
-      console.log("Detailed fetch util returned: ", debates);
 
     } else {
       // Initial load – No filters applied

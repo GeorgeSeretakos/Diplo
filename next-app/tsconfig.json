@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2017", // Target ECMAScript version
-    "lib": ["dom", "dom.iterable", "esnext"], // Include DOM and ESNext types
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "dom.iterable",
+      "esnext"
+    ], // Include DOM and ESNext types
     "allowJs": true, // Allow JavaScript files
     "skipLibCheck": true, // Skip type checks for library files
     "strict": true, // Enable all strict type checking options
@@ -15,13 +21,27 @@
     "incremental": true, // Enable incremental compilation for faster builds
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["app/components/*"],
-      "@data/*": ["data/*"],
-      "@lib/*": ["lib/*"],
-      "@utils/*": ["utils/*"],
-      "@constants/*": ["../constants/*"],
-      "@elasticsearch/*": ["../elasticsearch/*"],
-      "@/*": ["*"]
+      "@components/*": [
+        "app/components/*"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@constants/*": [
+        "../constants/*"
+      ],
+      "@elasticsearch/*": [
+        "../elasticsearch/*"
+      ],
+      "@/*": [
+        "*"
+      ]
     },
     "plugins": [
       {
@@ -30,15 +50,12 @@
     ]
   },
   "include": [
-    "next-env.d.ts",
-    // Type declarations for Next.js
     "**/*.ts",
-    // Include all TypeScript files
     "**/*.tsx",
-    // Include all TypeScript React files
-    ".next/types/**/*.ts",
-    // Include Next.js auto-generated types,
-    "../../../../Program Files/JetBrains/WebStorm 2023.3.2/plugins/javascript-impl/jsLanguageServicesImpl/external/lib.es5.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"] // Exclude node_modules from compilation
+  "exclude": [
+    "node_modules"
+  ] // Exclude node_modules from compilation
 }

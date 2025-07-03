@@ -2,7 +2,7 @@ import axios from "axios";
 import fetchSpeakerData from "./fetchSpeakerData.js";
 import formatSpeakerFields from "./formatSpeakerFields.js";
 import uploadImageToStrapi from "./uploadImageToStrapi.js";
-import findOrCreatePoliticalParty from "../../scripts/strapiInsertions/insertPoliticalParty.js";
+import findOrCreatePoliticalParty from "../databaseInsertions/insertPoliticalParty.js";
 
 export default async function enrichSpeakerFromWikidata(speaker_id, wikidataUrl, STRAPI_URL, API_TOKEN) {
   try {

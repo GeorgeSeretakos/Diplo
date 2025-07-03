@@ -1,7 +1,8 @@
 import axios from "axios";
-import { constants } from "@constants/constants.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const STRAPI_URL = constants.STRAPI_URL;
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export async function getDetailedStrapiDebates({
   ids,

@@ -28,7 +28,12 @@ async function createSpeechesIndex() {
         speaker_id: { type: "keyword" },
         debate_id: { type: "keyword" },
         speech_number: { type: "integer" },
-        speech_date: { type: "date" }
+        speech_date: { type: "date" },
+
+        sentiment: { type: "integer" },
+        polarity_strength: { type: "integer" },
+        rhetorical_intent: { type: "keyword" },
+        emotional_intensity: { type: "integer" }
       },
     };
 

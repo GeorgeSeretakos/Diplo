@@ -9,7 +9,10 @@ import SentimentFilter from "@components/Filters/SentimentFilter.js";
 import DateRangeFilter from "@components/Filters/DateRangeFilter.js";
 import SessionFilter from "@components/Filters/SessionFilter.js";
 import styles from "../../../search-debates/SearchDebates.module.css";
-import DebateBig from "@components/Debate/DebateBig/DebateBig.js";
+import Debate from "@components/Debate/Debate.js";
+import RhetoricalIntentFilter from "@components/Filters/RhetoricalIntentFilter.js";
+import HighIntensityFilter from "@components/Filters/HighIntensityFilter.js";
+import TopicFilter from "@components/Filters/TopicFilter.js";
 
 export default function DebateContentPage() {
   const { id: speakerDocumentId } = useParams();
@@ -29,7 +32,10 @@ export default function DebateContentPage() {
     startDate: "",
     endDate: "",
     session: "",
-    sentiments: [],
+    topics: [],
+    sentiment: "",
+    rhetoricalIntent: "",
+    highIntensity: false,
   });
 
   useEffect(() => {
@@ -44,14 +50,13 @@ export default function DebateContentPage() {
         const body = {
           speakerId: speakerDocumentId,
           keyPhrase: inputValues.keyPhrase,
-          strapiFilters: {
-            startDate: inputValues.startDate,
-            endDate: inputValues.endDate,
-            session: inputValues.session,
-            meeting: inputValues.meeting,
-            period: inputValues.period,
-            sentiments: inputValues.sentiments,
-          },
+          startDate: inputValues.startDate,
+          endDate: inputValues.endDate,
+          session: inputValues.session,
+          topics: inputValues.topics,
+          sentiment: inputValues.sentiment,
+          rhetoricalIntent: inputValues.rhetoricalIntent,
+          highIntensity: inputValues.highIntensity,
           page,
           sortBy
         };
@@ -75,7 +80,7 @@ export default function DebateContentPage() {
       if (speakerDocumentId) {
         fetchSpeakerDebates();
       }
-    }, 1000); // debounce for 1 second
+    }, 1500); // debounce for 1.5 second
 
     return () => clearTimeout(timeoutId);
   }, [inputValues, page, sortBy, speakerDocumentId]);
@@ -110,7 +115,7 @@ export default function DebateContentPage() {
       {/* Main Layout */}
       <div className="flex text-white w-full p-10 relative z-10">
         {/* Filters Section */}
-        <div className="mb-6 px-8 w-2/5">
+        <div className="mb-6 px-8 w-[30%]">
           <div className="text-center text-3xl font-bold mb-16">
             <h1>Φίλτρα Αναζήτησης</h1>
           </div>
@@ -132,15 +137,35 @@ export default function DebateContentPage() {
             />
           </div>
 
-          <SentimentFilter
-            selectedSentiments={inputValues.sentiments}
-            onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-            disabled={inputValues.keyPhrase.trim() === ""}
+          <div className="border-b border-gray-400 pb-4 mb-4">
+            <TopicFilter
+              selectedTopics={inputValues.topics}
+              onFilterChange={(updatedSelection) => handleInputChange("topics", updatedSelection)}
+            />
+          </div>
+
+          <div className="border-b border-gray-400 pb-4 mb-4">
+            <RhetoricalIntentFilter
+              selectedRhetoricalIntent={inputValues.rhetoricalIntent}
+              onFilterChange={(updatedSelection) => handleInputChange("rhetoricalIntent", updatedSelection)}
+            />
+          </div>
+
+          <div className="border-b border-gray-400 pb-4 mb-4">
+            <SentimentFilter
+              selectedSentiment={inputValues.sentiment}
+              onFilterChange={(updatedSelection) => handleInputChange("sentiment", updatedSelection)}
+            />
+          </div>
+
+          <HighIntensityFilter
+            selectedIntensity={inputValues.highIntensity}
+            onFilterChange={(updatedSelection) => handleInputChange("highIntensity", updatedSelection)}
           />
         </div>
 
         {/* Debates Section */}
-        <div className="flex flex-col items-center justify-start w-full space-y-6">
+        <div className="flex flex-col items-center justify-start w-[70%] space-y-6">
           <div className="text-center text-3xl font-bold mb-6">
             <h1>
               Πρακτικά Ομιλητή: ({totalDebates})
@@ -157,7 +182,7 @@ export default function DebateContentPage() {
           {!loading && totalDebates > 0 && (
             <div className={styles.debateGrid}>
               {debates.map((debate, index) => (
-                <DebateBig
+                <Debate
                   key={index}
                   documentId={debate.documentId}
                   date={debate.date}

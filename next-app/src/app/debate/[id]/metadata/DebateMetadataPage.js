@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
 import SpeakerCircle from "@components/Speaker/SpeakerCircle/SpeakerCircle.js";
 import { getImageUrl } from "@utils/getImageUrl.js";
@@ -14,18 +14,12 @@ const DebateMetadataPage = () => {
   const [debateData, setDebateData] = useState(null);
   const [visibleSpeakers, setVisibleSpeakers] = useState(initialSpeakersShown);
 
-  const [activeTab, setActiveTab] = useState('Metadata');
-
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   useEffect(() => {
     if (!documentId) return;
 
     const fetchDebateData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/strapi/debates/metadata/${documentId}`);
+        const response = await axios.get(`/api/debates/metadata/${documentId}`);
         setDebateData(response.data.debate);
       } catch (error) {
         console.error("Error fetching debate metadata:", error);
@@ -35,7 +29,7 @@ const DebateMetadataPage = () => {
     fetchDebateData();
   }, [documentId]);
 
-  if (!debateData) return <p>Loading debate metadata...</p>;
+  if (!debateData) return <p>Φόρτωση μεταδεδομένων συζήτησης...</p>;
 
   const {
     title,

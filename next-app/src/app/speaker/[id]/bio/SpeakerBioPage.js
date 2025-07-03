@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
-import SpeakerCard from "@components/Speaker/SpeakerCard/SpeakerCard.js";
 import PartyItem from "@components/Party/PartyItem.js";
 import { fetchPositionHeld } from "@utils/wikidata/dataFetchers.js";
 import { formatPositionHeld } from "@utils/wikidata/formatters.js";
 import { getImageUrl } from "@utils/getImageUrl.js";
-import { formatDateToGreek } from "@utils/Date/formatDate.js";
+import { formatDateToGreek } from "@utils/formatDate.js";
+import Image from "next/image";
 
 const SpeakerBioPage = () => {
   const { id: documentId } = useParams();
@@ -24,7 +24,7 @@ const SpeakerBioPage = () => {
 
     const fetchSpeakerData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/strapi/speakers/metadata/${documentId}`);
+        const response = await axios.get(`/api/speakers/metadata/${documentId}`);
         const speaker = response.data.speaker;
         setSpeakerData(speaker);
 
@@ -90,11 +90,14 @@ const SpeakerBioPage = () => {
         {speaker_name && (
           <div className="w-full rounded-2xl shadow-xl p-6 flex flex-col items-center text-center gap-6 bg-white/5 backdrop-blur">
             {image && (
-              <div className="w-42 h-60 rounded-xl overflow-hidden shadow-lg">
-                <img
+              <div className="w-[168px] h-[240px] relative rounded-xl overflow-hidden shadow-lg">
+                <Image
                   src={imageUrl}
                   alt={`${speaker_name} portrait`}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 168px"
+                  priority // optional: speeds up loading for important images
                 />
               </div>
             )}

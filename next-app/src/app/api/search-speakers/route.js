@@ -1,21 +1,47 @@
-import {searchDebatesKeyPhrase} from "@utils/search/searchDebatesKeyPhrase.js";
 import {getDetailedStrapiDebates} from "@utils/graphql/getDetailedStrapiDebates.js";
 import { queryStrapiSpeakers } from "@utils/search/queryStrapiSpeakers.js";
+import {queryElasticSpeakers} from "@utils/search/queryElasticSpeakers.js";
 
 export async function POST(req) {
   try {
     const body = await req.json();
     const {
       keyPhrase = "",
-      strapiFilters = {},
+      rhetoricalIntent = "",
+      sentiment = "",
+      highIntensity = false,
+      ageRange = { min: 18, max: 100},
+      gender = "",
+      speakerName = "",
+      parties = [],
       sortBy = "newest",
       page = 1,
-      pageSize = 45
+      pageSize = 45,
     } = body;
 
     const offset = (page - 1) * pageSize;
+    const elasticFilters = {
+      keyPhrase,
+      rhetoricalIntent,
+      sentiment,
+      highIntensity,
+    }
+    const strapiFilters = {
+      speakerName,
+      parties,
+      gender,
+      ageRange,
+    }
 
-    const hasKeyPhrase = keyPhrase.trim() !== "";
+    console.log("ElasticFilters: ", elasticFilters);
+    console.log("StrapiFilters: ", strapiFilters);
+
+    const hasElasticFilters =
+      elasticFilters.keyPhrase.trim() !== "" ||
+      elasticFilters.highIntensity === true ||
+      !!elasticFilters.sentiment ||
+      !!elasticFilters.rhetoricalIntent;
+
     const hasStrapiFilters =
       !!strapiFilters.speakerName ||
       (strapiFilters.ageRange && (strapiFilters.ageRange.min !== 18 || strapiFilters.ageRange.max !== 100)) ||
@@ -25,8 +51,11 @@ export async function POST(req) {
     let result = [];
     let total = 0;
 
-    if (hasKeyPhrase) {
-      const esResults = await searchDebatesKeyPhrase(keyPhrase);
+    if (hasElasticFilters) {
+      const esResults = await queryElasticSpeakers({
+        ...elasticFilters,
+        sortBy
+      });
       console.log("esResults: ", esResults);
 
       if(esResults.length === 0) {
@@ -36,15 +65,13 @@ export async function POST(req) {
       // 1️⃣ Map of speaker_id -> top speech info from ES
       const esMap = new Map(
         esResults.map(e => [
-          e.top_speech.speaker_id,
+          e.speakerDocumentId,
           {
             top_speech: e.top_speech,
-            debateDocumentId: e.documentId
+            debateDocumentId: e.debateDocumentId
           }
         ])
       );
-
-      console.log("esMap: ", esMap);
 
       const allowedSpeakerIds = [...esMap.keys()];
 
@@ -70,16 +97,13 @@ export async function POST(req) {
             .filter(Boolean)
         ),
       ];
-      console.log("Unique Debate Ids: ", uniqueDebateIds);
 
       // Fetch full debate info (Strapi)
       const detailedStrapiDebates = await getDetailedStrapiDebates({
         ids: uniqueDebateIds,
       });
-      console.log("detailedStrapiDebates: ", detailedStrapiDebates);
 
       const debateMap = new Map(detailedStrapiDebates.map(d => [d.documentId, d]));
-      console.log("debateMap: ", debateMap);
 
       // Enrich final speaker results with top_speech and debate info
       result = strapiSpeakers.map(speaker => {

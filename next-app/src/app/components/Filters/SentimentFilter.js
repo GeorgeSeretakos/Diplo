@@ -1,129 +1,123 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Dialog } from "@headlessui/react";
 import FilterSection from "./FilterSection";
 
 const sentimentOptions = [
-  { value: 0, label: "Πολύ Αρνητικό" },
-  { value: 1, label: "Αρνητικό" },
-  { value: 2, label: "Ουδέτερο" },
-  { value: 3, label: "Θετικό" },
-  { value: 4, label: "Πολύ Θετικό" },
+  { value: "very_negative", label: "Πολύ Αρνητικό" },
+  { value: "negative", label: "Αρνητικό" },
+  { value: "neutral", label: "Ουδέτερο" },
+  { value: "positive", label: "Θετικό" },
+  { value: "very_positive", label: "Πολύ Θετικό" },
 ];
 
-const rhetoricalOptions = [
-  "Ενημέρωση/Επεξήγηση",
-  "Πειθώ/Υποστήριξη",
-  "Κίνητρο/Έμπνευση",
-  "Κριτική/Καταγγελία",
-  "Ανάμνηση/Τιμή",
-  "Άλλο",
-];
+const SentimentFilter = ({ selectedSentiment = "", onFilterChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [tempSelection, setTempSelection] = useState(selectedSentiment);
 
-const SentimentFilter = ({
-                           selectedSentiments = [],
-                           selectedIntent = null,
-                           highIntensityOnly = false,
-                           onSentimentChange,
-                           onIntentChange,
-                           onIntensityToggle,
-                           disabled = false,
-                         }) => {
-  const toggleSentiment = (value) => {
-    if (disabled) return;
-    const isSelected = selectedSentiments.includes(value);
-    const updated = isSelected
-      ? selectedSentiments.filter((v) => v !== value)
-      : [...selectedSentiments, value];
-    onSentimentChange(updated);
+  useEffect(() => {
+    // Sync temp state with external state
+    setTempSelection(selectedSentiment);
+  }, [selectedSentiment]);
+
+  const applySelection = () => {
+    onFilterChange(tempSelection);
+    setIsOpen(false);
   };
 
+  const clearSelection = () => {
+    setTempSelection("");
+    onFilterChange("");
+  };
+
+  const selectedLabel = sentimentOptions.find(
+    (opt) => opt.value === selectedSentiment
+  )?.label;
+
   return (
-    <>
-      {/* Ρητορική Πρόθεση */}
-      <FilterSection title="Ρητορική Πρόθεση">
-        <div className="flex gap-2 flex-wrap justify-center">
-          {rhetoricalOptions.map((intent) => {
-            const isSelected = selectedIntent === intent;
-
-            return (
-              <label
-                key={intent}
-                className={`flex items-center justify-center text-xs font-bold px-3 py-1.5 rounded-full border transition whitespace-nowrap ${
-                  isSelected
-                    ? "bg-white text-black font-semibold border-white"
-                    : "bg-transparent text-white border-white hover:bg-white hover:text-black hover:cursor-pointer"
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() =>
-                    onIntentChange(isSelected ? null : intent)
-                  }
-                  className="hidden"
-                  disabled={disabled}
-                />
-                {intent}
-              </label>
-            );
-          })}
-        </div>
-      </FilterSection>
-
-      {/* Φρασεολογία Ομιλίας */}
-      <FilterSection
-        title={
-          <div className="items-center">
-            <div className="mb-2">Συναισθηματικό Φορτίο Ομιλίας</div>
-            {disabled && (
-              <div className="text-[#f9d342] text-xs font-bold">
-                (ενεργοποιείται με επιλογή θεματικής ή λέξης-κλειδί)
-              </div>
-            )}
-          </div>
-        }
-      >
-        {/* Sentiment pills */}
-        <div className="flex gap-2 flex-wrap justify-center mb-3">
-          {sentimentOptions.map(({value, label}) => (
-            <label
-              key={value}
-              className={`flex items-center justify-center text-xs font-bold px-3 py-1.5 rounded-full border transition whitespace-nowrap ${
-                selectedSentiments.includes(value)
-                  ? "bg-white text-black font-semibold border-white"
-                  : "bg-transparent text-white border-white hover:bg-white hover:text-black hover:cursor-pointer"
-              }`}
+    <FilterSection>
+      {/* Title + Buttons */}
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+        <h3 className="text-lg font-bold text-white">Συναισθηματικό Φορτίο</h3>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="px-3 py-1 text-sm font-bold text-white border border-white rounded-full bg-transparent hover:bg-white hover:text-black transition"
+          >
+            + Επιλογή
+          </button>
+          {selectedSentiment && (
+            <button
+              onClick={clearSelection}
+              className="px-3 py-1 text-sm font-bold hover:underline"
             >
-              <input
-                type="checkbox"
-                checked={selectedSentiments.includes(value)}
-                onChange={() => toggleSentiment(value)}
-                className="hidden"
-                disabled={disabled}
-              />
-              {label}
-            </label>
-          ))}
+              Reset
+            </button>
+          )}
         </div>
+      </div>
 
-        {/* High intensity checkbox */}
-        <div className="flex justify-center">
-          <label className="inline-flex items-center gap-2 text-white text-sm whitespace-nowrap">
-            <input
-              type="checkbox"
-              disabled={disabled}
-              checked={highIntensityOnly}
-              onChange={(e) => onIntensityToggle(e.target.checked)}
-              className="form-checkbox w-4 h-4 accent-white"
-            />
-            <span>Μόνο Ομιλίες Υψηλής Συναισθηματικής Έντασης</span>
-          </label>
+      {/* Selected Value */}
+      {selectedSentiment && (
+        <div className="flex flex-wrap gap-2 justify-start mb-2">
+          <span className="flex font-bold items-center justify-center text-sm px-4 py-2 rounded-full border border-white bg-white text-black">
+            {selectedLabel}
+          </span>
         </div>
+      )}
 
-      </FilterSection>
+      {/* Modal */}
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed inset-0 z-50">
+        <div className="flex items-center justify-center min-h-screen bg-black/50">
+          <Dialog.Panel className="bg-white/10 backdrop-blur-md border border-white p-6 rounded-2xl shadow-xl w-full max-w-3xl">
+            <Dialog.Title className="text-lg font-bold mb-4 text-white text-center">
+              Επιλέξτε Συναισθηματικό Φόρτο
+            </Dialog.Title>
 
-    </>
+            {/* Options */}
+            <div className="flex flex-wrap gap-3 max-h-96 overflow-y-auto justify-center scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent">
+              {sentimentOptions.map(({ value, label }) => (
+                <label
+                  key={value}
+                  className={`cursor-pointer font-bold px-4 py-2 rounded-full border text-sm text-center transition ${
+                    tempSelection === value
+                      ? "bg-white text-black border-white"
+                      : "bg-transparent border-white text-white hover:bg-white hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="sentiment"
+                    value={value}
+                    checked={tempSelection === value}
+                    onChange={() => setTempSelection(value)}
+                    className="hidden"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+
+            {/* Modal Buttons */}
+            <div className="mt-6 flex justify-between items-center">
+              <button
+                onClick={() => setTempSelection("")}
+                className="text-sm text-white hover:underline"
+              >
+                Reset
+              </button>
+              <button
+                onClick={applySelection}
+                className="px-3 py-1.5 text-sm bg-white text-black rounded-full font-semibold hover:opacity-90"
+              >
+                Εφαρμογή
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+    </FilterSection>
   );
 };
 

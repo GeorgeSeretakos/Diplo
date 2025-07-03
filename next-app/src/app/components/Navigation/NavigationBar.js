@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Landmark, Search } from "lucide-react";
+import { X, Landmark, Search } from "lucide-react";
+import Image from "next/image";
 
 export default function NavigationBar({
 title,
@@ -35,7 +36,7 @@ imageUrl
   };
 
   return (
-    <div className="flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white bg-black/40 text-white z-50">
+    <div className={`flex fixed top-0 left-0 w-full justify-between items-center p-4 px-8 border-b border-white text-white z-50 bg-black/40 ${!isOpen ? 'backdrop-blur' : ''}`}>
 
       <div className="flex items-center gap-4 w-2/5">
         <div className="text-white flex items-center gap-2">
@@ -49,18 +50,22 @@ imageUrl
             <Landmark size={38} className="text-white"/>
           </button>
 
-          {!isOpen &&
-            <div className="w-full">
+          {!isOpen && (
+            <div className="w-full flex items-center gap-2">
               <span className="text-xl font-bold">{title}</span>
               {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt="Speaker"
-                  className="w-10 h-10 rounded-full object-cover"
-                />
+                <div className="w-10 h-10 relative rounded-full overflow-hidden">
+                  <Image
+                    src={imageUrl}
+                    alt="Speaker"
+                    fill
+                    className="object-cover rounded-full"
+                  />
+                </div>
               )}
             </div>
-          }
+          )}
+
 
         </div>
 

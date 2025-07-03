@@ -1,8 +1,12 @@
 import axios from "axios";
 import client from "../client.js";
+import dotenv from "dotenv";
 
+dotenv.config();
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 const INDEX_NAME = "speeches";
-const STRAPI_API_URL = "http://localhost:1338/api/speeches";
+const STRAPI_API_URL = `${STRAPI_URL}/api/speeches`;
 const PAGE_SIZE = 1000;
 
 
@@ -91,7 +95,12 @@ async function bulkInsert() {
           debate_id: speech.debate.documentId,
           speaker_id: speech.speaker.documentId,
           speech_number: speechNumber,
-          speech_date: speechDate
+          speech_date: speechDate,
+
+          sentiment: speech.sentiment,
+          polarity_strength: speech.polarity_strength,
+          rhetorical_intent: speech.rhetorical_intent,
+          emotional_intensity: speech.emotional_intensity
         },
       ];
     });

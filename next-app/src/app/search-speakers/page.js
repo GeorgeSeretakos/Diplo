@@ -6,7 +6,6 @@ import styles from "./searchSpeakers.module.css";
 import {getImageUrl} from "@utils/getImageUrl.js";
 
 import PartyFilter from "@components/Filters/PartyFilter.js";
-import TopicFilter from "@components/Filters/TopicFilter.js";
 import AgeFilter from "@components/Filters/AgeFilter.js";
 import GenderFilter from "@components/Filters/GenderFilter.js";
 import NameFilter from "@components/Filters/NameFilter.js";
@@ -14,13 +13,12 @@ import SentimentFilter from "@components/Filters/SentimentFilter.js";
 
 import SpeakerCard from "@components/Speaker/SpeakerCard/SpeakerCard.js";
 import NavigationBar from "@components/Navigation/NavigationBar.js";
-import SpeakerDebate from "../components/SpeakerDebate/SpeakerDebate.js";
+import SpeakerDebate from "@components/SpeakerDebate/SpeakerDebate.js";
+import HighIntensityFilter from "@components/Filters/HighIntensityFilter.js";
+import RhetoricalIntentFilter from "@components/Filters/RhetoricalIntentFilter.js";
 
 
 export default function SpeakerSearch() {
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const [isClient, setIsClient] = useState(false);
   const [speakers, setSpeakers] = useState([]);
   const [sortBy, setSortBy] = useState("newest");
@@ -37,7 +35,9 @@ export default function SpeakerSearch() {
     topics: [],
     speakerName: "",
     parties: [],
-    sentiments: []
+    rhetoricalIntent: "",
+    sentiment: "",
+    highIntensity: false
   });
 
   useEffect(() => {
@@ -49,16 +49,17 @@ export default function SpeakerSearch() {
           setTotalSpeakers(0);
           setTotalPages(1);
 
-          const endpoint = "http://localhost:3000/api/search-speakers";
+          const endpoint = `/api/search-speakers`;
 
           const body = {
             keyPhrase: inputValues.keyPhrase,
-            strapiFilters: {
-              speakerName: inputValues.speakerName,
-              ageRange: inputValues.ageRange,
-              gender: inputValues.gender,
-              parties: inputValues.parties,
-            },
+            sentiment: inputValues.sentiment,
+            rhetoricalIntent: inputValues.rhetoricalIntent,
+            highIntensity: inputValues.highIntensity,
+            speakerName: inputValues.speakerName,
+            ageRange: inputValues.ageRange,
+            gender: inputValues.gender,
+            parties: inputValues.parties,
             page,
             sortBy
           };
@@ -76,7 +77,7 @@ export default function SpeakerSearch() {
       };
 
       searchSpeakers();
-    }, 1000); // 1s debounce
+    }, 1500); // 1.5s debounce
 
     return () => clearTimeout(timeoutId); // cancel if input changes again
   }, [inputValues, page, sortBy]);
@@ -106,16 +107,15 @@ export default function SpeakerSearch() {
       <NavigationBar
         title="Αναζήτηση Ομιλητών"
         showSearch={true}
-        placeholder="Λέξη / φράση-κλειδί"
+        placeholder="Λέξη / φράση-κλειδί (αναζητούμε από ποιούς ειπώθηκε)"
         onFilterChange={(updatedValue) => handleInputChange("keyPhrase", updatedValue)}
         setSortBy={setSortBy}
         setPage={setPage}
       />
 
-
       <div className="flex text-white w-[100%] m-auto mt-[6rem] relative z-10">
 
-        <div className={` space-y-6 p-10 rounded-br-2xl h-fit w-[40%] min-h-[100vh] ${isDropdownOpen ? 'h-auto' : ''}`}>
+        <div className="space-y-6 p-10 rounded-br-2xl h-fit w-[40%] min-h-[100vh]">
 
           {/* Filters Section */}
           <div className="mb-6">
@@ -147,16 +147,29 @@ export default function SpeakerSearch() {
             {isClient &&
               <div className="border-b border-gray-400 pb-4 mb-4">
                 <AgeFilter
-                selectedAgeRange={inputValues.ageRange}
-                onFilterChange={(updatedRange) => handleInputChange("ageRange", updatedRange)}
+                  selectedAgeRange={inputValues.ageRange}
+                  onFilterChange={(updatedRange) => handleInputChange("ageRange", updatedRange)}
                 />
               </div>
             }
 
-            <SentimentFilter
-              selectedSentiments={inputValues.sentiments}
-              onFilterChange={(updatedSentiments) => handleInputChange("sentiments", updatedSentiments)}
-              disabled={inputValues.keyPhrase.trim() === "" && inputValues.topics.length === 0}
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <RhetoricalIntentFilter
+                selectedRhetoricalIntent={inputValues.rhetoricalIntent}
+                onFilterChange={(updatedSelection) => handleInputChange("rhetoricalIntent", updatedSelection)}
+              />
+            </div>
+
+            <div className="border-b border-gray-400 pb-4 mb-4">
+              <SentimentFilter
+                selectedSentiment={inputValues.sentiment}
+                onFilterChange={(updatedSelection) => handleInputChange("sentiment", updatedSelection)}
+              />
+            </div>
+
+            <HighIntensityFilter
+              selectedIntensity={inputValues.highIntensity}
+              onFilterChange={(updatedSelection) => handleInputChange("highIntensity", updatedSelection)}
             />
 
           </div>
@@ -183,9 +196,8 @@ export default function SpeakerSearch() {
                     key={index}
                     speakerId={speaker.documentId}
                     speakerName={speaker.speaker_name}
-                    speakerImage={getImageUrl(speaker.imageUrl)}
+                    speakerImage={getImageUrl(speaker?.imageUrl)}
                     debateId={speaker.debate.documentId}
-                    // topics={speaker.debate.topics}
                     content={speaker.top_speech.content}
                     date={speaker.debate.date}
                     session={speaker.debate.session}
@@ -195,7 +207,7 @@ export default function SpeakerSearch() {
                   <SpeakerCard
                     key={index}
                     documentId={speaker.documentId}
-                    image={getImageUrl(speaker.imageUrl)}
+                    image={getImageUrl(speaker?.imageUrl)}
                     name={speaker.speaker_name}
                   />
                 )

@@ -1,13 +1,27 @@
 import path from 'path';
-import { transform } from './transform.js';
-import { insertDebate } from './strapiInsertions/insertDebate.js';
-import { insertSpeech } from './strapiInsertions/insertSpeech.js';
-import { insertSpeaker } from './strapiInsertions/insertSpeaker.js';
+import { insertDebate } from './databaseInsertions/insertDebate.js';
+import { insertSpeech } from './databaseInsertions/insertSpeech.js';
+import { insertSpeaker } from './databaseInsertions/insertSpeaker.js';
 import fs from "fs";
+import dotenv from "dotenv";
 import {constants} from "../constants/constants.js"
+import { parseStringPromise } from "xml2js";
+
+// Load environment variables
+dotenv.config();
+
+export async function transform(xmlPath) {
+  // Perform XML to JSON transformation
+  const xmlData = fs.readFileSync(xmlPath, 'utf-8');
+  const jsonData = await parseStringPromise(xmlData, {
+    explicitArray: true,
+    preserveChildrenOrder: true,
+  });
+
+  return jsonData;
+}
 
 export default async function populate() {
-  const xsltPath = path.join(process.cwd(), 'public', 'debate.xsl');
   const xmlDir = path.join(process.cwd(), 'public', 'data', 'xml_files', 'xml_akn_files');
 
   const xmlFiles = fs
@@ -15,8 +29,8 @@ export default async function populate() {
     .filter(file => file.endsWith('.xml'))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
 
-  const STRAPI_URL = constants.STRAPI_URL;
-  const API_TOKEN = constants.API_TOKEN;
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const API_TOKEN = process.env.API_TOKEN;
   let count = 0;
 
   const problematic_speakers = new Set();
@@ -36,10 +50,6 @@ export default async function populate() {
       if (debateId) {
         const uniqueSpeakers = await insertSpeaker(jsonData, debateId, STRAPI_URL, API_TOKEN);
         await insertSpeech(jsonData, debateId, STRAPI_URL, API_TOKEN);
-
-        // for (const speakerObj of list_of_null_speakers) {
-        //   problematic_speakers.add(JSON.stringify(speakerObj));
-        // }
 
       } else {
         console.log("Debate insertion failed or debate already exists. Skipping Parliament Session, Speakers and Speeches insertion.");
@@ -64,4 +74,3 @@ export default async function populate() {
 }
 
 populate();
-

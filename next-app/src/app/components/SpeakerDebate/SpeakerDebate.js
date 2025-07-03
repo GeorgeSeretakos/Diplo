@@ -1,6 +1,6 @@
 import React from 'react';
 import SpeakerCard from "../Speaker/SpeakerCard/SpeakerCard.js";
-import DebateBig from "../Debate/DebateBig/DebateBig.js";
+import Debate from "../Debate/Debate.js";
 
 const SpeakerDebate = ({
   speakerId,
@@ -25,11 +25,11 @@ const SpeakerDebate = ({
         <SpeakerCard documentId={speakerId} image={speakerImage} name={speakerName} />
       </div>
 
-      {/* DebateBig - 3/4 */}
+      {/* Debate - 3/4 */}
       <div
         className="w-3/4"
       >
-        <DebateBig
+        <Debate
           documentId={debateId}
           speaker_name={speakerName}
           topics={topics}

@@ -1,7 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import Database from "better-sqlite3";
-import { constants } from "@constants/constants.js";
 
 // Setup DB path
 const __filename = fileURLToPath(import.meta.url);
@@ -152,7 +151,7 @@ export function queryStrapiDebates({
       period: d.period,
       topics: topicsMap.get(d.id) || [],
     };
-  }).map(({ id, ...rest }) => rest); // remove `id` before returning
+  }).map(({ ...rest }) => rest); // remove `id` before returning
 
 
   return { debates: result, total };

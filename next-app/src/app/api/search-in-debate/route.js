@@ -7,7 +7,9 @@ export async function POST(req) {
       debateId,
       keyPhrase = "",
       speakers = [],
-      sentiments = [],
+      rhetoricalIntent = "",
+      sentiment = "",
+      highIntensity = false,
       sortBy = "newest",
     } = body;
 
@@ -15,15 +17,18 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: "debateId is required." }), { status: 400 });
     }
 
-    const hasKeyPhrase = keyPhrase.trim() !== "";
-    const hasSpeakerFilter = Array.isArray(speakers) && speakers.length > 0;
-    const hasSentimentFilter = Array.isArray(sentiments) && sentiments.length > 0;
+    const filters = {
+      keyPhrase,
+      speakers,
+      rhetoricalIntent,
+      sentiment,
+      highIntensity,
+    }
+    console.log("Filters: ", filters);
 
     const speeches = await searchInDebate({
+      ...filters,
       debateId,
-      keyPhrase,
-      speakerNames: hasSpeakerFilter ? speakers : [],
-      sentiments: hasSentimentFilter ? sentiments : [],
       sortBy,
     });
 
@@ -31,14 +36,9 @@ export async function POST(req) {
       return new Response(JSON.stringify({ speeches: [], totalPages: 0 }), { status: 200 });
     }
 
-    // Refactor
-    const pageSize = 5;
-    const totalPages = Math.ceil(speeches.length / pageSize);
-
     return new Response(
       JSON.stringify({
         speeches,
-        totalPages,
       }),
       { status: 200 }
     );

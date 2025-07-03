@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import FilterSection from "./FilterSection";
 import PartyItem from "../Party/PartyItem";
-import { constants } from "../../../../constants/constants";
-import { getImageUrl } from "../../../utils/getImageUrl";
+import { getImageUrl } from "@/utils/getImageUrl";
 import axios from "axios";
 import { Search, X } from "lucide-react";
+
 
 const PartyFilter = ({ selectedParties = [], onFilterChange }) => {
   const [parties, setParties] = useState([]);
@@ -14,7 +14,7 @@ const PartyFilter = ({ selectedParties = [], onFilterChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const STRAPI_URL = constants.STRAPI_URL;
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
   useEffect(() => {
     const fetchParties = async () => {

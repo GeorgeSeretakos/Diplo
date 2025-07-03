@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import FilterSection from "./FilterSection";
-import { constants } from "../../../../constants/constants";
 import axios from "axios";
 import { Search, X } from "lucide-react";
-import { getImageUrl } from "../../../utils/getImageUrl.js";
+import { getImageUrl } from "@utils/getImageUrl.js";
+import Image from "next/image";
 
 const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
   const [speakers, setSpeakers] = useState([]);
@@ -13,7 +13,7 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const STRAPI_URL = constants.STRAPI_URL;
+  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
   const fetchSpeakers = async () => {
     setLoading(true);
@@ -60,7 +60,6 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
       setLoading(false);
     }
   };
-
 
 
   const toggleSpeaker = (name) => {
@@ -118,13 +117,16 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
 
           return (
             <div key={name} className="flex flex-col items-center w-[125px] gap-2">
-              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-300">
-                <img
+              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-300 relative">
+                <Image
                   src={getImageUrl(speaker?.image)}
                   alt={name}
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
+                  sizes="64px"
                 />
               </div>
+
               <div className="text-center text-xs font-semibold leading-tight text-white">
                 {name.split(" ").map((word, idx) => (
                   <span key={idx} className="block leading-tight text-center break-words">
@@ -183,11 +185,12 @@ const SpeakerOptionsFilter = ({ selectedValues = [], onChange, debateId }) => {
                       onClick={() => toggleSpeaker(speaker.speaker_name)}
                       className="flex flex-col items-center cursor-pointer w-20 space-y-1"
                     >
-                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-300">
-                        <img
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-300 relative">
+                        <Image
                           src={getImageUrl(speaker.image)}
                           alt={speaker.speaker_name}
-                          className="object-cover w-full h-full"
+                          fill
+                          className="object-cover"
                         />
                       </div>
                       <div

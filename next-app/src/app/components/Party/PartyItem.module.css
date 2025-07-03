@@ -8,7 +8,6 @@
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     position: relative;
-    /*border: 2px solid red;*/
 }
 
 .partyItem:hover {
@@ -16,7 +15,7 @@
 }
 
 .partyImage {
-    padding: .5rem;
+    object-fit: contain;
 }
 
 .imageContainer {

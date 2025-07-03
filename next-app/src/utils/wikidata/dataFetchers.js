@@ -2,6 +2,7 @@ import { executeSparqlQuery } from "./fetchData.js";
 import { getPositionHeldQuery } from "./queries.js";
 
 export const fetchPositionHeld = async (wikidataUrl) => {
+  console.log("Wikidata url: ", wikidataUrl);
   try {
     if (!wikidataUrl || wikidataUrl === "-") return []; // Skip invalid URLs
 

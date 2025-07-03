@@ -1,7 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import Database from "better-sqlite3";
-import { constants } from "@constants/constants.js";
 import { normalizeGreekName } from "@utils/removeTones.js";
 
 // Setup DB path
